@@ -816,17 +816,18 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `MoviePlanner` and the *Actor* is the `Cinema Manager`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete movie
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list movie
+2.  MoviePlanner shows a list of movies
+3.  User requests to delete a specific movie in the list
+4.  MoviePlanner shows confirmation box for deleting the selected movie
+5.  MoviePlanner deletes the selected movie upon confirmation
 +
 Use case ends.
 
@@ -840,9 +841,30 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. MoviePlanner shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Find movie by name
+
+*MSS*
+
+1.  User requests to find movie
+2.  MoviePlanner shows a list of cinema screening corresponding movie
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 2b. Movie name does not exist.
++
+Use case ends.
 
 _{More to be added}_
 
