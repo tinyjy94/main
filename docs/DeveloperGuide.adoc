@@ -799,17 +799,36 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |cinema manager |view a list of movies available for screening |add them to a movie theater
 
-|`* * *` |user |add a new person |
+|`* * *` |cinema manager |add a new movie |see a list of available movies
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |cinema manager |remove a movie |delete movies that are not popular
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |cinema manager |add a new movie theater |have a list of different theaters
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |cinema manager |add a movie to available slot in movie theater |screen the movie at the specific slot in the movie theater
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |cinema manager |see the usage guide |know what commands are available
+
+|`* *` |customer-oriented cinema manager |check popularity of movies |schedule more time slots for more popular movies
+
+|`* *` |depressed cinema manager |remove cinemas |close down cinemas that are not profiting
+
+|`* *` |customer-oriented cinema manager |use ratings of movies |cater to respective demographics timetable
+
+|`* *` |cinema manager |filter rating for movies |find appropriate cinema to screen movies
+
+|`* *` |careless cinema manager |edit movie details |change details of movie if I make mistakes
+
+|`* *` |cinema manager |find movies by name |see what theater is screening the movie
+
+|`* *` |cinema manager with many movies |sort movies by name |locate a specific movie easily
+
+|`* *` |cinema manager with many movies |add categories for movies |categorize movies into different genre
+
+|`*` |lazy cinema manager |have keyboard shortcuts |execute commands quickly
+
 |=======================================================================
 
 _{More to be added}_
