@@ -850,8 +850,13 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 100 cinemas and 10000 movies without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be free to download and use.
+.  Should not take up more than 100MB of storage space.
+.  Should be able to load storage file from previous editions within 2 seconds.
+.  Should come with automated unit test and source code.
+.  Should be easy to use for user without any programming knowledge.
 
 _{More to be added}_
 
