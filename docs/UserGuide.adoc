@@ -80,6 +80,8 @@ Examples:
 
 === Listing all cinemas : `list`
 
+Alias: `l`
+
 Shows a list of all cinemas in the address book. +
 Format: `list`
 
