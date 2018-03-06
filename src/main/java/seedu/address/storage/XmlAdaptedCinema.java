@@ -9,19 +9,19 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.cinema.Address;
+import seedu.address.model.cinema.Email;
+import seedu.address.model.cinema.Name;
+import seedu.address.model.cinema.Cinema;
+import seedu.address.model.cinema.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Cinema.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedCinema {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Cinema's %s field is missing!";
 
     @XmlElement(required = true)
     private String name;
@@ -36,15 +36,15 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedCinema.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedCinema() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedCinema} with the given cinema details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedCinema(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -55,11 +55,11 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Cinema into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedCinema
      */
-    public XmlAdaptedPerson(Person source) {
+    public XmlAdaptedCinema(Cinema source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -71,14 +71,14 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Person object.
+     * Converts this jaxb-friendly adapted cinema object into the model's Cinema object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted cinema
      */
-    public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+    public Cinema toModelType() throws IllegalValueException {
+        final List<Tag> cinemaTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            cinemaTags.add(tag.toModelType());
         }
 
         if (this.name == null) {
@@ -113,8 +113,8 @@ public class XmlAdaptedPerson {
         }
         final Address address = new Address(this.address);
 
-        final Set<Tag> tags = new HashSet<>(personTags);
-        return new Person(name, phone, email, address, tags);
+        final Set<Tag> tags = new HashSet<>(cinemaTags);
+        return new Cinema(name, phone, email, address, tags);
     }
 
     @Override
@@ -123,15 +123,15 @@ public class XmlAdaptedPerson {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedPerson)) {
+        if (!(other instanceof XmlAdaptedCinema)) {
             return false;
         }
 
-        XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
-        return Objects.equals(name, otherPerson.name)
-                && Objects.equals(phone, otherPerson.phone)
-                && Objects.equals(email, otherPerson.email)
-                && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged);
+        XmlAdaptedCinema otherCinema = (XmlAdaptedCinema) other;
+        return Objects.equals(name, otherCinema.name)
+                && Objects.equals(phone, otherCinema.phone)
+                && Objects.equals(email, otherCinema.email)
+                && Objects.equals(address, otherCinema.address)
+                && tagged.equals(otherCinema.tagged);
     }
 }
