@@ -83,6 +83,8 @@ Format: `list`
 
 === Editing a cinema : `edit`
 
+Alias: `e`
+
 Edits an existing cinema in the address book. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 

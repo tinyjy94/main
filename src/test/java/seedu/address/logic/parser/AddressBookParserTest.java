@@ -92,6 +92,15 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_editUsingAlias() throws Exception {
+        Cinema cinema = new CinemaBuilder().build();
+        EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(cinema).build();
+        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_ALIAS + " "
+                + INDEX_FIRST_CINEMA.getOneBased() + " " + CinemaUtil.getCinemaDetails(cinema));
+        assertEquals(new EditCommand(INDEX_FIRST_CINEMA, descriptor), command);
+    }
+
+    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
