@@ -59,6 +59,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
+Alias: `h`
+
 Format: `help`
 
 === Adding a cinema: `add`
