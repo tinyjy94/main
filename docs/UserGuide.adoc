@@ -105,6 +105,8 @@ Edits the name of the 2nd cinema to be `Betsy Crower` and clears all existing ta
 
 === Locating cinemas by name: `find`
 
+Alias: `f`
+
 Finds cinemas whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
