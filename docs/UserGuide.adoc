@@ -153,6 +153,8 @@ Deletes the 1st cinema in the results of the `find` command.
 
 === Selecting a cinema : `select`
 
+Alias: `s`
+
 Selects the cinema identified by the index number used in the last cinema listing. +
 Format: `select INDEX`
 

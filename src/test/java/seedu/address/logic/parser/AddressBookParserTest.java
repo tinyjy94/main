@@ -180,6 +180,13 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_selectUsingAlias() throws Exception {
+        SelectCommand command = (SelectCommand) parser.parseCommand(
+                SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CINEMA.getOneBased());
+        assertEquals(new SelectCommand(INDEX_FIRST_CINEMA), command);
+    }
+
+    @Test
     public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
         assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
