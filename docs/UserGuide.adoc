@@ -223,6 +223,8 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
+Alias: `c`
+
 Clears all entries from the address book. +
 Format: `clear`
 
