@@ -188,6 +188,8 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
+Alias: `u`
+
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
