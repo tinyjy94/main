@@ -15,6 +15,8 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -79,6 +81,11 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook.updateCinema(target, editedCinema);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteTag(Tag tag) throws TagNotFoundException {
+        addressBook.removeTag(tag);
     }
 
     //=========== Filtered Cinema List Accessors =============================================================
