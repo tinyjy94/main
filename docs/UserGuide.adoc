@@ -123,6 +123,8 @@ Returns any cinema having names `Betsy`, `Tim`, or `John`
 
 === Deleting a cinema : `delete`
 
+Alias: `d`
+
 Deletes the specified cinema from the address book. +
 Format: `delete INDEX`
 

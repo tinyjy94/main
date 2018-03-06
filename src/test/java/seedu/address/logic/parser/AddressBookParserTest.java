@@ -76,6 +76,13 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_deleteUsingAlias() throws Exception {
+        DeleteCommand command = (DeleteCommand) parser.parseCommand(
+                DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CINEMA.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_CINEMA), command);
+    }
+
+    @Test
     public void parseCommand_edit() throws Exception {
         Cinema cinema = new CinemaBuilder().build();
         EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(cinema).build();
