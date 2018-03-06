@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.UniqueCinemaList;
-import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
+import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -24,7 +24,7 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueCinemaList Cinemas;
+    private final UniqueCinemaList cinemas;
     private final UniqueTagList tags;
 
     /*
@@ -35,7 +35,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        Cinemas = new UniqueCinemaList();
+        cinemas = new UniqueCinemaList();
         tags = new UniqueTagList();
     }
 
@@ -51,8 +51,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// list overwrite operations
 
-    public void setCinemas(List<Cinema> Cinemas) throws DuplicateCinemaException {
-        this.Cinemas.setCinemas(Cinemas);
+    public void setCinemas(List<Cinema> cinemas) throws DuplicateCinemaException {
+        this.cinemas.setCinemas(cinemas);
     }
 
     public void setTags(Set<Tag> tags) {
@@ -86,11 +86,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws DuplicateCinemaException if an equivalent Cinema already exists.
      */
     public void addCinema(Cinema c) throws DuplicateCinemaException {
-        Cinema Cinema = syncWithMasterTagList(c);
+        Cinema cinema = syncWithMasterTagList(c);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any Cinema
         // in the Cinema list.
-        Cinemas.add(Cinema);
+        cinemas.add(cinema);
     }
 
     /**
@@ -111,7 +111,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any Cinema
         // in the Cinema list.
-        Cinemas.setCinema(target, syncedEditedCinema);
+        cinemas.setCinema(target, syncedEditedCinema);
     }
 
     /**
@@ -119,9 +119,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  @return a copy of this {@code Cinema} such that every tag in this Cinema points to a Tag object in the master
      *  list.
      */
-    private Cinema syncWithMasterTagList(Cinema Cinema) {
-        final UniqueTagList CinemaTags = new UniqueTagList(Cinema.getTags());
-        tags.mergeFrom(CinemaTags);
+    private Cinema syncWithMasterTagList(Cinema cinema) {
+        final UniqueTagList cinemaTags = new UniqueTagList(cinema.getTags());
+        tags.mergeFrom(cinemaTags);
 
         // Create map with values = tag object references in the master list
         // used for checking Cinema tag references
@@ -130,9 +130,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         // Rebuild the list of Cinema tags to point to the relevant tags in the master tag list.
         final Set<Tag> correctTagReferences = new HashSet<>();
-        CinemaTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
+        cinemaTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
         return new Cinema(
-                Cinema.getName(), Cinema.getPhone(), Cinema.getEmail(), Cinema.getAddress(), correctTagReferences);
+                cinema.getName(), cinema.getPhone(), cinema.getEmail(), cinema.getAddress(), correctTagReferences);
     }
 
     /**
@@ -140,7 +140,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws CinemaNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
     public boolean removeCinema(Cinema key) throws CinemaNotFoundException {
-        if (Cinemas.remove(key)) {
+        if (cinemas.remove(key)) {
             return true;
         } else {
             throw new CinemaNotFoundException();
@@ -157,13 +157,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return Cinemas.asObservableList().size() + " Cinemas, " + tags.asObservableList().size() +  " tags";
+        return cinemas.asObservableList().size() + " Cinemas, " + tags.asObservableList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Cinema> getCinemaList() {
-        return Cinemas.asObservableList();
+        return cinemas.asObservableList();
     }
 
     @Override
@@ -175,13 +175,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && this.Cinemas.equals(((AddressBook) other).Cinemas)
+                && this.cinemas.equals(((AddressBook) other).cinemas)
                 && this.tags.equalsOrderInsensitive(((AddressBook) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(Cinemas, tags);
+        return Objects.hash(cinemas, tags);
     }
 }

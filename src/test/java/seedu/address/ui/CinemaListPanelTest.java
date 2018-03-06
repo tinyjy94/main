@@ -2,8 +2,8 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CINEMA;
 import static seedu.address.testutil.TypicalCinemas.getTypicalCinemas;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CINEMA;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysCinema;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 

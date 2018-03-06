@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.model.cinema.NameContainsKeywordsPredicate;
 import seedu.address.testutil.CinemaBuilder;
 
 public class NameContainsKeywordsPredicateTest {

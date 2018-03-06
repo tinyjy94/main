@@ -20,12 +20,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.cinema.Address;
+import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
-import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Phone;
-import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
+import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.tag.Tag;
 
 /**

@@ -22,8 +22,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.cinema.Cinema;
-import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
+import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.testutil.CinemaBuilder;
 
 public class AddCommandTest {

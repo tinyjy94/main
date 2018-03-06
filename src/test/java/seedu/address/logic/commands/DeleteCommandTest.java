@@ -8,9 +8,9 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.showCinemaAtIndex;
+import static seedu.address.testutil.TypicalCinemas.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CINEMA;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CINEMA;
-import static seedu.address.testutil.TypicalCinemas.getTypicalAddressBook;
 
 import org.junit.Test;
 

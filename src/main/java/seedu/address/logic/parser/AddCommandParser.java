@@ -14,9 +14,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cinema.Address;
+import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
-import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Phone;
 import seedu.address.model.tag.Tag;
 

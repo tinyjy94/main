@@ -4,8 +4,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
-import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
+import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 
 /**
  * The API of the Model component.

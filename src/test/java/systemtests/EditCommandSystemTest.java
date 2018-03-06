@@ -25,10 +25,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CINEMAS;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CINEMA;
 import static seedu.address.testutil.TypicalCinemas.AMY;
 import static seedu.address.testutil.TypicalCinemas.BOB;
 import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CINEMA;
 
 import org.junit.Test;
 
@@ -39,12 +39,12 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.cinema.Address;
+import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
-import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Phone;
-import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
+import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CinemaBuilder;
 import seedu.address.testutil.CinemaUtil;

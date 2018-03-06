@@ -5,10 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.commands.CommandTestUtil.showCinemaAtIndex;
+import static seedu.address.testutil.TypicalCinemas.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CINEMA;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CINEMA;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CINEMA;
-import static seedu.address.testutil.TypicalCinemas.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Rule;
