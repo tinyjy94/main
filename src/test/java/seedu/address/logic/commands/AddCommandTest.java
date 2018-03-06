@@ -24,6 +24,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.CinemaBuilder;
 
 public class AddCommandTest {
@@ -120,6 +122,11 @@ public class AddCommandTest {
         @Override
         public void updateCinema(Cinema target, Cinema editedCinema)
                 throws DuplicateCinemaException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTag(Tag tag) throws TagNotFoundException {
             fail("This method should not be called.");
         }
 

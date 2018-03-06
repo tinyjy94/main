@@ -15,6 +15,7 @@ import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.UniqueCinemaList;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -112,6 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         // This can cause the tags master list to have additional tags that are not tagged to any Cinema
         // in the Cinema list.
         cinemas.setCinema(target, syncedEditedCinema);
+        removeUnusedTags();
     }
 
     /**
@@ -151,6 +153,48 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
+    }
+
+    /**
+     * Removes {@code tag} from this {@code AddressBook}
+     * @throws TagNotFoundException if the {@code tag} is not found in this {@code AddressBook}.
+     */
+    public void removeTag(Tag tag) throws TagNotFoundException {
+        if(tags.contains(tag)) {
+            for (Cinema cinema : cinemas) {
+                removeTagFromCinema(tag, cinema);
+            }
+        } else {
+            throw new TagNotFoundException();
+        }
+    }
+
+    /**
+     * Removes {@code tag} from {@code cinema} if tag is found.
+     *
+     */
+    public void removeTagFromCinema(Tag tag, Cinema cinema) {
+        Set<Tag> newTags = new HashSet<>(cinema.getTags());
+
+        if (newTags.remove(tag)) {
+            Cinema newCinema = new Cinema(cinema.getName(), cinema.getPhone(), cinema.getEmail(),
+                                          cinema.getAddress(), newTags);
+            try {
+                updateCinema(cinema, newCinema);
+            } catch (CinemaNotFoundException cnfe){
+                throw new AssertionError("Cinema should not be missing");
+            } catch (DuplicateCinemaException dce) {
+                throw new AssertionError("Removing tag should not result in duplicate cinemas");
+            }
+        }
+    }
+
+    public void removeUnusedTags() {
+        Set<Tag> tagsOfCinemas = cinemas.asObservableList()
+                                        .stream()
+                                        .flatMap(cinema -> cinema.getTags().stream())
+                                        .collect(Collectors.toSet());
+        tags.setTags(tagsOfCinemas);
     }
 
     //// util methods

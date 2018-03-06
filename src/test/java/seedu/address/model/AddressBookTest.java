@@ -2,6 +2,11 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalCinemas.ALICE;
+import static seedu.address.testutil.TypicalCinemas.AMY;
+import static seedu.address.testutil.TypicalCinemas.BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.address.testutil.TypicalCinemas.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -17,7 +22,10 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.CinemaBuilder;
 
 public class AddressBookTest {
 
@@ -66,6 +74,52 @@ public class AddressBookTest {
     public void getTagList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getTagList().remove(0);
+    }
+
+    @Test
+    public void updateCinema_modifyDetails_cinemaAndTagListUpdated() throws Exception {
+        AddressBook addressBookBobChangeToAmy = new AddressBookBuilder().withCinema(BOB).build();
+        AddressBook AddressBookWithAmy = new AddressBookBuilder().withCinema(AMY).build();
+
+        addressBookBobChangeToAmy.updateCinema(BOB, AMY);
+
+        assertEquals(AddressBookWithAmy, addressBookBobChangeToAmy);
+    }
+
+    @Test
+    public void removeTag_tagNotInUse_addressBookNotChanged() throws Exception {
+        AddressBook addressBookWithAmy = new AddressBookBuilder().withCinema(AMY).build();
+        thrown.expect(TagNotFoundException.class);
+        addressBookWithAmy.removeTag(new Tag(VALID_TAG_UNUSED));
+        AddressBook expectedAddressBook = new AddressBookBuilder().withCinema(AMY).build();
+
+        assertEquals(expectedAddressBook, addressBookWithAmy);
+    }
+
+    @Test
+    public void removeTag_tagInUseByOneCinema_tagRemoved() throws Exception {
+        AddressBook addressBookWithAmyAndBob = new AddressBookBuilder().withCinema(AMY).withCinema(BOB).build();
+        addressBookWithAmyAndBob.removeTag(new Tag(VALID_TAG_HUSBAND));
+
+        Cinema bobHusbandTagRemoved = new CinemaBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        AddressBook expectedAddressBook = new AddressBookBuilder().withCinema(AMY)
+                                                                  .withCinema(bobHusbandTagRemoved).build();
+
+        assertEquals(expectedAddressBook, addressBookWithAmyAndBob);
+    }
+
+    @Test
+    public void removeTag_tagInUseByMultipleCinema_tagRemoved() throws Exception {
+        AddressBook addressBookWithAmyAndBob = new AddressBookBuilder().withCinema(AMY).withCinema(BOB).build();
+        addressBookWithAmyAndBob.removeTag(new Tag(VALID_TAG_FRIEND));
+
+        Cinema amyFriendTagRemoved = new CinemaBuilder(AMY).withTags().build();
+        Cinema bobFriendTagRemoved = new CinemaBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+
+        AddressBook expectedAddressBook = new AddressBookBuilder().withCinema(amyFriendTagRemoved)
+                                                                  .withCinema(bobFriendTagRemoved).build();
+
+        assertEquals(expectedAddressBook, addressBookWithAmyAndBob);
     }
 
     /**
