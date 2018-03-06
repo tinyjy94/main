@@ -9,6 +9,7 @@ import seedu.address.model.cinema.NameContainsKeywordsPredicate;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_ALIAS = "f";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all cinemas whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"

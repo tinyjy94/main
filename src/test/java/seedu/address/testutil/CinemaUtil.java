@@ -15,10 +15,19 @@ import seedu.address.model.cinema.Cinema;
 public class CinemaUtil {
 
     /**
+     * Uses the add command word
      * Returns an add command string for adding the {@code cinema}.
      */
     public static String getAddCommand(Cinema cinema) {
         return AddCommand.COMMAND_WORD + " " + getCinemaDetails(cinema);
+    }
+
+    /**
+     * Uses the add command alias
+     * Returns an add command string for adding the {@code cinema}.
+     */
+    public static String getAddUsingAliasCommand(Cinema cinema) {
+        return AddCommand.COMMAND_ALIAS + " " + getCinemaDetails(cinema);
     }
 
     /**

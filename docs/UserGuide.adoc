@@ -54,13 +54,18 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* You can also use an alias instead of typing the entire command word.
 ====
 
 === Viewing help : `help`
 
+Alias: `h`
+
 Format: `help`
 
 === Adding a cinema: `add`
+
+Alias: `a`
 
 Adds a cinema to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
@@ -75,10 +80,14 @@ Examples:
 
 === Listing all cinemas : `list`
 
+Alias: `l`
+
 Shows a list of all cinemas in the address book. +
 Format: `list`
 
 === Editing a cinema : `edit`
+
+Alias: `e`
 
 Edits an existing cinema in the address book. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
@@ -100,6 +109,8 @@ Edits the name of the 2nd cinema to be `Betsy Crower` and clears all existing ta
 
 === Locating cinemas by name: `find`
 
+Alias: `f`
+
 Finds cinemas whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -119,6 +130,8 @@ Returns `john` and `John Doe`
 Returns any cinema having names `Betsy`, `Tim`, or `John`
 
 === Deleting a cinema : `delete`
+
+Alias: `d`
 
 Deletes the specified cinema from the address book. +
 Format: `delete INDEX`
@@ -140,6 +153,8 @@ Deletes the 1st cinema in the results of the `find` command.
 
 === Selecting a cinema : `select`
 
+Alias: `s`
+
 Selects the cinema identified by the index number used in the last cinema listing. +
 Format: `select INDEX`
 
@@ -160,6 +175,8 @@ Selects the 1st cinema in the results of the `find` command.
 
 === Listing entered commands : `history`
 
+Alias: `hist`
+
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
@@ -170,6 +187,8 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
+
+Alias: `u`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -197,6 +216,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 === Redoing the previously undone command : `redo`
 
+Alias: `r`
+
 Reverses the most recent `undo` command. +
 Format: `redo`
 
@@ -219,6 +240,8 @@ The `redo` command fails as there are no `undo` commands executed previously.
 // end::undoredo[]
 
 === Clearing all entries : `clear`
+
+Alias: `c`
 
 Clears all entries from the address book. +
 Format: `clear`
