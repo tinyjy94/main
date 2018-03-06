@@ -50,6 +50,13 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_addUsingAlias() throws Exception {
+        Cinema cinema = new CinemaBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(CinemaUtil.getAddUsingAliasCommand(cinema));
+        assertEquals(new AddCommand(cinema), command);
+    }
+
+    @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
