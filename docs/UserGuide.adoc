@@ -212,6 +212,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 === Redoing the previously undone command : `redo`
 
+Alias: `r`
+
 Reverses the most recent `undo` command. +
 Format: `redo`
 
