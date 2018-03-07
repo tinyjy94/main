@@ -1,7 +1,9 @@
 package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +16,7 @@ import seedu.address.model.cinema.Cinema;
  * A set of assertion methods useful for writing GUI tests.
  */
 public class GuiTestAssert {
+    private static final String DEFAULT_LABEL_STYLE = "label";
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
@@ -24,6 +27,9 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
+
+        expectedCard.getTags().forEach(tag ->
+            assertEquals(expectedCard.getTagStyleClasses(tag), actualCard.getTagStyleClasses(tag)));
     }
 
     /**
@@ -34,8 +40,49 @@ public class GuiTestAssert {
         assertEquals(expectedCinema.getPhone().value, actualCard.getPhone());
         assertEquals(expectedCinema.getEmail().value, actualCard.getEmail());
         assertEquals(expectedCinema.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedCinema.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
+        assertTagsEqual(expectedCinema, actualCard);
+    }
+
+    private static String getTagColorStyle(String tagName) {
+        switch (tagName) {
+            case "classmates":
+            case "owesMoney":
+                return "red";
+
+            case "colleagues":
+            case "neighbours":
+                return "orange";
+
+            case "friends":
+                return "grey";
+
+            case "friend":
+            case "family":
+                return "yellow";
+
+            case "husband":
+                return "brown";
+
+            default:
+                fail(tagName + " has no color assignment.");
+                return "";
+        }
+    }
+
+    /**
+     * Asserts that tags that are in {@code actualCard} matches all tags in {@code expectedPerson}
+     * with corresponding color
+     * @param expectedCinema
+     * @param actualCard
+     */
+    private static void assertTagsEqual(Cinema expectedCinema, CinemaCardHandle actualCard) {
+        List<String> expectedTags = expectedCinema.getTags()
+                .stream()
+                .map(tag -> tag.tagName)
+                .collect(Collectors.toList());
+        assertEquals(expectedTags, actualCard.getTags());
+        expectedTags.forEach(tag -> assertEquals(Arrays.asList(
+                DEFAULT_LABEL_STYLE, getTagColorStyle(tag)), actualCard.getTagStyleClasses(tag)));
     }
 
     /**
