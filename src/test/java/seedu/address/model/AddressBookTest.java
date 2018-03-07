@@ -1,12 +1,12 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalCinemas.ALICE;
-import static seedu.address.testutil.TypicalCinemas.AMY;
-import static seedu.address.testutil.TypicalCinemas.BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
+import static seedu.address.testutil.TypicalCinemas.ALICE;
+import static seedu.address.testutil.TypicalCinemas.AMY;
+import static seedu.address.testutil.TypicalCinemas.BOB;
 import static seedu.address.testutil.TypicalCinemas.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
-import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.CinemaBuilder;
 
