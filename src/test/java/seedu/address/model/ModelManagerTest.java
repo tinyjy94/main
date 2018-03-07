@@ -20,8 +20,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.NameContainsKeywordsPredicate;
-import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.CinemaBuilder;
 
