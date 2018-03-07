@@ -79,11 +79,11 @@ public class AddressBookTest {
     @Test
     public void updateCinema_modifyDetails_cinemaAndTagListUpdated() throws Exception {
         AddressBook addressBookBobChangeToAmy = new AddressBookBuilder().withCinema(BOB).build();
-        AddressBook AddressBookWithAmy = new AddressBookBuilder().withCinema(AMY).build();
+        AddressBook addressBookWithAmy = new AddressBookBuilder().withCinema(AMY).build();
 
         addressBookBobChangeToAmy.updateCinema(BOB, AMY);
 
-        assertEquals(AddressBookWithAmy, addressBookBobChangeToAmy);
+        assertEquals(addressBookWithAmy, addressBookBobChangeToAmy);
     }
 
     @Test
