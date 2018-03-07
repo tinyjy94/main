@@ -12,12 +12,13 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.cinema.UniqueCinemaList;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
-import seedu.address.model.cinema.UniqueCinemaList;
-import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
+
 
 /**
  * Wraps all data at the address-book level
@@ -191,7 +192,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Removes {@code tag} if tag is not used
-     * 
+     *
      */
     public void removeUnusedTags() {
         Set<Tag> tagsOfCinemas = cinemas.asObservableList()
