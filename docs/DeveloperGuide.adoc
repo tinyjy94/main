@@ -847,7 +847,8 @@ _{More to be added}_
 2.  MoviePlanner shows a list of movies
 3.  User requests to delete a specific movie in the list
 4.  MoviePlanner shows confirmation box for deleting the selected movie
-5.  MoviePlanner deletes the selected movie upon confirmation
+5.  User confirms deletion of selected movie
+6.  MoviePlanner deletes the selected movie upon confirmation
 +
 Use case ends.
 
