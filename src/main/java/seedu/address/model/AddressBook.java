@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
-import seedu.address.model.cinema.UniqueCinemaList;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
+import seedu.address.model.cinema.UniqueCinemaList;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -160,7 +160,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws TagNotFoundException if the {@code tag} is not found in this {@code AddressBook}.
      */
     public void removeTag(Tag tag) throws TagNotFoundException {
-        if(tags.contains(tag)) {
+        if (tags.contains(tag)) {
             for (Cinema cinema : cinemas) {
                 removeTagFromCinema(tag, cinema);
             }
@@ -181,7 +181,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                                           cinema.getAddress(), newTags);
             try {
                 updateCinema(cinema, newCinema);
-            } catch (CinemaNotFoundException cnfe){
+            } catch (CinemaNotFoundException cnfe) {
                 throw new AssertionError("Cinema should not be missing");
             } catch (DuplicateCinemaException dce) {
                 throw new AssertionError("Removing tag should not result in duplicate cinemas");
@@ -189,6 +189,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    /**
+     * Removes {@code tag} if tag is not used
+     * 
+     */
     public void removeUnusedTags() {
         Set<Tag> tagsOfCinemas = cinemas.asObservableList()
                                         .stream()
