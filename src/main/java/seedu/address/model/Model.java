@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
  * The API of the Model component.
@@ -25,6 +27,9 @@ public interface Model {
 
     /** Adds the given cinema */
     void addCinema(Cinema cinema) throws DuplicateCinemaException;
+
+    /** Deletes {@code tag} from all {@code Cinema}. */
+    void deleteTag(Tag tag) throws TagNotFoundException;
 
     /**
      * Replaces the given cinema {@code target} with {@code editedCinema}.
