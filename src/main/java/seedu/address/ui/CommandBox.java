@@ -1,17 +1,35 @@
 package seedu.address.ui;
 
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -22,13 +40,27 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
+    private static final int KEYWORD_LABEL_FONT_SIZE = 17;
+    private static final String KEYWORD_LABEL_BACKGROUND_COLOR = "black";
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
     private ListElementPointer historySnapshot;
 
+    private HashMap<String, String> keywordColorCode;
+    private String defaultFontSize = "-fx-font-size: " + KEYWORD_LABEL_FONT_SIZE + ";";
+
     @FXML
     private TextField commandTextField;
+
+    @FXML
+    private Text defaultTextSetting;
+
+    @FXML
+    private StackPane stackPane;
+
+    @FXML
+    private Label keywordLabel;
 
     public CommandBox(Logic logic) {
         super(FXML);
@@ -36,6 +68,7 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = logic.getHistorySnapshot();
+        keywordColorCode = initializeKeywordColorCoding();
     }
 
     /**
@@ -58,6 +91,87 @@ public class CommandBox extends UiPart<Region> {
         default:
             // let JavaFx handle the keypress
         }
+    }
+
+    /**
+     * Handles the key press released event, {@code keyEvent}.
+     */
+    @FXML
+    private void handleKeyReleased(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+        default:
+            checkChangesInCommandBoxInput();
+            break;
+        }
+    }
+
+    /**
+     * Split text in text field into respective components for processing
+     */
+    private void checkChangesInCommandBoxInput() {
+        String textFromTextField = commandTextField.getText();
+        String[] allWordsFromText = textFromTextField.split(" ");
+        String commandKeyWord = "";
+        int i = 0;
+
+        while (allWordsFromText.length > 0 && i < allWordsFromText.length && allWordsFromText[i].equals("")) {
+            if (i < allWordsFromText.length) {
+                i++;
+            } else {
+                break;
+            }
+            if (i < allWordsFromText.length && (!allWordsFromText[i].equals(""))) {
+                break;
+            }
+        }
+
+        if (i < allWordsFromText.length && allWordsFromText.length > 0) {
+            commandKeyWord = allWordsFromText[i];
+        }
+
+        makeKeywordLabelNonVisible();
+
+        if (isValidCommandKeyword(commandKeyWord)) {
+            makeKeywordLabelVisible(commandKeyWord, i);
+        }
+        commandTextField.setStyle(defaultFontSize);
+    }
+
+    /**
+     * Creates a label to replace the command keyword
+     */
+    private void makeKeywordLabelVisible(String commandKeyword, int margin) {
+        keywordLabel.setId("commandKeywordLabel");
+        keywordLabel.setText(commandKeyword);
+        keywordLabel.setVisible(true);
+        keywordLabel.getStyleClass().clear();
+        // Magic number '12' used for handling label position
+        // Magic number '4.65' used for handling any leading space for labels
+        Insets textFieldOffsets = new Insets(0, 0, 0, (margin * 4.65) + 12);
+
+        stackPane.setAlignment(keywordLabel, Pos.CENTER_LEFT);
+        stackPane.setMargin(keywordLabel, textFieldOffsets);
+
+        String keywordTextColor = keywordColorCode.get(commandKeyword);
+        keywordLabel.setStyle("-fx-text-fill: " + keywordTextColor + ";\n"
+            + "-fx-font-size: " + KEYWORD_LABEL_FONT_SIZE + ";\n"
+            + "-fx-background-color: " + KEYWORD_LABEL_BACKGROUND_COLOR + ";");
+        keywordLabel.toFront();
+    }
+
+    /**
+     * Set the keyword label to be non-visible
+     */
+    private void makeKeywordLabelNonVisible() {
+        keywordLabel.setVisible(false);
+    }
+
+    /**
+     * Check if input keyword is a valid command keyword
+     * @param commandKeyword
+     */
+    private boolean isValidCommandKeyword(String commandKeyword) {
+        return keywordColorCode.containsKey(commandKeyword);
     }
 
     /**
@@ -108,6 +222,7 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.setText("");
             logger.info("Result: " + commandResult.feedbackToUser);
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            makeKeywordLabelNonVisible();
 
         } catch (CommandException | ParseException e) {
             initHistory();
@@ -146,6 +261,27 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
+    }
+
+    /**
+     * @author chanyikwai
+     * Assign keywords with color coding
+     */
+    public HashMap<String, String> initializeKeywordColorCoding() {
+        HashMap<String, String> keywordColorCode = new HashMap<>();
+        keywordColorCode.put(AddCommand.COMMAND_WORD, "green");
+        keywordColorCode.put(ClearCommand.COMMAND_WORD, "red");
+        keywordColorCode.put(DeleteCommand.COMMAND_WORD, "red");
+        keywordColorCode.put(EditCommand.COMMAND_WORD, "white");
+        keywordColorCode.put(FindCommand.COMMAND_WORD, "blue");
+        keywordColorCode.put(SelectCommand.COMMAND_WORD, "brown");
+        keywordColorCode.put(ExitCommand.COMMAND_WORD, "red");
+        keywordColorCode.put(HelpCommand.COMMAND_WORD, "blue");
+        keywordColorCode.put(ListCommand.COMMAND_WORD, "yellow");
+        keywordColorCode.put(RedoCommand.COMMAND_WORD, "red");
+        keywordColorCode.put(UndoCommand.COMMAND_WORD, "red");
+        keywordColorCode.put(HistoryCommand.COMMAND_WORD, "pink");
+        return keywordColorCode;
     }
 
 }
