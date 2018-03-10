@@ -40,8 +40,11 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-    private static final int KEYWORD_LABEL_FONT_SIZE = 17;
     private static final String KEYWORD_LABEL_BACKGROUND_COLOR = "black";
+    private static final int KEYWORD_LABEL_FONT_SIZE = 17;
+    private static final int DEFAULT_TAG_OFFSET_VALUE = 12;
+    private static final double OFFSET_MULTIPLIER = 4.65;
+
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
@@ -112,27 +115,27 @@ public class CommandBox extends UiPart<Region> {
         String textFromTextField = commandTextField.getText();
         String[] allWordsFromText = textFromTextField.split(" ");
         String commandKeyWord = "";
-        int i = 0;
+        int index = 0;
 
-        while (allWordsFromText.length > 0 && i < allWordsFromText.length && allWordsFromText[i].equals("")) {
-            if (i < allWordsFromText.length) {
-                i++;
+        while (allWordsFromText.length > 0 && index < allWordsFromText.length && allWordsFromText[index].equals("")) {
+            if (index < allWordsFromText.length) {
+                index++;
             } else {
                 break;
             }
-            if (i < allWordsFromText.length && (!allWordsFromText[i].equals(""))) {
+            if (index < allWordsFromText.length && (!allWordsFromText[index].equals(""))) {
                 break;
             }
         }
 
-        if (i < allWordsFromText.length && allWordsFromText.length > 0) {
-            commandKeyWord = allWordsFromText[i];
+        if (index < allWordsFromText.length && allWordsFromText.length > 0) {
+            commandKeyWord = allWordsFromText[index];
         }
 
         makeKeywordLabelNonVisible();
 
         if (isValidCommandKeyword(commandKeyWord)) {
-            makeKeywordLabelVisible(commandKeyWord, i);
+            makeKeywordLabelVisible(commandKeyWord, index);
         }
         commandTextField.setStyle(defaultFontSize);
     }
@@ -140,14 +143,12 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Creates a label to replace the command keyword
      */
-    private void makeKeywordLabelVisible(String commandKeyword, int margin) {
+    private void makeKeywordLabelVisible(String commandKeyword, int offset) {
         keywordLabel.setId("commandKeywordLabel");
         keywordLabel.setText(commandKeyword);
         keywordLabel.setVisible(true);
         keywordLabel.getStyleClass().clear();
-        // Magic number '12' used for handling label position
-        // Magic number '4.65' used for handling any leading space for labels
-        Insets textFieldOffsets = new Insets(0, 0, 0, (margin * 4.65) + 12);
+        Insets textFieldOffsets = new Insets(0, 0, 0, (offset * OFFSET_MULTIPLIER) + DEFAULT_TAG_OFFSET_VALUE);
 
         stackPane.setAlignment(keywordLabel, Pos.CENTER_LEFT);
         stackPane.setMargin(keywordLabel, textFieldOffsets);

@@ -131,57 +131,104 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     @Test
-    public void checkForKeywordTagsTest() {
-        String commandKeyword;
-        String correctKeywordColor;
-        String wrongKeywordColor;
+    public void initializeKeywordColorCoding_isAddGreen_returnTrue() {
+        String addCommandKeyword = "add";
+        String correctKeywordColor = "green";
+        assertEqualCommandKeywordTag(addCommandKeyword, correctKeywordColor);
+    }
 
-        // insert command keyword "add"
-        commandKeyword = "add";
-        correctKeywordColor = "green";
-        wrongKeywordColor = "yellow";
+    @Test
+    public void initializeKeywordColorCoding_isAddGreen_returnFalse() {
+        String addCommandKeyword = "add";
+        String wrongKeywordColor = "yellow";
+        assertNotEqualCommandKeywordTag(addCommandKeyword, wrongKeywordColor);
+    }
+
+    @Test
+    public void initializeKeywordColorCoding_isListYellow_returnTrue() {
+        String listCommandKeyword = "list";
+        String correctKeywordColor = "yellow";
+        assertEqualCommandKeywordTag(listCommandKeyword, correctKeywordColor);
+    }
+
+    @Test
+    public void initializeKeywordColorCoding_isListYellow_returnFalse() {
+        String listCommandKeyword = "list";
+        String wrongKeywordColor = "blue";
+        assertNotEqualCommandKeywordTag(listCommandKeyword, wrongKeywordColor);
+    }
+
+    @Test
+    public void initializeKeywordColorCoding_isDeleteRed_returnTrue() {
+        String deleteCommandKeyword = "delete";
+        String correctKeywordColor = "red";
+        assertEqualCommandKeywordTag(deleteCommandKeyword, correctKeywordColor);
+    }
+
+    @Test
+    public void initializeKeywordColorCoding_isDeleteRed_returnFalse() {
+        String deleteCommandKeyword = "delete";
+        String wrongKeywordColor = "brown";
+        assertNotEqualCommandKeywordTag(deleteCommandKeyword, wrongKeywordColor);
+    }
+
+    @Test
+    public void initializeKeywordColorCoding_isFindBlue_returnTrue() {
+        String findCommandKeyword = "find";
+        String correctKeywordColor = "blue";
+        assertEqualCommandKeywordTag(findCommandKeyword, correctKeywordColor);
+    }
+
+    @Test
+    public void initializeKeywordColorCoding_isFindBlue_returnFalse() {
+        String findCommandKeyword = "find";
+        String wrongKeywordColor = "pink";
+        assertNotEqualCommandKeywordTag(findCommandKeyword, wrongKeywordColor);
+    }
+
+    @Test
+    public void initializeKeywordColorCoding_isClearRed_returnTrue() {
+        String clearCommandKeyword = "clear";
+        String correctKeywordColor = "red";
+        assertEqualCommandKeywordTag(clearCommandKeyword, correctKeywordColor);
+    }
+
+    @Test
+    public void initializeKeywordColorCoding_isClearRed_returnFalse() {
+        String clearCommandKeyword = "clear";
+        String wrongKeywordColor = "blue";
+        assertNotEqualCommandKeywordTag(clearCommandKeyword, wrongKeywordColor);
+    }
+
+    @Test
+    public void initializeKeywordColorCoding_isHelpBlue_returnTrue() {
+        String helpCommandKeyword = "help";
+        String correctKeywordColor = "blue";
+        assertEqualCommandKeywordTag(helpCommandKeyword, correctKeywordColor);
+    }
+
+    @Test
+    public void initializeKeywordColorCoding_isHelpBlue_returnFalse() {
+        String helpCommandKeyword = "help";
+        String wrongKeywordColor = "brown";
+        assertNotEqualCommandKeywordTag(helpCommandKeyword, wrongKeywordColor);
+    }
+
+    /**
+     * Runs a command that succeeds, then verifies that <br>
+     *     - tag is cleared
+     */
+    private void assertEqualCommandKeywordTag(String commandKeyword, String correctKeywordColor) {
         commandBoxHandle.run(commandKeyword);
         assertEqualColor(correctKeywordColor, commandKeyword);
-        assertDifferentColor(wrongKeywordColor, commandKeyword);
+    }
 
-        // insert command keyword "list"
-        commandKeyword = "list";
-        correctKeywordColor = "yellow";
-        wrongKeywordColor = "blue";
+    /**
+     * Runs a command that fails, then verifies that <br>
+     *     - tag is cleared
+     */
+    private void assertNotEqualCommandKeywordTag(String commandKeyword, String wrongKeywordColor) {
         commandBoxHandle.run(commandKeyword);
-        assertEqualColor(correctKeywordColor, commandKeyword);
-        assertDifferentColor(wrongKeywordColor, commandKeyword);
-
-        // insert command keyword "delete"
-        commandKeyword = "delete";
-        correctKeywordColor = "red";
-        wrongKeywordColor = "brown";
-        commandBoxHandle.run(commandKeyword);
-        assertEqualColor(correctKeywordColor, commandKeyword);
-        assertDifferentColor(wrongKeywordColor, commandKeyword);
-
-        // insert command keyword "find"
-        commandKeyword = "find";
-        correctKeywordColor = "blue";
-        wrongKeywordColor = "pink";
-        commandBoxHandle.run(commandKeyword);
-        assertEqualColor(correctKeywordColor, commandKeyword);
-        assertDifferentColor(wrongKeywordColor, commandKeyword);
-
-        // insert command keyword "clear"
-        commandKeyword = "clear";
-        correctKeywordColor = "red";
-        wrongKeywordColor = "blue";
-        commandBoxHandle.run(commandKeyword);
-        assertEqualColor(correctKeywordColor, commandKeyword);
-        assertDifferentColor(wrongKeywordColor, commandKeyword);
-
-        // insert command keyword "help"
-        commandKeyword = "help";
-        correctKeywordColor = "blue";
-        wrongKeywordColor = "brown";
-        commandBoxHandle.run(commandKeyword);
-        assertEqualColor(correctKeywordColor, commandKeyword);
         assertDifferentColor(wrongKeywordColor, commandKeyword);
     }
 
@@ -193,7 +240,7 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that the expected command keyword color is the same as {@code correctKeywordColor}
+     * Verifies that the expected command keyword color is the not the same as {@code correctKeywordColor}
      */
     private void assertDifferentColor(String wrongKeywordColor, String commandKeyword) {
         assertNotEquals(wrongKeywordColor, keywordColorCoding.get(commandKeyword));
