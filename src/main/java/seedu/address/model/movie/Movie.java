@@ -1,14 +1,10 @@
 package seedu.address.model.movie;
 
-import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Name;
-import seedu.address.model.tag.UniqueTagList;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Represents a Movie in the address book.
@@ -16,14 +12,14 @@ import java.util.Set;
  */
 public class Movie {
 
-    private final Name name;
+    private final MovieName moviename;
 
-    public Movie(Name name) {
-        requireAllNonNull(name);
-        this.name = name;
+    public Movie(MovieName moviename) {
+        requireAllNonNull(moviename);
+        this.moviename = moviename;
     }
 
-    public Name getName() { return name; }
+    public MovieName getName() { return moviename; }
 
     @Override
     public boolean equals(Object other) {
@@ -42,7 +38,7 @@ public class Movie {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name);
+        return Objects.hash(moviename);
     }
 
     @Override

@@ -7,10 +7,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Movie's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class Name {
+public class MovieName {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Movie names should only contain alphanumeric characters and spaces, and it should not be blank";
+            " names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -18,17 +18,17 @@ public class Name {
      */
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String fullName;
+    public final String movieName;
 
     /**
      * Constructs a {@code Name}.
      *
-     * @param name A valid name.
+     * @param moviename A valid name.
      */
-    public Name(String name) {
-        requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
-        this.fullName = name;
+    public MovieName(String moviename) {
+        requireNonNull(moviename);
+        checkArgument(isValidName(moviename), MESSAGE_NAME_CONSTRAINTS);
+        this.movieName = moviename;
     }
 
     /**
@@ -41,18 +41,18 @@ public class Name {
 
     @Override
     public String toString() {
-        return fullName;
+        return movieName;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.movie.Name // instanceof handles nulls
-                && this.fullName.equals(((seedu.address.model.movie.Name) other).fullName)); // state check
+                || (other instanceof seedu.address.model.movie.MovieName // instanceof handles nulls
+                && this.movieName.equals(((MovieName) other).movieName)); // state check
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return movieName.hashCode();
     }
 }
