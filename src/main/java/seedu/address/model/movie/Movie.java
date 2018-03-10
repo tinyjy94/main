@@ -1,7 +1,5 @@
 package seedu.address.model.movie;
 
-import seedu.address.model.cinema.Name;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;

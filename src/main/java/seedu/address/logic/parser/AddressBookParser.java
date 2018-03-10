@@ -54,6 +54,10 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
+        case AddMovieCommand.COMMAND_ALIAS:
+        case AddMovieCommand.COMMAND_WORD:
+            return new AddMovieCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_ALIAS:
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
@@ -78,6 +82,10 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        case ListMovieCommand.COMMAND_ALIAS:
+        case ListMovieCommand.COMMAND_WORD:
+            return new ListMovieCommand();
+
         case HistoryCommand.COMMAND_ALIAS:
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
@@ -96,14 +104,6 @@ public class AddressBookParser {
         case RedoCommand.COMMAND_ALIAS:
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
-
-        case AddMovieCommand.COMMAND_ALIAS:
-        case AddMovieCommand.COMMAND_WORD:
-            return new AddMovieCommandParser().parse(arguments);
-
-        case ListMovieCommand.COMMAND_ALIAS:
-        case ListMovieCommand.COMMAND_WORD:
-            return new ListMovieCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
