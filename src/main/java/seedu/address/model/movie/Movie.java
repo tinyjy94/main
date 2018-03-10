@@ -17,7 +17,9 @@ public class Movie {
         this.moviename = moviename;
     }
 
-    public MovieName getName() { return moviename; }
+    public MovieName getName() {
+        return moviename;
+    }
 
     @Override
     public boolean equals(Object other) {
