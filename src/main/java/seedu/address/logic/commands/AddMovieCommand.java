@@ -43,13 +43,12 @@ public class AddMovieCommand extends UndoableCommand {
         } catch (DuplicateMovieException e) {
             throw new CommandException(MESSAGE_DUPLICATE_MOVIE);
         }
-
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddMovieCommand // instanceof handles nulls
+                && toAdd.equals(((AddMovieCommand) other).toAdd));
     }
 }

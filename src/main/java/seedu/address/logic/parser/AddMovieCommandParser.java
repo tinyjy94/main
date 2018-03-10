@@ -32,7 +32,7 @@ public class AddMovieCommandParser implements Parser<AddMovieCommand> {
         }
 
         try {
-            MovieName name = ParserUtil.parseMovieName(argMultimap.getValue(PREFIX_NAME).get();
+            MovieName name = ParserUtil.parseMovieName(argMultimap.getValue(PREFIX_NAME).get());
 
             Movie movie = new Movie(name);
 
