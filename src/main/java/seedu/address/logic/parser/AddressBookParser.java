@@ -20,6 +20,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.AddMovieCommand;
+import seedu.address.logic.commands.ListMovieCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -99,6 +100,10 @@ public class AddressBookParser {
         case AddMovieCommand.COMMAND_ALIAS:
         case AddMovieCommand.COMMAND_WORD:
             return new AddMovieCommandParser().parse(arguments);
+
+        case ListMovieCommand.COMMAND_ALIAS:
+        case ListMovieCommand.COMMAND_WORD:
+            return new ListMovieCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

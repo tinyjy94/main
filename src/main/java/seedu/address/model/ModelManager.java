@@ -30,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Cinema> filteredCinemas;
+    private final FilteredList<Movie> filteredMovies;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,6 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredCinemas = new FilteredList<>(this.addressBook.getCinemaList());
+        filteredMovies = new FilteredList<>(this.addressBook.getMovieList());
     }
 
     public ModelManager() {
@@ -112,6 +114,17 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredCinemaList(Predicate<Cinema> predicate) {
         requireNonNull(predicate);
         filteredCinemas.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Movie> getFilteredMovieList() {
+        return FXCollections.unmodifiableObservableList(filteredMovies);
+    }
+
+    @Override
+    public void updateFilteredMovieList(Predicate<Movie> predicate) {
+        requireNonNull(predicate);
+        filteredMovies.setPredicate(predicate);
     }
 
     @Override
