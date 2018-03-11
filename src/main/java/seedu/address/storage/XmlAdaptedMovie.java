@@ -1,7 +1,5 @@
 package seedu.address.storage;
 
-import java.util.Objects;
-
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -48,7 +46,8 @@ public class XmlAdaptedMovie {
     public Movie toModelType() throws IllegalValueException {
 
         if (this.name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, MovieName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    MovieName.class.getSimpleName()));
         }
         if (!MovieName.isValidName(this.name)) {
             throw new IllegalValueException(MovieName.MESSAGE_NAME_CONSTRAINTS);
