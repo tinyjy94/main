@@ -8,6 +8,7 @@ import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -20,12 +21,14 @@ public class CinemaBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_THEATERS = "1";
     public static final String DEFAULT_TAGS = "friends";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private Set<Theater> theaters;
     private Set<Tag> tags;
 
     public CinemaBuilder() {
@@ -33,6 +36,7 @@ public class CinemaBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        theaters = SampleDataUtil.getTheaterSet(Integer.parseInt(DEFAULT_THEATERS));
         tags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
     }
 
@@ -44,6 +48,7 @@ public class CinemaBuilder {
         phone = cinemaToCopy.getPhone();
         email = cinemaToCopy.getEmail();
         address = cinemaToCopy.getAddress();
+        theaters = new HashSet<>(cinemaToCopy.getTheaters());
         tags = new HashSet<>(cinemaToCopy.getTags());
     }
 
@@ -60,6 +65,11 @@ public class CinemaBuilder {
      */
     public CinemaBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    public CinemaBuilder withTheaters(int theaters) {
+        this.theaters = SampleDataUtil.getTheaterSet(theaters);
         return this;
     }
 
@@ -88,7 +98,7 @@ public class CinemaBuilder {
     }
 
     public Cinema build() {
-        return new Cinema(name, phone, email, address, tags);
+        return new Cinema(name, phone, email, address, theaters, tags);
     }
 
 }

@@ -34,7 +34,7 @@ public class XmlAdaptedCinema {
     private String address;
 
     @XmlElement
-    private List<XmlAdaptedTheater> theater = new ArrayList<>();
+    private List<XmlAdaptedTheater> theaters = new ArrayList<>();
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -53,7 +53,7 @@ public class XmlAdaptedCinema {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.theater = theater;
+        this.theaters = theater;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -72,9 +72,9 @@ public class XmlAdaptedCinema {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        theater  = new ArrayList<>();
+        theaters  = new ArrayList<>();
         for (Theater theater : source.getTheaters()) {
-            tagged.add(new XmlAdaptedTag(theater));
+            theaters.add(new XmlAdaptedTheater(theater));
         }
 
         tagged = new ArrayList<>();
@@ -126,16 +126,13 @@ public class XmlAdaptedCinema {
         }
         final Address address = new Address(this.address);
 
-        if (this.theater == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Theater.class.getSimpleName()));
+        final List<Theater> cinemaTheaters = new ArrayList<>();
+        for (XmlAdaptedTheater theater : theaters) {
+            cinemaTheaters.add(theater.toModelType());
         }
-        if (!Theater.isValidTheater(this.theater.getTheaterNumber(), this.theater.getNumOfSeats(), this.theater.getStatus())) {
-            throw new IllegalValueException(Theater.MESSAGE_THEATER_CONSTRAINTS);
-        }
-        final Theater theater = this.theater;
-
+        final Set<Theater> theaters = new HashSet<>(cinemaTheaters);
         final Set<Tag> tags = new HashSet<>(cinemaTags);
-        return new Cinema(name, phone, email, address, theater, tags);
+        return new Cinema(name, phone, email, address, theaters, tags);
     }
 
     @Override
@@ -153,7 +150,7 @@ public class XmlAdaptedCinema {
                 && Objects.equals(phone, otherCinema.phone)
                 && Objects.equals(email, otherCinema.email)
                 && Objects.equals(address, otherCinema.address)
-                && Objects.equals(theater, otherCinema.theater)
+                && theaters.equals(otherCinema.theaters)
                 && tagged.equals(otherCinema.tagged);
     }
 }

@@ -141,23 +141,15 @@ public class ParserUtil {
     }
 
     /**
-     * @return
-     * @throws IllegalValueException
-     */
-    public static Theater parseTheater() throws IllegalValueException {
-        Theater theater = new Theater();
-        return theater;
-    }
-
-    /**
      * Parses {@code Optional<String> Theaters} into a {@code Set<Theater>}.
      */
     public static Set<Theater> parseTheater(Optional<String> theaters) throws IllegalValueException {
         requireNonNull(theaters);
         int numOfTheaters = Integer.parseInt(theaters.get().trim());
         final Set<Theater> theaterSet = new HashSet<>();
-        for (int i = 0; i < numOfTheaters; i++)
-            theaterSet.add(parseTheater());
+        for (int i = 0; i < numOfTheaters; i++) {
+            theaterSet.add(new Theater(i));
+        }
         return theaterSet;
     }
 

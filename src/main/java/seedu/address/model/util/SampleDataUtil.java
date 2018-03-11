@@ -21,22 +21,22 @@ public class SampleDataUtil {
     public static Cinema[] getSampleCinemas() {
         return new Cinema[] {
             new Cinema(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"), new Theater(1, "30", "A"),
+                new Address("Blk 30 Geylang Street 29, #06-40"), getTheaterSet(5),
                 getTagSet("friends")),
             new Cinema(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), new Theater(1, "30", "M"),
+                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), getTheaterSet(5),
                 getTagSet("colleagues", "friends")),
             new Cinema(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), new Theater(1, "320", "U"),
+                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), getTheaterSet(5),
                 getTagSet("neighbours")),
             new Cinema(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), new Theater(1, "320", "A"),
+                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), getTheaterSet(5),
                 getTagSet("family")),
             new Cinema(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"), new Theater(1, "320", "M"),
+                new Address("Blk 47 Tampines Street 20, #17-35"), getTheaterSet(5),
                 getTagSet("classmates")),
             new Cinema(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"), new Theater(1, "320", "U"),
+                new Address("Blk 45 Aljunied Street 85, #11-31"), getTheaterSet(5),
                 getTagSet("colleagues"))
         };
     }
@@ -65,4 +65,12 @@ public class SampleDataUtil {
         return tags;
     }
 
+    public static Set<Theater> getTheaterSet(int numOfTheaters) {
+        HashSet<Theater> theaters = new HashSet<>();
+        for (int i = 0; i < numOfTheaters; i++) {
+            theaters.add(new Theater((i)));
+        }
+
+        return theaters;
+    }
 }

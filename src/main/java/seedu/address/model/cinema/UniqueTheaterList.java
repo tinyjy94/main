@@ -6,7 +6,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import javafx.collections.FXCollections;
@@ -54,7 +53,7 @@ public class UniqueTheaterList implements Iterable<Theater> {
     /**
      * Replaces the Theaters in this list with those in the argument theater list.
      */
-    public void setTags(Set<Theater> theaters) {
+    public void setTheaters(Set<Theater> theaters) {
         requireAllNonNull(theaters);
         internalList.setAll(theaters);
         assert CollectionUtil.elementsAreUnique(internalList);
@@ -95,28 +94,6 @@ public class UniqueTheaterList implements Iterable<Theater> {
     }
 
     /**
-     * Replaces the theater {@code target} in the list with {@code editedTheater}.
-     *
-     * @throws DuplicateTheaterException if the replacement is equivalent to another existing theater in the list.
-     * @throws TheaterNotFoundException if {@code target} could not be found in the list.
-     */
-    public void setTheater(Theater target, Theater editedTheater)
-            throws DuplicateTheaterException, TheaterNotFoundException {
-        requireNonNull(editedTheater);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new TheaterNotFoundException();
-        }
-
-        if (!target.equals(editedTheater) && internalList.contains(editedTheater)) {
-            throw new DuplicateTheaterException();
-        }
-
-        internalList.set(index, editedTheater);
-    }
-
-    /**
      * Removes the equivalent theater from the list.
      *
      * @throws TheaterNotFoundException if no such theater could be found in the list.
@@ -130,17 +107,13 @@ public class UniqueTheaterList implements Iterable<Theater> {
         return theaterFoundAndDeleted;
     }
 
-    public void setTheaters(UniqueTheaterList replacement) {
-        this.internalList.setAll(replacement.internalList);
-    }
-
-    public void setTheaters(List<Theater> theaters) throws DuplicateTheaterException {
+    /**
+     * Replaces the Tags in this list with those in the argument tag list.
+     */
+    public void setTheater(Set<Theater> theaters) {
         requireAllNonNull(theaters);
-        final UniqueTheaterList replacement = new UniqueTheaterList();
-        for (final Theater cinema : theaters) {
-            replacement.add(cinema);
-        }
-        setTheaters(replacement);
+        internalList.setAll(theaters);
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     /**

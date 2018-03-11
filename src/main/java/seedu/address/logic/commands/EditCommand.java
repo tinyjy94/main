@@ -110,10 +110,10 @@ public class EditCommand extends UndoableCommand {
         Phone updatedPhone = editCinemaDescriptor.getPhone().orElse(cinemaToEdit.getPhone());
         Email updatedEmail = editCinemaDescriptor.getEmail().orElse(cinemaToEdit.getEmail());
         Address updatedAddress = editCinemaDescriptor.getAddress().orElse(cinemaToEdit.getAddress());
-        Theater updatedTheater = editCinemaDescriptor.getTheater().orElse(cinemaToEdit.getTheater());
         Set<Tag> updatedTags = editCinemaDescriptor.getTags().orElse(cinemaToEdit.getTags());
 
-        return new Cinema(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTheater, updatedTags);
+        return new Cinema(updatedName, updatedPhone, updatedEmail,
+                          updatedAddress, cinemaToEdit.getTheaters(), updatedTags);
     }
 
     @Override
@@ -166,7 +166,8 @@ public class EditCommand extends UndoableCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email, this.address, this.theater, this.tags);
+            return CollectionUtil.isAnyNonNull(this.name, this.phone,
+                                               this.email, this.address, this.theater, this.tags);
         }
 
         public void setName(Name name) {

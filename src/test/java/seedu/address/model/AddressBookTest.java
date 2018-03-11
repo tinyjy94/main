@@ -22,6 +22,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
@@ -57,8 +58,9 @@ public class AddressBookTest {
     public void resetData_withDuplicateCinemas_throwsAssertionError() {
         // Repeat ALICE twice
         List<Cinema> newCinemas = Arrays.asList(ALICE, ALICE);
+        List<Theater> newTheaters = new ArrayList<>(ALICE.getTheaters());
         List<Tag> newTags = new ArrayList<>(ALICE.getTags());
-        AddressBookStub newData = new AddressBookStub(newCinemas, newTags);
+        AddressBookStub newData = new AddressBookStub(newCinemas, newTheaters, newTags);
 
         thrown.expect(AssertionError.class);
         addressBook.resetData(newData);
@@ -128,9 +130,11 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Cinema> cinemas = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
+        private final ObservableList<Theater> theaters = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Cinema> cinemas, Collection<? extends Tag> tags) {
+        AddressBookStub(Collection<Cinema> cinemas, Collection<? extends Theater> theaters, Collection<? extends Tag> tags) {
             this.cinemas.setAll(cinemas);
+            this.theaters.setAll(theaters);
             this.tags.setAll(tags);
         }
 
@@ -142,6 +146,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Tag> getTagList() {
             return tags;
+        }
+
+        @Override
+        public ObservableList<Theater> getTheaterList() {
+            return theaters;
         }
     }
 

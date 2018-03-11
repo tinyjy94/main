@@ -17,6 +17,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.AddressBook;
 import seedu.address.storage.XmlAdaptedCinema;
 import seedu.address.storage.XmlAdaptedTag;
+import seedu.address.storage.XmlAdaptedTheater;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.CinemaBuilder;
@@ -39,6 +40,7 @@ public class XmlUtilTest {
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
+    private static final List<XmlAdaptedTheater> VALID_THEATERS = Collections.singletonList(new XmlAdaptedTheater("3"));
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
     @Rule
@@ -80,7 +82,7 @@ public class XmlUtilTest {
         XmlAdaptedCinema actualCinema = XmlUtil.getDataFromFile(
                 MISSING_CINEMA_FIELD_FILE, XmlAdaptedCinemaWithRootElement.class);
         XmlAdaptedCinema expectedCinema = new XmlAdaptedCinema(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_THEATERS, VALID_TAGS);
         assertEquals(expectedCinema, actualCinema);
     }
 
@@ -89,7 +91,7 @@ public class XmlUtilTest {
         XmlAdaptedCinema actualCinema = XmlUtil.getDataFromFile(
                 INVALID_CINEMA_FIELD_FILE, XmlAdaptedCinemaWithRootElement.class);
         XmlAdaptedCinema expectedCinema = new XmlAdaptedCinema(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_THEATERS, VALID_TAGS);
         assertEquals(expectedCinema, actualCinema);
     }
 
@@ -98,7 +100,7 @@ public class XmlUtilTest {
         XmlAdaptedCinema actualCinema = XmlUtil.getDataFromFile(
                 VALID_CINEMA_FILE, XmlAdaptedCinemaWithRootElement.class);
         XmlAdaptedCinema expectedCinema = new XmlAdaptedCinema(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_THEATERS, VALID_TAGS);
         assertEquals(expectedCinema, actualCinema);
     }
 

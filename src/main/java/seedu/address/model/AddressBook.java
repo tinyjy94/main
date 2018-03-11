@@ -12,7 +12,9 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.UniqueCinemaList;
+import seedu.address.model.cinema.UniqueTheaterList;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.tag.Tag;
@@ -28,6 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueCinemaList cinemas;
     private final UniqueTagList tags;
+    private final UniqueTheaterList theaters;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -39,6 +42,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         cinemas = new UniqueCinemaList();
         tags = new UniqueTagList();
+        theaters = new UniqueTheaterList();
     }
 
     public AddressBook() {}
@@ -61,12 +65,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
+    public void setTheaters(Set<Theater> theaters) {
+        this.theaters.setTheaters(theaters);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
         setTags(new HashSet<>(newData.getTagList()));
+        setTheaters(new HashSet<>(newData.getTheaterList()));
         List<Cinema> syncedCinemaList = newData.getCinemaList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
@@ -126,17 +135,26 @@ public class AddressBook implements ReadOnlyAddressBook {
         final UniqueTagList cinemaTags = new UniqueTagList(cinema.getTags());
         tags.mergeFrom(cinemaTags);
 
+        final UniqueTheaterList cinemaTheaters = new UniqueTheaterList(cinema.getTheaters());
+        theaters.mergeFrom(cinemaTheaters);
+
         // Create map with values = tag object references in the master list
         // used for checking Cinema tag references
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
         tags.forEach(tag -> masterTagObjects.put(tag, tag));
 
+        final Map<Theater, Theater> masterTheaterObject = new HashMap<>();
+        theaters.forEach(theater -> masterTheaterObject.put(theater, theater));
+
         // Rebuild the list of Cinema tags to point to the relevant tags in the master tag list.
         final Set<Tag> correctTagReferences = new HashSet<>();
         cinemaTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
-        return new Cinema(
-                cinema.getName(), cinema.getPhone(), cinema.getEmail(),
-                cinema.getAddress(), cinema.getTheater(), correctTagReferences);
+
+        final Set<Theater> correctTheaterReferences = new HashSet<>();
+        cinemaTheaters.forEach(theater -> correctTheaterReferences.add(masterTheaterObject.get(theater)));
+
+        return new Cinema(cinema.getName(), cinema.getPhone(), cinema.getEmail(),
+                          cinema.getAddress(), correctTheaterReferences, correctTagReferences);
     }
 
     /**
@@ -180,7 +198,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         if (newTags.remove(tag)) {
             Cinema newCinema = new Cinema(cinema.getName(), cinema.getPhone(), cinema.getEmail(),
-                                          cinema.getAddress(), cinema.getTheater(), newTags);
+                                          cinema.getAddress(), cinema.getTheaters(), newTags);
             try {
                 updateCinema(cinema, newCinema);
             } catch (CinemaNotFoundException cnfe) {
@@ -219,6 +237,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Tag> getTagList() {
         return tags.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Theater> getTheaterList() {
+        return theaters.asObservableList();
     }
 
     @Override

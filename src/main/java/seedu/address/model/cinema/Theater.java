@@ -28,8 +28,8 @@ public class Theater {
         this.status = status;
     }
 
-    public Theater() {
-
+    public Theater(int theaterNumber) {
+        this.theaterNumber = theaterNumber;
     }
 
     public int getTheaterNumber() {
