@@ -36,13 +36,7 @@ public class AddMovieCommand extends UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
-        requireNonNull(model);
-        try {
-            model.addMovie(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (DuplicateMovieException e) {
-            throw new CommandException(MESSAGE_DUPLICATE_MOVIE);
-        }
     }
 
     @Override

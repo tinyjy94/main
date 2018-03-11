@@ -231,11 +231,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Movie> getMovieList() {
-        return movies.asObservableList();
-    }
-
-    @Override
     public ObservableList<Tag> getTagList() {
         return tags.asObservableList();
     }

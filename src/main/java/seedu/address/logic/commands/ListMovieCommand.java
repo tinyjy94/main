@@ -14,7 +14,6 @@ public class ListMovieCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredMovieList(PREDICATE_SHOW_ALL_MOVIES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -17,12 +17,6 @@ public interface ReadOnlyAddressBook {
     ObservableList<Cinema> getCinemaList();
 
     /**
-     * Returns an unmodifiable view of the movies list.
-     * This list will not contain any duplicate cinemas.
-     */
-    ObservableList<Movie> getMovieList();
-
-    /**
      * Returns an unmodifiable view of the tags list.
      * This list will not contain any duplicate tags.
      */
