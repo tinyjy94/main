@@ -135,7 +135,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         final Set<Tag> correctTagReferences = new HashSet<>();
         cinemaTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
         return new Cinema(
-                cinema.getName(), cinema.getPhone(), cinema.getEmail(), cinema.getAddress(), correctTagReferences);
+                cinema.getName(), cinema.getPhone(), cinema.getEmail(),
+                cinema.getAddress(), cinema.getTheater(), correctTagReferences);
     }
 
     /**
@@ -179,7 +180,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         if (newTags.remove(tag)) {
             Cinema newCinema = new Cinema(cinema.getName(), cinema.getPhone(), cinema.getEmail(),
-                                          cinema.getAddress(), newTags);
+                                          cinema.getAddress(), cinema.getTheater(), newTags);
             try {
                 updateCinema(cinema, newCinema);
             } catch (CinemaNotFoundException cnfe) {

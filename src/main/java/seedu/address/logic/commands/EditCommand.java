@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_THEATER;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CINEMAS;
 
 import java.util.Collections;
@@ -24,6 +25,7 @@ import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.tag.Tag;
@@ -44,6 +46,7 @@ public class EditCommand extends UndoableCommand {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_THEATER + "THEATER] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -107,9 +110,10 @@ public class EditCommand extends UndoableCommand {
         Phone updatedPhone = editCinemaDescriptor.getPhone().orElse(cinemaToEdit.getPhone());
         Email updatedEmail = editCinemaDescriptor.getEmail().orElse(cinemaToEdit.getEmail());
         Address updatedAddress = editCinemaDescriptor.getAddress().orElse(cinemaToEdit.getAddress());
+        Theater updatedTheater = editCinemaDescriptor.getTheater().orElse(cinemaToEdit.getTheater());
         Set<Tag> updatedTags = editCinemaDescriptor.getTags().orElse(cinemaToEdit.getTags());
 
-        return new Cinema(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Cinema(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTheater, updatedTags);
     }
 
     @Override
@@ -140,6 +144,7 @@ public class EditCommand extends UndoableCommand {
         private Phone phone;
         private Email email;
         private Address address;
+        private Theater theater;
         private Set<Tag> tags;
 
         public EditCinemaDescriptor() {}
@@ -153,6 +158,7 @@ public class EditCommand extends UndoableCommand {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setTheater(toCopy.theater);
             setTags(toCopy.tags);
         }
 
@@ -160,7 +166,7 @@ public class EditCommand extends UndoableCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email, this.address, this.tags);
+            return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email, this.address, this.theater, this.tags);
         }
 
         public void setName(Name name) {
@@ -193,6 +199,14 @@ public class EditCommand extends UndoableCommand {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setTheater(Theater theater) {
+            this.theater = theater;
+        }
+
+        public Optional<Theater> getTheater() {
+            return Optional.ofNullable(theater);
         }
 
         /**
@@ -231,6 +245,7 @@ public class EditCommand extends UndoableCommand {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
+                    && getTheater().equals(e.getTheater())
                     && getTags().equals(e.getTags());
         }
     }

@@ -14,6 +14,7 @@ import seedu.address.model.cinema.Address;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -137,6 +138,27 @@ public class ParserUtil {
     public static Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
         requireNonNull(email);
         return email.isPresent() ? Optional.of(parseEmail(email.get())) : Optional.empty();
+    }
+
+    /**
+     * @return
+     * @throws IllegalValueException
+     */
+    public static Theater parseTheater() throws IllegalValueException {
+        Theater theater = new Theater();
+        return theater;
+    }
+
+    /**
+     * Parses {@code Optional<String> Theaters} into a {@code Set<Theater>}.
+     */
+    public static Set<Theater> parseTheater(Optional<String> theaters) throws IllegalValueException {
+        requireNonNull(theaters);
+        int numOfTheaters = Integer.parseInt(theaters.get().trim());
+        final Set<Theater> theaterSet = new HashSet<>();
+        for (int i = 0; i < numOfTheaters; i++)
+            theaterSet.add(parseTheater());
+        return theaterSet;
     }
 
     /**

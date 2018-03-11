@@ -20,17 +20,19 @@ public class Cinema {
     private final Email email;
     private final Address address;
 
+    private final UniqueTheaterList theater;
     private final UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Cinema(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Cinema(Name name, Phone phone, Email email, Address address, Set<Theater> theater, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, theater, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.theater = new UniqueTheaterList(theater);
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
     }
@@ -49,6 +51,10 @@ public class Cinema {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Set<Theater> getTheaters() {
+        return Collections.unmodifiableSet(theater.toSet());
     }
 
     /**
@@ -79,7 +85,7 @@ public class Cinema {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, theater, tags);
     }
 
     @Override
@@ -92,7 +98,9 @@ public class Cinema {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
-                .append(" Tags: ");
+                .append(" Theater: ");
+        getTheaters().forEach(builder::append);
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

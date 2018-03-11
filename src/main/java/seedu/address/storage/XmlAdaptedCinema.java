@@ -14,6 +14,7 @@ import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,6 +34,8 @@ public class XmlAdaptedCinema {
     private String address;
 
     @XmlElement
+    private List<XmlAdaptedTheater> theater = new ArrayList<>();
+    @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -44,11 +47,16 @@ public class XmlAdaptedCinema {
     /**
      * Constructs an {@code XmlAdaptedCinema} with the given cinema details.
      */
-    public XmlAdaptedCinema(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedCinema(String name, String phone, String email,
+                            String address, List<XmlAdaptedTheater> theater, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.theater = theater;
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -64,6 +72,11 @@ public class XmlAdaptedCinema {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        theater  = new ArrayList<>();
+        for (Theater theater : source.getTheaters()) {
+            tagged.add(new XmlAdaptedTag(theater));
+        }
+
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -113,8 +126,16 @@ public class XmlAdaptedCinema {
         }
         final Address address = new Address(this.address);
 
+        if (this.theater == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Theater.class.getSimpleName()));
+        }
+        if (!Theater.isValidTheater(this.theater.getTheaterNumber(), this.theater.getNumOfSeats(), this.theater.getStatus())) {
+            throw new IllegalValueException(Theater.MESSAGE_THEATER_CONSTRAINTS);
+        }
+        final Theater theater = this.theater;
+
         final Set<Tag> tags = new HashSet<>(cinemaTags);
-        return new Cinema(name, phone, email, address, tags);
+        return new Cinema(name, phone, email, address, theater, tags);
     }
 
     @Override
@@ -132,6 +153,7 @@ public class XmlAdaptedCinema {
                 && Objects.equals(phone, otherCinema.phone)
                 && Objects.equals(email, otherCinema.email)
                 && Objects.equals(address, otherCinema.address)
+                && Objects.equals(theater, otherCinema.theater)
                 && tagged.equals(otherCinema.tagged);
     }
 }
