@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.movie.Movie;
+import seedu.address.model.movie.exceptions.DuplicateMovieException;
 
 /**
  * Adds a movie to the address book.
@@ -33,8 +35,14 @@ public class AddMovieCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand() {
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    public CommandResult executeUndoableCommand() throws CommandException {
+        requireNonNull(model);
+        try {
+            model.addMovie(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        } catch (DuplicateMovieException e) {
+            throw new CommandException(MESSAGE_DUPLICATE_MOVIE);
+        }
     }
 
     @Override
