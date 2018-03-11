@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_THEATER_NUM;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,34 +27,36 @@ public class TypicalCinemas {
 
     public static final Cinema ALICE = new CinemaBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("85355255")
+            .withPhone("85355255").withTheaters(5)
             .withTags("friends").build();
     public static final Cinema BENSON = new CinemaBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25")
+            .withAddress("311, Clementi Ave 2, #02-25").withTheaters(5)
             .withEmail("johnd@example.com").withPhone("98765432")
             .withTags("owesMoney", "friends").build();
-    public static final Cinema CARL = new CinemaBuilder().withName("Carl Kurz").withPhone("95352563")
+    public static final Cinema CARL = new CinemaBuilder().withName("Carl Kurz").withPhone("95352563").withTheaters(5)
             .withEmail("heinz@example.com").withAddress("wall street").build();
-    public static final Cinema DANIEL = new CinemaBuilder().withName("Daniel Meier").withPhone("87652533")
+    public static final Cinema DANIEL = new CinemaBuilder().withName("Daniel Meier").withPhone("87652533").withTheaters(5)
             .withEmail("cornelia@example.com").withAddress("10th street").build();
-    public static final Cinema ELLE = new CinemaBuilder().withName("Elle Meyer").withPhone("9482224")
+    public static final Cinema ELLE = new CinemaBuilder().withName("Elle Meyer").withPhone("9482224").withTheaters(5)
             .withEmail("werner@example.com").withAddress("michegan ave").build();
-    public static final Cinema FIONA = new CinemaBuilder().withName("Fiona Kunz").withPhone("9482427")
+    public static final Cinema FIONA = new CinemaBuilder().withName("Fiona Kunz").withPhone("9482427").withTheaters(5)
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
-    public static final Cinema GEORGE = new CinemaBuilder().withName("George Best").withPhone("9482442")
+    public static final Cinema GEORGE = new CinemaBuilder().withName("George Best").withPhone("9482442").withTheaters(5)
             .withEmail("anna@example.com").withAddress("4th street").build();
 
     // Manually added
-    public static final Cinema HOON = new CinemaBuilder().withName("Hoon Meier").withPhone("8482424")
+    public static final Cinema HOON = new CinemaBuilder().withName("Hoon Meier").withPhone("8482424").withTheaters(5)
             .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Cinema IDA = new CinemaBuilder().withName("Ida Mueller").withPhone("8482131")
+    public static final Cinema IDA = new CinemaBuilder().withName("Ida Mueller").withPhone("8482131").withTheaters(5)
             .withEmail("hans@example.com").withAddress("chicago ave").build();
 
     // Manually added - Cinema's details found in {@code CommandTestUtil}
     public static final Cinema AMY = new CinemaBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withTheaters(Integer.parseInt(VALID_THEATER_NUM)).withEmail(VALID_EMAIL_AMY)
+            .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Cinema BOB = new CinemaBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withTheaters(Integer.parseInt(VALID_THEATER_NUM)).withEmail(VALID_EMAIL_BOB)
+            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
