@@ -103,7 +103,7 @@ public class Cinema {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         builder.append(" Theaters: ");
-        for (int i = 1; i <= theaters.size(); i++) {
+        for (int i = 0; i < theaters.size(); i++) {
             builder.append(theaters.get(i).toString() + " ");
         }
         return builder.toString();
