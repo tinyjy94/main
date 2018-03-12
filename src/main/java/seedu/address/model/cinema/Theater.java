@@ -4,6 +4,10 @@ package seedu.address.model.cinema;
  * Represents a theater in cinema
  */
 public class Theater {
+
+    public static final String MESSAGE_THEATER_CONSTRAINTS =
+            "Theater number should be positive.";
+
     private int theaterNumber;
 
     public Theater(int theaterNumber) {

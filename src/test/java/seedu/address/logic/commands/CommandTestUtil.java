@@ -74,7 +74,7 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_FRIEND).withTheaters(VALID_NUMOFTHEATERS).build();
         DESC_BOB = new EditCinemaDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withTheaters(VALID_NUMOFTHEATERS).build();
     }
 
     /**

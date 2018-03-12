@@ -81,7 +81,8 @@ public class Cinema {
         return otherCinema.getName().equals(this.getName())
                 && otherCinema.getPhone().equals(this.getPhone())
                 && otherCinema.getEmail().equals(this.getEmail())
-                && otherCinema.getAddress().equals(this.getAddress());
+                && otherCinema.getAddress().equals(this.getAddress())
+                && otherCinema.getTheaters().equals(this.getTheaters());
     }
 
     @Override
