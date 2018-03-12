@@ -50,6 +50,7 @@ import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CinemaBuilder;
@@ -190,7 +191,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid theater -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + INVALID_THEATHER_DESC;
-        assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertCommandFailure(command, Theater.MESSAGE_THEATER_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY

@@ -23,7 +23,7 @@ public class CinemaBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_TAGS = "friends";
-    public static final int DEFAULT_NUMOFTHEATERS = 1;
+    public static final int DEFAULT_NUMOFTHEATERS = 3;
 
     private Name name;
     private Phone phone;

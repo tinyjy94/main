@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,6 +17,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.cinema.Theater;
 import seedu.address.storage.XmlAdaptedCinema;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlSerializableAddressBook;
@@ -40,6 +43,7 @@ public class XmlUtilTest {
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final ArrayList<Theater> VALID_THEATER = new ArrayList<Theater>(Arrays.asList(new Theater(1)));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -80,7 +84,7 @@ public class XmlUtilTest {
         XmlAdaptedCinema actualCinema = XmlUtil.getDataFromFile(
                 MISSING_CINEMA_FIELD_FILE, XmlAdaptedCinemaWithRootElement.class);
         XmlAdaptedCinema expectedCinema = new XmlAdaptedCinema(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
         assertEquals(expectedCinema, actualCinema);
     }
 
@@ -89,7 +93,7 @@ public class XmlUtilTest {
         XmlAdaptedCinema actualCinema = XmlUtil.getDataFromFile(
                 INVALID_CINEMA_FIELD_FILE, XmlAdaptedCinemaWithRootElement.class);
         XmlAdaptedCinema expectedCinema = new XmlAdaptedCinema(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
         assertEquals(expectedCinema, actualCinema);
     }
 
@@ -98,7 +102,7 @@ public class XmlUtilTest {
         XmlAdaptedCinema actualCinema = XmlUtil.getDataFromFile(
                 VALID_CINEMA_FILE, XmlAdaptedCinemaWithRootElement.class);
         XmlAdaptedCinema expectedCinema = new XmlAdaptedCinema(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
         assertEquals(expectedCinema, actualCinema);
     }
 

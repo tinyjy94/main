@@ -15,6 +15,7 @@ import seedu.address.model.cinema.Address;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
+import seedu.address.model.cinema.Theater;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedCinemaTest {
@@ -23,6 +24,7 @@ public class XmlAdaptedCinemaTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final int INVALID_THEATER = -5;
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
@@ -31,6 +33,7 @@ public class XmlAdaptedCinemaTest {
     private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
+    private static final ArrayList<Theater> VALID_THEATER = BENSON.getTheaters();
 
     @Test
     public void toModelType_validCinemaDetails_returnsCinema() throws Exception {
@@ -41,14 +44,15 @@ public class XmlAdaptedCinemaTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         XmlAdaptedCinema cinema =
-                new XmlAdaptedCinema(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                new XmlAdaptedCinema(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedCinema cinema = new XmlAdaptedCinema(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+        XmlAdaptedCinema cinema = new XmlAdaptedCinema(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                                                        VALID_TAGS, VALID_THEATER);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
     }
@@ -56,14 +60,14 @@ public class XmlAdaptedCinemaTest {
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
         XmlAdaptedCinema cinema =
-                new XmlAdaptedCinema(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                new XmlAdaptedCinema(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
         String expectedMessage = Phone.MESSAGE_PHONE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
     }
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+        XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
     }
@@ -71,14 +75,15 @@ public class XmlAdaptedCinemaTest {
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         XmlAdaptedCinema cinema =
-                new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
         String expectedMessage = Email.MESSAGE_EMAIL_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
     }
 
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
-        XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS, VALID_TAGS);
+        XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, null,
+                                                       VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
     }
@@ -86,14 +91,14 @@ public class XmlAdaptedCinemaTest {
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         XmlAdaptedCinema cinema =
-                new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS);
+                new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS, VALID_THEATER);
         String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
     }
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
-        XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS);
+        XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS, VALID_THEATER);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
     }
@@ -103,7 +108,7 @@ public class XmlAdaptedCinemaTest {
         List<XmlAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new XmlAdaptedTag(INVALID_TAG));
         XmlAdaptedCinema cinema =
-                new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidTags);
+                new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidTags, VALID_THEATER);
         Assert.assertThrows(IllegalValueException.class, cinema::toModelType);
     }
 

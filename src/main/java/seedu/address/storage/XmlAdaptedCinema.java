@@ -48,7 +48,8 @@ public class XmlAdaptedCinema {
     /**
      * Constructs an {@code XmlAdaptedCinema} with the given cinema details.
      */
-    public XmlAdaptedCinema(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedCinema(String name, String phone, String email, String address,
+                            List<XmlAdaptedTag> tagged, ArrayList<Theater> theaters) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -56,6 +57,7 @@ public class XmlAdaptedCinema {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+        this.theaters = theaters;
     }
 
     /**
@@ -72,6 +74,7 @@ public class XmlAdaptedCinema {
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
+        theaters = source.getTheaters();
     }
 
     /**
