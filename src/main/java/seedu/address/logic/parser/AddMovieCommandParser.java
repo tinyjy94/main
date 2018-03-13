@@ -41,9 +41,9 @@ public class AddMovieCommandParser implements Parser<AddMovieCommand> {
             MovieName name = ParserUtil.parseMovieName(argMultimap.getValue(PREFIX_NAME).get());
             Duration duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
             Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get());
-            StartDate startdate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_STARTDATE).get());
+            StartDate startDate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_STARTDATE).get());
 
-            Movie movie = new Movie(name, duration, rating, startdate);
+            Movie movie = new Movie(name, duration, rating, startDate);
 
             return new AddMovieCommand(movie);
         } catch (IllegalValueException ive) {

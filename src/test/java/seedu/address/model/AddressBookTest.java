@@ -142,7 +142,9 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Tag> getTagList() { return tags; }
+        public ObservableList<Tag> getTagList() {
+            return tags;
+        }
 
         @Override
         public ObservableList<Movie> getMovieList() {

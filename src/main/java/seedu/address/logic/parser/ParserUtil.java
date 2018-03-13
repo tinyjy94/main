@@ -243,14 +243,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String startdate} into a {@code StartDate}.
+     * Parses a {@code String startDate} into a {@code StartDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws IllegalValueException if the given {@code startdate} is invalid.
+     * @throws IllegalValueException if the given {@code startDate} is invalid.
      */
-    public static StartDate parseStartDate(String startdate) throws IllegalValueException {
-        requireNonNull(startdate);
-        String trimmedStartDate = startdate.trim();
+    public static StartDate parseStartDate(String startDate) throws IllegalValueException {
+        requireNonNull(startDate);
+        String trimmedStartDate = startDate.trim();
         if (!StartDate.isValidStartDate(trimmedStartDate)) {
             throw new IllegalValueException(StartDate.MESSAGE_STARTDATE_CONSTRAINTS);
         }
@@ -258,12 +258,12 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> startdate} into an {@code Optional<StartDate>} if {@code startdate} is present.
+     * Parses a {@code Optional<String> startDate} into an {@code Optional<StartDate>} if {@code startDate} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
-    public static Optional<StartDate> parseStartDate(Optional<String> startdate) throws IllegalValueException {
-        requireNonNull(startdate);
-        return startdate.isPresent() ? Optional.of(parseStartDate(startdate.get())) : Optional.empty();
+    public static Optional<StartDate> parseStartDate(Optional<String> startDate) throws IllegalValueException {
+        requireNonNull(startDate);
+        return startDate.isPresent() ? Optional.of(parseStartDate(startDate.get())) : Optional.empty();
     }
 
 }

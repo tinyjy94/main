@@ -1,6 +1,10 @@
 package seedu.address.testutil;
 
-import seedu.address.model.movie.*;
+import seedu.address.model.movie.Duration;
+import seedu.address.model.movie.Movie;
+import seedu.address.model.movie.MovieName;
+import seedu.address.model.movie.Rating;
+import seedu.address.model.movie.StartDate;
 
 /**
  * A utility class to help with building Movie objects.
@@ -15,13 +19,13 @@ public class MovieBuilder {
     private MovieName moviename;
     private Duration duration;
     private Rating rating;
-    private StartDate startdate;
+    private StartDate startDate;
 
     public MovieBuilder() {
         moviename = new MovieName(DEFAULT_MOVIENAME);
         duration = new Duration(DEFAULT_DURATION);
         rating = new Rating(DEFAULT_RATING);
-        startdate = new StartDate(DEFAULT_STARTDATE);
+        startDate = new StartDate(DEFAULT_STARTDATE);
     }
 
     /**
@@ -31,7 +35,7 @@ public class MovieBuilder {
         moviename = movieToCopy.getName();
         duration = movieToCopy.getDuration();
         rating = movieToCopy.getRating();
-        startdate = movieToCopy.getStartDate();
+        startDate = movieToCopy.getStartDate();
     }
 
     /**
@@ -61,13 +65,13 @@ public class MovieBuilder {
     /**
      * Sets the {@code StartDate} of the {@code Movie} that we are building.
      */
-    public MovieBuilder withStartDate(String startdate) {
-        this.startdate = new StartDate(startdate);
+    public MovieBuilder withStartDate(String startDate) {
+        this.startDate = new StartDate(startDate);
         return this;
     }
 
     public Movie build() {
-        return new Movie(moviename, duration, rating, startdate);
+        return new Movie(moviename, duration, rating, startDate);
     }
 
 }

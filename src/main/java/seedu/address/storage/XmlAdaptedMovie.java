@@ -26,7 +26,7 @@ public class XmlAdaptedMovie {
     @XmlElement(required = true)
     private String rating;
     @XmlElement(required = true)
-    private String startdate;
+    private String startDate;
 
     /**
      * Constructs an XmlAdaptedMovie.
@@ -37,11 +37,11 @@ public class XmlAdaptedMovie {
     /**
      * Constructs an {@code XmlAdaptedCinema} with the given movie details.
      */
-    public XmlAdaptedMovie(String moviename, String duration, String rating, String startdate) {
+    public XmlAdaptedMovie(String moviename, String duration, String rating, String startDate) {
         this.moviename = moviename;
         this.duration = duration;
         this.rating = rating;
-        this.startdate = startdate;
+        this.startDate = startDate;
     }
 
     /**
@@ -53,7 +53,7 @@ public class XmlAdaptedMovie {
         moviename = source.getName().movieName;
         duration = source.getDuration().duration;
         rating = source.getRating().rating;
-        startdate = source.getStartDate().startdate;
+        startDate = source.getStartDate().startDate;
     }
 
     /**
@@ -89,16 +89,16 @@ public class XmlAdaptedMovie {
         }
         final Rating rating = new Rating(this.rating);
 
-        if (this.startdate == null) {
+        if (this.startDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     StartDate.class.getSimpleName()));
         }
-        if (!StartDate.isValidStartDate(this.startdate)) {
+        if (!StartDate.isValidStartDate(this.startDate)) {
             throw new IllegalValueException(StartDate.MESSAGE_STARTDATE_CONSTRAINTS);
         }
-        final StartDate startdate = new StartDate(this.startdate);
+        final StartDate startDate = new StartDate(this.startDate);
 
-        return new Movie(moviename, duration, rating, startdate);
+        return new Movie(moviename, duration, rating, startDate);
     }
 
     @Override
@@ -115,6 +115,6 @@ public class XmlAdaptedMovie {
         return Objects.equals(moviename, otherMovie.moviename)
                 && Objects.equals(duration, otherMovie.duration)
                 && Objects.equals(rating, otherMovie.rating)
-                && Objects.equals(startdate, otherMovie.startdate);
+                && Objects.equals(startDate, otherMovie.startDate);
     }
 }

@@ -13,14 +13,14 @@ public class Movie {
     private final MovieName moviename;
     private final Duration duration;
     private final Rating rating;
-    private final StartDate startdate;
+    private final StartDate startDate;
 
-    public Movie(MovieName moviename, Duration duration, Rating rating, StartDate startdate) {
-        requireAllNonNull(moviename, duration, rating, startdate);
+    public Movie(MovieName moviename, Duration duration, Rating rating, StartDate startDate) {
+        requireAllNonNull(moviename, duration, rating, startDate);
         this.moviename = moviename;
         this.duration = duration;
         this.rating = rating;
-        this.startdate = startdate;
+        this.startDate = startDate;
     }
 
     public MovieName getName() {
@@ -36,7 +36,7 @@ public class Movie {
     }
 
     public StartDate getStartDate() {
-        return startdate;
+        return startDate;
     }
 
     @Override
