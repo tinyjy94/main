@@ -75,6 +75,6 @@ public class XmlSerializableAddressBook {
         }
 
         XmlSerializableAddressBook otherAb = (XmlSerializableAddressBook) other;
-        return cinemas.equals(otherAb.cinemas) && tags.equals(otherAb.tags);
+        return cinemas.equals(otherAb.cinemas) && tags.equals(otherAb.tags) && theaters.equals(otherAb.theaters);
     }
 }
