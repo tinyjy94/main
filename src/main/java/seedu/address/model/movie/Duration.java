@@ -12,7 +12,7 @@ public class Duration {
 
     public static final String MESSAGE_DURATION_CONSTRAINTS =
             "Duration can only contain numbers";
-    public static final String DURATION_VALIDATION_REGEX = "\\d";
+    public static final String DURATION_VALIDATION_REGEX = "^[1-9]\\d*$";
     public final String duration;
 
     /**
