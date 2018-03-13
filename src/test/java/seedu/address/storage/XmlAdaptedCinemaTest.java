@@ -6,7 +6,6 @@ import static seedu.address.testutil.TypicalCinemas.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
@@ -16,7 +15,6 @@ import seedu.address.model.cinema.Address;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
-import seedu.address.model.cinema.Theater;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedCinemaTest {
@@ -71,7 +69,8 @@ public class XmlAdaptedCinemaTest {
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
+        XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, null, VALID_EMAIL,
+                VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
     }
@@ -87,7 +86,7 @@ public class XmlAdaptedCinemaTest {
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
         XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, null,
-                                                       VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
+                VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
     }
@@ -102,7 +101,8 @@ public class XmlAdaptedCinemaTest {
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
-        XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS, VALID_THEATER);
+        XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, VALID_EMAIL, null,
+                VALID_TAGS, VALID_THEATER);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
     }
