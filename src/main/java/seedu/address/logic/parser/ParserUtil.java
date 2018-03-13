@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import seedu.address.model.cinema.Address;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.movie.MovieName;
 import seedu.address.model.tag.Tag;
 
@@ -189,6 +191,27 @@ public class ParserUtil {
     public static Optional<Name> parseMovieName(Optional<String> name) throws IllegalValueException {
         requireNonNull(name);
         return name.isPresent() ? Optional.of(parseName(name.get())) : Optional.empty();
+    }
+    /**
+     * Parses a {@code Optional<String> theaters} into an {@code Optional<ArrayList<Theater>>}
+     * if {@code theaters} is present.
+     */
+    public static Optional<ArrayList<Theater>> parseTheaters(Optional<String> theaters) {
+        requireNonNull(theaters);
+        return theaters.isPresent() ? Optional.of(parseTheaters(theaters.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses {@code String theater} into a {@code ArrayList<Theater>}.
+     */
+    public static ArrayList<Theater> parseTheaters(String theaters) {
+        requireNonNull(theaters);
+        ArrayList<Theater> theaterList = new ArrayList<>();
+        int numOfTheaters = Integer.parseInt(theaters);
+        for (int i = 1; i <= numOfTheaters; i++) {
+            theaterList.add(new Theater(i));
+        }
+        return theaterList;
     }
 
 }
