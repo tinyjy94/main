@@ -41,7 +41,6 @@ public class CinemaUtil {
         sb.append(PREFIX_EMAIL + cinema.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + cinema.getAddress().value + " ");
         cinema.getTags().stream().forEach(s -> sb.append(PREFIX_TAG + s.tagName + " "));
-
         sb.append(PREFIX_NUMOFTHEATERS + Integer.toString(cinema.getTheaters().size()) + " ");
         return sb.toString();
     }
