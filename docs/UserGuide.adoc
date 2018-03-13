@@ -63,6 +63,8 @@ Alias: `h`
 
 Format: `help`
 
+Keyword appearance on Command Line: [black-background blue]`help`
+
 === Adding a cinema: `add`
 
 Alias: `a`
@@ -78,12 +80,16 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 th/3`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal th/2`
 
+Keyword appearance on Command Line: [black-background green]`add`
+
 === Listing all cinemas : `list`
 
 Alias: `l`
 
 Shows a list of all cinemas in the address book. +
 Format: `list`
+
+Keyword appearance on Command Line: [black-background yellow]`list`
 
 === Editing a cinema : `edit`
 
@@ -107,6 +113,8 @@ Edits the phone number and email address of the 1st cinema to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd cinema to be `Betsy Crower` and clears all existing tags.
 
+Keyword appearance on Command Line: [black-background]`edit`
+
 === Locating cinemas by name: `find`
 
 Alias: `f`
@@ -128,6 +136,8 @@ Examples:
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any cinema having names `Betsy`, `Tim`, or `John`
+
+Keyword appearance on Command Line: [black-background blue]`find`
 
 === Deleting a cinema : `delete`
 
@@ -151,6 +161,8 @@ Deletes the 2nd cinema in the address book.
 `delete 1` +
 Deletes the 1st cinema in the results of the `find` command.
 
+Keyword appearance on Command Line: [black-background red]`delete`
+
 === Selecting a cinema : `select`
 
 Alias: `s`
@@ -173,6 +185,8 @@ Selects the 2nd cinema in the address book.
 `select 1` +
 Selects the 1st cinema in the results of the `find` command.
 
+Keyword appearance on Command Line: [black-background]`select`
+
 === Listing entered commands : `history`
 
 Alias: `hist`
@@ -184,6 +198,8 @@ Format: `history`
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
+
+Keyword appearance on Command Line: [black-background]`history`
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
@@ -214,6 +230,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
+Keyword appearance on Command Line: [black-background red]`undo`
+
 === Redoing the previously undone command : `redo`
 
 Alias: `r`
@@ -239,6 +257,8 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+Keyword appearance on Command Line: [black-background red]`redo`
+
 === Clearing all entries : `clear`
 
 Alias: `c`
@@ -246,10 +266,14 @@ Alias: `c`
 Clears all entries from the address book. +
 Format: `clear`
 
+Keyword appearance on Command Line: [black-background red]`clear`
+
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
+
+Keyword appearance on Command Line: [black-background red]`exit`
 
 === Saving the data
 
