@@ -253,7 +253,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Movie> getMovieList() {
         return movies.asObservableList();
     }
-  
+
     @Override
     public ObservableList<Theater> getTheaterList() {
         return FXCollections.observableList(theaters);

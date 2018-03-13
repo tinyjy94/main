@@ -15,9 +15,8 @@ import seedu.address.model.cinema.Address;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
-import seedu.address.model.movie.Duration;
 import seedu.address.model.cinema.Theater;
-
+import seedu.address.model.movie.Duration;
 import seedu.address.model.movie.MovieName;
 import seedu.address.model.movie.Rating;
 import seedu.address.model.movie.StartDate;
