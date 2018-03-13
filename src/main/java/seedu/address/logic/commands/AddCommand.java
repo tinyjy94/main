@@ -60,7 +60,6 @@ public class AddCommand extends UndoableCommand {
         } catch (DuplicateCinemaException e) {
             throw new CommandException(MESSAGE_DUPLICATE_CINEMA);
         }
-
     }
 
     @Override

@@ -15,6 +15,8 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
+import seedu.address.model.movie.Movie;
+import seedu.address.model.movie.exceptions.DuplicateMovieException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
@@ -27,6 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Cinema> filteredCinemas;
+    private final FilteredList<Movie> filteredMovies;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredCinemas = new FilteredList<>(this.addressBook.getCinemaList());
+        filteredMovies = new FilteredList<>(this.addressBook.getMovieList());
     }
 
     public ModelManager() {
@@ -88,6 +92,13 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeTag(tag);
     }
 
+    @Override
+    public synchronized void addMovie(Movie movie) throws DuplicateMovieException {
+        addressBook.addMovie(movie);
+        updateFilteredMovieList(PREDICATE_SHOW_ALL_MOVIES);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Cinema List Accessors =============================================================
 
     /**
@@ -105,6 +116,11 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCinemas.setPredicate(predicate);
     }
 
+    @Override
+    public void updateFilteredMovieList(Predicate<Movie> predicate) {
+        requireNonNull(predicate);
+        filteredMovies.setPredicate(predicate);
+    }
 
     @Override
     public boolean equals(Object obj) {
