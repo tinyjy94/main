@@ -52,7 +52,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)).ifPresent(editCinemaDescriptor::setEmail);
             ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).ifPresent(editCinemaDescriptor::setAddress);
             parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editCinemaDescriptor::setTags);
-            ParserUtil.parseTheaters(argMultimap.getValue(PREFIX_NUMOFTHEATERS)).ifPresent(editCinemaDescriptor::setTheaters);
+            ParserUtil.parseTheaters(argMultimap.getValue(PREFIX_NUMOFTHEATERS))
+                    .ifPresent(editCinemaDescriptor::setTheaters);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }

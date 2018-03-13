@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -170,9 +169,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> theaters} into an {@code Optional<ArrayList<Theater>>} if {@code theaters} is present.
+     * Parses a {@code Optional<String> theaters} into an {@code Optional<ArrayList<Theater>>}
+     * if {@code theaters} is present.
      */
-    public static Optional<ArrayList<Theater>> parseTheaters(Optional<String> theaters)throws IllegalValueException {
+    public static Optional<ArrayList<Theater>> parseTheaters(Optional<String> theaters) {
         requireNonNull(theaters);
         return theaters.isPresent() ? Optional.of(parseTheaters(theaters.get())) : Optional.empty();
     }
