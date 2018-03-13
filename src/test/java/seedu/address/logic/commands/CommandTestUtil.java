@@ -60,7 +60,7 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-    public static final String INVALID_THEATHER_DESC = " " + PREFIX_NUMOFTHEATERS + "-5"; // negative number not allowed for number of theater
+    public static final String INVALID_THEATER_DESC = " " + PREFIX_NUMOFTHEATERS + -5; // negative number not allowed for number of theater
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -74,7 +74,7 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_FRIEND).withTheaters(VALID_NUMOFTHEATERS).build();
         DESC_BOB = new EditCinemaDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withTheaters(VALID_NUMOFTHEATERS).build();
     }
 
     /**

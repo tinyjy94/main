@@ -22,6 +22,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
@@ -38,6 +39,7 @@ public class AddressBookTest {
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getCinemaList());
         assertEquals(Collections.emptyList(), addressBook.getTagList());
+        assertEquals(Collections.emptyList(), addressBook.getTheaterList());
     }
 
     @Test
@@ -58,7 +60,8 @@ public class AddressBookTest {
         // Repeat ALICE twice
         List<Cinema> newCinemas = Arrays.asList(ALICE, ALICE);
         List<Tag> newTags = new ArrayList<>(ALICE.getTags());
-        AddressBookStub newData = new AddressBookStub(newCinemas, newTags);
+        List<Theater> newTheaters = new ArrayList<>(ALICE.getTheaters());
+        AddressBookStub newData = new AddressBookStub(newCinemas, newTags, newTheaters);
 
         thrown.expect(AssertionError.class);
         addressBook.resetData(newData);
@@ -128,10 +131,12 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Cinema> cinemas = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
+        private final ObservableList<Theater> theaters = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Cinema> cinemas, Collection<? extends Tag> tags) {
+        AddressBookStub(Collection<Cinema> cinemas, Collection<? extends Tag> tags, Collection<Theater> theaters) {
             this.cinemas.setAll(cinemas);
             this.tags.setAll(tags);
+            this.theaters.setAll(theaters);
         }
 
         @Override
@@ -142,6 +147,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Tag> getTagList() {
             return tags;
+        }
+
+        @Override
+        public ObservableList<Theater> getTheaterList() {
+            return theaters;
         }
     }
 
