@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private CinemaListPanel cinemaListPanel;
+    private MovieListPanel movieListPanel;
     private Config config;
     private UserPrefs prefs;
 
@@ -124,6 +125,9 @@ public class MainWindow extends UiPart<Stage> {
 
         cinemaListPanel = new CinemaListPanel(logic.getFilteredCinemaList());
         cinemaListPanelPlaceholder.getChildren().add(cinemaListPanel.getRoot());
+
+        movieListPanel = new MovieListPanel(logic.getFilteredMovieList());
+        movieListPanelPlaceholder.getChildren().add(movieListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
