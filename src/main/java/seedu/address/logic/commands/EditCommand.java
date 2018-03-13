@@ -51,8 +51,8 @@ public class EditCommand extends UndoableCommand {
             + "[" + PREFIX_NUMOFTHEATERS + "THEATERS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com"
-            + PREFIX_NUMOFTHEATERS + "3";
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_NUMOFTHEATERS + "3 ";
 
     public static final String MESSAGE_EDIT_CINEMA_SUCCESS = "Edited Cinema: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

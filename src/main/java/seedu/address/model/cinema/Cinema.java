@@ -29,7 +29,7 @@ public class Cinema {
      * Every field must be present and not null.
      */
     public Cinema(Name name, Phone phone, Email email, Address address, Set<Tag> tags, ArrayList<Theater> theaters) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name, phone, email, address, tags, theaters);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -81,7 +81,8 @@ public class Cinema {
         return otherCinema.getName().equals(this.getName())
                 && otherCinema.getPhone().equals(this.getPhone())
                 && otherCinema.getEmail().equals(this.getEmail())
-                && otherCinema.getAddress().equals(this.getAddress());
+                && otherCinema.getAddress().equals(this.getAddress())
+                && otherCinema.getTheaters().equals(this.getTheaters());
     }
 
     @Override
