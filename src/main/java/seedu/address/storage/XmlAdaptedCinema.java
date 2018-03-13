@@ -120,6 +120,19 @@ public class XmlAdaptedCinema {
         }
         final Address address = new Address(this.address);
 
+        if (this.theaters == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Theater.class.getSimpleName()));
+        }
+
+        if (!Theater.isValidTheater(this.theaters.size())) {
+            throw new IllegalValueException(Theater.MESSAGE_THEATER_CONSTRAINTS);
+        }
+
+        final ArrayList<Theater> theaters = new ArrayList<>();
+        for (int i = 1; i <= this.theaters.size(); i++) {
+            theaters.add(new Theater(i));
+        }
+
         final Set<Tag> tags = new HashSet<>(cinemaTags);
         return new Cinema(name, phone, email, address, tags, theaters);
     }
@@ -139,6 +152,7 @@ public class XmlAdaptedCinema {
                 && Objects.equals(phone, otherCinema.phone)
                 && Objects.equals(email, otherCinema.email)
                 && Objects.equals(address, otherCinema.address)
+                && Objects.equals(theaters, otherCinema.theaters)
                 && tagged.equals(otherCinema.tagged);
     }
 }

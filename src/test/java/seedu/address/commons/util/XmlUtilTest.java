@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -43,7 +45,9 @@ public class XmlUtilTest {
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
-    private static final ArrayList<Theater> VALID_THEATER = new ArrayList<Theater>(Arrays.asList(new Theater(1)));
+    private static final ArrayList<Theater> VALID_THEATER = new ArrayList<>(Arrays.asList(new Theater(3)));
+    //private static final int VALID_THEATHERNUM = 3;
+    //private static final ArrayList<Theater> VALID_THEATER = new ArrayList<>();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -83,6 +87,10 @@ public class XmlUtilTest {
     public void xmlAdaptedCinemaFromFile_fileWithMissingCinemaField_validResult() throws Exception {
         XmlAdaptedCinema actualCinema = XmlUtil.getDataFromFile(
                 MISSING_CINEMA_FIELD_FILE, XmlAdaptedCinemaWithRootElement.class);
+        //for(int i = 1; i<= VALID_THEATHERNUM; i++) {
+        //    Theater t = new Theater(i);
+        //    VALID_THEATER.add(t);
+        //}
         XmlAdaptedCinema expectedCinema = new XmlAdaptedCinema(
                 null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
         assertEquals(expectedCinema, actualCinema);
