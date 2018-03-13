@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalCinemas.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
@@ -33,7 +34,10 @@ public class XmlAdaptedCinemaTest {
     private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
-    private static final ArrayList<Theater> VALID_THEATER = BENSON.getTheaters();
+    private static final List<XmlAdaptedTheater> VALID_THEATERLIST = BENSON.getTheaters().stream()
+            .map(XmlAdaptedTheater::new)
+            .collect(Collectors.toList());
+    private static final ArrayList<XmlAdaptedTheater> VALID_THEATER = new ArrayList<>(VALID_THEATERLIST);
 
     @Test
     public void toModelType_validCinemaDetails_returnsCinema() throws Exception {

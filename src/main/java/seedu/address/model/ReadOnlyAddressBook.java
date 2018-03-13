@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -20,5 +21,12 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate tags.
      */
     ObservableList<Tag> getTagList();
+
+    /**
+     * Returns an unmodifiable view of the theaters list.
+     * This list will not contain any duplicate theaters.
+     */
+    ObservableList<Theater> getTheaterList();
+
 
 }

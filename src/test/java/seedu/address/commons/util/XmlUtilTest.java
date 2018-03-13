@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
@@ -22,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.cinema.Theater;
 import seedu.address.storage.XmlAdaptedCinema;
 import seedu.address.storage.XmlAdaptedTag;
+import seedu.address.storage.XmlAdaptedTheater;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.CinemaBuilder;
@@ -45,8 +47,10 @@ public class XmlUtilTest {
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
-    private static final ArrayList<Theater> VALID_THEATER =
-            new ArrayList<>(Arrays.asList(new Theater(1), new Theater(2), new Theater(3)));
+    //private static final ArrayList<Theater> VALID_THEATER =
+    //        new ArrayList<>(Arrays.asList(new Theater(1), new Theater(2), new Theater(3)));
+    private static final List<XmlAdaptedTheater> VALID_THEATERLIST = Collections.singletonList(new XmlAdaptedTheater(1));
+    private static final ArrayList<XmlAdaptedTheater> VALID_THEATER = new ArrayList<>(VALID_THEATERLIST);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
