@@ -22,8 +22,8 @@ import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.NameContainsKeywordsPredicate;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
-import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.CinemaBuilder;
+import seedu.address.testutil.MoviePlannerBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -38,13 +38,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withCinema(ALICE).withCinema(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        MoviePlanner moviePlanner = new MoviePlannerBuilder().withCinema(ALICE).withCinema(BENSON).build();
+        MoviePlanner differentMoviePlanner = new MoviePlanner();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManager = new ModelManager(moviePlanner, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(moviePlanner, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -56,64 +56,64 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different moviePlanner -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentMoviePlanner, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredCinemaList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(moviePlanner, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredCinemaList(PREDICATE_SHOW_ALL_CINEMAS);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookName("differentName");
-        assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setMoviePlannerName("differentName");
+        assertTrue(modelManager.equals(new ModelManager(moviePlanner, differentUserPrefs)));
     }
 
     @Test
     public void deleteTag_tagNotInUse_modelNotChanged() throws Exception {
-        AddressBook addressBookWithAmy = new AddressBookBuilder().withCinema(AMY).build();
+        MoviePlanner moviePlannerWithAmy = new MoviePlannerBuilder().withCinema(AMY).build();
         UserPrefs userPrefs = new UserPrefs();
 
-        ModelManager modelManager = new ModelManager(addressBookWithAmy, userPrefs);
+        ModelManager modelManager = new ModelManager(moviePlannerWithAmy, userPrefs);
         thrown.expect(TagNotFoundException.class);
         modelManager.deleteTag(new Tag(VALID_TAG_UNUSED));
 
-        assertEquals(new ModelManager(addressBookWithAmy, userPrefs), modelManager);
+        assertEquals(new ModelManager(moviePlannerWithAmy, userPrefs), modelManager);
     }
 
     @Test
     public void deleteTag_tagInUseByOneCinema_tagRemoved() throws Exception {
-        AddressBook addressBookWithAmyAndBob = new AddressBookBuilder().withCinema(AMY).withCinema(BOB).build();
+        MoviePlanner moviePlannerWithAmyAndBob = new MoviePlannerBuilder().withCinema(AMY).withCinema(BOB).build();
         UserPrefs userPrefs = new UserPrefs();
 
-        ModelManager modelManager = new ModelManager(addressBookWithAmyAndBob, userPrefs);
+        ModelManager modelManager = new ModelManager(moviePlannerWithAmyAndBob, userPrefs);
         modelManager.deleteTag(new Tag(VALID_TAG_HUSBAND));
 
         Cinema bobHusbandTagRemoved = new CinemaBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
-        AddressBook expectedAddressBook = new AddressBookBuilder().withCinema(AMY)
+        MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withCinema(AMY)
                                                                   .withCinema(bobHusbandTagRemoved).build();
 
-        assertEquals(new ModelManager(expectedAddressBook, userPrefs), modelManager);
+        assertEquals(new ModelManager(expectedMoviePlanner, userPrefs), modelManager);
     }
 
     @Test
     public void deleteTag_tagInUseByMultipleCinema_tagRemoved() throws Exception {
-        AddressBook addressBookWithAmyAndBob = new AddressBookBuilder().withCinema(AMY).withCinema(BOB).build();
+        MoviePlanner moviePlannerWithAmyAndBob = new MoviePlannerBuilder().withCinema(AMY).withCinema(BOB).build();
         UserPrefs userPrefs = new UserPrefs();
 
-        ModelManager modelManager = new ModelManager(addressBookWithAmyAndBob, userPrefs);
+        ModelManager modelManager = new ModelManager(moviePlannerWithAmyAndBob, userPrefs);
         modelManager.deleteTag(new Tag(VALID_TAG_FRIEND));
 
         Cinema amyFriendTagRemoved = new CinemaBuilder(AMY).withTags().build();
         Cinema bobFriendTagRemoved = new CinemaBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
-        AddressBook expectedAddressBook = new AddressBookBuilder().withCinema(amyFriendTagRemoved)
+        MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withCinema(amyFriendTagRemoved)
                                                                   .withCinema(bobFriendTagRemoved).build();
 
-        assertEquals(new ModelManager(expectedAddressBook, userPrefs), modelManager);
+        assertEquals(new ModelManager(expectedMoviePlanner, userPrefs), modelManager);
     }
 }

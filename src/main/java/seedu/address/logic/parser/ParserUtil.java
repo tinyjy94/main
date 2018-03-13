@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
@@ -14,6 +15,11 @@ import seedu.address.model.cinema.Address;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
+import seedu.address.model.cinema.Theater;
+import seedu.address.model.movie.Duration;
+import seedu.address.model.movie.MovieName;
+import seedu.address.model.movie.Rating;
+import seedu.address.model.movie.StartDate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -165,4 +171,122 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String movieName} into a {@code MovieName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code movieName} is invalid.
+     */
+    public static MovieName parseMovieName(String movieName) throws IllegalValueException {
+        requireNonNull(movieName);
+        String trimmedMovieName = movieName.trim();
+        if (!MovieName.isValidName(trimmedMovieName)) {
+            throw new IllegalValueException(MovieName.MESSAGE_MOVIENAME_CONSTRAINTS);
+        }
+        return new MovieName(trimmedMovieName);
+    }
+
+    /**
+     * Parses a {@code Optional<String> movieName} into an {@code Optional<MovieName>} if {@code movieName} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<MovieName> parseMovieName(Optional<String> movieName) throws IllegalValueException {
+        requireNonNull(movieName);
+        return movieName.isPresent() ? Optional.of(parseMovieName(movieName.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code String duration} into a {@code Duration}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code duration} is invalid.
+     */
+    public static Duration parseDuration(String duration) throws IllegalValueException {
+        requireNonNull(duration);
+        String trimmedDuration = duration.trim();
+        if (!Duration.isValidDuration(trimmedDuration)) {
+            throw new IllegalValueException(Duration.MESSAGE_DURATION_CONSTRAINTS);
+        }
+        return new Duration(trimmedDuration);
+    }
+
+    /**
+     * Parses a {@code Optional<String> duration} into an {@code Optional<Duration>} if {@code duration} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Duration> parseDuration(Optional<String> duration) throws IllegalValueException {
+        requireNonNull(duration);
+        return duration.isPresent() ? Optional.of(parseDuration(duration.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code String rating} into a {@code Rating}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code rating} is invalid.
+     */
+    public static Rating parseRating(String rating) throws IllegalValueException {
+        requireNonNull(rating);
+        String trimmedRating = rating.trim();
+        if (!Rating.isValidRating(trimmedRating)) {
+            throw new IllegalValueException(Rating.MESSAGE_RATING_CONSTRAINTS);
+        }
+        return new Rating(trimmedRating);
+    }
+
+    /**
+     * Parses a {@code Optional<String> rating} into an {@code Optional<Rating>} if {@code rating} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Rating> parseRating(Optional<String> rating) throws IllegalValueException {
+        requireNonNull(rating);
+        return rating.isPresent() ? Optional.of(parseRating(rating.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code String startDate} into a {@code StartDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code startDate} is invalid.
+     */
+    public static StartDate parseStartDate(String startDate) throws IllegalValueException {
+        requireNonNull(startDate);
+        String trimmedStartDate = startDate.trim();
+        if (!StartDate.isValidStartDate(trimmedStartDate)) {
+            throw new IllegalValueException(StartDate.MESSAGE_STARTDATE_CONSTRAINTS);
+        }
+        return new StartDate(trimmedStartDate);
+    }
+
+    /**
+     * Parses a {@code Optional<String> startDate} into an {@code Optional<StartDate>} if {@code startDate} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<StartDate> parseStartDate(Optional<String> startDate) throws IllegalValueException {
+        requireNonNull(startDate);
+        return startDate.isPresent() ? Optional.of(parseStartDate(startDate.get())) : Optional.empty();
+    }
+    /**
+     * Parses a {@code Optional<String> theaters} into an {@code Optional<ArrayList<Theater>>}
+     * if {@code theaters} is present.
+     */
+    public static Optional<ArrayList<Theater>> parseTheaters(Optional<String> theaters) {
+        requireNonNull(theaters);
+        return theaters.isPresent() ? Optional.of(parseTheaters(theaters.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses {@code String theater} into a {@code ArrayList<Theater>}.
+     */
+    public static ArrayList<Theater> parseTheaters(String theaters) {
+        requireNonNull(theaters);
+        ArrayList<Theater> theaterList = new ArrayList<>();
+        int numOfTheaters = Integer.parseInt(theaters);
+        for (int i = 1; i <= numOfTheaters; i++) {
+            theaterList.add(new Theater(i));
+        }
+        return theaterList;
+    }
+
 }

@@ -49,7 +49,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CinemaBuilder;
 import seedu.address.testutil.CinemaUtil;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class EditCommandSystemTest extends MoviePlannerSystemTest {
 
     @Test
     public void edit() throws Exception {
@@ -99,7 +99,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered cinema list, edit index within bounds of address book and cinema list -> edited */
+        /* Case: filtered cinema list, edit index within bounds of movie planner and cinema list -> edited */
         showCinemasWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_CINEMA;
         assertTrue(index.getZeroBased() < getModel().getFilteredCinemaList().size());
@@ -108,11 +108,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         editedCinema = new CinemaBuilder(cinemaToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedCinema);
 
-        /* Case: filtered cinema list, edit index within bounds of address book but out of bounds of cinema list
+        /* Case: filtered cinema list, edit index within bounds of movie planner but out of bounds of cinema list
          * -> rejected
          */
         showCinemasWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getCinemaList().size();
+        int invalidIndex = getModel().getMoviePlanner().getCinemaList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
 
@@ -175,7 +175,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a cinema with new values same as another cinema's values -> rejected */
         executeCommand(CinemaUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getCinemaList().contains(BOB));
+        assertTrue(getModel().getMoviePlanner().getCinemaList().contains(BOB));
         index = INDEX_FIRST_CINEMA;
         assertFalse(getModel().getFilteredCinemaList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -241,9 +241,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 5. Asserts that the status bar's sync status changes.<br>
      * 6. Asserts that the command box has the default style class.<br>
      * Verifications 1 to 3 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see MoviePlannerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -267,8 +267,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 5. Asserts that the command box has the error style.<br>
      * Verifications 1 to 3 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

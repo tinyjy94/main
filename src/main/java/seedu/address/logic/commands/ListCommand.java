@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CINEMAS;
 
 /**
- * Lists all cinemas in the address book to the user.
+ * Lists all cinemas in the movie planner to the user.
  */
 public class ListCommand extends Command {
 

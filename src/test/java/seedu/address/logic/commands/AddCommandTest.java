@@ -18,12 +18,14 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.MoviePlanner;
+import seedu.address.model.ReadOnlyMoviePlanner;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
+import seedu.address.model.movie.Movie;
+import seedu.address.model.movie.exceptions.DuplicateMovieException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.CinemaBuilder;
@@ -104,12 +106,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
+        public void resetData(ReadOnlyMoviePlanner newData) {
             fail("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyMoviePlanner getMoviePlanner() {
             fail("This method should not be called.");
             return null;
         }
@@ -137,7 +139,23 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Movie> getFilteredMovieList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void addMovie(Movie movie) throws DuplicateMovieException {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredCinemaList(Predicate<Cinema> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredMovieList(Predicate<Movie> predicate) {
             fail("This method should not be called.");
         }
     }
@@ -152,8 +170,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyMoviePlanner getMoviePlanner() {
+            return new MoviePlanner();
         }
     }
 
@@ -170,8 +188,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyMoviePlanner getMoviePlanner() {
+            return new MoviePlanner();
         }
     }
 

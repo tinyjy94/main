@@ -21,7 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 
-public class DeleteCommandSystemTest extends AddressBookSystemTest {
+public class DeleteCommandSystemTest extends MoviePlannerSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
@@ -59,17 +59,17 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered cinema list, delete index within bounds of address book and cinema list -> deleted */
+        /* Case: filtered cinema list, delete index within bounds of movie planner and cinema list -> deleted */
         showCinemasWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_CINEMA;
         assertTrue(index.getZeroBased() < getModel().getFilteredCinemaList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered cinema list, delete index within bounds of address book but out of bounds of cinema list
+        /* Case: filtered cinema list, delete index within bounds of movie planner but out of bounds of cinema list
          * -> rejected
          */
         showCinemasWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getCinemaList().size();
+        int invalidIndex = getModel().getMoviePlanner().getCinemaList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
 
@@ -98,7 +98,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getCinemaList().size() + 1);
+                getModel().getMoviePlanner().getCinemaList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
 
@@ -113,7 +113,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Removes the {@code Cinema} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Cinema} at the specified {@code index} in {@code model}'s movie planner.
      * @return the removed cinema
      */
     private Cinema removeCinema(Model model, Index index) {
@@ -149,8 +149,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * 5. Asserts that the status bar's sync status changes.<br>
      * 6. Asserts that the command box has the default style class.<br>
      * Verifications 1 to 3 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
+     * @see MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
@@ -160,7 +160,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
      * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see MoviePlannerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -185,8 +185,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 5. Asserts that the command box has the error style.<br>
      * Verifications 1 to 3 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

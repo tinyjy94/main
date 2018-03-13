@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMOFTHEATERS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -17,8 +18,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.MoviePlanner;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.NameContainsKeywordsPredicate;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
@@ -29,6 +30,8 @@ import seedu.address.testutil.EditCinemaDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_MOVIENAME_INCREDIBLES = "The Incredibles";
+    public static final String VALID_MOVIENAME_MARVEL = "Marvel";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -40,6 +43,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_TAG_UNUSED = "unused"; // not to assign to any cinema
+    public static final int VALID_NUMOFTHEATERS = 3;
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -51,12 +55,15 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String THEATER_DESC_THREE = " " + PREFIX_NUMOFTHEATERS + VALID_NUMOFTHEATERS;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_THEATER_DESC = " "
+                                    + PREFIX_NUMOFTHEATERS + -5; // negative number not allowed for number of theater
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -67,10 +74,10 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditCinemaDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_FRIEND).withTheaters(VALID_NUMOFTHEATERS).build();
         DESC_BOB = new EditCinemaDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withTheaters(VALID_NUMOFTHEATERS).build();
     }
 
     /**
@@ -93,12 +100,12 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered cinema list in the {@code actualModel} remain unchanged
+     * - the movie planner and the filtered cinema list in the {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        MoviePlanner expectedMoviePlanner = new MoviePlanner(actualModel.getMoviePlanner());
         List<Cinema> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCinemaList());
 
         try {
@@ -106,14 +113,14 @@ public class CommandTestUtil {
             fail("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedMoviePlanner, actualModel.getMoviePlanner());
             assertEquals(expectedFilteredList, actualModel.getFilteredCinemaList());
         }
     }
 
     /**
      * Updates {@code model}'s filtered list to show only the cinema at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s movie planner.
      */
     public static void showCinemaAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCinemaList().size());
@@ -126,7 +133,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first cinema in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first cinema in {@code model}'s filtered list from {@code model}'s movie planner.
      */
     public static void deleteFirstCinema(Model model) {
         Cinema firstCinema = model.getFilteredCinemaList().get(0);
