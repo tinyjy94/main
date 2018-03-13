@@ -1,15 +1,16 @@
 package seedu.address.storage;
 
+import java.util.Objects;
+
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+
 import seedu.address.model.movie.Duration;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.MovieName;
 import seedu.address.model.movie.Rating;
 import seedu.address.model.movie.StartDate;
-
-import java.util.Objects;
 
 /**
  * JAXB-friendly version of the Movie.
@@ -72,7 +73,8 @@ public class XmlAdaptedMovie {
         final MovieName moviename = new MovieName(this.moviename);
 
         if (this.duration == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Duration.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Duration.class.getSimpleName()));
         }
         if (!Duration.isValidDuration(this.duration)) {
             throw new IllegalValueException(Duration.MESSAGE_DURATION_CONSTRAINTS);
@@ -88,7 +90,8 @@ public class XmlAdaptedMovie {
         final Rating rating = new Rating(this.rating);
 
         if (this.startdate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, StartDate.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    StartDate.class.getSimpleName()));
         }
         if (!StartDate.isValidStartDate(this.startdate)) {
             throw new IllegalValueException(StartDate.MESSAGE_STARTDATE_CONSTRAINTS);
