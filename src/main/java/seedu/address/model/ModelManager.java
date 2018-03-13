@@ -117,12 +117,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredMovieList(Predicate<Movie> predicate) {
-        requireNonNull(predicate);
-        filteredMovies.setPredicate(predicate);
-    }
-
-    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -140,4 +134,15 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredCinemas.equals(other.filteredCinemas);
     }
 
+    //=========== Filtered Movie List Accessors =============================================================
+    @Override
+    public ObservableList<Movie> getFilteredMovieList() {
+        return FXCollections.unmodifiableObservableList(filteredMovies);
+    }
+
+    @Override
+    public void updateFilteredMovieList(Predicate<Movie> predicate) {
+        requireNonNull(predicate);
+        filteredMovies.setPredicate(predicate);
+    }
 }

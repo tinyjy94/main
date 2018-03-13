@@ -139,6 +139,12 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Movie> getFilteredMovieList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
         public void addMovie(Movie movie) throws DuplicateMovieException {
             fail("This method should not be called.");
         }

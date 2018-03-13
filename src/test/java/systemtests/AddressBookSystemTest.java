@@ -26,6 +26,7 @@ import guitests.guihandles.CinemaListPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
+import guitests.guihandles.MovieListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
@@ -103,6 +104,10 @@ public abstract class AddressBookSystemTest {
 
     public CinemaListPanelHandle getCinemaListPanel() {
         return mainWindowHandle.getCinemaListPanel();
+    }
+
+    public MovieListPanelHandle getMovieListPanel() {
+        return mainWindowHandle.getMovieListPanel();
     }
 
     public MainMenuHandle getMainMenu() {

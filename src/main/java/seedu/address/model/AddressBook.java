@@ -54,7 +54,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Cinemas and Tags in the {@code toBeCopied}
+     * Creates an AddressBook using the Cinemas, Tags and Movies in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -75,6 +75,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.theaters = theaters;
     }
 
+    public void setMovies(List<Movie> movies) throws DuplicateMovieException {
+        this.movies.setMovies(movies);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -85,11 +89,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         List<Cinema> syncedCinemaList = newData.getCinemaList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
-
         try {
             setCinemas(syncedCinemaList);
-        } catch (DuplicateCinemaException e) {
+            setMovies(newData.getMovieList());
+        } catch (DuplicateCinemaException dce) {
             throw new AssertionError("AddressBooks should not have duplicate Cinemas");
+        } catch (DuplicateMovieException dne) {
+            throw new AssertionError("AddressBooks should not have duplicate Movies");
         }
     }
 
@@ -166,7 +172,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-    //// tag-level operations
+    /**
+    * Adds a Theater to the address book
+    */
+    public void addTheater(Theater t) {
+        theaters.add(t);
+    }
+
+    //// Tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
@@ -218,6 +231,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags.setTags(tagsOfCinemas);
     }
 
+
+    //// Movie-level operations
     /**
      * Adds a Movie to the address book.
      *
@@ -226,16 +241,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addMovie(Movie movie) throws DuplicateMovieException {
         movies.add(movie);
     }
-    /**
-    * Adds a Theater to the address book
-    */
-    public void addTheater(Theater t) {
-        theaters.add(t);
-    }
+
     //// util methods
     @Override
     public String toString() {
-        return cinemas.asObservableList().size() + " Cinemas, " + tags.asObservableList().size() +  " tags";
+        return cinemas.asObservableList().size() + " Cinemas, " + tags.asObservableList().size() +  " tags, "
+                + movies.asObservableList().size() + " movies";
         // TODO: refine later
     }
 
@@ -245,13 +256,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Tag> getTagList() {
-        return tags.asObservableList();
+    public ObservableList<Movie> getMovieList() {
+        return movies.asObservableList();
     }
 
     @Override
-    public ObservableList<Movie> getMovieList() {
-        return movies.asObservableList();
+    public ObservableList<Tag> getTagList() {
+        return tags.asObservableList();
     }
 
     @Override

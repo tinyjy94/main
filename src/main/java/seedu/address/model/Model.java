@@ -47,6 +47,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered cinema list */
     ObservableList<Cinema> getFilteredCinemaList();
 
+    /** Returns an unmodifiable view of the filtered movie list */
+    ObservableList<Movie> getFilteredMovieList();
+
     /**
      * Updates the filter of the filtered cinema list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

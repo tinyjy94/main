@@ -61,8 +61,9 @@ public class AddressBookTest {
         // Repeat ALICE twice
         List<Cinema> newCinemas = Arrays.asList(ALICE, ALICE);
         List<Tag> newTags = new ArrayList<>(ALICE.getTags());
+        List<Movie> newMovies = new ArrayList<>();
         List<Theater> newTheaters = new ArrayList<>(ALICE.getTheaters());
-        AddressBookStub newData = new AddressBookStub(newCinemas, newTags, newTheaters);
+        AddressBookStub newData = new AddressBookStub(newCinemas, newTags, newTheaters, newMovies);
 
         thrown.expect(AssertionError.class);
         addressBook.resetData(newData);
@@ -135,9 +136,11 @@ public class AddressBookTest {
         private final ObservableList<Movie> movies = FXCollections.observableArrayList();
         private final ObservableList<Theater> theaters = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Cinema> cinemas, Collection<? extends Tag> tags, Collection<Theater> theaters) {
+        AddressBookStub(Collection<Cinema> cinemas, Collection<? extends Tag> tags,
+                        Collection<Theater> theaters, Collection<Movie> movies) {
             this.cinemas.setAll(cinemas);
             this.tags.setAll(tags);
+            this.movies.setAll(movies);
             this.theaters.setAll(theaters);
         }
 
