@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.showCinemaAtIndex;
-import static seedu.address.testutil.TypicalCinemas.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCinemas.getTypicalMoviePlanner;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CINEMA;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CINEMA;
 
@@ -29,7 +29,7 @@ import seedu.address.model.cinema.Cinema;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
@@ -38,7 +38,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CINEMA_SUCCESS, cinemaToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getMoviePlanner(), new UserPrefs());
         expectedModel.deleteCinema(cinemaToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -61,7 +61,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CINEMA_SUCCESS, cinemaToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMoviePlanner(), new UserPrefs());
         expectedModel.deleteCinema(cinemaToDelete);
         showNoCinema(expectedModel);
 
@@ -73,8 +73,8 @@ public class DeleteCommandTest {
         showCinemaAtIndex(model, INDEX_FIRST_CINEMA);
 
         Index outOfBoundIndex = INDEX_SECOND_CINEMA;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getCinemaList().size());
+        // ensures that outOfBoundIndex is still in bounds of movie planner list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getMoviePlanner().getCinemaList().size());
 
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
@@ -88,13 +88,13 @@ public class DeleteCommandTest {
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Cinema cinemaToDelete = model.getFilteredCinemaList().get(INDEX_FIRST_CINEMA.getZeroBased());
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_CINEMA);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMoviePlanner(), new UserPrefs());
 
         // delete -> first cinema deleted
         deleteCommand.execute();
         undoRedoStack.push(deleteCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered cinema list to show all cinemas
+        // undo -> reverts movieplanner back to previous state and filtered cinema list to show all cinemas
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first cinema deleted again
@@ -131,7 +131,7 @@ public class DeleteCommandTest {
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_CINEMA);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMoviePlanner(), new UserPrefs());
 
         showCinemaAtIndex(model, INDEX_SECOND_CINEMA);
         Cinema cinemaToDelete = model.getFilteredCinemaList().get(INDEX_FIRST_CINEMA.getZeroBased());
@@ -139,7 +139,7 @@ public class DeleteCommandTest {
         deleteCommand.execute();
         undoRedoStack.push(deleteCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered cinema list to show all cinemas
+        // undo -> reverts movieplanner back to previous state and filtered cinema list to show all cinemas
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         expectedModel.deleteCinema(cinemaToDelete);

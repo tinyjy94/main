@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MoviePlanner;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
 
@@ -28,10 +28,10 @@ public class TypicalMovies {
     private TypicalMovies() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical movies.
+     * Returns an {@code MoviePlanner} with all the typical movies.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static MoviePlanner getTypicalMoviePlanner() {
+        MoviePlanner ab = new MoviePlanner();
         for (Movie movie : getTypicalMovies()) {
             try {
                 ab.addMovie(movie);

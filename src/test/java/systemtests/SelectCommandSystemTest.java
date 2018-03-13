@@ -17,7 +17,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 
-public class SelectCommandSystemTest extends AddressBookSystemTest {
+public class SelectCommandSystemTest extends MoviePlannerSystemTest {
     @Test
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
@@ -53,14 +53,14 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered cinema list, select index within bounds of address book but out of bounds of cinema list
+        /* Case: filtered cinema list, select index within bounds of movie planner but out of bounds of cinema list
          * -> rejected
          */
         showCinemasWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getCinemaList().size();
+        int invalidIndex = getModel().getMoviePlanner().getCinemaList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
 
-        /* Case: filtered cinema list, select index within bounds of address book and cinema list -> selected */
+        /* Case: filtered cinema list, select index within bounds of movie planner and cinema list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredCinemaList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -91,7 +91,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: select from empty address book -> rejected */
+        /* Case: select from empty movie planner -> rejected */
         deleteAllCinemas();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CINEMA.getOneBased(),
                 MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
@@ -107,9 +107,9 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see MoviePlannerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
@@ -138,8 +138,8 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Model}, {@code Storage} and {@code CinemaListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

@@ -10,7 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.cinema.Cinema;
 
 /**
- * Selects a cinema identified using it's last displayed index from the address book.
+ * Selects a cinema identified using it's last displayed index from the movie planner.
  */
 public class SelectCommand extends Command {
 

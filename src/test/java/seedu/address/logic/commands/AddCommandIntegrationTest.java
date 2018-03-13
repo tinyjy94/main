@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalCinemas.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCinemas.getTypicalMoviePlanner;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,14 +24,14 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs());
     }
 
     @Test
     public void execute_newCinema_success() throws Exception {
         Cinema validCinema = new CinemaBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getMoviePlanner(), new UserPrefs());
         expectedModel.addCinema(validCinema);
 
         assertCommandSuccess(prepareCommand(validCinema, model), model,
@@ -40,7 +40,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateCinema_throwsCommandException() {
-        Cinema cinemaInList = model.getAddressBook().getCinemaList().get(0);
+        Cinema cinemaInList = model.getMoviePlanner().getCinemaList().get(0);
         assertCommandFailure(prepareCommand(cinemaInList, model), model, AddCommand.MESSAGE_DUPLICATE_CINEMA);
     }
 

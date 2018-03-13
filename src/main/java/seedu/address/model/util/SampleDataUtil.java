@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.MoviePlanner;
+import seedu.address.model.ReadOnlyMoviePlanner;
 import seedu.address.model.cinema.Address;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Email;
@@ -16,7 +16,7 @@ import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code MoviePlanner} with sample data.
  */
 public class SampleDataUtil {
     public static Cinema[] getSampleCinemas() {
@@ -42,9 +42,9 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
+    public static ReadOnlyMoviePlanner getSampleMoviePlanner() {
         try {
-            AddressBook sampleAb = new AddressBook();
+            MoviePlanner sampleAb = new MoviePlanner();
             for (Cinema sampleCinema : getSampleCinemas()) {
                 sampleAb.addCinema(sampleCinema);
             }

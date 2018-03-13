@@ -7,9 +7,9 @@ import seedu.address.model.movie.Movie;
 import seedu.address.model.tag.Tag;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an movie planner
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyMoviePlanner {
 
     /**
      * Returns an unmodifiable view of the cinemas list.

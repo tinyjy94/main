@@ -35,20 +35,20 @@ public class TestUtil {
      * Returns the middle index of the cinema in the {@code model}'s cinema list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getAddressBook().getCinemaList().size() / 2);
+        return Index.fromOneBased(model.getMoviePlanner().getCinemaList().size() / 2);
     }
 
     /**
      * Returns the last index of the cinema in the {@code model}'s cinema list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getAddressBook().getCinemaList().size());
+        return Index.fromOneBased(model.getMoviePlanner().getCinemaList().size());
     }
 
     /**
      * Returns the cinema in the {@code model}'s cinema list at {@code index}.
      */
     public static Cinema getCinema(Model model, Index index) {
-        return model.getAddressBook().getCinemaList().get(index.getZeroBased());
+        return model.getMoviePlanner().getCinemaList().get(index.getZeroBased());
     }
 }

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Movie's startDate in the address book.
+ * Represents a Movie's startDate in the movie planner.
  * Guarantees: immutable; is valid as declared in {@link #isValidStartDate(String)}
  */
 public class StartDate {
