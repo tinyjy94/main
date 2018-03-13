@@ -15,6 +15,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
+import seedu.address.model.movie.Movie;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
@@ -27,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Cinema> filteredCinemas;
+    private final FilteredList<Movie> filteredMovies;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredCinemas = new FilteredList<>(this.addressBook.getCinemaList());
+        filteredMovies = new FilteredList<>(this.addressBook.getMovieList());
     }
 
     public ModelManager() {
@@ -124,4 +127,9 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredCinemas.equals(other.filteredCinemas);
     }
 
+    //=========== Filtered Movie List Accessors =============================================================
+    @Override
+    public ObservableList<Movie> getFilteredMovieList() {
+        return FXCollections.unmodifiableObservableList(filteredMovies);
+    }
 }

@@ -22,6 +22,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.movie.Movie;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
@@ -58,7 +59,8 @@ public class AddressBookTest {
         // Repeat ALICE twice
         List<Cinema> newCinemas = Arrays.asList(ALICE, ALICE);
         List<Tag> newTags = new ArrayList<>(ALICE.getTags());
-        AddressBookStub newData = new AddressBookStub(newCinemas, newTags);
+        List<Movie> newMovies = new ArrayList<>();
+        AddressBookStub newData = new AddressBookStub(newCinemas, newTags, newMovies);
 
         thrown.expect(AssertionError.class);
         addressBook.resetData(newData);
@@ -128,10 +130,12 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Cinema> cinemas = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
+        private final ObservableList<Movie> movies = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Cinema> cinemas, Collection<? extends Tag> tags) {
+        AddressBookStub(Collection<Cinema> cinemas, Collection<? extends Tag> tags, Collection<Movie> movies) {
             this.cinemas.setAll(cinemas);
             this.tags.setAll(tags);
+            this.movies.setAll(movies);
         }
 
         @Override
@@ -142,6 +146,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Tag> getTagList() {
             return tags;
+        }
+
+        @Override
+        public ObservableList<Movie> getMovieList() {
+            return movies;
         }
     }
 

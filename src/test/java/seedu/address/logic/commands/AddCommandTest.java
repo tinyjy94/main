@@ -24,6 +24,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
+import seedu.address.model.movie.Movie;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.CinemaBuilder;
@@ -132,6 +133,12 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Cinema> getFilteredCinemaList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public ObservableList<Movie> getFilteredMovieList() {
             fail("This method should not be called.");
             return null;
         }

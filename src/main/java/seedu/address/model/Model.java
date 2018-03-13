@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
+import seedu.address.model.movie.Movie;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
@@ -43,6 +44,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered cinema list */
     ObservableList<Cinema> getFilteredCinemaList();
+
+    /** Returns an unmodifiable view of the filtered movie list */
+    ObservableList<Movie> getFilteredMovieList();
 
     /**
      * Updates the filter of the filtered cinema list to filter by the given {@code predicate}.
