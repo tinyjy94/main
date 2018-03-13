@@ -27,11 +27,17 @@ public class Movie {
         return moviename;
     }
 
-    public Duration getDuration() { return duration; }
+    public Duration getDuration() {
+        return duration;
+    }
 
-    public Rating getRating() { return rating; }
+    public Rating getRating() {
+        return rating;
+    }
 
-    public StartDate getStartDate() { return startdate; }
+    public StartDate getStartDate() {
+        return startdate;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -60,11 +66,11 @@ public class Movie {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("Duration: ")
+                .append(" Duration: ")
                 .append(getDuration())
-                .append("Rating: ")
+                .append(" Rating: ")
                 .append(getRating())
-                .append("StartDate: ")
+                .append(" StartDate: ")
                 .append(getStartDate());
         return builder.toString();
     }
