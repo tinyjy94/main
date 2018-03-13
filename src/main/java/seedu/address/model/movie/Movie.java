@@ -11,15 +11,27 @@ import java.util.Objects;
 public class Movie {
 
     private final MovieName moviename;
+    private final Duration duration;
+    private final Rating rating;
+    private final StartDate startdate;
 
-    public Movie(MovieName moviename) {
-        requireAllNonNull(moviename);
+    public Movie(MovieName moviename, Duration duration, Rating rating, StartDate startdate) {
+        requireAllNonNull(moviename, duration, rating, startdate);
         this.moviename = moviename;
+        this.duration = duration;
+        this.rating = rating;
+        this.startdate = startdate;
     }
 
     public MovieName getName() {
         return moviename;
     }
+
+    public Duration getDuration() { return duration; }
+
+    public Rating getRating() { return rating; }
+
+    public StartDate getStartDate() { return startdate; }
 
     @Override
     public boolean equals(Object other) {
@@ -32,7 +44,10 @@ public class Movie {
         }
 
         Movie otherMovie = (Movie) other;
-        return otherMovie.getName().equals(this.getName());
+        return otherMovie.getName().equals(this.getName())
+                && otherMovie.getDuration().equals(this.getDuration())
+                && otherMovie.getRating().equals(this.getRating())
+                && otherMovie.getStartDate().equals(this.getStartDate());
     }
 
     @Override
@@ -44,7 +59,13 @@ public class Movie {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
+        builder.append(getName())
+                .append("Duration: ")
+                .append(getDuration())
+                .append("Rating: ")
+                .append(getRating())
+                .append("StartDate: ")
+                .append(getStartDate());
         return builder.toString();
     }
 }

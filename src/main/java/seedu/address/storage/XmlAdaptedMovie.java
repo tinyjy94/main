@@ -3,8 +3,13 @@ package seedu.address.storage;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.movie.Duration;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.MovieName;
+import seedu.address.model.movie.Rating;
+import seedu.address.model.movie.StartDate;
+
+import java.util.Objects;
 
 /**
  * JAXB-friendly version of the Movie.
@@ -14,7 +19,13 @@ public class XmlAdaptedMovie {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Movie's %s field is missing!";
 
     @XmlElement(required = true)
-    private String name;
+    private String moviename;
+    @XmlElement(required = true)
+    private String duration;
+    @XmlElement(required = true)
+    private String rating;
+    @XmlElement(required = true)
+    private String startdate;
 
     /**
      * Constructs an XmlAdaptedMovie.
@@ -25,8 +36,11 @@ public class XmlAdaptedMovie {
     /**
      * Constructs an {@code XmlAdaptedCinema} with the given movie details.
      */
-    public XmlAdaptedMovie(String name) {
-        this.name = name;
+    public XmlAdaptedMovie(String moviename, String duration, String rating, String startdate) {
+        this.moviename = moviename;
+        this.duration = duration;
+        this.rating = rating;
+        this.startdate = startdate;
     }
 
     /**
@@ -35,7 +49,10 @@ public class XmlAdaptedMovie {
      * @param source future changes to this will not affect the created XmlAdaptedMovie
      */
     public XmlAdaptedMovie(Movie source) {
-        name = source.getName().movieName;
+        moviename = source.getName().movieName;
+        duration = source.getDuration().duration;
+        rating = source.getRating().rating;
+        startdate = source.getStartDate().startdate;
     }
 
     /**
@@ -45,16 +62,40 @@ public class XmlAdaptedMovie {
      */
     public Movie toModelType() throws IllegalValueException {
 
-        if (this.name == null) {
+        if (this.moviename == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     MovieName.class.getSimpleName()));
         }
-        if (!MovieName.isValidName(this.name)) {
-            throw new IllegalValueException(MovieName.MESSAGE_NAME_CONSTRAINTS);
+        if (!MovieName.isValidName(this.moviename)) {
+            throw new IllegalValueException(MovieName.MESSAGE_MOVIENAME_CONSTRAINTS);
         }
-        final MovieName name = new MovieName(this.name);
+        final MovieName moviename = new MovieName(this.moviename);
 
-        return new Movie(name);
+        if (this.duration == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Duration.class.getSimpleName()));
+        }
+        if (!Duration.isValidDuration(this.duration)) {
+            throw new IllegalValueException(Duration.MESSAGE_DURATION_CONSTRAINTS);
+        }
+        final Duration duration = new Duration(this.duration);
+
+        if (this.rating == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Rating.class.getSimpleName()));
+        }
+        if (!Rating.isValidRating(this.rating)) {
+            throw new IllegalValueException(Rating.MESSAGE_RATING_CONSTRAINTS);
+        }
+        final Rating rating = new Rating(this.rating);
+
+        if (this.startdate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, StartDate.class.getSimpleName()));
+        }
+        if (!StartDate.isValidStartDate(this.startdate)) {
+            throw new IllegalValueException(StartDate.MESSAGE_STARTDATE_CONSTRAINTS);
+        }
+        final StartDate startdate = new StartDate(this.startdate);
+
+        return new Movie(moviename, duration, rating, startdate);
     }
 
     @Override
@@ -67,6 +108,10 @@ public class XmlAdaptedMovie {
             return false;
         }
 
-        return name.equals(((XmlAdaptedMovie) other).name);
+        XmlAdaptedMovie otherMovie = (XmlAdaptedMovie) other;
+        return Objects.equals(moviename, otherMovie.moviename)
+                && Objects.equals(duration, otherMovie.duration)
+                && Objects.equals(rating, otherMovie.rating)
+                && Objects.equals(startdate, otherMovie.startdate);
     }
 }
