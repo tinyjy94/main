@@ -18,8 +18,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.MoviePlanner;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.NameContainsKeywordsPredicate;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
@@ -100,12 +100,12 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered cinema list in the {@code actualModel} remain unchanged
+     * - the movie planner and the filtered cinema list in the {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        MoviePlanner expectedMoviePlanner = new MoviePlanner(actualModel.getMoviePlanner());
         List<Cinema> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCinemaList());
 
         try {
@@ -113,14 +113,14 @@ public class CommandTestUtil {
             fail("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedMoviePlanner, actualModel.getMoviePlanner());
             assertEquals(expectedFilteredList, actualModel.getFilteredCinemaList());
         }
     }
 
     /**
      * Updates {@code model}'s filtered list to show only the cinema at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s movie planner.
      */
     public static void showCinemaAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCinemaList().size());
@@ -133,7 +133,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first cinema in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first cinema in {@code model}'s filtered list from {@code model}'s movie planner.
      */
     public static void deleteFirstCinema(Model model) {
         Cinema firstCinema = model.getFilteredCinemaList().get(0);

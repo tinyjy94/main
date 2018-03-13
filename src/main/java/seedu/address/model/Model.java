@@ -20,10 +20,10 @@ public interface Model {
     Predicate<Movie> PREDICATE_SHOW_ALL_MOVIES = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyMoviePlanner newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the MoviePlanner */
+    ReadOnlyMoviePlanner getMoviePlanner();
 
     /** Deletes the given cinema. */
     void deleteCinema(Cinema target) throws CinemaNotFoundException;

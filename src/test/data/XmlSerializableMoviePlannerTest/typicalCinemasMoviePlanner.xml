@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- AddressBook save file which contains the same Cinema values as in
-{@code TypicalCinemas#getTypicalAddressBook()}-->
-<addressbook>
+<!-- MoviePlanner save file which contains the same Cinema values as in
+{@code TypicalCinemas#getTypicalMoviePlanner()}-->
+<movieplanner>
     <cinemas>
         <name>Alice Pauline</name>
         <phone>85355255</phone>
@@ -70,4 +70,4 @@
     </cinemas>
     <tags>friends</tags>
     <tags>owesMoney</tags>
-</addressbook>
+</movieplanner>

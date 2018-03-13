@@ -37,17 +37,17 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.MoviePlanner;
 import seedu.address.testutil.TypicalCinemas;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for MoviePlanner, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class MoviePlannerSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -83,8 +83,8 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalCinemas.getTypicalAddressBook();
+    protected MoviePlanner getInitialData() {
+        return TypicalCinemas.getTypicalMoviePlanner();
     }
 
     /**
@@ -142,11 +142,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all cinemas in the address book.
+     * Displays all cinemas in the movie planner.
      */
     protected void showAllCinemas() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getCinemaList().size(), getModel().getFilteredCinemaList().size());
+        assertEquals(getModel().getMoviePlanner().getCinemaList().size(), getModel().getFilteredCinemaList().size());
     }
 
     /**
@@ -154,7 +154,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showCinemasWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCinemaList().size() < getModel().getAddressBook().getCinemaList().size());
+        assertTrue(getModel().getFilteredCinemaList().size() < getModel().getMoviePlanner().getCinemaList().size());
     }
 
     /**
@@ -166,11 +166,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Deletes all cinemas in the address book.
+     * Deletes all cinemas in the movie planner.
      */
     protected void deleteAllCinemas() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getCinemaList().size());
+        assertEquals(0, getModel().getMoviePlanner().getCinemaList().size());
     }
 
     /**
@@ -183,7 +183,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(expectedModel, getModel());
-        assertEquals(expectedModel.getAddressBook(), testApp.readStorageAddressBook());
+        assertEquals(expectedModel.getMoviePlanner(), testApp.readStorageMoviePlanner());
         assertListMatching(getCinemaListPanel(), expectedModel.getFilteredCinemaList());
     }
 

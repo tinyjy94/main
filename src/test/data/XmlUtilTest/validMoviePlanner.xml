@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<movieplanner>
     <cinemas>
         <name>Hans Muster</name>
         <phone isPrivate="false">9482424</phone>
@@ -81,4 +81,4 @@
 		<theaters isPrivate="false">2</theaters>
 		<theaters isPrivate="false">3</theaters>
     </cinemas>
-</addressbook>
+</movieplanner>

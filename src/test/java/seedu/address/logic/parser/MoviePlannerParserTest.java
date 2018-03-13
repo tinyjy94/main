@@ -36,11 +36,11 @@ import seedu.address.testutil.CinemaUtil;
 import seedu.address.testutil.EditCinemaDescriptorBuilder;
 
 
-public class AddressBookParserTest {
+public class MoviePlannerParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final MoviePlannerParser parser = new MoviePlannerParser();
 
     @Test
     public void parseCommand_add() throws Exception {

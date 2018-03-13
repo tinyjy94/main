@@ -13,7 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.showCinemaAtIndex;
-import static seedu.address.testutil.TypicalCinemas.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCinemas.getTypicalMoviePlanner;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CINEMA;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CINEMA;
 
@@ -24,9 +24,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.EditCommand.EditCinemaDescriptor;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.MoviePlanner;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.testutil.CinemaBuilder;
@@ -37,7 +37,7 @@ import seedu.address.testutil.EditCinemaDescriptorBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws Exception {
@@ -47,7 +47,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
         expectedModel.updateCinema(model.getFilteredCinemaList().get(0), editedCinema);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -68,7 +68,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
         expectedModel.updateCinema(lastCinema, editedCinema);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -81,7 +81,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -97,7 +97,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
         expectedModel.updateCinema(model.getFilteredCinemaList().get(0), editedCinema);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -116,8 +116,8 @@ public class EditCommandTest {
     public void execute_duplicateCinemaFilteredList_failure() {
         showCinemaAtIndex(model, INDEX_FIRST_CINEMA);
 
-        // edit cinema in filtered list into a duplicate in address book
-        Cinema cinemaInList = model.getAddressBook().getCinemaList().get(INDEX_SECOND_CINEMA.getZeroBased());
+        // edit cinema in filtered list into a duplicate in movie planner
+        Cinema cinemaInList = model.getMoviePlanner().getCinemaList().get(INDEX_SECOND_CINEMA.getZeroBased());
         EditCommand editCommand = prepareCommand(INDEX_FIRST_CINEMA,
                 new EditCinemaDescriptorBuilder(cinemaInList).build());
 
@@ -135,14 +135,14 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of movie planner
      */
     @Test
     public void execute_invalidCinemaIndexFilteredList_failure() {
         showCinemaAtIndex(model, INDEX_FIRST_CINEMA);
         Index outOfBoundIndex = INDEX_SECOND_CINEMA;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getCinemaList().size());
+        // ensures that outOfBoundIndex is still in bounds of movie planner list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getMoviePlanner().getCinemaList().size());
 
         EditCommand editCommand = prepareCommand(outOfBoundIndex,
                 new EditCinemaDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -159,13 +159,13 @@ public class EditCommandTest {
         Cinema cinemaToEdit = model.getFilteredCinemaList().get(INDEX_FIRST_CINEMA.getZeroBased());
         EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(editedCinema).build();
         EditCommand editCommand = prepareCommand(INDEX_FIRST_CINEMA, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
 
         // edit -> first cinema edited
         editCommand.execute();
         undoRedoStack.push(editCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered cinema list to show all cinemas
+        // undo -> reverts movieplanner back to previous state and filtered cinema list to show all cinemas
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first cinema edited again
@@ -205,7 +205,7 @@ public class EditCommandTest {
         Cinema editedCinema = new CinemaBuilder().build();
         EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(editedCinema).build();
         EditCommand editCommand = prepareCommand(INDEX_FIRST_CINEMA, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
 
         showCinemaAtIndex(model, INDEX_SECOND_CINEMA);
         Cinema cinemaToEdit = model.getFilteredCinemaList().get(INDEX_FIRST_CINEMA.getZeroBased());
@@ -213,7 +213,7 @@ public class EditCommandTest {
         editCommand.execute();
         undoRedoStack.push(editCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered cinema list to show all cinemas
+        // undo -> reverts movieplanner back to previous state and filtered cinema list to show all cinemas
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         expectedModel.updateCinema(cinemaToEdit, editedCinema);

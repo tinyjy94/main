@@ -11,14 +11,14 @@ import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
 
 /**
- * Adds a movie to the address book.
+ * Adds a movie to the movie planner.
  */
 public class AddMovieCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "addmovie";
     public static final String COMMAND_ALIAS = "am";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a movie to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a movie to the movie planner. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_DURATION + "DURATION "
@@ -31,7 +31,7 @@ public class AddMovieCommand extends UndoableCommand {
             + PREFIX_STARTDATE + "13/03/2018";
 
     public static final String MESSAGE_SUCCESS = "New movie added: %1$s";
-    public static final String MESSAGE_DUPLICATE_MOVIE = "This movie already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_MOVIE = "This movie already exists in the movie planner";
 
     private final Movie toAdd;
 

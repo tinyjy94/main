@@ -5,7 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 /**
- * Represents a Movie in the address book.
+ * Represents a Movie in the movie planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Movie {
