@@ -227,7 +227,7 @@ public class ParserUtil {
     public static Rating parseRating(String rating) throws IllegalValueException {
         requireNonNull(rating);
         String trimmedRating = rating.trim();
-        if (!Duration.isValidDuration(trimmedRating)) {
+        if (!Rating.isValidRating(trimmedRating)) {
             throw new IllegalValueException(Rating.MESSAGE_RATING_CONSTRAINTS);
         }
         return new Rating(trimmedRating);
@@ -251,7 +251,7 @@ public class ParserUtil {
     public static StartDate parseStartDate(String startdate) throws IllegalValueException {
         requireNonNull(startdate);
         String trimmedStartDate = startdate.trim();
-        if (!Duration.isValidDuration(trimmedStartDate)) {
+        if (!StartDate.isValidStartDate(trimmedStartDate)) {
             throw new IllegalValueException(StartDate.MESSAGE_STARTDATE_CONSTRAINTS);
         }
         return new StartDate(trimmedStartDate);

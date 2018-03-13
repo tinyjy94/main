@@ -11,8 +11,8 @@ public class Rating {
 
 
     public static final String MESSAGE_RATING_CONSTRAINTS =
-            "Rating can only contain alphanumeric characters from 2 to 3 characters";
-    public static final String RATING_VALIDATION_REGEX = "\\w{2,3}";
+            "Rating can only contain alphanumeric characters from 2 to 4 characters";
+    public static final String RATING_VALIDATION_REGEX = "^\\w{1,4}$";
     public final String rating;
 
     /**
