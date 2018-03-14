@@ -29,7 +29,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddMovieCommand;
-import seedu.address.model.cinema.Address;
 import seedu.address.model.movie.Duration;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.MovieName;
@@ -47,13 +46,13 @@ public class AddMovieCommandParserTest {
                 .withStartDate(VALID_STARTDATE_MARVEL).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + MOVIENAME_DESC_MARVEL +
-                DURATION_DESC_MARVEL + RATING_DESC_MARVEL + STARTDATE_DESC_MARVEL,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + MOVIENAME_DESC_MARVEL
+                        + DURATION_DESC_MARVEL + RATING_DESC_MARVEL + STARTDATE_DESC_MARVEL,
                 new AddMovieCommand(expectedMovie));
 
         // multiple movie names - last movie name accepted
         assertParseSuccess(parser, MOVIENAME_DESC_INCREDIBLES + MOVIENAME_DESC_MARVEL
-                + DURATION_DESC_MARVEL + RATING_DESC_MARVEL + STARTDATE_DESC_MARVEL,
+                        + DURATION_DESC_MARVEL + RATING_DESC_MARVEL + STARTDATE_DESC_MARVEL,
                 new AddMovieCommand(expectedMovie));
 
         // multiple durations - last duration accepted

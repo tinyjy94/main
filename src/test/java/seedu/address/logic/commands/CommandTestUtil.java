@@ -76,7 +76,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_MOVIENAME_DESC = " " + PREFIX_NAME + "Ghost&"; // '&' not allowed in movieNames
     public static final String INVALID_DURATION_DESC = " " + PREFIX_DURATION + "12a"; // 'a' not allowed in durations
-    public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "ABCDEFG"; // rating can only be 2-4 characters
+    public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "ABCDE"; // rating can only be 2-4 characters
     public static final String INVALID_STARTDATE_DESC = " " + PREFIX_STARTDATE + "ab/ac/abcd"; // invalid date format
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
