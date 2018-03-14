@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.address.testutil.TypicalCinemas.ALICE;
 import static seedu.address.testutil.TypicalCinemas.AMY;
 import static seedu.address.testutil.TypicalCinemas.BOB;
-import static seedu.address.testutil.TypicalCinemas.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCinemas.getTypicalMoviePlanner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,34 +26,34 @@ import seedu.address.model.cinema.Theater;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
-import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.CinemaBuilder;
+import seedu.address.testutil.MoviePlannerBuilder;
 
-public class AddressBookTest {
+public class MoviePlannerTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final MoviePlanner moviePlanner = new MoviePlanner();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getCinemaList());
-        assertEquals(Collections.emptyList(), addressBook.getTagList());
-        assertEquals(Collections.emptyList(), addressBook.getTheaterList());
+        assertEquals(Collections.emptyList(), moviePlanner.getCinemaList());
+        assertEquals(Collections.emptyList(), moviePlanner.getTagList());
+        assertEquals(Collections.emptyList(), moviePlanner.getTheaterList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        moviePlanner.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyMoviePlanner_replacesData() {
+        MoviePlanner newData = getTypicalMoviePlanner();
+        moviePlanner.resetData(newData);
+        assertEquals(newData, moviePlanner);
     }
 
     @Test
@@ -61,83 +61,86 @@ public class AddressBookTest {
         // Repeat ALICE twice
         List<Cinema> newCinemas = Arrays.asList(ALICE, ALICE);
         List<Tag> newTags = new ArrayList<>(ALICE.getTags());
+        List<Movie> newMovies = new ArrayList<>();
         List<Theater> newTheaters = new ArrayList<>(ALICE.getTheaters());
-        AddressBookStub newData = new AddressBookStub(newCinemas, newTags, newTheaters);
+        MoviePlannerStub newData = new MoviePlannerStub(newCinemas, newTags, newTheaters, newMovies);
 
         thrown.expect(AssertionError.class);
-        addressBook.resetData(newData);
+        moviePlanner.resetData(newData);
     }
 
     @Test
     public void getCinemaList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getCinemaList().remove(0);
+        moviePlanner.getCinemaList().remove(0);
     }
 
     @Test
     public void getTagList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getTagList().remove(0);
+        moviePlanner.getTagList().remove(0);
     }
 
     @Test
     public void updateCinema_modifyDetails_cinemaAndTagListUpdated() throws Exception {
-        AddressBook addressBookBobChangeToAmy = new AddressBookBuilder().withCinema(BOB).build();
-        AddressBook addressBookWithAmy = new AddressBookBuilder().withCinema(AMY).build();
+        MoviePlanner moviePlannerBobChangeToAmy = new MoviePlannerBuilder().withCinema(BOB).build();
+        MoviePlanner moviePlannerWithAmy = new MoviePlannerBuilder().withCinema(AMY).build();
 
-        addressBookBobChangeToAmy.updateCinema(BOB, AMY);
+        moviePlannerBobChangeToAmy.updateCinema(BOB, AMY);
 
-        assertEquals(addressBookWithAmy, addressBookBobChangeToAmy);
+        assertEquals(moviePlannerWithAmy, moviePlannerBobChangeToAmy);
     }
 
     @Test
-    public void removeTag_tagNotInUse_addressBookNotChanged() throws Exception {
-        AddressBook addressBookWithAmy = new AddressBookBuilder().withCinema(AMY).build();
+    public void removeTag_tagNotInUse_moviePlannerNotChanged() throws Exception {
+        MoviePlanner moviePlannerWithAmy = new MoviePlannerBuilder().withCinema(AMY).build();
         thrown.expect(TagNotFoundException.class);
-        addressBookWithAmy.removeTag(new Tag(VALID_TAG_UNUSED));
-        AddressBook expectedAddressBook = new AddressBookBuilder().withCinema(AMY).build();
+        moviePlannerWithAmy.removeTag(new Tag(VALID_TAG_UNUSED));
+        MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withCinema(AMY).build();
 
-        assertEquals(expectedAddressBook, addressBookWithAmy);
+        assertEquals(expectedMoviePlanner, moviePlannerWithAmy);
     }
 
     @Test
     public void removeTag_tagInUseByOneCinema_tagRemoved() throws Exception {
-        AddressBook addressBookWithAmyAndBob = new AddressBookBuilder().withCinema(AMY).withCinema(BOB).build();
-        addressBookWithAmyAndBob.removeTag(new Tag(VALID_TAG_HUSBAND));
+        MoviePlanner moviePlannerWithAmyAndBob = new MoviePlannerBuilder().withCinema(AMY).withCinema(BOB).build();
+        moviePlannerWithAmyAndBob.removeTag(new Tag(VALID_TAG_HUSBAND));
 
         Cinema bobHusbandTagRemoved = new CinemaBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
-        AddressBook expectedAddressBook = new AddressBookBuilder().withCinema(AMY)
+        MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withCinema(AMY)
                                                                   .withCinema(bobHusbandTagRemoved).build();
 
-        assertEquals(expectedAddressBook, addressBookWithAmyAndBob);
+        assertEquals(expectedMoviePlanner, moviePlannerWithAmyAndBob);
     }
 
     @Test
     public void removeTag_tagInUseByMultipleCinema_tagRemoved() throws Exception {
-        AddressBook addressBookWithAmyAndBob = new AddressBookBuilder().withCinema(AMY).withCinema(BOB).build();
-        addressBookWithAmyAndBob.removeTag(new Tag(VALID_TAG_FRIEND));
+        MoviePlanner moviePlannerWithAmyAndBob = new MoviePlannerBuilder().withCinema(AMY).withCinema(BOB).build();
+        moviePlannerWithAmyAndBob.removeTag(new Tag(VALID_TAG_FRIEND));
 
         Cinema amyFriendTagRemoved = new CinemaBuilder(AMY).withTags().build();
         Cinema bobFriendTagRemoved = new CinemaBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
 
-        AddressBook expectedAddressBook = new AddressBookBuilder().withCinema(amyFriendTagRemoved)
+        MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withCinema(amyFriendTagRemoved)
                                                                   .withCinema(bobFriendTagRemoved).build();
 
-        assertEquals(expectedAddressBook, addressBookWithAmyAndBob);
+        assertEquals(expectedMoviePlanner, moviePlannerWithAmyAndBob);
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose cinemas and tags lists can violate interface constraints.
+     * A stub ReadOnlyMoviePlanner whose cinemas and tags lists can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class MoviePlannerStub implements ReadOnlyMoviePlanner {
         private final ObservableList<Cinema> cinemas = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
         private final ObservableList<Movie> movies = FXCollections.observableArrayList();
         private final ObservableList<Theater> theaters = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Cinema> cinemas, Collection<? extends Tag> tags, Collection<Theater> theaters) {
+        MoviePlannerStub(Collection<Cinema> cinemas, Collection<? extends Tag> tags,
+                        Collection<Theater> theaters, Collection<Movie> movies) {
             this.cinemas.setAll(cinemas);
             this.tags.setAll(tags);
+            this.movies.setAll(movies);
             this.theaters.setAll(theaters);
         }
 

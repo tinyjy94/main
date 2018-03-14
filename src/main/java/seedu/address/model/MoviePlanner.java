@@ -27,10 +27,10 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the movie-planner level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class MoviePlanner implements ReadOnlyMoviePlanner {
 
     private final UniqueCinemaList cinemas;
     private final UniqueMovieList movies;
@@ -51,12 +51,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         movies = new UniqueMovieList();
     }
 
-    public AddressBook() {}
+    public MoviePlanner() {}
 
     /**
-     * Creates an AddressBook using the Cinemas and Tags in the {@code toBeCopied}
+     * Creates an MoviePlanner using the Cinemas, Tags and Movies in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public MoviePlanner(ReadOnlyMoviePlanner toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -75,28 +75,34 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.theaters = theaters;
     }
 
+    public void setMovies(List<Movie> movies) throws DuplicateMovieException {
+        this.movies.setMovies(movies);
+    }
+
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code MoviePlanner} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyMoviePlanner newData) {
         requireNonNull(newData);
         setTags(new HashSet<>(newData.getTagList()));
         setTheaters(new ArrayList<>(newData.getTheaterList()));
         List<Cinema> syncedCinemaList = newData.getCinemaList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
-
         try {
             setCinemas(syncedCinemaList);
-        } catch (DuplicateCinemaException e) {
-            throw new AssertionError("AddressBooks should not have duplicate Cinemas");
+            setMovies(newData.getMovieList());
+        } catch (DuplicateCinemaException dce) {
+            throw new AssertionError("MoviePlanners should not have duplicate Cinemas");
+        } catch (DuplicateMovieException dne) {
+            throw new AssertionError("MoviePlanners should not have duplicate Movies");
         }
     }
 
     //// Cinema-level operations
 
     /**
-     * Adds a Cinema to the address book.
+     * Adds a Cinema to the movie planner.
      * Also checks the new Cinema's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the Cinema to point to those in {@link #tags}.
      *
@@ -112,7 +118,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given Cinema {@code target} in the list with {@code editedCinema}.
-     * {@code AddressBook}'s tag list will be updated with the tags of {@code editedCinema}.
+     * {@code MoviePlanner}'s tag list will be updated with the tags of {@code editedCinema}.
      *
      * @throws DuplicateCinemaException if updating the Cinema's details causes the Cinema to be equivalent to
      *      another existing Cinema in the list.
@@ -155,8 +161,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * @throws CinemaNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     * Removes {@code key} from this {@code MoviePlanner}.
+     * @throws CinemaNotFoundException if the {@code key} is not in this {@code MoviePlanner}.
      */
     public boolean removeCinema(Cinema key) throws CinemaNotFoundException {
         if (cinemas.remove(key)) {
@@ -166,15 +172,22 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-    //// tag-level operations
+    /**
+    * Adds a Theater to the movie planner
+    */
+    public void addTheater(Theater t) {
+        theaters.add(t);
+    }
+
+    //// Tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
     /**
-     * Removes {@code tag} from this {@code AddressBook}
-     * @throws TagNotFoundException if the {@code tag} is not found in this {@code AddressBook}.
+     * Removes {@code tag} from this {@code MoviePlanner}
+     * @throws TagNotFoundException if the {@code tag} is not found in this {@code MoviePlanner}.
      */
     public void removeTag(Tag tag) throws TagNotFoundException {
         if (tags.contains(tag)) {
@@ -218,24 +231,22 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags.setTags(tagsOfCinemas);
     }
 
+
+    //// Movie-level operations
     /**
-     * Adds a Movie to the address book.
+     * Adds a Movie to the movie planner.
      *
      * @throws DuplicateMovieException if an equivalent Cinema already exists.
      */
     public void addMovie(Movie movie) throws DuplicateMovieException {
         movies.add(movie);
     }
-    /**
-    * Adds a Theater to the address book
-    */
-    public void addTheater(Theater t) {
-        theaters.add(t);
-    }
+
     //// util methods
     @Override
     public String toString() {
-        return cinemas.asObservableList().size() + " Cinemas, " + tags.asObservableList().size() +  " tags";
+        return cinemas.asObservableList().size() + " Cinemas, " + tags.asObservableList().size() +  " tags, "
+                + movies.asObservableList().size() + " movies";
         // TODO: refine later
     }
 
@@ -245,13 +256,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Tag> getTagList() {
-        return tags.asObservableList();
+    public ObservableList<Movie> getMovieList() {
+        return movies.asObservableList();
     }
 
     @Override
-    public ObservableList<Movie> getMovieList() {
-        return movies.asObservableList();
+    public ObservableList<Tag> getTagList() {
+        return tags.asObservableList();
     }
 
     @Override
@@ -262,10 +273,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.cinemas.equals(((AddressBook) other).cinemas)
-                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags)
-                && this.theaters.equals(((AddressBook) other).theaters));
+                || (other instanceof MoviePlanner // instanceof handles nulls
+                && this.cinemas.equals(((MoviePlanner) other).cinemas)
+                && this.tags.equalsOrderInsensitive(((MoviePlanner) other).tags)
+                && this.theaters.equals(((MoviePlanner) other).theaters));
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MoviePlanner;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 
@@ -62,10 +62,10 @@ public class TypicalCinemas {
     private TypicalCinemas() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical cinemas.
+     * Returns an {@code MoviePlanner} with all the typical cinemas.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static MoviePlanner getTypicalMoviePlanner() {
+        MoviePlanner ab = new MoviePlanner();
         for (Cinema cinema : getTypicalCinemas()) {
             try {
                 ab.addCinema(cinema);

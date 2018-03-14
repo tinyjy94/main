@@ -5,6 +5,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.movie.Movie;
 
 /**
  * API of the Logic component
@@ -21,6 +22,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of cinemas */
     ObservableList<Cinema> getFilteredCinemaList();
+
+    /** Returns an unmodifiable view of the filtered list of movies */
+    ObservableList<Movie> getFilteredMovieList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

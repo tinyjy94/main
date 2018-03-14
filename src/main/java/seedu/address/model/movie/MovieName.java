@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Movie's name in the address book.
+ * Represents a Movie's name in the movie planner.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class MovieName {
@@ -23,12 +23,12 @@ public class MovieName {
     /**
      * Constructs a {@code Name}.
      *
-     * @param moviename A valid name.
+     * @param movieName A valid name.
      */
-    public MovieName(String moviename) {
-        requireNonNull(moviename);
-        checkArgument(isValidName(moviename), MESSAGE_MOVIENAME_CONSTRAINTS);
-        this.movieName = moviename;
+    public MovieName(String movieName) {
+        requireNonNull(movieName);
+        checkArgument(isValidName(movieName), MESSAGE_MOVIENAME_CONSTRAINTS);
+        this.movieName = movieName;
     }
 
     /**

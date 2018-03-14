@@ -5,26 +5,26 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 /**
- * Represents a Movie in the address book.
+ * Represents a Movie in the movie planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Movie {
 
-    private final MovieName moviename;
+    private final MovieName movieName;
     private final Duration duration;
     private final Rating rating;
     private final StartDate startDate;
 
-    public Movie(MovieName moviename, Duration duration, Rating rating, StartDate startDate) {
-        requireAllNonNull(moviename, duration, rating, startDate);
-        this.moviename = moviename;
+    public Movie(MovieName movieName, Duration duration, Rating rating, StartDate startDate) {
+        requireAllNonNull(movieName, duration, rating, startDate);
+        this.movieName = movieName;
         this.duration = duration;
         this.rating = rating;
         this.startDate = startDate;
     }
 
     public MovieName getName() {
-        return moviename;
+        return movieName;
     }
 
     public Duration getDuration() {
@@ -59,7 +59,7 @@ public class Movie {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moviename);
+        return Objects.hash(movieName);
     }
 
     @Override

@@ -12,7 +12,7 @@ import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 
 /**
- * Deletes a cinema identified using it's last displayed index from the address book.
+ * Deletes a cinema identified using it's last displayed index from the movie planner.
  */
 public class DeleteCommand extends UndoableCommand {
 

@@ -20,10 +20,10 @@ public interface Model {
     Predicate<Movie> PREDICATE_SHOW_ALL_MOVIES = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyMoviePlanner newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the MoviePlanner */
+    ReadOnlyMoviePlanner getMoviePlanner();
 
     /** Deletes the given cinema. */
     void deleteCinema(Cinema target) throws CinemaNotFoundException;
@@ -46,6 +46,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered cinema list */
     ObservableList<Cinema> getFilteredCinemaList();
+
+    /** Returns an unmodifiable view of the filtered movie list */
+    ObservableList<Movie> getFilteredMovieList();
 
     /**
      * Updates the filter of the filtered cinema list to filter by the given {@code predicate}.

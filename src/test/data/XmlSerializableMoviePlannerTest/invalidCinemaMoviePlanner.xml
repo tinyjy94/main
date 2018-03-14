@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<movieplanner>
     <!-- Cinema with invalid email field -->
     <cinemas>
         <name>Hans Muster</name>
@@ -8,4 +8,4 @@
         <address isPrivate="false">4th street</address>
 		<theaters isPrivate="false">-5</theaters>
     </cinemas>
-</addressbook>
+</movieplanner>

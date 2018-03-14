@@ -11,7 +11,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * Represents a Cinema in the address book.
+ * Represents a Cinema in the movie planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Cinema {

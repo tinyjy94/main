@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.commands.CommandTestUtil.showCinemaAtIndex;
-import static seedu.address.testutil.TypicalCinemas.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCinemas.getTypicalMoviePlanner;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CINEMA;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CINEMA;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CINEMA;
@@ -36,7 +36,7 @@ public class SelectCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs());
     }
 
     @Test
@@ -67,8 +67,8 @@ public class SelectCommandTest {
         showCinemaAtIndex(model, INDEX_FIRST_CINEMA);
 
         Index outOfBoundsIndex = INDEX_SECOND_CINEMA;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getCinemaList().size());
+        // ensures that outOfBoundIndex is still in bounds of movie planner list
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getMoviePlanner().getCinemaList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
     }
