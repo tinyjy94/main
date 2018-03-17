@@ -41,7 +41,7 @@ public class XmlAdaptedTheater {
      * @throws IllegalValueException if there were any data constraints violated in the adapted cinema
      */
     public Theater toModelType() throws IllegalValueException {
-        if (!Theater.isValidTheater(theaters)) {
+        if (!Theater.isValidTheater(String.valueOf(theaters))) {
             throw new IllegalValueException(Theater.MESSAGE_THEATER_CONSTRAINTS);
         }
         return new Theater(theaters);
