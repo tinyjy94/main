@@ -41,7 +41,7 @@ public class MovieBuilder {
     /**
      * Sets the {@code MovieName} of the {@code Movie} that we are building.
      */
-    public MovieBuilder withName(String movieName) {
+    public MovieBuilder withMovieName(String movieName) {
         this.movieName = new MovieName(movieName);
         return this;
     }

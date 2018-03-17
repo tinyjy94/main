@@ -82,6 +82,18 @@ Examples:
 
 Keyword appearance on Command Line: [black-background green]`add`
 
+=== Adding a movie: `addmovie`
+
+Alias: `am`
+
+Adds a movie to the movie planner +
+Format: `addmovie n/MOVIENAME d/DURATION r/RATING sd/STARTDATE`
+
+Examples:
+
+* `addmovie n/The Incredibles  d/90 r/PG sd/03/03/2014`
+* `addmovie n/Spiderman 1  d/120 r/NC16 sd/01/05/2013`
+
 === Listing all cinemas : `list`
 
 Alias: `l`

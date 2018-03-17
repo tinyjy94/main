@@ -13,13 +13,13 @@ import seedu.address.model.movie.exceptions.DuplicateMovieException;
  */
 public class TypicalMovies {
 
-    public static final Movie BLACK_PANTHER = new MovieBuilder().withName("Black Panther")
+    public static final Movie BLACK_PANTHER = new MovieBuilder().withMovieName("Black Panther")
             .withDuration("134").withRating("PG").withStartDate("14/02/2018").build();
 
-    public static final Movie THE_AVENGERS = new MovieBuilder().withName("The Avengers")
+    public static final Movie THE_AVENGERS = new MovieBuilder().withMovieName("The Avengers")
             .withDuration("143").withRating("PG13").withStartDate("01/05/2012").build();
 
-    public static final Movie THOR_RAGNAROK = new MovieBuilder().withName("Thor Ragnarok")
+    public static final Movie THOR_RAGNAROK = new MovieBuilder().withMovieName("Thor Ragnarok")
             .withDuration("130").withRating("PG13").withStartDate("10/10/2017").build();
 
 

@@ -4,10 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMOFTHEATERS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -32,6 +35,12 @@ public class CommandTestUtil {
 
     public static final String VALID_MOVIENAME_INCREDIBLES = "The Incredibles";
     public static final String VALID_MOVIENAME_MARVEL = "Marvel";
+    public static final String VALID_DURATION_INCREDIBLES = "90";
+    public static final String VALID_DURATION_MARVEL = "120";
+    public static final String VALID_RATING_INCREDIBLES = "PG";
+    public static final String VALID_RATING_MARVEL = "NC16";
+    public static final String VALID_STARTDATE_INCREDIBLES = "03/03/2000";
+    public static final String VALID_STARTDATE_MARVEL = "08/09/2016";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -45,6 +54,14 @@ public class CommandTestUtil {
     public static final String VALID_TAG_UNUSED = "unused"; // not to assign to any cinema
     public static final int VALID_NUMOFTHEATERS = 3;
 
+    public static final String MOVIENAME_DESC_INCREDIBLES = " " + PREFIX_NAME + VALID_MOVIENAME_INCREDIBLES;
+    public static final String MOVIENAME_DESC_MARVEL = " " + PREFIX_NAME + VALID_MOVIENAME_MARVEL;
+    public static final String DURATION_DESC_INCREDIBLES = " " + PREFIX_DURATION + VALID_DURATION_INCREDIBLES;
+    public static final String DURATION_DESC_MARVEL = " " + PREFIX_DURATION + VALID_DURATION_MARVEL;
+    public static final String RATING_DESC_INCREDIBLES = " " + PREFIX_RATING + VALID_RATING_INCREDIBLES;
+    public static final String RATING_DESC_MARVEL = " " + PREFIX_RATING + VALID_RATING_MARVEL;
+    public static final String STARTDATE_DESC_INCREDIBLES = " " + PREFIX_STARTDATE + VALID_STARTDATE_INCREDIBLES;
+    public static final String STARTDATE_DESC_MARVEL = " " + PREFIX_STARTDATE + VALID_STARTDATE_MARVEL;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -57,6 +74,10 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String THEATER_DESC_THREE = " " + PREFIX_NUMOFTHEATERS + VALID_NUMOFTHEATERS;
 
+    public static final String INVALID_MOVIENAME_DESC = " " + PREFIX_NAME + "Ghost&"; // '&' not allowed in movieNames
+    public static final String INVALID_DURATION_DESC = " " + PREFIX_DURATION + "12a"; // 'a' not allowed in durations
+    public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "ABCDE"; // rating can only be 2-4 characters
+    public static final String INVALID_STARTDATE_DESC = " " + PREFIX_STARTDATE + "ab/ac/abcd"; // invalid date format
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
