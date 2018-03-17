@@ -23,10 +23,6 @@ public class Theater {
         this.theaterNumber = theaterNumber;
     }
 
-    //public Theater(int theaterNumber) {
-    //    this.theaterNumber = theaterNumber;
-    //}
-
     /**
      * Returns true if a given string is a valid theater number.
      */
