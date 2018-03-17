@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CINEMA;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -22,6 +23,7 @@ import seedu.address.model.cinema.Address;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
@@ -31,6 +33,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final int INVALID_THEATER = -5;
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -38,6 +41,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final int VALID_THEATER = 5;
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -243,4 +247,35 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseTheaters_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTheaters((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTheaters((Optional<String>) null));
+    }
+
+    @Test
+    public void parseTheaters_invalidValue_throwsIllegalValueException() {
+        Assert.assertThrows(IllegalValueException.class, () ->
+                ParserUtil.parseTheaters(String.valueOf(INVALID_THEATER)));
+        Assert.assertThrows(IllegalValueException.class, () ->
+                ParserUtil.parseTheaters(Optional.of(String.valueOf(INVALID_THEATER))));
+    }
+
+    @Test
+    public void parseTheaters_optionalEmpty_returnsOptionalEmpty() throws Exception {
+        assertFalse(ParserUtil.parseTheaters(Optional.empty()).isPresent());
+    }
+
+    @Test
+    public void parseTheaters_validValueWithoutWhitespace_returnsTheaterList() throws Exception {
+        ArrayList<Theater> expectedTheaters = new ArrayList<>(VALID_THEATER);
+        for (int i = 1; i <= VALID_THEATER; i++) {
+            expectedTheaters.add(new Theater(i));
+        }
+        assertEquals(expectedTheaters, ParserUtil.parseTheaters(String.valueOf(VALID_THEATER)));
+        assertEquals(Optional.of(expectedTheaters),
+                ParserUtil.parseTheaters(Optional.of(String.valueOf(VALID_THEATER))));
+    }
+
 }
