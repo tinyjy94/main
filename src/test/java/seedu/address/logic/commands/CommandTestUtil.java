@@ -53,6 +53,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_TAG_UNUSED = "unused"; // not to assign to any cinema
     public static final int VALID_NUMOFTHEATERS = 3;
+    public static final int VALID_NUMOFNEWTHEATERS = 5;
 
     public static final String MOVIENAME_DESC_INCREDIBLES = " " + PREFIX_NAME + VALID_MOVIENAME_INCREDIBLES;
     public static final String MOVIENAME_DESC_MARVEL = " " + PREFIX_NAME + VALID_MOVIENAME_MARVEL;
@@ -73,6 +74,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String THEATER_DESC_THREE = " " + PREFIX_NUMOFTHEATERS + VALID_NUMOFTHEATERS;
+    public static final String THEATER_DESC_FIVE = " " + PREFIX_NUMOFTHEATERS + VALID_NUMOFNEWTHEATERS;
 
     public static final String INVALID_MOVIENAME_DESC = " " + PREFIX_NAME + "Ghost&"; // '&' not allowed in movieNames
     public static final String INVALID_DURATION_DESC = " " + PREFIX_DURATION + "12a"; // 'a' not allowed in durations
@@ -84,7 +86,7 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_THEATER_DESC = " "
-                                    + PREFIX_NUMOFTHEATERS + -5; // negative number not allowed for number of theater
+                                    + PREFIX_NUMOFTHEATERS + "-5"; // negative number not allowed for number of theater
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

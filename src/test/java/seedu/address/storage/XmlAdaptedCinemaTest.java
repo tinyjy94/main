@@ -15,6 +15,7 @@ import seedu.address.model.cinema.Address;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
+import seedu.address.model.cinema.Theater;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedCinemaTest {
@@ -104,6 +105,27 @@ public class XmlAdaptedCinemaTest {
         XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, VALID_EMAIL, null,
                 VALID_TAGS, VALID_THEATER);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidTheaterNum_throwsIllegalValueException() {
+        String expectedMessage = "";
+        if (!Theater.isValidTheater(String.valueOf(INVALID_THEATER))) {
+            expectedMessage = Theater.MESSAGE_THEATER_CONSTRAINTS;
+        }
+        ArrayList<XmlAdaptedTheater> invalidTheater = new ArrayList<>();
+        XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, VALID_TAGS, invalidTheater);
+
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullTheaterNum_throwsIllegalValueException() {
+        XmlAdaptedCinema cinema = new XmlAdaptedCinema(VALID_NAME, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, VALID_TAGS, null);
+        String expectedMessage = Theater.MESSAGE_THEATER_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, cinema::toModelType);
     }
 

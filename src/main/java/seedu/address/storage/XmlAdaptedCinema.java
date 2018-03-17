@@ -132,7 +132,7 @@ public class XmlAdaptedCinema {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Theater.class.getSimpleName()));
         }
 
-        if (!Theater.isValidTheater(this.theaters.size())) {
+        if (!Theater.isValidTheater(String.valueOf(this.theaters.size()))) {
             throw new IllegalValueException(Theater.MESSAGE_THEATER_CONSTRAINTS);
         }
 

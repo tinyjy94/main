@@ -271,17 +271,22 @@ public class ParserUtil {
      * Parses a {@code Optional<String> theaters} into an {@code Optional<ArrayList<Theater>>}
      * if {@code theaters} is present.
      */
-    public static Optional<ArrayList<Theater>> parseTheaters(Optional<String> theaters) {
+    public static Optional<ArrayList<Theater>> parseTheaters(Optional<String> theaters) throws IllegalValueException {
         requireNonNull(theaters);
         return theaters.isPresent() ? Optional.of(parseTheaters(theaters.get())) : Optional.empty();
     }
 
     /**
-     * Parses {@code String theater} into a {@code ArrayList<Theater>}.
+     * Parses {@code String theaters} into a {@code ArrayList<Theater>}.
+     *
+     * @throws IllegalValueException if the given {@code theaters} is invalid.
      */
-    public static ArrayList<Theater> parseTheaters(String theaters) {
+    public static ArrayList<Theater> parseTheaters(String theaters) throws IllegalValueException {
         requireNonNull(theaters);
         ArrayList<Theater> theaterList = new ArrayList<>();
+        if (!Theater.isValidTheater(theaters)) {
+            throw new IllegalValueException(Theater.MESSAGE_THEATER_CONSTRAINTS);
+        }
         int numOfTheaters = Integer.parseInt(theaters);
         for (int i = 1; i <= numOfTheaters; i++) {
             theaterList.add(new Theater(i));
