@@ -882,6 +882,15 @@ the schedules of the cinema theaters through encrypting the data.
 Minor feature: *Theater commands (add, delete)* +
 `AddTheater` and `DeleteTheater` commands will give user flexibility to expand or shrink the size of the cinema.
 
+Lai Qi Wei
+
+Major feature: *Scheduling system* +
+This allows the user to add a movie to an available timeslot in the cinema's theater. User will also be able to view the
+schedule of the cinema theaters.
+
+Minor feature: *Add movie panel to UI* +
+This allows the user to view a list of movies in real time after adding or editing a movie's detail.
+
 Oh Han Yi
 
 Major feature: *Enhance FindMovie command* +
