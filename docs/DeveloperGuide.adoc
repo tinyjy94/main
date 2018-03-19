@@ -39,20 +39,17 @@ Please install the following:
 
 You can download the latest JDK version http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[here].
 
-+
 [NOTE]
 Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
-+
 
 . *IntelliJ IDEA* Integrated Development Environment (IDE)
 
 You can download IntelliJ IDEA https://www.jetbrains.com/idea/download/[here].
-+
+
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
-
 
 === Setting up the project in your computer
 
@@ -114,6 +111,8 @@ When you are ready to start coding,
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
+
+<<DeveloperGuide.adoc#, Back to top>>
 
 == Design
 
@@ -261,6 +260,8 @@ The `Storage` component is responsible for the following:
 === Common classes
 
 Classes used by multiple components are in the `seedu\address\commons` package.
+
+<<DeveloperGuide.adoc#, Back to top>>
 
 == Implementation
 
@@ -439,6 +440,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+<<DeveloperGuide.adoc#, Back to top>>
 
 == Documentation
 
@@ -469,6 +471,8 @@ Here are the steps to convert the project documentation files to PDF format.
 
 .Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
+
+<<DeveloperGuide.adoc#, Back to top>>
 
 [[Testing]]
 == Testing
@@ -529,6 +533,8 @@ e.g. `seedu\address\logic\LogicManagerTest`
 * Reason: One of its dependencies, `UserGuide.html` in `src/main/resources/docs` is missing.
 * Solution: Execute Gradle task `processResources`.
 
+<<DeveloperGuide.adoc#, Back to top>>
+
 == Development Operations
 
 Automation and CI tools play a vital role in MVP's development process. They help to run tests automatically
@@ -565,6 +571,8 @@ MVP depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XM
 
 . Including those libraries in the repo (this bloats the repo size) +
 . Requiring developers to download those libraries manually (this creates extra work for developers)
+
+<<DeveloperGuide.adoc#, Back to top>>
 
 [[GetStartedProgramming]]
 [appendix]
@@ -846,6 +854,8 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
+<<DeveloperGuide.adoc#, Back to top>>
+
 [appendix]
 == Product Scope
 
@@ -859,6 +869,8 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: manage schedule faster than a typical mouse/GUI scheduling app
+
+<<DeveloperGuide.adoc#, Back to top>>
 
 [appendix]
 == User Stories
@@ -901,6 +913,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 _{More to be added}_
+
+<<DeveloperGuide.adoc#, Back to top>>
 
 [appendix]
 == Use Cases
@@ -958,6 +972,8 @@ Use case ends.
 
 _{More to be added}_
 
+<<DeveloperGuide.adoc#, Back to top>>
+
 [appendix]
 == Non Functional Requirements
 
@@ -972,7 +988,10 @@ _{More to be added}_
 
 _{More to be added}_
 
+<<DeveloperGuide.adoc#, Back to top>>
+
 [[Glossary]]
+[appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
@@ -984,6 +1003,8 @@ A contact detail that is not meant to be shared with others
 [[graphical-user-interface]] Graphical User Interface::
 A type of user interface that allows users to interact with electronic devices through graphical icons and
 visual indicators.
+
+<<DeveloperGuide.adoc#, Back to top>>
 
 [appendix]
 == Product Survey
@@ -1001,6 +1022,8 @@ Cons:
 
 * ...
 * ...
+
+<<DeveloperGuide.adoc#, Back to top>>
 
 [appendix]
 == Instructions for Manual Testing
@@ -1047,3 +1070,5 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+<<DeveloperGuide.adoc#, Back to top>>
