@@ -870,14 +870,6 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Value proposition*: manage schedule faster than a typical mouse/GUI scheduling app
 
-Chan Yik Wai
-
-Major feature: *Email* +
-This allows the user to send out emails to the cinema branch managers if there are any updates to the cinema schedules.
-
-Minor feature: *Shortcut keys* +
-This allows the user to press shortcut keys eg. (Ctrl-Z, Ctrl-Y) to undo and redo.
-
 *Feature contribution*: +
 
 Chan Jun Yuan
@@ -889,6 +881,14 @@ the schedules of the cinema theaters through encrypting the data.
 
 Minor feature: *Theater commands (add, delete)* +
 `AddTheater` and `DeleteTheater` commands will give user flexibility to expand or shrink the size of the cinema.
+
+Chan Yik Wai
+
+Major feature: *Email* +
+This allows the user to send out emails to the cinema branch managers if there are any updates to the cinema schedules.
+
+Minor feature: *Shortcut keys* +
+This allows the user to press shortcut keys eg. (Ctrl-Z, Ctrl-Y) to undo and redo.
 
 Lai Qi Wei
 
