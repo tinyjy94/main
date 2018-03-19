@@ -870,6 +870,15 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Value proposition*: manage schedule faster than a typical mouse/GUI scheduling app
 
+Oh Han Yi
+
+Major feature: *Enhance FindMovie command* +
+This allows the user to find movies by `Category`, `MovieName` or `StartDate`. This is such that it filters out the result and
+make it easier for the user to read.
+
+Minor feature: *Movie commands (add, edit, delete)* +
+This allows the user to add movies and delete movies from the movie list. It also allows the user to edit movie details.
+
 <<DeveloperGuide.adoc#, Back to top>>
 
 [appendix]
