@@ -40,15 +40,15 @@ public class AddTheaterCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws Exception {
         Cinema editedCinema = new CinemaBuilder().build();
-        EditCommand.EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(editedCinema).build();
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_CINEMA, descriptor);
+        AddTheaterCommand.ResizeCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(editedCinema).build();
+        AddTheaterCommand addTheaterCommand = prepareCommand(INDEX_FIRST_CINEMA, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
 
         Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
         expectedModel.updateCinema(model.getFilteredCinemaList().get(0), editedCinema);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(addTheaterCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -252,9 +252,9 @@ public class AddTheaterCommandTest {
     /**
      * Returns an {@code EditCommand} with parameters {@code index} and {@code descriptor}
      */
-    private EditCommand prepareCommand(Index index, EditCommand.EditCinemaDescriptor descriptor) {
-        EditCommand editCommand = new EditCommand(index, descriptor);
-        editCommand.setData(model, new CommandHistory(), new UndoRedoStack());
-        return editCommand;
+    private AddTheaterCommand prepareCommand(Index index, int theaterNum) {
+        AddTheaterCommand addTheaterCommand = new AddTheaterCommand(index, theaterNum);
+        addTheaterCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        return addTheaterCommand;
     }
 }

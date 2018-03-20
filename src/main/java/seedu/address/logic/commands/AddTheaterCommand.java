@@ -40,18 +40,19 @@ public class AddTheaterCommand extends UndoableCommand {
     public static final String MESSAGE_DUPLICATE_CINEMA = "This cinema already exists in the movie planner.";
 
     private final Index index;
-    private int newTheaters = 0;
+    private final int newTheaters;
 
     private Cinema cinemaToResize;
     private Cinema resizedCinema;
 
     /**
      * @param index of the cinema in the filtered cinema list to edit
-     * @param NewTheaters to resize the cinema with
+     * @param newTheaters to resize the cinema with
      */
-    public AddTheaterCommand(Index index, int NewTheaters) {
+    public AddTheaterCommand(Index index, int newTheaters) {
         requireNonNull(index);
         this.index = index;
+        this.newTheaters = newTheaters;
     }
 
     @Override
