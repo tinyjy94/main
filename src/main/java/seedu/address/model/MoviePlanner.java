@@ -21,6 +21,7 @@ import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.UniqueMovieList;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
+import seedu.address.model.screening.Screening;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.exceptions.TagNotFoundException;

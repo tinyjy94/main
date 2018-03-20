@@ -6,8 +6,10 @@ import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
+import seedu.address.model.cinema.exceptions.ScreeningConflictException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
+import seedu.address.model.screening.Screening;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
@@ -64,4 +66,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMovieList(Predicate<Movie> predicate);
+
+    /** Adds the given screening */
+    void addScreening(Screening screening) throws ScreeningConflictException;
+
 }
