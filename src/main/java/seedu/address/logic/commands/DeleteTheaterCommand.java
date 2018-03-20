@@ -20,14 +20,14 @@ import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 
 /**
- * Adds theaters to existing cinema
+ *
  */
-public class AddTheaterCommand extends UndoableCommand {
+public class DeleteTheaterCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "addtheater";
-    public static final String COMMAND_ALIAS = "at";
+    public static final String COMMAND_WORD = "deletetheater";
+    public static final String COMMAND_ALIAS = "dt";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": add theaters to cinema "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": delete theaters from cinema "
             + "by the index number used in the last cinema listing. "
             + "Existing number of theaters will be added with input value.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -36,7 +36,7 @@ public class AddTheaterCommand extends UndoableCommand {
             + PREFIX_NUMOFTHEATERS + "3 ";
 
     public static final String MESSAGE_RESIZE_CINEMA_SUCCESS = "Resized Cinema: %1$s";
-    public static final String MESSAGE_NOT_RESIZED = "Number of theater to resize must be provided.";
+    public static final String MESSAGE_NOT_RESIZED = "Number of theater to delete must be provided.";
     public static final String MESSAGE_DUPLICATE_CINEMA = "This cinema already exists in the movie planner.";
 
     private final Index index;
@@ -46,10 +46,10 @@ public class AddTheaterCommand extends UndoableCommand {
     private Cinema resizedCinema;
 
     /**
-     * @param index of the cinema in the filtered cinema list to edit
+     * @param index       of the cinema in the filtered cinema list to edit
      * @param newTheaters to resize the cinema with
      */
-    public AddTheaterCommand(Index index, int newTheaters) {
+    public DeleteTheaterCommand(Index index, int newTheaters) {
         requireNonNull(index);
         this.index = index;
         this.newTheaters = newTheaters;
@@ -92,8 +92,8 @@ public class AddTheaterCommand extends UndoableCommand {
             updatedTheaterList.add(theaters);
         }
 
-        for (int i = oldTheaterSize + 1; i <= newTheaters + oldTheaterSize; i++) {
-            updatedTheaterList.add(new Theater(i));
+        for (int i = oldTheaterSize; i > oldTheaterSize - newTheaters; i--) {
+            updatedTheaterList.remove(updatedTheaterList.size() - 1);
         }
 
         return new Cinema(cinemaToResize.getName(), cinemaToResize.getPhone(), cinemaToResize.getEmail(),
@@ -108,12 +108,12 @@ public class AddTheaterCommand extends UndoableCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddTheaterCommand)) {
+        if (!(other instanceof DeleteTheaterCommand)) {
             return false;
         }
 
         // state check
-        AddTheaterCommand e = (AddTheaterCommand) other;
+        DeleteTheaterCommand e = (DeleteTheaterCommand) other;
         return index.equals(e.index)
                 && Objects.equals(cinemaToResize, e.cinemaToResize);
     }
@@ -125,7 +125,8 @@ public class AddTheaterCommand extends UndoableCommand {
     public static class ResizeCinemaDescriptor {
         private ArrayList<Theater> theaters;
 
-        public ResizeCinemaDescriptor() {}
+        public ResizeCinemaDescriptor() {
+        }
 
         /**
          * Copy constructor.

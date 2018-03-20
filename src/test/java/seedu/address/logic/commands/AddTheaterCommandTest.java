@@ -3,11 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
@@ -29,123 +24,20 @@ import seedu.address.model.MoviePlanner;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.testutil.CinemaBuilder;
-import seedu.address.testutil.EditCinemaDescriptorBuilder;
 
 public class AddTheaterCommandTest {
     /**
-     * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+     * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+     * and unit tests for addTheaterCommand.
      */
     private Model model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() throws Exception {
-        Cinema editedCinema = new CinemaBuilder().build();
-        AddTheaterCommand.ResizeCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(editedCinema).build();
-        AddTheaterCommand addTheaterCommand = prepareCommand(INDEX_FIRST_CINEMA, descriptor);
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
-
-        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
-        expectedModel.updateCinema(model.getFilteredCinemaList().get(0), editedCinema);
-
-        assertCommandSuccess(addTheaterCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() throws Exception {
-        Index indexLastCinema = Index.fromOneBased(model.getFilteredCinemaList().size());
-        Cinema lastCinema = model.getFilteredCinemaList().get(indexLastCinema.getZeroBased());
-
-        CinemaBuilder cinemaInList = new CinemaBuilder(lastCinema);
-        Cinema editedCinema = cinemaInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-
-        EditCommand.EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = prepareCommand(indexLastCinema, descriptor);
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
-
-        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
-        expectedModel.updateCinema(lastCinema, editedCinema);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_CINEMA, new EditCommand.EditCinemaDescriptor());
-        Cinema editedCinema = model.getFilteredCinemaList().get(INDEX_FIRST_CINEMA.getZeroBased());
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
-
-        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_filteredList_success() throws Exception {
-        showCinemaAtIndex(model, INDEX_FIRST_CINEMA);
-
-        Cinema cinemaInFilteredList = model.getFilteredCinemaList().get(INDEX_FIRST_CINEMA.getZeroBased());
-        Cinema editedCinema = new CinemaBuilder(cinemaInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_CINEMA,
-                new EditCinemaDescriptorBuilder().withName(VALID_NAME_BOB).build());
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
-
-        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
-        expectedModel.updateCinema(model.getFilteredCinemaList().get(0), editedCinema);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_duplicateCinemaUnfilteredList_failure() {
-        Cinema firstCinema = model.getFilteredCinemaList().get(INDEX_FIRST_CINEMA.getZeroBased());
-        EditCommand.EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(firstCinema).build();
-        EditCommand editCommand = prepareCommand(INDEX_SECOND_CINEMA, descriptor);
-
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_CINEMA);
-    }
-
-    @Test
-    public void execute_duplicateCinemaFilteredList_failure() {
-        showCinemaAtIndex(model, INDEX_FIRST_CINEMA);
-
-        // edit cinema in filtered list into a duplicate in movie planner
-        Cinema cinemaInList = model.getMoviePlanner().getCinemaList().get(INDEX_SECOND_CINEMA.getZeroBased());
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_CINEMA,
-                new EditCinemaDescriptorBuilder(cinemaInList).build());
-
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_CINEMA);
-    }
-
-    @Test
     public void execute_invalidCinemaIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCinemaList().size() + 1);
-        EditCommand.EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
+        AddTheaterCommand addTheaterCommand = prepareCommand(outOfBoundIndex, 3);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
-    }
-
-    /**
-     * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of movie planner
-     */
-    @Test
-    public void execute_invalidCinemaIndexFilteredList_failure() {
-        showCinemaAtIndex(model, INDEX_FIRST_CINEMA);
-        Index outOfBoundIndex = INDEX_SECOND_CINEMA;
-        // ensures that outOfBoundIndex is still in bounds of movie planner list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getMoviePlanner().getCinemaList().size());
-
-        EditCommand editCommand = prepareCommand(outOfBoundIndex,
-                new EditCinemaDescriptorBuilder().withName(VALID_NAME_BOB).build());
-
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
+        assertCommandFailure(addTheaterCommand, model, Messages.MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
     }
 
     @Test
@@ -155,13 +47,12 @@ public class AddTheaterCommandTest {
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Cinema editedCinema = new CinemaBuilder().build();
         Cinema cinemaToEdit = model.getFilteredCinemaList().get(INDEX_FIRST_CINEMA.getZeroBased());
-        EditCommand.EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(editedCinema).build();
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_CINEMA, descriptor);
+        AddTheaterCommand addTheaterCommand = prepareCommand(INDEX_FIRST_CINEMA, 3);
         Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
 
         // edit -> first cinema edited
-        editCommand.execute();
-        undoRedoStack.push(editCommand);
+        addTheaterCommand.execute();
+        undoRedoStack.push(addTheaterCommand);
 
         // undo -> reverts movieplanner back to previous state and filtered cinema list to show all cinemas
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -177,11 +68,10 @@ public class AddTheaterCommandTest {
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCinemaList().size() + 1);
-        EditCommand.EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
+        AddTheaterCommand addTheaterCommand = prepareCommand(outOfBoundIndex, 3);
 
         // execution failed -> editCommand not pushed into undoRedoStack
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
+        assertCommandFailure(addTheaterCommand, model, Messages.MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
 
         // no commands in undoRedoStack -> undoCommand and redoCommand fail
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
@@ -201,15 +91,15 @@ public class AddTheaterCommandTest {
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Cinema editedCinema = new CinemaBuilder().build();
-        EditCommand.EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(editedCinema).build();
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_CINEMA, descriptor);
+
+        AddTheaterCommand addTheaterCommand = prepareCommand(INDEX_FIRST_CINEMA, editedCinema.getTheaters().size());
         Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
 
         showCinemaAtIndex(model, INDEX_SECOND_CINEMA);
         Cinema cinemaToEdit = model.getFilteredCinemaList().get(INDEX_FIRST_CINEMA.getZeroBased());
         // edit -> edits second cinema in unfiltered cinema list / first cinema in filtered cinema list
-        editCommand.execute();
-        undoRedoStack.push(editCommand);
+        addTheaterCommand.execute();
+        undoRedoStack.push(addTheaterCommand);
 
         // undo -> reverts movieplanner back to previous state and filtered cinema list to show all cinemas
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -222,11 +112,10 @@ public class AddTheaterCommandTest {
 
     @Test
     public void equals() throws Exception {
-        final EditCommand standardCommand = prepareCommand(INDEX_FIRST_CINEMA, DESC_AMY);
+        final AddTheaterCommand standardCommand = prepareCommand(INDEX_FIRST_CINEMA, 3);
 
         // same values -> returns true
-        EditCommand.EditCinemaDescriptor copyDescriptor = new EditCommand.EditCinemaDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = prepareCommand(INDEX_FIRST_CINEMA, copyDescriptor);
+        AddTheaterCommand commandWithSameValues = prepareCommand(INDEX_FIRST_CINEMA, 3);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -243,10 +132,10 @@ public class AddTheaterCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_CINEMA, DESC_AMY)));
+        assertFalse(standardCommand.equals(new AddTheaterCommand(INDEX_SECOND_CINEMA, 3)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_CINEMA, DESC_BOB)));
+        assertFalse(standardCommand.equals(new AddTheaterCommand(INDEX_FIRST_CINEMA, 3)));
     }
 
     /**
