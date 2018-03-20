@@ -97,7 +97,7 @@ public class AddTheaterCommand extends UndoableCommand {
         }
 
         return new Cinema(cinemaToResize.getName(), cinemaToResize.getPhone(), cinemaToResize.getEmail(),
-                cinemaToResize.getAddress(), cinemaToResize.getTags(), updatedTheaterList);
+                cinemaToResize.getAddress(), updatedTheaterList);
     }
 
     @Override
