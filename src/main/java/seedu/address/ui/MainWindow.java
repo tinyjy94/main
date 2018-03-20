@@ -20,7 +20,9 @@ import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -64,6 +66,12 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem redoMenuItem;
 
     @FXML
+    private MenuItem clearMenuItem;
+
+    @FXML
+    private MenuItem listMenuItem;
+
+    @FXML
     private StackPane cinemaListPanelPlaceholder;
 
     @FXML
@@ -99,7 +107,9 @@ public class MainWindow extends UiPart<Stage> {
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
         setAccelerator(undoMenuItem, KeyCombination.valueOf("Shortcut + Z"));
-        setAccelerator(redoMenuItem, KeyCombination.valueOf("Shortcut + R"));
+        setAccelerator(redoMenuItem, KeyCombination.valueOf("Shortcut + Y"));
+        setAccelerator(clearMenuItem, KeyCombination.valueOf("Alt + Shift + C"));
+        setAccelerator(listMenuItem, KeyCombination.valueOf("Shortcut + L"));
     }
 
     /**
@@ -234,6 +244,42 @@ public class MainWindow extends UiPart<Stage> {
             initHistory();
             // handle command failure
             logger.info("Invalid command: " + RedoCommand.COMMAND_WORD);
+            raise(new NewResultAvailableEvent(e.getMessage()));
+        }
+    }
+
+    /**
+     * Clear cinema list.
+     */
+    @FXML
+    public void handleClear() {
+        try {
+            CommandResult commandResult = logic.execute(ClearCommand.COMMAND_WORD);
+            initHistory();
+            logger.info("Result: " + commandResult.feedbackToUser);
+            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+        } catch (CommandException | ParseException e) {
+            initHistory();
+            // handle command failure
+            logger.info("Invalid command: " + UndoCommand.COMMAND_WORD);
+            raise(new NewResultAvailableEvent(e.getMessage()));
+        }
+    }
+
+    /**
+     * List all cinemas.
+     */
+    @FXML
+    public void handleList() {
+        try {
+            CommandResult commandResult = logic.execute(ListCommand.COMMAND_WORD);
+            initHistory();
+            logger.info("Result: " + commandResult.feedbackToUser);
+            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+        } catch (CommandException | ParseException e) {
+            initHistory();
+            // handle command failure
+            logger.info("Invalid command: " + UndoCommand.COMMAND_WORD);
             raise(new NewResultAvailableEvent(e.getMessage()));
         }
     }
