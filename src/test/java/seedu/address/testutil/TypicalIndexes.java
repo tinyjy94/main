@@ -9,4 +9,7 @@ public class TypicalIndexes {
     public static final Index INDEX_FIRST_CINEMA = Index.fromOneBased(1);
     public static final Index INDEX_SECOND_CINEMA = Index.fromOneBased(2);
     public static final Index INDEX_THIRD_CINEMA = Index.fromOneBased(3);
+    public static final Index INDEX_FIRST_MOVIE = Index.fromOneBased(1);
+    public static final Index INDEX_SECOND_MOVIE = Index.fromOneBased(2);
+    public static final Index INDEX_THIRD_MOVIE = Index.fromOneBased(3);
 }

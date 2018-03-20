@@ -15,17 +15,10 @@ public class CinemaCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        // no tags
-        Cinema cinemaWithNoTags = new CinemaBuilder().withTags(new String[0]).build();
-        CinemaCard cinemaCard = new CinemaCard(cinemaWithNoTags, 1);
+        Cinema cinema = new CinemaBuilder().build();
+        CinemaCard cinemaCard = new CinemaCard(cinema, 1);
         uiPartRule.setUiPart(cinemaCard);
-        assertCardDisplay(cinemaCard, cinemaWithNoTags, 1);
-
-        // with tags
-        Cinema cinemaWithTags = new CinemaBuilder().build();
-        cinemaCard = new CinemaCard(cinemaWithTags, 2);
-        uiPartRule.setUiPart(cinemaCard);
-        assertCardDisplay(cinemaCard, cinemaWithTags, 2);
+        assertCardDisplay(cinemaCard, cinema, 1);
     }
 
     @Test

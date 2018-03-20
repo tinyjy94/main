@@ -17,6 +17,7 @@ import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
+import seedu.address.model.movie.exceptions.MovieNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
@@ -93,9 +94,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public synchronized void deleteMovie(Movie target) throws MovieNotFoundException {
+        moviePlanner.removeMovie(target);
+        indicateMoviePlannerChanged();
+    }
+
+    @Override
     public synchronized void addMovie(Movie movie) throws DuplicateMovieException {
         moviePlanner.addMovie(movie);
         updateFilteredMovieList(PREDICATE_SHOW_ALL_MOVIES);
+        indicateMoviePlannerChanged();
+    }
+
+    @Override
+    public void updateMovie(Movie target, Movie editedMovie)
+            throws DuplicateMovieException, MovieNotFoundException {
+        requireAllNonNull(target, editedMovie);
+
+        moviePlanner.updateMovie(target, editedMovie);
         indicateMoviePlannerChanged();
     }
 
