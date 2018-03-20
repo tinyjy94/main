@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMOFTHEATERS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.cinema.Cinema;
@@ -40,7 +39,6 @@ public class CinemaUtil {
         sb.append(PREFIX_PHONE + cinema.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + cinema.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + cinema.getAddress().value + " ");
-        cinema.getTags().stream().forEach(s -> sb.append(PREFIX_TAG + s.tagName + " "));
         sb.append(PREFIX_NUMOFTHEATERS + Integer.toString(cinema.getTheaters().size()) + " ");
         return sb.toString();
     }

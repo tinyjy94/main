@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.movie.Movie;
@@ -12,6 +13,8 @@ import seedu.address.model.movie.Movie;
 public class MovieCard extends UiPart<Region> {
 
     private static final String FXML = "MovieListCard.fxml";
+    private static final String[] TAG_COLORS = {"red", "blue", "orange", "green", "yellow", "grey", "white", "black",
+        "pink", "brown"};
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -35,6 +38,8 @@ public class MovieCard extends UiPart<Region> {
     private Label rating;
     @FXML
     private Label startDate;
+    @FXML
+    private FlowPane tags;
 
     public MovieCard(Movie movie, int displayedIndex) {
         super(FXML);
@@ -44,6 +49,25 @@ public class MovieCard extends UiPart<Region> {
         duration.setText((movie.getDuration().toString()));
         rating.setText((movie.getRating().toString()));
         startDate.setText((movie.getStartDate().toString()));
+        initializeTags(movie);
+    }
+
+    /**
+     * Returns color for {@code tagName} label
+     */
+    private String getTagColor(String tagName) {
+        return TAG_COLORS[Math.abs(tagName.hashCode()) % TAG_COLORS.length];
+    }
+
+    /**
+     * Create tag labels for {@code movie}
+     */
+    private void initializeTags(Movie movie) {
+        movie.getTags().forEach(tag -> {
+            Label tagLabel = new Label(tag.tagName);
+            tagLabel.getStyleClass().add(getTagColor(tag.tagName));
+            tags.getChildren().add(tagLabel);
+        });
     }
 
     @Override

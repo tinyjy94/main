@@ -4,6 +4,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.MoviePlanner;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
+import seedu.address.model.movie.Movie;
+import seedu.address.model.movie.exceptions.DuplicateMovieException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,6 +32,18 @@ public class MoviePlannerBuilder {
         try {
             moviePlanner.addCinema(cinema);
         } catch (DuplicateCinemaException dce) {
+            throw new IllegalArgumentException("cinema is expected to be unique.");
+        }
+        return this;
+    }
+
+    /**
+     * Adds a new {@code Movie} to the {@code MoviePlanner} that we are building.
+     */
+    public MoviePlannerBuilder withMovie(Movie movie) {
+        try {
+            moviePlanner.addMovie(movie);
+        } catch (DuplicateMovieException dce) {
             throw new IllegalArgumentException("cinema is expected to be unique.");
         }
         return this;

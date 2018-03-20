@@ -41,7 +41,7 @@ public class XmlUtilTest {
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
-    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("superhero"));
     private static final List<XmlAdaptedTheater> VALID_THEATERLIST =
             Collections.singletonList(new XmlAdaptedTheater(1));
     private static final ArrayList<XmlAdaptedTheater> VALID_THEATER = new ArrayList<>(VALID_THEATERLIST);
@@ -86,7 +86,7 @@ public class XmlUtilTest {
         XmlAdaptedCinema actualCinema = XmlUtil.getDataFromFile(
                 MISSING_CINEMA_FIELD_FILE, XmlAdaptedCinemaWithRootElement.class);
         XmlAdaptedCinema expectedCinema = new XmlAdaptedCinema(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
+                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_THEATER);
         assertEquals(expectedCinema, actualCinema);
     }
 
@@ -95,7 +95,7 @@ public class XmlUtilTest {
         XmlAdaptedCinema actualCinema = XmlUtil.getDataFromFile(
                 INVALID_CINEMA_FIELD_FILE, XmlAdaptedCinemaWithRootElement.class);
         XmlAdaptedCinema expectedCinema = new XmlAdaptedCinema(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
+                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_THEATER);
         assertEquals(expectedCinema, actualCinema);
     }
 
@@ -104,7 +104,7 @@ public class XmlUtilTest {
         XmlAdaptedCinema actualCinema = XmlUtil.getDataFromFile(
                 VALID_CINEMA_FILE, XmlAdaptedCinemaWithRootElement.class);
         XmlAdaptedCinema expectedCinema = new XmlAdaptedCinema(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_THEATER);
+                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_THEATER);
         assertEquals(expectedCinema, actualCinema);
     }
 

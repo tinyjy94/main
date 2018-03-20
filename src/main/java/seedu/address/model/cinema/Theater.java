@@ -1,6 +1,8 @@
 package seedu.address.model.cinema;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SCREENING;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -25,10 +27,9 @@ public class Theater {
     private int theaterNumber;
     private ArrayList<Screening> screeningList;
 
-    public Theater() {
-    }
-
     public Theater(int theaterNumber) {
+        requireNonNull(theaterNumber);
+        checkArgument(isValidTheater(String.valueOf(theaterNumber)), MESSAGE_THEATER_CONSTRAINTS);
         this.theaterNumber = theaterNumber;
         this.screeningList = new ArrayList<>();
     }
@@ -36,8 +37,8 @@ public class Theater {
     /**
      * Returns true if a given string is a valid theater number.
      */
-    public static boolean isValidTheater(int test) {
-        return String.valueOf(test).matches(THEATER_VALIDATION_REGEX);
+    public static boolean isValidTheater(String test) {
+        return test.matches(THEATER_VALIDATION_REGEX);
     }
 
     public int getTheaterNumber() {

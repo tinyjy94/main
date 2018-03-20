@@ -1,6 +1,10 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -11,6 +15,7 @@ import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.MovieName;
 import seedu.address.model.movie.Rating;
 import seedu.address.model.movie.StartDate;
+import seedu.address.model.tag.Tag;
 
 /**
  * JAXB-friendly version of the Movie.
@@ -28,6 +33,9 @@ public class XmlAdaptedMovie {
     @XmlElement(required = true)
     private String startDate;
 
+    @XmlElement
+    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+
     /**
      * Constructs an XmlAdaptedMovie.
      * This is the no-arg constructor that is required by JAXB.
@@ -37,11 +45,15 @@ public class XmlAdaptedMovie {
     /**
      * Constructs an {@code XmlAdaptedCinema} with the given movie details.
      */
-    public XmlAdaptedMovie(String movieName, String duration, String rating, String startDate) {
+    public XmlAdaptedMovie(String movieName, String duration, String rating, String startDate,
+                           List<XmlAdaptedTag> tagged) {
         this.movieName = movieName;
         this.duration = duration;
         this.rating = rating;
         this.startDate = startDate;
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
     }
 
     /**
@@ -54,6 +66,10 @@ public class XmlAdaptedMovie {
         duration = source.getDuration().duration;
         rating = source.getRating().rating;
         startDate = source.getStartDate().startDate;
+        tagged = new ArrayList<>();
+        for (Tag tag : source.getTags()) {
+            tagged.add(new XmlAdaptedTag(tag));
+        }
     }
 
     /**
@@ -62,6 +78,10 @@ public class XmlAdaptedMovie {
      * @throws IllegalValueException if there were any data constraints violated in the adapted movie
      */
     public Movie toModelType() throws IllegalValueException {
+        final List<Tag> movieTags = new ArrayList<>();
+        for (XmlAdaptedTag tag : tagged) {
+            movieTags.add(tag.toModelType());
+        }
 
         if (this.movieName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -98,7 +118,8 @@ public class XmlAdaptedMovie {
         }
         final StartDate startDate = new StartDate(this.startDate);
 
-        return new Movie(movieName, duration, rating, startDate);
+        final Set<Tag> tags = new HashSet<>(movieTags);
+        return new Movie(movieName, duration, rating, startDate, tags);
     }
 
     @Override
@@ -115,6 +136,7 @@ public class XmlAdaptedMovie {
         return Objects.equals(movieName, otherMovie.movieName)
                 && Objects.equals(duration, otherMovie.duration)
                 && Objects.equals(rating, otherMovie.rating)
-                && Objects.equals(startDate, otherMovie.startDate);
+                && Objects.equals(startDate, otherMovie.startDate)
+                && tagged.equals(otherMovie.tagged);
     }
 }
