@@ -126,12 +126,6 @@ public class FindCommandSystemTest extends MoviePlannerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of cinema in movie planner -> 0 cinemas found */
-        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
-        command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
         /* Case: find while a cinema is selected -> selected card deselected */
         showAllCinemas();
         selectCinema(Index.fromOneBased(1));

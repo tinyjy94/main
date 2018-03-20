@@ -5,7 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -16,6 +18,7 @@ import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.MovieName;
 import seedu.address.model.movie.Rating;
 import seedu.address.model.movie.StartDate;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -30,9 +33,11 @@ public class AddMovieCommandParser implements Parser<AddMovieCommand> {
      */
     public AddMovieCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DURATION, PREFIX_RATING, PREFIX_STARTDATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DURATION, PREFIX_RATING, PREFIX_STARTDATE,
+                        PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DURATION, PREFIX_RATING, PREFIX_STARTDATE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DURATION, PREFIX_RATING, PREFIX_STARTDATE,
+                PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMovieCommand.MESSAGE_USAGE));
         }
@@ -42,8 +47,9 @@ public class AddMovieCommandParser implements Parser<AddMovieCommand> {
             Duration duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
             Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get());
             StartDate startDate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_STARTDATE).get());
+            Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-            Movie movie = new Movie(name, duration, rating, startDate);
+            Movie movie = new Movie(name, duration, rating, startDate, tagList);
 
             return new AddMovieCommand(movie);
         } catch (IllegalValueException ive) {

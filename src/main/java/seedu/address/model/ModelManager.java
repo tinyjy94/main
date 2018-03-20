@@ -106,6 +106,15 @@ public class ModelManager extends ComponentManager implements Model {
         indicateMoviePlannerChanged();
     }
 
+    @Override
+    public void updateMovie(Movie target, Movie editedMovie)
+            throws DuplicateMovieException, MovieNotFoundException {
+        requireAllNonNull(target, editedMovie);
+
+        moviePlanner.updateMovie(target, editedMovie);
+        indicateMoviePlannerChanged();
+    }
+
     //=========== Filtered Cinema List Accessors =============================================================
 
     /**

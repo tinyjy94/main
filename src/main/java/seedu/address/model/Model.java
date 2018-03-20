@@ -64,6 +64,16 @@ public interface Model {
     void addMovie(Movie movie) throws DuplicateMovieException;
 
     /**
+     * Replaces the given movie {@code target} with {@code editedMovie}.
+     *
+     * @throws DuplicateMovieException if updating the cinema's details causes the cinema to be equivalent to
+     *      another existing cinema in the list.
+     * @throws MovieNotFoundException if {@code target} could not be found in the list.
+     */
+    void updateMovie(Movie target, Movie editedMovie)
+            throws DuplicateMovieException, MovieNotFoundException;
+
+    /**
      * Updates the filter of the filtered movie list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */

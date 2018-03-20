@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.movie.Movie;
@@ -27,8 +28,9 @@ public class AddMovieCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "The Incredibles "
             + PREFIX_DURATION + "90 "
-            + PREFIX_RATING + "PG"
-            + PREFIX_STARTDATE + "13/03/2018";
+            + PREFIX_RATING + "PG "
+            + PREFIX_STARTDATE + "13/03/2018 "
+            + PREFIX_TAG + "comedy";
 
     public static final String MESSAGE_SUCCESS = "New movie added: %1$s";
     public static final String MESSAGE_DUPLICATE_MOVIE = "This movie already exists in the movie planner";

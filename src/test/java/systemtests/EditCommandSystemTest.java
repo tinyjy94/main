@@ -10,19 +10,14 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CINEMAS;
 import static seedu.address.testutil.TypicalCinemas.AMY;
@@ -62,9 +57,9 @@ public class EditCommandSystemTest extends MoviePlannerSystemTest {
          */
         Index index = INDEX_FIRST_CINEMA;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
+                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " ";
         Cinema editedCinema = new CinemaBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).build();
         assertCommandSuccess(command, index, editedCinema);
 
         /* Case: undo editing the last cinema in the list -> last cinema restored */
@@ -81,20 +76,20 @@ public class EditCommandSystemTest extends MoviePlannerSystemTest {
 
         /* Case: edit a cinema with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + ADDRESS_DESC_BOB;
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit some fields -> edited */
         index = INDEX_FIRST_CINEMA;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + TAG_DESC_FRIEND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased();
         Cinema cinemaToEdit = getModel().getFilteredCinemaList().get(index.getZeroBased());
-        editedCinema = new CinemaBuilder(cinemaToEdit).withTags(VALID_TAG_FRIEND).build();
+        editedCinema = new CinemaBuilder(cinemaToEdit).build();
         assertCommandSuccess(command, index, editedCinema);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_CINEMA;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        editedCinema = new CinemaBuilder(cinemaToEdit).withTags().build();
+        editedCinema = new CinemaBuilder(cinemaToEdit).build();
         assertCommandSuccess(command, index, editedCinema);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
@@ -125,7 +120,7 @@ public class EditCommandSystemTest extends MoviePlannerSystemTest {
         index = INDEX_FIRST_CINEMA;
         selectCinema(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+                + ADDRESS_DESC_AMY;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new cinema's name
         assertCommandSuccess(command, index, AMY, index);
@@ -169,22 +164,13 @@ public class EditCommandSystemTest extends MoviePlannerSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CINEMA.getOneBased() + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
-        /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CINEMA.getOneBased() + INVALID_TAG_DESC,
-                Tag.MESSAGE_TAG_CONSTRAINTS);
-
         /* Case: edit a cinema with new values same as another cinema's values -> rejected */
         executeCommand(CinemaUtil.getAddCommand(BOB));
         assertTrue(getModel().getMoviePlanner().getCinemaList().contains(BOB));
         index = INDEX_FIRST_CINEMA;
         assertFalse(getModel().getFilteredCinemaList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CINEMA);
-
-        /* Case: edit a cinema with new values same as another cinema's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+                + ADDRESS_DESC_BOB;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CINEMA);
     }
 

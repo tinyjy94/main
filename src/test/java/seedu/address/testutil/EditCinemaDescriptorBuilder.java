@@ -39,7 +39,6 @@ public class EditCinemaDescriptorBuilder {
         descriptor.setPhone(cinema.getPhone());
         descriptor.setEmail(cinema.getEmail());
         descriptor.setAddress(cinema.getAddress());
-        descriptor.setTags(cinema.getTags());
         descriptor.setTheaters(cinema.getTheaters());
     }
 
@@ -72,16 +71,6 @@ public class EditCinemaDescriptorBuilder {
      */
     public EditCinemaDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditCinemaDescriptor}
-     * that we are building.
-     */
-    public EditCinemaDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
         return this;
     }
 

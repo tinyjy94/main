@@ -1,12 +1,14 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMEDY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SUPERHERO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.address.testutil.TypicalCinemas.ALICE;
 import static seedu.address.testutil.TypicalCinemas.AMY;
 import static seedu.address.testutil.TypicalCinemas.BOB;
+import static seedu.address.testutil.TypicalMovies.BLACK_PANTHER;
+import static seedu.address.testutil.TypicalMovies.ABTM4;
 import static seedu.address.testutil.TypicalCinemas.getTypicalMoviePlanner;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import seedu.address.model.cinema.Theater;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
-import seedu.address.testutil.CinemaBuilder;
+import seedu.address.testutil.MovieBuilder;
 import seedu.address.testutil.MoviePlannerBuilder;
 
 public class MoviePlannerTest {
@@ -60,10 +62,10 @@ public class MoviePlannerTest {
     public void resetData_withDuplicateCinemas_throwsAssertionError() {
         // Repeat ALICE twice
         List<Cinema> newCinemas = Arrays.asList(ALICE, ALICE);
-        List<Tag> newTags = new ArrayList<>(ALICE.getTags());
         List<Movie> newMovies = new ArrayList<>();
+        List<Tag> newTags = new ArrayList<>(BLACK_PANTHER.getTags());
         List<Theater> newTheaters = new ArrayList<>(ALICE.getTheaters());
-        MoviePlannerStub newData = new MoviePlannerStub(newCinemas, newTags, newTheaters, newMovies);
+        MoviePlannerStub newData = new MoviePlannerStub(newCinemas, newTheaters, newTags, newMovies);
 
         thrown.expect(AssertionError.class);
         moviePlanner.resetData(newData);
@@ -93,38 +95,40 @@ public class MoviePlannerTest {
 
     @Test
     public void removeTag_tagNotInUse_moviePlannerNotChanged() throws Exception {
-        MoviePlanner moviePlannerWithAmy = new MoviePlannerBuilder().withCinema(AMY).build();
+        MoviePlanner moviePlannerWithABTM4 = new MoviePlannerBuilder().withMovie(ABTM4).build();
         thrown.expect(TagNotFoundException.class);
-        moviePlannerWithAmy.removeTag(new Tag(VALID_TAG_UNUSED));
-        MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withCinema(AMY).build();
+        moviePlannerWithABTM4.removeTag(new Tag(VALID_TAG_UNUSED));
+        MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withMovie(ABTM4).build();
 
-        assertEquals(expectedMoviePlanner, moviePlannerWithAmy);
+        assertEquals(expectedMoviePlanner, moviePlannerWithABTM4);
     }
 
     @Test
-    public void removeTag_tagInUseByOneCinema_tagRemoved() throws Exception {
-        MoviePlanner moviePlannerWithAmyAndBob = new MoviePlannerBuilder().withCinema(AMY).withCinema(BOB).build();
-        moviePlannerWithAmyAndBob.removeTag(new Tag(VALID_TAG_HUSBAND));
+    public void removeTag_tagInUseByOneMovie_tagRemoved() throws Exception {
+        MoviePlanner moviePlannerWithABTM4andBP = new MoviePlannerBuilder().withMovie(ABTM4)
+                .withMovie(BLACK_PANTHER).build();
+        moviePlannerWithABTM4andBP.removeTag(new Tag(VALID_TAG_SUPERHERO));
 
-        Cinema bobHusbandTagRemoved = new CinemaBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
-        MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withCinema(AMY)
-                                                                  .withCinema(bobHusbandTagRemoved).build();
+        Movie BPSuperheroTagRemoved = new MovieBuilder(BLACK_PANTHER).withTags(VALID_TAG_COMEDY).build();
+        MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withMovie(ABTM4)
+                                                                  .withMovie(BPSuperheroTagRemoved).build();
 
-        assertEquals(expectedMoviePlanner, moviePlannerWithAmyAndBob);
+        assertEquals(expectedMoviePlanner, moviePlannerWithABTM4andBP);
     }
 
     @Test
-    public void removeTag_tagInUseByMultipleCinema_tagRemoved() throws Exception {
-        MoviePlanner moviePlannerWithAmyAndBob = new MoviePlannerBuilder().withCinema(AMY).withCinema(BOB).build();
-        moviePlannerWithAmyAndBob.removeTag(new Tag(VALID_TAG_FRIEND));
+    public void removeTag_tagInUseByMultipleMovie_tagRemoved() throws Exception {
+        MoviePlanner moviePlannerWithABTMAndBP = new MoviePlannerBuilder().withMovie(ABTM4)
+                .withMovie(BLACK_PANTHER).build();
+        moviePlannerWithABTMAndBP.removeTag(new Tag(VALID_TAG_COMEDY));
 
-        Cinema amyFriendTagRemoved = new CinemaBuilder(AMY).withTags().build();
-        Cinema bobFriendTagRemoved = new CinemaBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Movie abtm4ComedyTagRemoved = new MovieBuilder(ABTM4).withTags().build();
+        Movie bpComedyTagRemoved = new MovieBuilder(BLACK_PANTHER).withTags(VALID_TAG_SUPERHERO).build();
 
-        MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withCinema(amyFriendTagRemoved)
-                                                                  .withCinema(bobFriendTagRemoved).build();
+        MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withMovie(abtm4ComedyTagRemoved)
+                                                                  .withMovie(bpComedyTagRemoved).build();
 
-        assertEquals(expectedMoviePlanner, moviePlannerWithAmyAndBob);
+        assertEquals(expectedMoviePlanner, moviePlannerWithABTMAndBP);
     }
 
     /**
@@ -136,11 +140,11 @@ public class MoviePlannerTest {
         private final ObservableList<Movie> movies = FXCollections.observableArrayList();
         private final ObservableList<Theater> theaters = FXCollections.observableArrayList();
 
-        MoviePlannerStub(Collection<Cinema> cinemas, Collection<? extends Tag> tags,
-                        Collection<Theater> theaters, Collection<Movie> movies) {
+        MoviePlannerStub(Collection<Cinema> cinemas, Collection<Theater> theaters,
+                         Collection<? extends Tag> tags, Collection<Movie> movies) {
             this.cinemas.setAll(cinemas);
-            this.tags.setAll(tags);
             this.movies.setAll(movies);
+            this.tags.setAll(tags);
             this.theaters.setAll(theaters);
         }
 
