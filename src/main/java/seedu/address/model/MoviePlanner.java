@@ -21,6 +21,7 @@ import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.UniqueMovieList;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
+import seedu.address.model.movie.exceptions.MovieNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
@@ -240,6 +241,18 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
      */
     public void addMovie(Movie movie) throws DuplicateMovieException {
         movies.add(movie);
+    }
+
+    /**
+     * Removes {@code key} from this {@code MoviePlanner}.
+     * @throws MovieNotFoundException if the {@code key} is not in this {@code MoviePlanner}.
+     */
+    public boolean removeMovie(Movie key) throws MovieNotFoundException {
+        if (movies.remove(key)) {
+            return true;
+        } else {
+            throw new MovieNotFoundException();
+        }
     }
 
     //// util methods

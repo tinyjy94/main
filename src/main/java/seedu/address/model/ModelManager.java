@@ -17,6 +17,7 @@ import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
+import seedu.address.model.movie.exceptions.MovieNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
@@ -90,6 +91,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteTag(Tag tag) throws TagNotFoundException {
         moviePlanner.removeTag(tag);
+    }
+
+    @Override
+    public synchronized void deleteMovie(Movie target) throws MovieNotFoundException {
+        moviePlanner.removeMovie(target);
+        indicateMoviePlannerChanged();
     }
 
     @Override

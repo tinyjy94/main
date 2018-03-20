@@ -8,6 +8,7 @@ import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
+import seedu.address.model.movie.exceptions.MovieNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
@@ -55,6 +56,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCinemaList(Predicate<Cinema> predicate);
+
+    /** Deletes the given movie. */
+    void deleteMovie(Movie target) throws MovieNotFoundException;
 
     /** Adds the given movie */
     void addMovie(Movie movie) throws DuplicateMovieException;
