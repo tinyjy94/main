@@ -16,8 +16,15 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -32,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private ListElementPointer historySnapshot;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -48,6 +56,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private MenuItem undoMenuItem;
+
+    @FXML
+    private MenuItem redoMenuItem;
 
     @FXML
     private StackPane cinemaListPanelPlaceholder;
@@ -84,6 +98,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(undoMenuItem, KeyCombination.valueOf("Shortcut + Z"));
+        setAccelerator(redoMenuItem, KeyCombination.valueOf("Shortcut + R"));
     }
 
     /**
@@ -174,6 +190,52 @@ public class MainWindow extends UiPart<Stage> {
     public void handleHelp() {
         HelpWindow helpWindow = new HelpWindow();
         helpWindow.show();
+    }
+
+    /**
+     * Undo command.
+     */
+    @FXML
+    public void handleUndo() {
+        try {
+            CommandResult commandResult = logic.execute(UndoCommand.COMMAND_WORD);
+            initHistory();
+            logger.info("Result: " + commandResult.feedbackToUser);
+            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+        } catch (CommandException | ParseException e) {
+            initHistory();
+            // handle command failure
+            logger.info("Invalid command: " + UndoCommand.COMMAND_WORD);
+            raise(new NewResultAvailableEvent(e.getMessage()));
+        }
+    }
+
+    /**
+     * Initializes the history snapshot.
+     */
+    private void initHistory() {
+        historySnapshot = logic.getHistorySnapshot();
+        // add an empty string to represent the most-recent end of historySnapshot, to be shown to
+        // the user if she tries to navigate past the most-recent end of the historySnapshot.
+        historySnapshot.add("");
+    }
+
+    /**
+     * Redo previous command.
+     */
+    @FXML
+    public void handleRedo() {
+        try {
+            CommandResult commandResult = logic.execute(RedoCommand.COMMAND_WORD);
+            initHistory();
+            logger.info("Result: " + commandResult.feedbackToUser);
+            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+        } catch (CommandException | ParseException e) {
+            initHistory();
+            // handle command failure
+            logger.info("Invalid command: " + RedoCommand.COMMAND_WORD);
+            raise(new NewResultAvailableEvent(e.getMessage()));
+        }
     }
 
     void show() {
