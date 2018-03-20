@@ -81,7 +81,7 @@ public class MoviePlannerParser {
         case DeleteCommand.COMMAND_ALIAS:
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
-        
+
         case DeleteMovieCommand.COMMAND_ALIAS:
         case DeleteMovieCommand.COMMAND_WORD:
             return new DeleteMovieCommandParser().parse(arguments);
@@ -89,7 +89,7 @@ public class MoviePlannerParser {
         case DeleteTheaterCommand.COMMAND_ALIAS:
         case DeleteTheaterCommand.COMMAND_WORD:
             return new DeleteTheaterCommandParser().parse(arguments);
-            
+
         case ClearCommand.COMMAND_ALIAS:
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
