@@ -535,7 +535,9 @@ _{explain how the user can enable/disable data encryption}_
 
 |===
 |Shortcut |Corresponding Function
-|*Ctrl + R* | Redo command
+|*Alt + Shift + C* | Clear command
+|*Ctrl + L* | List command
+|*Ctrl + Y* | Redo command
 |*Ctrl + Z* | Undo command
 |===
 
