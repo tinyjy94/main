@@ -2,12 +2,6 @@ package systemtests;
 
 import guitests.GuiRobot;
 import javafx.scene.input.KeyCode;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.THEATER_DESC_THREE;
 import static seedu.address.testutil.TypicalCinemas.AMY;
 
 import org.junit.Test;
@@ -25,18 +19,13 @@ public class KeyShortcutSystemTest extends MoviePlannerSystemTest {
     protected final GuiRobot guiRobot = new GuiRobot();
 
     @Test
-    public void undo() throws Exception {
-        /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
+    public void undo() {
+        /* ------------------------ Perform undo operation on the shown unfiltered list ----------------------------- */
 
         /* Case: add to empty movie planner -> added */
         deleteAllCinemas();
 
-        /* Case: add a cinema without tags to a non-empty movie planner, command with leading spaces and trailing spaces
-         * -> added
-         */
-        Cinema toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " " + THEATER_DESC_THREE + " ";
+        /* Case: add a cinema without tags to an empty movie planner -> added */
         assertAddCommandSuccess(AMY);
         guiRobot.pauseForHuman();
 
@@ -44,35 +33,27 @@ public class KeyShortcutSystemTest extends MoviePlannerSystemTest {
         guiRobot.push(KeyCode.CONTROL, KeyCode.Z);
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         guiRobot.pauseForHuman();
-        guiRobot.pauseForHuman();
         assertShortcutSuccess(expectedResultMessage);
     }
 
     @Test
-    public void redo() throws Exception {
-        /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
+    public void redo() {
+        /* ------------------------ Perform redo operation on the shown unfiltered list ----------------------------- */
 
         /* Case: add to empty movie planner -> added */
         deleteAllCinemas();
 
-        /* Case: add a cinema without tags to a non-empty movie planner, command with leading spaces and trailing spaces
-         * -> added
-         */
-        Cinema toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " " + THEATER_DESC_THREE + " ";
+        /* Case: add a cinema without tags to an empty movie planner -> added */
         assertAddCommandSuccess(AMY);
         guiRobot.pauseForHuman();
 
         /* Case: undo adding Amy to the list -> Amy deleted */
         guiRobot.push(KeyCode.CONTROL, KeyCode.Z);
         guiRobot.pauseForHuman();
-        guiRobot.pauseForHuman();
 
         /* Case: redo adding Amy to the list -> Amy added again */
         guiRobot.push(KeyCode.CONTROL, KeyCode.R);
         String expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        guiRobot.pauseForHuman();
         guiRobot.pauseForHuman();
         assertShortcutSuccess(expectedResultMessage);
     }
