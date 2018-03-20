@@ -34,7 +34,7 @@ public class EditMovieCommandParser implements Parser<EditMovieCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DURATION, PREFIX_RATING,
-                        PREFIX_STARTDATE);
+                        PREFIX_STARTDATE, PREFIX_TAG);
 
         Index index;
 

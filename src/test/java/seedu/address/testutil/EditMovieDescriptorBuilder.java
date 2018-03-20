@@ -46,8 +46,8 @@ public class EditMovieDescriptorBuilder {
     /**
      * Sets the {@code MovieName} of the {@code EditMovieDescriptor} that we are building.
      */
-    public EditMovieDescriptorBuilder withName(String name) {
-        descriptor.setName(new MovieName(name));
+    public EditMovieDescriptorBuilder withName(String movieName) {
+        descriptor.setName(new MovieName(movieName));
         return this;
     }
 

@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MOVIES;
 
 import java.util.Collections;
@@ -44,10 +45,12 @@ public class EditMovieCommand extends UndoableCommand {
             + "[" + PREFIX_DURATION + "PHONE] "
             + "[" + PREFIX_RATING + "EMAIL] "
             + "[" + PREFIX_STARTDATE + "ADDRESS] "
+            + "[" + PREFIX_TAG + "TAG]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DURATION + "120 "
             + PREFIX_RATING + "PG "
-            + PREFIX_STARTDATE + "20/03/2018 ";
+            + PREFIX_STARTDATE + "20/03/2018 "
+            + PREFIX_TAG + "comedy ";
 
     public static final String MESSAGE_EDIT_MOVIE_SUCCESS = "Edited Movie: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -89,7 +92,7 @@ public class EditMovieCommand extends UndoableCommand {
         List<Movie> lastShownList = model.getFilteredMovieList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_MOVIE_DISPLAYED_INDEX);
         }
 
         movieToEdit = lastShownList.get(index.getZeroBased());
@@ -120,7 +123,7 @@ public class EditMovieCommand extends UndoableCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditMovieCommand)) {
             return false;
         }
 

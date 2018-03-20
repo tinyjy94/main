@@ -18,7 +18,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CINEMAS;
 import static seedu.address.testutil.TypicalCinemas.AMY;
 import static seedu.address.testutil.TypicalCinemas.BOB;
@@ -40,7 +39,6 @@ import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CinemaBuilder;
 import seedu.address.testutil.CinemaUtil;
 
@@ -79,19 +77,6 @@ public class EditCommandSystemTest extends MoviePlannerSystemTest {
                 + ADDRESS_DESC_BOB;
         assertCommandSuccess(command, index, BOB);
 
-        /* Case: edit some fields -> edited */
-        index = INDEX_FIRST_CINEMA;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased();
-        Cinema cinemaToEdit = getModel().getFilteredCinemaList().get(index.getZeroBased());
-        editedCinema = new CinemaBuilder(cinemaToEdit).build();
-        assertCommandSuccess(command, index, editedCinema);
-
-        /* Case: clear tags -> cleared */
-        index = INDEX_FIRST_CINEMA;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        editedCinema = new CinemaBuilder(cinemaToEdit).build();
-        assertCommandSuccess(command, index, editedCinema);
-
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered cinema list, edit index within bounds of movie planner and cinema list -> edited */
@@ -99,7 +84,7 @@ public class EditCommandSystemTest extends MoviePlannerSystemTest {
         index = INDEX_FIRST_CINEMA;
         assertTrue(index.getZeroBased() < getModel().getFilteredCinemaList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
-        cinemaToEdit = getModel().getFilteredCinemaList().get(index.getZeroBased());
+        Cinema cinemaToEdit = getModel().getFilteredCinemaList().get(index.getZeroBased());
         editedCinema = new CinemaBuilder(cinemaToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedCinema);
 

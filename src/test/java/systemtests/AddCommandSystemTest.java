@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_THEATER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -27,7 +26,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NUMOFNEWTHEATER
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NUMOFTHEATERS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalCinemas.ALICE;
 import static seedu.address.testutil.TypicalCinemas.AMY;
 import static seedu.address.testutil.TypicalCinemas.BOB;
@@ -51,7 +49,6 @@ import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
 import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CinemaBuilder;
 import seedu.address.testutil.CinemaUtil;
 
@@ -63,7 +60,7 @@ public class AddCommandSystemTest extends MoviePlannerSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a cinema without tags to a non-empty movie planner, command with leading spaces and trailing spaces
+        /* Case: add a cinema to a non-empty movie planner, command with leading spaces and trailing spaces
          * -> added
          */
         Cinema toAdd = AMY;
@@ -121,13 +118,13 @@ public class AddCommandSystemTest extends MoviePlannerSystemTest {
         deleteAllCinemas();
         assertCommandSuccess(ALICE);
 
-        /* Case: add a cinema with tags, command with parameters in random order -> added */
+        /* Case: add a cinema command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCommand.COMMAND_WORD + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
                 + EMAIL_DESC_BOB + THEATER_DESC_THREE;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a cinema, missing tags -> added */
+        /* Case: add a cinema, -> added */
         assertCommandSuccess(HOON);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
@@ -146,13 +143,6 @@ public class AddCommandSystemTest extends MoviePlannerSystemTest {
 
         /* Case: add a duplicate cinema -> rejected */
         command = CinemaUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CINEMA);
-
-        /* Case: add a duplicate cinema except with different tags -> rejected */
-        // "friends" is an existing tag used in the default model, see TypicalCinemas#ALICE
-        // This test will fail if a new tag that is not in the model is used, see the bug documented in
-        // MoviePlanner#addCinema(Cinema)
-        command = CinemaUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CINEMA);
 
         /* Case: missing name -> rejected */
@@ -203,12 +193,6 @@ public class AddCommandSystemTest extends MoviePlannerSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + INVALID_THEATER_DESC;
         assertCommandFailure(command, Theater.MESSAGE_THEATER_CONSTRAINTS);
-
-        /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + INVALID_TAG_DESC + THEATER_DESC_THREE;
-        assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     /**
