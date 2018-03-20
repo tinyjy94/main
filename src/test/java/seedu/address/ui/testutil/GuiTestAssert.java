@@ -28,10 +28,6 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
-        assertEquals(expectedCard.getTags(), actualCard.getTags());
-
-        expectedCard.getTags().forEach(tag ->
-            assertEquals(expectedCard.getTagStyleClasses(tag), actualCard.getTagStyleClasses(tag)));
     }
 
     /**
@@ -71,21 +67,21 @@ public class GuiTestAssert {
         }
     }
 
-//    /**
-//     * Asserts that tags that are in {@code actualCard} matches all tags in {@code expectedPerson}
-//     * with corresponding color
-//     * @param expectedCinema
-//     * @param actualCard
-//     */
-//    private static void assertTagsEqual(Cinema expectedCinema, CinemaCardHandle actualCard) {
-//        List<String> expectedTags = expectedCinema.getTags()
-//                .stream()
-//                .map(tag -> tag.tagName)
-//                .collect(Collectors.toList());
-//        assertEquals(expectedTags, actualCard.getTags());
-//        expectedTags.forEach(tag -> assertEquals(Arrays.asList(
-//                DEFAULT_LABEL_STYLE, getTagColorStyle(tag)), actualCard.getTagStyleClasses(tag)));
-//    }
+    /**
+     * Asserts that tags that are in {@code actualCard} matches all tags in {@code expectedPerson}
+     * with corresponding color
+     * @param expectedMovie
+     * @param actualCard
+     */
+    private static void assertTagsEqual(Movie expectedMovie, MovieCardHandle actualCard) {
+        List<String> expectedTags = expectedMovie.getTags()
+                .stream()
+                .map(tag -> tag.tagName)
+                .collect(Collectors.toList());
+        assertEquals(expectedTags, actualCard.getTags());
+        expectedTags.forEach(tag -> assertEquals(Arrays.asList(
+                DEFAULT_LABEL_STYLE, getTagColorStyle(tag)), actualCard.getTagStyleClasses(tag)));
+    }
 
     /**
      * Asserts that the list in {@code cinemaListPanelHandle} displays the details of {@code cinemas} correctly and

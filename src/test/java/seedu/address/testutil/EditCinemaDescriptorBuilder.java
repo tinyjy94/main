@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -13,7 +12,6 @@ import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
 import seedu.address.model.cinema.Theater;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building EditCinemaDescriptor objects.

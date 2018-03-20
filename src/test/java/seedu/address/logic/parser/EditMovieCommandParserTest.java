@@ -31,7 +31,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MOVIE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MOVIE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CINEMA;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_MOVIE;
 
 import org.junit.Test;
@@ -84,21 +83,29 @@ public class EditMovieCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_MOVIENAME_DESC, MovieName.MESSAGE_MOVIENAME_CONSTRAINTS); // invalid movieName
-        assertParseFailure(parser, "1" + INVALID_DURATION_DESC, Duration.MESSAGE_DURATION_CONSTRAINTS); // invalid duration
-        assertParseFailure(parser, "1" + INVALID_RATING_DESC, Rating.MESSAGE_RATING_CONSTRAINTS); // invalid rating
-        assertParseFailure(parser, "1" + INVALID_STARTDATE_DESC, StartDate.MESSAGE_STARTDATE_CONSTRAINTS); // invalid startDate
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
+        // invalid movieName
+        assertParseFailure(parser, "1" + INVALID_MOVIENAME_DESC, MovieName.MESSAGE_MOVIENAME_CONSTRAINTS);
+        // invalid duration
+        assertParseFailure(parser, "1" + INVALID_DURATION_DESC, Duration.MESSAGE_DURATION_CONSTRAINTS);
+        // invalid rating
+        assertParseFailure(parser, "1" + INVALID_RATING_DESC, Rating.MESSAGE_RATING_CONSTRAINTS);
+        // invalid startDate
+        assertParseFailure(parser, "1" + INVALID_STARTDATE_DESC, StartDate.MESSAGE_STARTDATE_CONSTRAINTS);
+        // invalid tag
+        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // invalid duration followed by valid email
-        assertParseFailure(parser, "1" + INVALID_DURATION_DESC + RATING_DESC_MARVEL, Duration.MESSAGE_DURATION_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_DURATION_DESC + RATING_DESC_MARVEL,
+                Duration.MESSAGE_DURATION_CONSTRAINTS);
 
         // valid duration followed by invalid duration. The test case for invalid duration followed by valid duration
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + DURATION_DESC_INCREDIBLES + INVALID_DURATION_DESC, Duration.MESSAGE_DURATION_CONSTRAINTS);
+        assertParseFailure(parser, "1" + DURATION_DESC_INCREDIBLES + INVALID_DURATION_DESC,
+                Duration.MESSAGE_DURATION_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_MOVIENAME_DESC + INVALID_DURATION_DESC + VALID_RATING_INCREDIBLES + VALID_DURATION_INCREDIBLES,
+        assertParseFailure(parser, "1" + INVALID_MOVIENAME_DESC + INVALID_DURATION_DESC
+                        + VALID_RATING_INCREDIBLES + VALID_DURATION_INCREDIBLES,
                 MovieName.MESSAGE_MOVIENAME_CONSTRAINTS);
     }
 
@@ -160,13 +167,13 @@ public class EditMovieCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_MOVIE;
-        String userInput = targetIndex.getOneBased()  + DURATION_DESC_MARVEL + STARTDATE_DESC_MARVEL + RATING_DESC_MARVEL
-                + DURATION_DESC_MARVEL + STARTDATE_DESC_MARVEL + RATING_DESC_MARVEL
+        String userInput = targetIndex.getOneBased()  + DURATION_DESC_MARVEL + STARTDATE_DESC_MARVEL
+                + RATING_DESC_MARVEL + DURATION_DESC_MARVEL + STARTDATE_DESC_MARVEL + RATING_DESC_MARVEL
                 + DURATION_DESC_INCREDIBLES + STARTDATE_DESC_INCREDIBLES + RATING_DESC_INCREDIBLES + TAG_DESC_COMEDY;
 
         EditMovieDescriptor descriptor = new EditMovieDescriptorBuilder().withDuration(VALID_DURATION_INCREDIBLES)
-                .withRating(VALID_RATING_INCREDIBLES).withStartDate(VALID_STARTDATE_INCREDIBLES).withTags(VALID_TAG_COMEDY)
-                .build();
+                .withRating(VALID_RATING_INCREDIBLES).withStartDate(VALID_STARTDATE_INCREDIBLES)
+                .withTags(VALID_TAG_COMEDY).build();
         EditMovieCommand expectedCommand = new EditMovieCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -177,15 +184,16 @@ public class EditMovieCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_MOVIE;
         String userInput = targetIndex.getOneBased() + INVALID_DURATION_DESC + DURATION_DESC_INCREDIBLES;
-        EditMovieDescriptor descriptor = new EditMovieDescriptorBuilder().withDuration(VALID_DURATION_INCREDIBLES).build();
+        EditMovieDescriptor descriptor = new EditMovieDescriptorBuilder().withDuration(VALID_DURATION_INCREDIBLES)
+                .build();
         EditMovieCommand expectedCommand = new EditMovieCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + RATING_DESC_INCREDIBLES + INVALID_DURATION_DESC + STARTDATE_DESC_INCREDIBLES
-                + DURATION_DESC_INCREDIBLES;
-        descriptor = new EditMovieDescriptorBuilder().withDuration(VALID_DURATION_INCREDIBLES).withRating(VALID_RATING_INCREDIBLES)
-                .withStartDate(VALID_STARTDATE_INCREDIBLES).build();
+        userInput = targetIndex.getOneBased() + RATING_DESC_INCREDIBLES + INVALID_DURATION_DESC
+                + STARTDATE_DESC_INCREDIBLES + DURATION_DESC_INCREDIBLES;
+        descriptor = new EditMovieDescriptorBuilder().withDuration(VALID_DURATION_INCREDIBLES)
+                .withRating(VALID_RATING_INCREDIBLES).withStartDate(VALID_STARTDATE_INCREDIBLES).build();
         expectedCommand = new EditMovieCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

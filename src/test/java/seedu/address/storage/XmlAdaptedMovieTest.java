@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.movie.Duration;
 import seedu.address.model.movie.MovieName;

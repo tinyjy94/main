@@ -19,12 +19,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.NameContainsKeywordsPredicate;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
-import seedu.address.testutil.CinemaBuilder;
 import seedu.address.testutil.MovieBuilder;
 import seedu.address.testutil.MoviePlannerBuilder;
 
@@ -107,11 +105,11 @@ public class ModelManagerTest {
 
     @Test
     public void deleteTag_tagInUseByMultipleMovie_tagRemoved() throws Exception {
-        MoviePlanner moviePlannerWithABTM4AndBP = new MoviePlannerBuilder().withMovie(ABTM4).withMovie(BLACK_PANTHER)
+        MoviePlanner moviePlannerWithAbtm44AndBp = new MoviePlannerBuilder().withMovie(ABTM4).withMovie(BLACK_PANTHER)
                 .build();
         UserPrefs userPrefs = new UserPrefs();
 
-        ModelManager modelManager = new ModelManager(moviePlannerWithABTM4AndBP, userPrefs);
+        ModelManager modelManager = new ModelManager(moviePlannerWithAbtm44AndBp, userPrefs);
         modelManager.deleteTag(new Tag(VALID_TAG_COMEDY));
 
         Movie abtm4ComedyTagRemoved = new MovieBuilder(ABTM4).withTags().build();

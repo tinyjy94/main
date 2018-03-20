@@ -1,8 +1,6 @@
 package seedu.address.testutil;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import seedu.address.model.cinema.Address;
 import seedu.address.model.cinema.Cinema;
@@ -10,7 +8,6 @@ import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
 import seedu.address.model.cinema.Theater;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**

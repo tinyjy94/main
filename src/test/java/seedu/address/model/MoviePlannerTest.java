@@ -7,9 +7,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.address.testutil.TypicalCinemas.ALICE;
 import static seedu.address.testutil.TypicalCinemas.AMY;
 import static seedu.address.testutil.TypicalCinemas.BOB;
-import static seedu.address.testutil.TypicalMovies.BLACK_PANTHER;
-import static seedu.address.testutil.TypicalMovies.ABTM4;
 import static seedu.address.testutil.TypicalCinemas.getTypicalMoviePlanner;
+import static seedu.address.testutil.TypicalMovies.ABTM4;
+import static seedu.address.testutil.TypicalMovies.BLACK_PANTHER;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -95,32 +95,32 @@ public class MoviePlannerTest {
 
     @Test
     public void removeTag_tagNotInUse_moviePlannerNotChanged() throws Exception {
-        MoviePlanner moviePlannerWithABTM4 = new MoviePlannerBuilder().withMovie(ABTM4).build();
+        MoviePlanner moviePlannerWithAbtm4 = new MoviePlannerBuilder().withMovie(ABTM4).build();
         thrown.expect(TagNotFoundException.class);
-        moviePlannerWithABTM4.removeTag(new Tag(VALID_TAG_UNUSED));
+        moviePlannerWithAbtm4.removeTag(new Tag(VALID_TAG_UNUSED));
         MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withMovie(ABTM4).build();
 
-        assertEquals(expectedMoviePlanner, moviePlannerWithABTM4);
+        assertEquals(expectedMoviePlanner, moviePlannerWithAbtm4);
     }
 
     @Test
     public void removeTag_tagInUseByOneMovie_tagRemoved() throws Exception {
-        MoviePlanner moviePlannerWithABTM4andBP = new MoviePlannerBuilder().withMovie(ABTM4)
+        MoviePlanner moviePlannerWithAbtm4andBp = new MoviePlannerBuilder().withMovie(ABTM4)
                 .withMovie(BLACK_PANTHER).build();
-        moviePlannerWithABTM4andBP.removeTag(new Tag(VALID_TAG_SUPERHERO));
+        moviePlannerWithAbtm4andBp.removeTag(new Tag(VALID_TAG_SUPERHERO));
 
-        Movie BPSuperheroTagRemoved = new MovieBuilder(BLACK_PANTHER).withTags(VALID_TAG_COMEDY).build();
+        Movie bpSuperheroTagRemoved = new MovieBuilder(BLACK_PANTHER).withTags(VALID_TAG_COMEDY).build();
         MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withMovie(ABTM4)
-                                                                  .withMovie(BPSuperheroTagRemoved).build();
+                                                                  .withMovie(bpSuperheroTagRemoved).build();
 
-        assertEquals(expectedMoviePlanner, moviePlannerWithABTM4andBP);
+        assertEquals(expectedMoviePlanner, moviePlannerWithAbtm4andBp);
     }
 
     @Test
     public void removeTag_tagInUseByMultipleMovie_tagRemoved() throws Exception {
-        MoviePlanner moviePlannerWithABTMAndBP = new MoviePlannerBuilder().withMovie(ABTM4)
+        MoviePlanner moviePlannerWithAbtm4AndBp = new MoviePlannerBuilder().withMovie(ABTM4)
                 .withMovie(BLACK_PANTHER).build();
-        moviePlannerWithABTMAndBP.removeTag(new Tag(VALID_TAG_COMEDY));
+        moviePlannerWithAbtm4AndBp.removeTag(new Tag(VALID_TAG_COMEDY));
 
         Movie abtm4ComedyTagRemoved = new MovieBuilder(ABTM4).withTags().build();
         Movie bpComedyTagRemoved = new MovieBuilder(BLACK_PANTHER).withTags(VALID_TAG_SUPERHERO).build();
@@ -128,7 +128,7 @@ public class MoviePlannerTest {
         MoviePlanner expectedMoviePlanner = new MoviePlannerBuilder().withMovie(abtm4ComedyTagRemoved)
                                                                   .withMovie(bpComedyTagRemoved).build();
 
-        assertEquals(expectedMoviePlanner, moviePlannerWithABTMAndBP);
+        assertEquals(expectedMoviePlanner, moviePlannerWithAbtm4AndBp);
     }
 
     /**

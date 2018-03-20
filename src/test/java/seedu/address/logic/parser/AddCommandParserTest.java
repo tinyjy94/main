@@ -39,7 +39,6 @@ import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
 import seedu.address.model.cinema.Theater;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CinemaBuilder;
 
 public class AddCommandParserTest {

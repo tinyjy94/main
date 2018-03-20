@@ -1,17 +1,14 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
 import seedu.address.logic.commands.EditMovieCommand;
 import seedu.address.logic.commands.EditMovieCommand.EditMovieDescriptor;
+import seedu.address.model.movie.Duration;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.MovieName;
-import seedu.address.model.movie.Duration;
 import seedu.address.model.movie.Rating;
 import seedu.address.model.movie.StartDate;
 import seedu.address.model.tag.Tag;
