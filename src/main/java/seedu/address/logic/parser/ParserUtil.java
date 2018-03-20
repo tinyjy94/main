@@ -196,7 +196,7 @@ public class ParserUtil {
      * Parses a {@code Optional<String> theaters} into an {@code Optional<ArrayList<Theater>>}
      * if {@code theaters} is present.
      */
-    public static Optional<ArrayList<Theater>> parseTheaters(Optional<String> theaters) {
+    public static Optional<ArrayList<Theater>> parseTheaters(Optional<String> theaters) throws IllegalValueException {
         requireNonNull(theaters);
         return theaters.isPresent() ? Optional.of(parseTheaters(theaters.get())) : Optional.empty();
     }

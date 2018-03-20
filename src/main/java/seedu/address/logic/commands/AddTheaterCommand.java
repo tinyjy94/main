@@ -6,30 +6,23 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CINEMAS;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.cinema.Address;
 import seedu.address.model.cinema.Cinema;
-import seedu.address.model.cinema.Email;
-import seedu.address.model.cinema.Name;
-import seedu.address.model.cinema.Phone;
 import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
-import seedu.address.model.tag.Tag;
 
 /**
  * Adds theaters to existing cinema
  */
-public class addTheaterCommand extends UndoableCommand {
+public class AddTheaterCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "addtheater";
     public static final String COMMAND_ALIAS = "at";
@@ -56,7 +49,7 @@ public class addTheaterCommand extends UndoableCommand {
      * @param index of the cinema in the filtered cinema list to edit
      * @param NewTheaters to resize the cinema with
      */
-    public addTheaterCommand(Index index, int NewTheaters) {
+    public AddTheaterCommand(Index index, int NewTheaters) {
         requireNonNull(index);
         this.index = index;
     }
@@ -92,12 +85,13 @@ public class addTheaterCommand extends UndoableCommand {
      */
     private Cinema createResizedCinema(Cinema cinemaToResize, int newTheaters) {
         assert cinemaToResize != null;
+        int oldTheaterSize = cinemaToResize.getTheaters().size();
         ArrayList<Theater> updatedTheaterList = new ArrayList<>();
         for (Theater theaters : cinemaToResize.getTheaters()) {
             updatedTheaterList.add(theaters);
         }
 
-        for (int i = cinemaToResize.getTheaters().size(); i < newTheaters + cinemaToResize.getTheaters().size(); i++) {
+        for (int i = oldTheaterSize; i < newTheaters + oldTheaterSize; i++) {
             updatedTheaterList.add(new Theater(i));
         }
 
@@ -113,12 +107,12 @@ public class addTheaterCommand extends UndoableCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof addTheaterCommand)) {
+        if (!(other instanceof AddTheaterCommand)) {
             return false;
         }
 
         // state check
-        addTheaterCommand e = (addTheaterCommand) other;
+        AddTheaterCommand e = (AddTheaterCommand) other;
         return index.equals(e.index)
                 && Objects.equals(cinemaToResize, e.cinemaToResize);
     }
@@ -128,11 +122,6 @@ public class addTheaterCommand extends UndoableCommand {
      * corresponding field value of the cinema.
      */
     public static class ResizeCinemaDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
-        private Set<Tag> tags;
         private ArrayList<Theater> theaters;
 
         public ResizeCinemaDescriptor() {}
@@ -142,11 +131,6 @@ public class addTheaterCommand extends UndoableCommand {
          * A defensive copy of {@code tags} is used internally.
          */
         public ResizeCinemaDescriptor(ResizeCinemaDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
-            setTags(toCopy.tags);
             setTheaters(toCopy.theaters);
         }
 
@@ -154,57 +138,7 @@ public class addTheaterCommand extends UndoableCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email,
-                    this.address, this.tags, this.theaters);
-        }
-
-        public void setName(Name name) {
-            this.name = name;
-        }
-
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+            return CollectionUtil.isAnyNonNull(this.theaters);
         }
 
         /**
@@ -215,14 +149,12 @@ public class addTheaterCommand extends UndoableCommand {
             this.theaters = (theaters != null) ? new ArrayList<>(theaters) : null;
         }
 
-        public void setNewTheaters(Cinema cinema) {
-            if (this.theaters.size() > cinema.getTheaters().size()) {
-
-            }
-        }
-
         public Optional<List<Theater>> getTheaters() {
             return (theaters != null) ? Optional.of(Collections.unmodifiableList(theaters)) : Optional.empty();
+        }
+
+        public int getTheaterSize() {
+            return theaters.size();
         }
 
         @Override
@@ -240,12 +172,7 @@ public class addTheaterCommand extends UndoableCommand {
             // state check
             ResizeCinemaDescriptor e = (ResizeCinemaDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags())
-                    && getTheaters().equals(e.getTheaters());
+            return getTheaters().equals(e.getTheaters());
         }
     }
 }
