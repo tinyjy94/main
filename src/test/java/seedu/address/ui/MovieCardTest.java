@@ -47,7 +47,7 @@ public class MovieCardTest extends GuiUnitTest {
 
     @Test
     public void equals_differentMovieSameIndex_returnFalse() {
-        Movie differentMovie = new MovieBuilder().withName("differentName").build();
+        Movie differentMovie = new MovieBuilder().withMovieName("differentName").build();
         assertFalse(movieCard.equals((new MovieCard(differentMovie, 1))));
     }
 

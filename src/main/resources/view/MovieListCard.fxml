@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.layout.FlowPane?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
@@ -26,6 +26,7 @@
         </Label>
         <Label fx:id="movieName" text="\$movieName" styleClass="cell_big_label" />
       </HBox>
+      <FlowPane fx:id="tags" />
       <Label fx:id="duration" styleClass="cell_small_label" text="\$duration" />
       <Label fx:id="rating" styleClass="cell_small_label" text="\$rating" />
       <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />

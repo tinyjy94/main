@@ -29,70 +29,70 @@ import seedu.address.model.movie.exceptions.DuplicateMovieException;
 import seedu.address.model.movie.exceptions.MovieNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
-import seedu.address.testutil.CinemaBuilder;
+import seedu.address.testutil.MovieBuilder;
 
-public class AddCommandTest {
+public class AddMovieCommandTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void constructor_nullCinema_throwsNullPointerException() {
+    public void constructor_nullMovie_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddMovieCommand(null);
     }
 
     @Test
-    public void execute_cinemaAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingCinemaAdded modelStub = new ModelStubAcceptingCinemaAdded();
-        Cinema validCinema = new CinemaBuilder().build();
+    public void execute_movieAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingMovieAdded modelStub = new ModelStubAcceptingMovieAdded();
+        Movie validMovie = new MovieBuilder().build();
 
-        CommandResult commandResult = getAddCommandForCinema(validCinema, modelStub).execute();
+        CommandResult commandResult = getAddMovieCommandForMovie(validMovie, modelStub).execute();
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCinema), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validCinema), modelStub.cinemasAdded);
+        assertEquals(String.format(AddMovieCommand.MESSAGE_SUCCESS, validMovie), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validMovie), modelStub.moviesAdded);
     }
 
     @Test
-    public void execute_duplicateCinema_throwsCommandException() throws Exception {
-        ModelStub modelStub = new ModelStubThrowingDuplicateCinemaException();
-        Cinema validCinema = new CinemaBuilder().build();
+    public void execute_duplicateMovie_throwsCommandException() throws Exception {
+        ModelStub modelStub = new ModelStubThrowingDuplicateMovieException();
+        Movie validMovie = new MovieBuilder().build();
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CINEMA);
+        thrown.expectMessage(AddMovieCommand.MESSAGE_DUPLICATE_MOVIE);
 
-        getAddCommandForCinema(validCinema, modelStub).execute();
+        getAddMovieCommandForMovie(validMovie, modelStub).execute();
     }
 
     @Test
     public void equals() {
-        Cinema alice = new CinemaBuilder().withName("Alice").build();
-        Cinema bob = new CinemaBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Movie incredibles = new MovieBuilder().withMovieName("The Incredibles").build();
+        Movie batman = new MovieBuilder().withMovieName("Batman Begins").build();
+        AddMovieCommand addIncrediblesCommand = new AddMovieCommand(incredibles);
+        AddMovieCommand addBatmanCommand = new AddMovieCommand(batman);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addIncrediblesCommand.equals(addIncrediblesCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddMovieCommand addIncrediblesCommandCopy = new AddMovieCommand(incredibles);
+        assertTrue(addIncrediblesCommand.equals(addIncrediblesCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addIncrediblesCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addIncrediblesCommand.equals(null));
 
-        // different cinema -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different movie -> returns false
+        assertFalse(addIncrediblesCommand.equals(addBatmanCommand));
     }
 
     /**
-     * Generates a new AddCommand with the details of the given cinema.
+     * Generates a new AddMovieCommand with the details of the given cinema.
      */
-    private AddCommand getAddCommandForCinema(Cinema cinema, Model model) {
-        AddCommand command = new AddCommand(cinema);
+    private AddMovieCommand getAddMovieCommandForMovie(Movie movie, Model model) {
+        AddMovieCommand command = new AddMovieCommand(movie);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
@@ -173,12 +173,12 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always throw a DuplicateCinemaException when trying to add a cinema.
+     * A Model stub that always throw a DuplicateMovieException when trying to add a movie.
      */
-    private class ModelStubThrowingDuplicateCinemaException extends ModelStub {
+    private class ModelStubThrowingDuplicateMovieException extends ModelStub {
         @Override
-        public void addCinema(Cinema cinema) throws DuplicateCinemaException {
-            throw new DuplicateCinemaException();
+        public void addMovie(Movie movie) throws DuplicateMovieException {
+            throw new DuplicateMovieException();
         }
 
         @Override
@@ -188,15 +188,15 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the cinema being added.
+     * A Model stub that always accept the movie being added.
      */
-    private class ModelStubAcceptingCinemaAdded extends ModelStub {
-        final ArrayList<Cinema> cinemasAdded = new ArrayList<>();
+    private class ModelStubAcceptingMovieAdded extends ModelStub {
+        final ArrayList<Movie> moviesAdded = new ArrayList<>();
 
         @Override
-        public void addCinema(Cinema cinema) throws DuplicateCinemaException {
-            requireNonNull(cinema);
-            cinemasAdded.add(cinema);
+        public void addMovie(Movie movie) throws DuplicateMovieException {
+            requireNonNull(movie);
+            moviesAdded.add(movie);
         }
 
         @Override

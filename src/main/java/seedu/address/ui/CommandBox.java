@@ -224,7 +224,6 @@ public class CommandBox extends UiPart<Region> {
             logger.info("Result: " + commandResult.feedbackToUser);
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
             makeKeywordLabelNonVisible();
-
         } catch (CommandException | ParseException e) {
             initHistory();
             // handle command failure

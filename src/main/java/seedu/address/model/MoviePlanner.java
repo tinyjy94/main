@@ -21,6 +21,7 @@ import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.UniqueMovieList;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
+import seedu.address.model.movie.exceptions.MovieNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
@@ -46,9 +47,9 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
      */
     {
         cinemas = new UniqueCinemaList();
-        tags = new UniqueTagList();
         theaters = new ArrayList<>();
         movies = new UniqueMovieList();
+        tags = new UniqueTagList();
     }
 
     public MoviePlanner() {}
@@ -67,16 +68,16 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
         this.cinemas.setCinemas(cinemas);
     }
 
-    public void setTags(Set<Tag> tags) {
-        this.tags.setTags(tags);
-    }
-
     public void setTheaters(ArrayList<Theater> theaters) {
         this.theaters = theaters;
     }
 
     public void setMovies(List<Movie> movies) throws DuplicateMovieException {
         this.movies.setMovies(movies);
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags.setTags(tags);
     }
 
     /**
@@ -86,15 +87,16 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
         requireNonNull(newData);
         setTags(new HashSet<>(newData.getTagList()));
         setTheaters(new ArrayList<>(newData.getTheaterList()));
-        List<Cinema> syncedCinemaList = newData.getCinemaList().stream()
+        List<Cinema> syncedCinemaList = newData.getCinemaList();
+        List<Movie> syncedMovieList = newData.getMovieList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
         try {
             setCinemas(syncedCinemaList);
-            setMovies(newData.getMovieList());
+            setMovies(syncedMovieList);
         } catch (DuplicateCinemaException dce) {
             throw new AssertionError("MoviePlanners should not have duplicate Cinemas");
-        } catch (DuplicateMovieException dne) {
+        } catch (DuplicateMovieException dme) {
             throw new AssertionError("MoviePlanners should not have duplicate Movies");
         }
     }
@@ -103,17 +105,11 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
 
     /**
      * Adds a Cinema to the movie planner.
-     * Also checks the new Cinema's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the Cinema to point to those in {@link #tags}.
      *
      * @throws DuplicateCinemaException if an equivalent Cinema already exists.
      */
     public void addCinema(Cinema c) throws DuplicateCinemaException {
-        Cinema cinema = syncWithMasterTagList(c);
-        // TODO: the tags master list will be updated even though the below line fails.
-        // This can cause the tags master list to have additional tags that are not tagged to any Cinema
-        // in the Cinema list.
-        cinemas.add(cinema);
+        cinemas.add(c);
     }
 
     /**
@@ -124,40 +120,33 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
      *      another existing Cinema in the list.
      * @throws CinemaNotFoundException if {@code target} could not be found in the list.
      *
-     * @see #syncWithMasterTagList(Cinema)
      */
     public void updateCinema(Cinema target, Cinema editedCinema)
             throws DuplicateCinemaException, CinemaNotFoundException {
         requireNonNull(editedCinema);
-
-        Cinema syncedEditedCinema = syncWithMasterTagList(editedCinema);
-        // TODO: the tags master list will be updated even though the below line fails.
-        // This can cause the tags master list to have additional tags that are not tagged to any Cinema
-        // in the Cinema list.
-        cinemas.setCinema(target, syncedEditedCinema);
-        removeUnusedTags();
+        cinemas.setCinema(target, editedCinema);
     }
 
     /**
-     *  Updates the master tag list to include tags in {@code Cinema} that are not in the list.
-     *  @return a copy of this {@code Cinema} such that every tag in this Cinema points to a Tag object in the master
+     *  Updates the master tag list to include tags in {@code Movie} that are not in the list.
+     *  @return a copy of this {@code Movie} such that every tag in this Movie points to a Tag object in the master
      *  list.
      */
-    private Cinema syncWithMasterTagList(Cinema cinema) {
-        final UniqueTagList cinemaTags = new UniqueTagList(cinema.getTags());
-        tags.mergeFrom(cinemaTags);
+    private Movie syncWithMasterTagList(Movie movie) {
+        final UniqueTagList movieTags = new UniqueTagList(movie.getTags());
+        tags.mergeFrom(movieTags);
 
         // Create map with values = tag object references in the master list
-        // used for checking Cinema tag references
+        // used for checking Movie tag references
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
         tags.forEach(tag -> masterTagObjects.put(tag, tag));
 
-        // Rebuild the list of Cinema tags to point to the relevant tags in the master tag list.
+        // Rebuild the list of Movie tags to point to the relevant tags in the master tag list.
         final Set<Tag> correctTagReferences = new HashSet<>();
-        cinemaTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
-        return new Cinema(
-                cinema.getName(), cinema.getPhone(), cinema.getEmail(),
-                cinema.getAddress(), correctTagReferences, cinema.getTheaters());
+        movieTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
+        return new Movie(
+                movie.getName(), movie.getDuration(), movie.getRating(),
+                movie.getStartDate(), correctTagReferences);
     }
 
     /**
@@ -191,8 +180,8 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
      */
     public void removeTag(Tag tag) throws TagNotFoundException {
         if (tags.contains(tag)) {
-            for (Cinema cinema : cinemas) {
-                removeTagFromCinema(tag, cinema);
+            for (Movie movie : movies) {
+                removeTagFromMovie(tag, movie);
             }
         } else {
             throw new TagNotFoundException();
@@ -203,18 +192,18 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
      * Removes {@code tag} from {@code cinema} if tag is found.
      *
      */
-    public void removeTagFromCinema(Tag tag, Cinema cinema) {
-        Set<Tag> newTags = new HashSet<>(cinema.getTags());
+    public void removeTagFromMovie(Tag tag, Movie movie) {
+        Set<Tag> newTags = new HashSet<>(movie.getTags());
 
         if (newTags.remove(tag)) {
-            Cinema newCinema = new Cinema(cinema.getName(), cinema.getPhone(), cinema.getEmail(),
-                                          cinema.getAddress(), newTags, cinema.getTheaters());
+            Movie newMovie = new Movie(movie.getName(), movie.getDuration(), movie.getRating(),
+                                          movie.getStartDate(), newTags);
             try {
-                updateCinema(cinema, newCinema);
-            } catch (CinemaNotFoundException cnfe) {
-                throw new AssertionError("Cinema should not be missing");
-            } catch (DuplicateCinemaException dce) {
-                throw new AssertionError("Removing tag should not result in duplicate cinemas");
+                updateMovie(movie, newMovie);
+            } catch (MovieNotFoundException mnfe) {
+                throw new AssertionError("Movie should not be missing");
+            } catch (DuplicateMovieException dme) {
+                throw new AssertionError("Removing tag should not result in duplicate movies");
             }
         }
     }
@@ -224,29 +213,69 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
      *
      */
     public void removeUnusedTags() {
-        Set<Tag> tagsOfCinemas = cinemas.asObservableList()
+        Set<Tag> tagsOfMovies = movies.asObservableList()
                                         .stream()
-                                        .flatMap(cinema -> cinema.getTags().stream())
+                                        .flatMap(movie -> movie.getTags().stream())
                                         .collect(Collectors.toSet());
-        tags.setTags(tagsOfCinemas);
+        tags.setTags(tagsOfMovies);
     }
 
 
     //// Movie-level operations
     /**
      * Adds a Movie to the movie planner.
+     * Also checks the new Movie's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the Movie to point to those in {@link #tags}.
      *
-     * @throws DuplicateMovieException if an equivalent Cinema already exists.
+     * @throws DuplicateMovieException if an equivalent Movie already exists.
      */
-    public void addMovie(Movie movie) throws DuplicateMovieException {
+    public void addMovie(Movie m) throws DuplicateMovieException {
+        Movie movie = syncWithMasterTagList(m);
+        // TODO: the tags master list will be updated even though the below line fails.
+        // This can cause the tags master list to have additional tags that are not tagged to any Cinema
+        // in the Cinema list.
         movies.add(movie);
+    }
+
+    /**
+     * Removes {@code key} from this {@code MoviePlanner}.
+     * @throws MovieNotFoundException if the {@code key} is not in this {@code MoviePlanner}.
+     */
+    public boolean removeMovie(Movie key) throws MovieNotFoundException {
+        if (movies.remove(key)) {
+            return true;
+        } else {
+            throw new MovieNotFoundException();
+        }
+    }
+
+    /**
+     * Replaces the given Movie {@code target} in the list with {@code editedMovie}.
+     * {@code MoviePlanner}'s tag list will be updated with the tags of {@code editedMovie}.
+     *
+     * @throws DuplicateMovieException if updating the Movie's details causes the Movie to be equivalent to
+     *      another existing Movie in the list.
+     * @throws MovieNotFoundException if {@code target} could not be found in the list.
+     *
+     * @see #syncWithMasterTagList(Movie)
+     */
+    public void updateMovie(Movie target, Movie editedMovie)
+            throws DuplicateMovieException, MovieNotFoundException {
+        requireNonNull(editedMovie);
+
+        Movie syncedEditedMovie = syncWithMasterTagList(editedMovie);
+        // TODO: the tags master list will be updated even though the below line fails.
+        // This can cause the tags master list to have additional tags that are not tagged to any Cinema
+        // in the Cinema list.
+        movies.setMovie(target, syncedEditedMovie);
+        removeUnusedTags();
     }
 
     //// util methods
     @Override
     public String toString() {
-        return cinemas.asObservableList().size() + " Cinemas, " + tags.asObservableList().size() +  " tags, "
-                + movies.asObservableList().size() + " movies";
+        return cinemas.asObservableList().size() + " Cinemas, " + movies.asObservableList().size() + " movies, "
+                + tags.asObservableList().size() +  " tags, ";
         // TODO: refine later
     }
 
@@ -275,6 +304,7 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
         return other == this // short circuit if same object
                 || (other instanceof MoviePlanner // instanceof handles nulls
                 && this.cinemas.equals(((MoviePlanner) other).cinemas)
+                && this.movies.equals(((MoviePlanner) other).movies)
                 && this.tags.equalsOrderInsensitive(((MoviePlanner) other).tags)
                 && this.theaters.equals(((MoviePlanner) other).theaters));
     }
@@ -282,6 +312,6 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(cinemas, tags, theaters);
+        return Objects.hash(cinemas, movies, tags, theaters);
     }
 }

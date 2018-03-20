@@ -9,14 +9,11 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_THEATER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.THEATER_DESC_FIVE;
 import static seedu.address.logic.commands.CommandTestUtil.THEATER_DESC_THREE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
@@ -29,8 +26,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NUMOFNEWTHEATER
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NUMOFTHEATERS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalCinemas.ALICE;
 import static seedu.address.testutil.TypicalCinemas.AMY;
 import static seedu.address.testutil.TypicalCinemas.BOB;
@@ -54,7 +49,6 @@ import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
 import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CinemaBuilder;
 import seedu.address.testutil.CinemaUtil;
 
@@ -66,12 +60,12 @@ public class AddCommandSystemTest extends MoviePlannerSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a cinema without tags to a non-empty movie planner, command with leading spaces and trailing spaces
+        /* Case: add a cinema to a non-empty movie planner, command with leading spaces and trailing spaces
          * -> added
          */
         Cinema toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " " + THEATER_DESC_THREE + " ";
+                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   "  + THEATER_DESC_THREE + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -87,50 +81,50 @@ public class AddCommandSystemTest extends MoviePlannerSystemTest {
 
         /* Case: add a cinema with all fields same as another cinema in the movie planner except name -> added */
         toAdd = new CinemaBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).withTheater(VALID_NUMOFTHEATERS).build();
+                .withAddress(VALID_ADDRESS_AMY).withTheater(VALID_NUMOFTHEATERS).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND + THEATER_DESC_THREE;
+                + THEATER_DESC_THREE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a cinema with all fields same as another cinema in the movie planner except phone -> added */
         toAdd = new CinemaBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).withTheater(VALID_NUMOFTHEATERS).build();
+                .withAddress(VALID_ADDRESS_AMY).withTheater(VALID_NUMOFTHEATERS).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND + THEATER_DESC_THREE;
+                + THEATER_DESC_THREE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a cinema with all fields same as another cinema in the movie planner except email -> added */
         toAdd = new CinemaBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).withTheater(VALID_NUMOFTHEATERS).build();
+                .withAddress(VALID_ADDRESS_AMY).withTheater(VALID_NUMOFTHEATERS).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND + THEATER_DESC_THREE;
+                + THEATER_DESC_THREE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a cinema with all fields same as another cinema in the movie planner except address -> added */
         toAdd = new CinemaBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND).withTheater(VALID_NUMOFTHEATERS).build();
+                .withAddress(VALID_ADDRESS_BOB).withTheater(VALID_NUMOFTHEATERS).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_BOB
-                + TAG_DESC_FRIEND + THEATER_DESC_THREE;
+                + THEATER_DESC_THREE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a cinema with all fields same as another cinema in the movie planner except theater -> added */
         toAdd = new CinemaBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).withTheater(VALID_NUMOFNEWTHEATERS).build();
+                .withAddress(VALID_ADDRESS_AMY).withTheater(VALID_NUMOFNEWTHEATERS).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND + THEATER_DESC_FIVE;
+                + THEATER_DESC_FIVE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty movie planner -> added */
         deleteAllCinemas();
         assertCommandSuccess(ALICE);
 
-        /* Case: add a cinema with tags, command with parameters in random order -> added */
+        /* Case: add a cinema command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + THEATER_DESC_THREE;
+        command = AddCommand.COMMAND_WORD + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
+                + EMAIL_DESC_BOB + THEATER_DESC_THREE;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a cinema, missing tags -> added */
+        /* Case: add a cinema, -> added */
         assertCommandSuccess(HOON);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
@@ -149,13 +143,6 @@ public class AddCommandSystemTest extends MoviePlannerSystemTest {
 
         /* Case: add a duplicate cinema -> rejected */
         command = CinemaUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CINEMA);
-
-        /* Case: add a duplicate cinema except with different tags -> rejected */
-        // "friends" is an existing tag used in the default model, see TypicalCinemas#ALICE
-        // This test will fail if a new tag that is not in the model is used, see the bug documented in
-        // MoviePlanner#addCinema(Cinema)
-        command = CinemaUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CINEMA);
 
         /* Case: missing name -> rejected */
@@ -206,12 +193,6 @@ public class AddCommandSystemTest extends MoviePlannerSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + INVALID_THEATER_DESC;
         assertCommandFailure(command, Theater.MESSAGE_THEATER_CONSTRAINTS);
-
-        /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + INVALID_TAG_DESC + THEATER_DESC_THREE;
-        assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     /**

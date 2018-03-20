@@ -8,9 +8,6 @@ import static seedu.address.testutil.TypicalCinemas.CARL;
 import static seedu.address.testutil.TypicalCinemas.DANIEL;
 import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_MEIER;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -19,7 +16,6 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
 
 public class FindCommandSystemTest extends MoviePlannerSystemTest {
 
@@ -123,12 +119,6 @@ public class FindCommandSystemTest extends MoviePlannerSystemTest {
 
         /* Case: find email of cinema in movie planner -> 0 cinemas found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find tags of cinema in movie planner -> 0 cinemas found */
-        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
-        command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
