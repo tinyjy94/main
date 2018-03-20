@@ -109,13 +109,15 @@ public class Theater {
         boolean hasNoConflict = false;
         Screening screeningBefore = screeningList.get(0);
 
-        if (isSameScreeningDate(toAdd , screeningBefore))
+        if (isSameScreeningDate(toAdd , screeningBefore)) {
             count++;
+        }
 
         for (int i = 1; i < screeningList.size(); i++) {
             Screening currentScreening = screeningList.get(i);
-            if (hasNoConflict == true)
+            if (hasNoConflict == true) {
                 break;
+            }
 
             //first screening
             if (count == 1 && isScreenTimeOnOrBefore(toAdd, currentScreening)) {

@@ -13,16 +13,16 @@ import seedu.address.model.movie.Movie;
  */
 public class Screening {
 
+    // Constants for calculations
+    private static final int PREPARATION_DELAY = 15;
+    private static final int MINUTES_INTERVAL = 5;
+    private static final int ENSURE_MINUTES_POSITIVE = 65;
+
     private final Movie movie;
     private final Cinema cinema;
     private final Theater theater;
     private final LocalDateTime screeningDateTime;
     private LocalDateTime screeningEndDateTime;
-
-    // Constants for calculations
-    private final int PREPARATION_DELAY = 15;
-    private final int MINUTES_INTERVAL = 5;
-    private final int ENSURE_MINUTES_POSITIVE = 65;
 
     public Screening(Movie movie, Cinema cinema, Theater theater, LocalDateTime screeningDateTime) {
         this.movie = movie;

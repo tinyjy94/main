@@ -17,7 +17,7 @@ public class XmlAdaptedScreening {
     private String screeningDateTime;
     @XmlElement(required = true, name = "endDateTime")
     private String screeningEndDateTime;
-    
+
     /**
      * Constructs an XmlAdaptedScreening.
      * This is the no-arg constructor that is required by JAXB.
