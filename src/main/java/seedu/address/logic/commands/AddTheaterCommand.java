@@ -215,10 +215,8 @@ public class AddTheaterCommand extends UndoableCommand {
             this.theaters = (theaters != null) ? new ArrayList<>(theaters) : null;
         }
 
-        public void setNewTheaters(Cinema cinema) {
-            if (this.theaters.size() > cinema.getTheaters().size()) {
-
-            }
+        public int getTheaterSize() {
+            return theaters.size();
         }
 
         public Optional<List<Theater>> getTheaters() {
