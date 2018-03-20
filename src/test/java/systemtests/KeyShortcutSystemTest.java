@@ -13,7 +13,6 @@ import seedu.address.model.Model;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.testutil.CinemaUtil;
-
 import static seedu.address.testutil.TypicalCinemas.AMY;
 
 public class KeyShortcutSystemTest extends MoviePlannerSystemTest {
