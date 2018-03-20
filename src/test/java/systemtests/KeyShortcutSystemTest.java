@@ -1,20 +1,20 @@
 package systemtests;
 
-import guitests.GuiRobot;
-import javafx.scene.input.KeyCode;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.ListCommand;
-import static seedu.address.testutil.TypicalCinemas.AMY;
-
 import org.junit.Test;
 
+import guitests.GuiRobot;
+import javafx.scene.input.KeyCode;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.testutil.CinemaUtil;
+
+import static seedu.address.testutil.TypicalCinemas.AMY;
 
 public class KeyShortcutSystemTest extends MoviePlannerSystemTest {
 
