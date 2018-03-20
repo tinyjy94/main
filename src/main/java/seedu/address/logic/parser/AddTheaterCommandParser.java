@@ -10,14 +10,13 @@ import seedu.address.logic.commands.AddTheaterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- *
+ * Parses input arguments and creates a new AddTheaterCommand object
  */
 public class AddTheaterCommandParser implements Parser<AddTheaterCommand> {
     /**
-     *
-     * @param args
-     * @return
-     * @throws ParseException
+     * Parses the given {@code String} of arguments in the context of the AddTheaterCommand
+     * and returns an AddTheaterCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
     public AddTheaterCommand parse(String args) throws ParseException {
         requireNonNull(args);

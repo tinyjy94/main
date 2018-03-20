@@ -10,12 +10,14 @@ import seedu.address.logic.commands.DeleteTheaterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- *
+ * Parses input arguments and creates a new DeleteTheaterCommand object
  */
 public class DeleteTheaterCommandParser implements Parser<DeleteTheaterCommand> {
 
     /**
-     *
+     * Parses the given {@code String} of arguments in the context of the DeleteTheaterCommand
+     * and returns an DeleteTheaterCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteTheaterCommand parse(String args) throws ParseException {
         requireNonNull(args);
