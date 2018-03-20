@@ -3,12 +3,7 @@ package seedu.address.model.cinema;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Objects;
-import java.util.Set;
-
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Represents a Cinema in the movie planner.
@@ -23,20 +18,16 @@ public class Cinema {
 
     private final ArrayList<Theater> theaters;
 
-    private final UniqueTagList tags;
-
     /**
      * Every field must be present and not null.
      */
-    public Cinema(Name name, Phone phone, Email email, Address address, Set<Tag> tags, ArrayList<Theater> theaters) {
-        requireAllNonNull(name, phone, email, address, tags, theaters);
+    public Cinema(Name name, Phone phone, Email email, Address address, ArrayList<Theater> theaters) {
+        requireAllNonNull(name, phone, email, address, theaters);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.theaters = theaters;
-        // protect internal tags from changes in the arg list
-        this.tags = new UniqueTagList(tags);
     }
 
     public Name getName() {
@@ -57,14 +48,6 @@ public class Cinema {
 
     public ArrayList<Theater> getTheaters() {
         return theaters;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags.toSet());
     }
 
     @Override
@@ -88,7 +71,7 @@ public class Cinema {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, theaters);
+        return Objects.hash(name, phone, email, address, theaters);
     }
 
     @Override
@@ -100,9 +83,7 @@ public class Cinema {
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getAddress());
         builder.append(" Theaters: ");
         for (int i = 0; i < theaters.size(); i++) {
             builder.append(theaters.get(i).toString() + " ");
