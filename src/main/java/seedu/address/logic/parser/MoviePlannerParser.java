@@ -65,8 +65,8 @@ public class MoviePlannerParser {
 
         case AddScreeningCommand.COMMAND_ALIAS:
         case AddScreeningCommand.COMMAND_WORD:
-            return new AddScreeningCommandParser().parse(arguments); 
-  
+            return new AddScreeningCommandParser().parse(arguments);
+
         case AddTheaterCommand.COMMAND_ALIAS:
         case AddTheaterCommand.COMMAND_WORD:
             return new AddTheaterCommandParser().parse(arguments);
