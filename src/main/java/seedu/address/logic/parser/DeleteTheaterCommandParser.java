@@ -6,19 +6,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMOFTHEATERS;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddTheaterCommand;
+import seedu.address.logic.commands.DeleteTheaterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddTheaterCommand object
+ * Parses input arguments and creates a new DeleteTheaterCommand object
  */
-public class AddTheaterCommandParser implements Parser<AddTheaterCommand> {
+public class DeleteTheaterCommandParser implements Parser<DeleteTheaterCommand> {
+
     /**
-     * Parses the given {@code String} of arguments in the context of the AddTheaterCommand
-     * and returns an AddTheaterCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteTheaterCommand
+     * and returns an DeleteTheaterCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddTheaterCommand parse(String args) throws ParseException {
+    public DeleteTheaterCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NUMOFTHEATERS);
 
@@ -27,11 +28,11 @@ public class AddTheaterCommandParser implements Parser<AddTheaterCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTheaterCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTheaterCommand.MESSAGE_USAGE));
         }
 
-        AddTheaterCommand.ResizeCinemaDescriptor resizeCinemaDescriptor =
-                new AddTheaterCommand.ResizeCinemaDescriptor();
+        DeleteTheaterCommand.ResizeCinemaDescriptor resizeCinemaDescriptor =
+                new DeleteTheaterCommand.ResizeCinemaDescriptor();
         try {
             ParserUtil.parseTheaters(argMultimap.getValue(PREFIX_NUMOFTHEATERS))
                     .ifPresent(resizeCinemaDescriptor::setTheaters);
@@ -40,10 +41,10 @@ public class AddTheaterCommandParser implements Parser<AddTheaterCommand> {
         }
 
         if (!resizeCinemaDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(AddTheaterCommand.MESSAGE_NOT_RESIZED);
+            throw new ParseException(DeleteTheaterCommand.MESSAGE_NOT_RESIZED);
         }
 
-        return new AddTheaterCommand(index, resizeCinemaDescriptor.getTheaterSize());
+        return new DeleteTheaterCommand(index, resizeCinemaDescriptor.getTheaterSize());
     }
 
 }
