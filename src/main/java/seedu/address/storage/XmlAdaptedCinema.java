@@ -1,10 +1,8 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -15,11 +13,11 @@ import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
 import seedu.address.model.cinema.Theater;
-import seedu.address.model.tag.Tag;
 
 /**
  * JAXB-friendly version of the Cinema.
  */
+
 public class XmlAdaptedCinema {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Cinema's %s field is missing!";
@@ -33,11 +31,8 @@ public class XmlAdaptedCinema {
     @XmlElement(required = true)
     private String address;
 
-    @XmlElement
+    @XmlElement(name = "theater")
     private ArrayList<XmlAdaptedTheater> theaters = new ArrayList<>();
-
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedCinema.
@@ -49,14 +44,11 @@ public class XmlAdaptedCinema {
      * Constructs an {@code XmlAdaptedCinema} with the given cinema details.
      */
     public XmlAdaptedCinema(String name, String phone, String email, String address,
-                            List<XmlAdaptedTag> tagged, ArrayList<XmlAdaptedTheater> theaters) {
+                             ArrayList<XmlAdaptedTheater> theaters) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
         if (theaters != null) {
             this.theaters = new ArrayList<>(theaters);
         }
@@ -72,10 +64,6 @@ public class XmlAdaptedCinema {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
         for (Theater theater : source.getTheaters()) {
             theaters.add(new XmlAdaptedTheater(theater));
         }
@@ -87,10 +75,6 @@ public class XmlAdaptedCinema {
      * @throws IllegalValueException if there were any data constraints violated in the adapted cinema
      */
     public Cinema toModelType() throws IllegalValueException {
-        final List<Tag> cinemaTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            cinemaTags.add(tag.toModelType());
-        }
         final List<Theater> cinemaTheater = new ArrayList<>();
         for (XmlAdaptedTheater theater : theaters) {
             cinemaTheater.add(theater.toModelType());
@@ -136,9 +120,8 @@ public class XmlAdaptedCinema {
             throw new IllegalValueException(Theater.MESSAGE_THEATER_CONSTRAINTS);
         }
 
-        final Set<Tag> tags = new HashSet<>(cinemaTags);
         final ArrayList<Theater> theaters = new ArrayList<>(cinemaTheater);
-        return new Cinema(name, phone, email, address, tags, theaters);
+        return new Cinema(name, phone, email, address, theaters);
     }
 
     @Override
@@ -156,7 +139,6 @@ public class XmlAdaptedCinema {
                 && Objects.equals(phone, otherCinema.phone)
                 && Objects.equals(email, otherCinema.email)
                 && Objects.equals(address, otherCinema.address)
-                && theaters.equals(otherCinema.theaters)
-                && tagged.equals(otherCinema.tagged);
+                && theaters.equals(otherCinema.theaters);
     }
 }

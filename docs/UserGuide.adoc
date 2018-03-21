@@ -113,18 +113,23 @@ Keyword appearance on Command Line: [black-background green]`addmovie`
 Alias: `as`
 
 Adds a screening of a movie to a cinema theater. +
-Format: `addscreening n/MOVIE_NAME c/CINEMA th/THEATER sd/SCREEN_DATE h/SCREEN_HOUR`
+Format: `addscreening m/MOVIE_INDEX c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME`
 
 Examples:
 
-* `addscreening n/The Incredibles c/Cathay th/1 sd/18/11/2014 h/13:30`
-* `as n/Spiderman 1 c/GV Bishan th/3 sd/04/29/2012 h/14:15`
+* `addscreening m/1 c/2 th/1 h/05/05/2015 13:30` +
+Adds a screening of the 1st movie to the 2nd cinema's 1st theater.
+* `as m/2 c/3 th/3 h/11/11/2011 14:15` +
+Adds a screening of the 2nd movie to the 3rd cinema's 3rd theater.
 
 [NOTE]
 ====
-* `SCREEN_DATE` must not be before `START_DATE` of the movie
+* `SCREEN_DATE_TIME` must not be before `START_DATE` of the movie
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
 * The movie to be screened must already exist in MVP
 * The cinema theater that is screening the movie must exist in MVP
+* The minutes in `SCREEN_DATE_TIME` must be in 5 minutes interval.
 ====
 
 Keyword appearance on Command Line: [black-background green]`addscreening`
@@ -231,18 +236,22 @@ Keyword appearance on Command Line: [black-background red]`deletemovie`
 Alias: `ds`
 
 Delete a screening of a movie from a cinema theater. +
-Format: `deletescreening n/MOVIE_NAME c/CINEMA th/NUMBER_OF_THEATER sd/SCREEN_DATE h/SCREEN_HOUR`
+Format: `deletescreening m/MOVIE_INDEX c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME`
 
 Examples:
 
-* `deletescreening n/The Incredibles c/Cathay th/1 sd/14/08/2018 h/13:30`
-* `ds n/Spider Man 1 c/GV Bishan th/2 sd/25/03/2018 h/14:15`
+* `deletescreening m/1 c/2 th/1 h/05/05/2015 13:30` +
+Deletes a screening of the 1st movie to the 2nd cinema's 1st theater.
+* `ds m/2 c/3 th/3 h/11/11/2011 14:15` +
+Deletes a screening of the 2nd movie to the 3rd cinema's 3rd theater.
 
 [NOTE]
 ====
-* SCREEN_DATE must be on or after START_DATE of the movie
-* The movie that is being screened must already exist in the MVP
-* The cinema theater that is screening the movie must exist in the MVP
+* Screening must exist in the cinema theater
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The movie that is being deleted from screening must already exist in the MVP
+* The cinema theater that is holding the screening must exist in the MVP
 ====
 
 Keyword appearance on Command Line: [black-background red]`deletescreening`
@@ -406,7 +415,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
-// end::undoredo[]
 
 Keyword appearance on Command Line: [black-background red]`redo`
 
@@ -500,8 +508,8 @@ _{explain how the user can enable/disable data encryption}_
 |`add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague th/3`
 |*AddMovie* |`addmovie n/MOVIE_NAME d/DURATION r/RATING sd/START_DATE cat/CATEGORY`|`am`
 |`addmovie n/The Incredibles d/115 r/PG sd/18/11/2014 cat/Animation`
-|*AddScreening* |`addscreening n/MOVIE_NAME c/CINEMA th/THEATER sd/SCREEN_DATE h/SCREEN_HOUR` |`as`
-|`addscreening n/The Incredibles c/Cathay th/1 sd/18/11/2014 h/13:30`
+|*AddScreening* |`addscreening m/MOVIE_INDEX c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME` |`as`
+|`addscreening m/1 c/2 th/1 h/05/05/2015 13:30`
 |*AddTheater* | `addtheater n/CINEMA_NAME th/NUMBER_OF_THEATER` |`at` |`addtheater n/GV Bishan th/2`
 |*Clear* |`clear`| `c`| `clear`
 |*Copy* |`copy c/CINEMA th/THEATER sd/SOURCE_DATE tc/TARGET_CINEMA tth/TARGET_THEATER td/TARGET_DATE`
@@ -511,8 +519,8 @@ _{explain how the user can enable/disable data encryption}_
 |*DeleteMovie* |`delete INDEX` |`dm`
 |`list` +
  `delete 2`
-|*DeleteScreening* |`deletescreening n/MOVIE_NAME c/CINEMA th/NUMBER_OF_THEATER sd/SCREEN_DATE h/SCREEN_HOUR` |`ds`
-|`deletescreening n/The Incredibles c/Cathay th/1 sd/14/08/2018 h/13:30`
+|*DeleteScreening* |`deletescreening m/MOVIE_INDEX c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME` |`ds`
+|`deletescreening m/1 c/2 th/1 h/05/05/2015 13:30`
 |*DeleteTheater* |`deletetheater n/CINEMA_NAME th/NUMBER_OF_THEATER` |`dt` |`deletetheater n/Cathay th/9`
 |*Edit* |`edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` |`e`
 |`edit 2 n/GV Jurong Point e/contacts@gv.com`
@@ -535,7 +543,9 @@ _{explain how the user can enable/disable data encryption}_
 
 |===
 |Shortcut |Corresponding Function
-|*Ctrl + R* | Redo command
+|*Alt + Shift + C* | Clear command
+|*Ctrl + L* | List command
+|*Ctrl + Y* | Redo command
 |*Ctrl + Z* | Undo command
 |===
 

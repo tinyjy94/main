@@ -8,6 +8,8 @@ import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
+import seedu.address.model.movie.exceptions.MovieNotFoundException;
+import seedu.address.model.screening.Screening;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
@@ -56,12 +58,29 @@ public interface Model {
      */
     void updateFilteredCinemaList(Predicate<Cinema> predicate);
 
+    /** Deletes the given movie. */
+    void deleteMovie(Movie target) throws MovieNotFoundException;
+
     /** Adds the given movie */
     void addMovie(Movie movie) throws DuplicateMovieException;
+
+    /**
+     * Replaces the given movie {@code target} with {@code editedMovie}.
+     *
+     * @throws DuplicateMovieException if updating the cinema's details causes the cinema to be equivalent to
+     *      another existing cinema in the list.
+     * @throws MovieNotFoundException if {@code target} could not be found in the list.
+     */
+    void updateMovie(Movie target, Movie editedMovie)
+            throws DuplicateMovieException, MovieNotFoundException;
 
     /**
      * Updates the filter of the filtered movie list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMovieList(Predicate<Movie> predicate);
+
+    /** Adds the given screening */
+    void addScreening(Screening screening);
+
 }

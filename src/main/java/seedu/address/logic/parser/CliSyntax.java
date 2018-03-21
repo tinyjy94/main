@@ -15,4 +15,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_RATING = new Prefix("r/");
     public static final Prefix PREFIX_STARTDATE = new Prefix("sd/");
     public static final Prefix PREFIX_NUMOFTHEATERS = new Prefix("th/");
+    public static final Prefix PREFIX_CINEMA_INDEX = new Prefix("c/");
+    public static final Prefix PREFIX_MOVIE_INDEX = new Prefix("m/");
+    public static final Prefix PREFIX_SCREENING_DATE_TIME = new Prefix("h/");
 }
