@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddMovieCommand;
 import seedu.address.logic.commands.AddScreeningCommand;
+import seedu.address.logic.commands.AddTheaterCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -64,6 +65,10 @@ public class MoviePlannerParser {
         case AddScreeningCommand.COMMAND_ALIAS:
         case AddScreeningCommand.COMMAND_WORD:
             return new AddScreeningCommandParser().parse(arguments);
+
+        case AddTheaterCommand.COMMAND_ALIAS:
+        case AddTheaterCommand.COMMAND_WORD:
+                return new AddTheaterCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_ALIAS:
         case EditCommand.COMMAND_WORD:
