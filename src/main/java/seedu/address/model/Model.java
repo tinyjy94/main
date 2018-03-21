@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
-import seedu.address.model.cinema.exceptions.ScreeningConflictException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
 import seedu.address.model.movie.exceptions.MovieNotFoundException;
@@ -82,6 +81,6 @@ public interface Model {
     void updateFilteredMovieList(Predicate<Movie> predicate);
 
     /** Adds the given screening */
-    void addScreening(Screening screening) throws ScreeningConflictException;
+    void addScreening(Screening screening);
 
 }
