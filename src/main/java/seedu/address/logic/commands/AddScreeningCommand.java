@@ -56,6 +56,10 @@ public class AddScreeningCommand extends UndoableCommand {
      */
     public AddScreeningCommand(Index movieIndex, Index cinemaIndex,
                                int theaterNumber, LocalDateTime screeningDateTime) {
+        requireNonNull(movieIndex);
+        requireNonNull(cinemaIndex);
+        requireNonNull(theaterNumber);
+        requireNonNull(screeningDateTime);
         this.movieIndex = movieIndex;
         this.cinemaIndex = cinemaIndex;
         this.theaterNumber = theaterNumber;
