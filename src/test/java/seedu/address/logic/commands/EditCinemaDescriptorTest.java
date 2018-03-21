@@ -35,20 +35,20 @@ public class EditCinemaDescriptorTest {
         assertFalse(DESC_GV.equals(DESC_SHAW));
 
         // different name -> returns false
-        EditCinemaDescriptor editedGV = new EditCinemaDescriptorBuilder(DESC_GV).withName(VALID_NAME_SHAW).build();
-        assertFalse(DESC_GV.equals(editedGV));
+        EditCinemaDescriptor editedGv = new EditCinemaDescriptorBuilder(DESC_GV).withName(VALID_NAME_SHAW).build();
+        assertFalse(DESC_GV.equals(editedGv));
 
         // different phone -> returns false
-        editedGV = new EditCinemaDescriptorBuilder(DESC_GV).withPhone(VALID_PHONE_SHAW).build();
-        assertFalse(DESC_GV.equals(editedGV));
+        editedGv = new EditCinemaDescriptorBuilder(DESC_GV).withPhone(VALID_PHONE_SHAW).build();
+        assertFalse(DESC_GV.equals(editedGv));
 
         // different email -> returns false
-        editedGV = new EditCinemaDescriptorBuilder(DESC_GV).withEmail(VALID_EMAIL_SHAW).build();
-        assertFalse(DESC_GV.equals(editedGV));
+        editedGv = new EditCinemaDescriptorBuilder(DESC_GV).withEmail(VALID_EMAIL_SHAW).build();
+        assertFalse(DESC_GV.equals(editedGv));
 
         // different address -> returns false
-        editedGV = new EditCinemaDescriptorBuilder(DESC_GV).withAddress(VALID_ADDRESS_SHAW).build();
-        assertFalse(DESC_GV.equals(editedGV));
+        editedGv = new EditCinemaDescriptorBuilder(DESC_GV).withAddress(VALID_ADDRESS_SHAW).build();
+        assertFalse(DESC_GV.equals(editedGv));
 
     }
 }

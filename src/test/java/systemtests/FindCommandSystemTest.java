@@ -3,9 +3,9 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_CINEMAS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalCinemas.GV_TIONG_BAHRU;
 import static seedu.address.testutil.TypicalCinemas.CATHAY_AMK_HUB;
 import static seedu.address.testutil.TypicalCinemas.CATHAY_CAUSEWAY_POINT;
+import static seedu.address.testutil.TypicalCinemas.GV_TIONG_BAHRU;
 import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class FindCommandSystemTest extends MoviePlannerSystemTest {
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, GV_TIONG_BAHRU, CATHAY_CAUSEWAY_POINT); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, GV_TIONG_BAHRU, CATHAY_CAUSEWAY_POINT);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -125,7 +125,8 @@ public class FindCommandSystemTest extends MoviePlannerSystemTest {
         /* Case: find while a cinema is selected -> selected card deselected */
         showAllCinemas();
         selectCinema(Index.fromOneBased(1));
-        assertFalse(getCinemaListPanel().getHandleToSelectedCard().getName().equals(CATHAY_CAUSEWAY_POINT.getName().fullName));
+        assertFalse(getCinemaListPanel().getHandleToSelectedCard().getName()
+                .equals(CATHAY_CAUSEWAY_POINT.getName().fullName));
         command = FindCommand.COMMAND_WORD + " Daniel";
         ModelHelper.setFilteredList(expectedModel, CATHAY_CAUSEWAY_POINT);
         assertCommandSuccess(command, expectedModel);

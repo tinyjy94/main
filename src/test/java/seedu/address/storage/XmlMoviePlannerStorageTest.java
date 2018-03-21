@@ -2,9 +2,9 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static seedu.address.testutil.TypicalCinemas.CATHAY_JEM;
 import static seedu.address.testutil.TypicalCinemas.GV_PAYA_LEBAR;
 import static seedu.address.testutil.TypicalCinemas.GV_VIVOCITY;
-import static seedu.address.testutil.TypicalCinemas.CATHAY_JEM;
 import static seedu.address.testutil.TypicalCinemas.getTypicalMoviePlanner;
 
 import java.io.IOException;

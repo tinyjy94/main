@@ -68,7 +68,8 @@ public class FindCommandTest {
     public void execute_multipleKeywords_multipleCinemasFound() {
         String expectedMessage = String.format(MESSAGE_CINEMAS_LISTED_OVERVIEW, 3);
         FindCommand command = prepareCommand("Kurz Elle Kunz");
-        assertCommandSuccess(command, expectedMessage, Arrays.asList(CATHAY_AMK_HUB, CATHAY_CINELEISURE_ORCHARD, SHAW_LIDO));
+        assertCommandSuccess(command, expectedMessage,
+                Arrays.asList(CATHAY_AMK_HUB, CATHAY_CINELEISURE_ORCHARD, SHAW_LIDO));
     }
 
     /**

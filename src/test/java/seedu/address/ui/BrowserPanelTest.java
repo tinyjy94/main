@@ -40,7 +40,8 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a cinema
         postNow(selectionChangedEventStub);
-        URL expectedCinemaUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + GV_PAYA_LEBAR.getName().fullName.replaceAll(" ", "%20"));
+        URL expectedCinemaUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
+                + GV_PAYA_LEBAR.getName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedCinemaUrl, browserPanelHandle.getLoadedUrl());

@@ -26,13 +26,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NUMOFNEWTHEATER
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NUMOFTHEATERS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_GV;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_SHAW;
-import static seedu.address.testutil.TypicalCinemas.GV_PAYA_LEBAR;
-import static seedu.address.testutil.TypicalCinemas.GV;
-import static seedu.address.testutil.TypicalCinemas.SHAW;
 import static seedu.address.testutil.TypicalCinemas.CATHAY_AMK_HUB;
-import static seedu.address.testutil.TypicalCinemas.GV_VIVOCITY;
 import static seedu.address.testutil.TypicalCinemas.CATHAY_JEM;
+import static seedu.address.testutil.TypicalCinemas.GV;
+import static seedu.address.testutil.TypicalCinemas.GV_PAYA_LEBAR;
+import static seedu.address.testutil.TypicalCinemas.GV_VIVOCITY;
 import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCinemas.SHAW;
 
 import org.junit.Test;
 

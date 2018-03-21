@@ -20,8 +20,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_SHAW;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_SHAW;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CINEMAS;
 import static seedu.address.testutil.TypicalCinemas.GV;
-import static seedu.address.testutil.TypicalCinemas.SHAW;
 import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCinemas.SHAW;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CINEMA;
 
 import org.junit.Test;
@@ -73,8 +73,8 @@ public class EditCommandSystemTest extends MoviePlannerSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a cinema with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SHAW + PHONE_DESC_SHAW + EMAIL_DESC_SHAW
-                + ADDRESS_DESC_SHAW;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased()
+                + NAME_DESC_SHAW + PHONE_DESC_SHAW + EMAIL_DESC_SHAW + ADDRESS_DESC_SHAW;
         assertCommandSuccess(command, index, SHAW);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
@@ -154,8 +154,8 @@ public class EditCommandSystemTest extends MoviePlannerSystemTest {
         assertTrue(getModel().getMoviePlanner().getCinemaList().contains(SHAW));
         index = INDEX_FIRST_CINEMA;
         assertFalse(getModel().getFilteredCinemaList().get(index.getZeroBased()).equals(SHAW));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SHAW + PHONE_DESC_SHAW + EMAIL_DESC_SHAW
-                + ADDRESS_DESC_SHAW;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_SHAW
+                + PHONE_DESC_SHAW + EMAIL_DESC_SHAW + ADDRESS_DESC_SHAW;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CINEMA);
     }
 

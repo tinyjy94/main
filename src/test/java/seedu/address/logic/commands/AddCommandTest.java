@@ -67,9 +67,9 @@ public class AddCommandTest {
     @Test
     public void equals() {
         Cinema alice = new CinemaBuilder().withName("Alice").build();
-        Cinema bob = new CinemaBuilder().withName("Bob").build();
+        Cinema shaw = new CinemaBuilder().withName("shaw").build();
         AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddCommand addShawCommand = new AddCommand(shaw);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
@@ -85,7 +85,7 @@ public class AddCommandTest {
         assertFalse(addAliceCommand.equals(null));
 
         // different cinema -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addAliceCommand.equals(addShawCommand));
     }
 
     /**
