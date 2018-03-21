@@ -3,6 +3,12 @@ package seedu.address.model.cinema;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Objects;
+
+import seedu.address.model.screening.Screening;
+
 /**
  * Represents a theater in cinema
  */
@@ -10,17 +16,19 @@ public class Theater {
 
     public static final String MESSAGE_THEATER_CONSTRAINTS = "Theater number should be positive.";
 
-    /*
-     * theater number must be positive
+    /**
+     * Theater number must be positive
      */
     public static final String THEATER_VALIDATION_REGEX = "^[1-9]\\d*$";
 
     private int theaterNumber;
+    private ArrayList<Screening> screeningList;
 
     public Theater(int theaterNumber) {
         requireNonNull(theaterNumber);
         checkArgument(isValidTheater(String.valueOf(theaterNumber)), MESSAGE_THEATER_CONSTRAINTS);
         this.theaterNumber = theaterNumber;
+        this.screeningList = new ArrayList<>();
     }
 
     /**
@@ -38,15 +46,45 @@ public class Theater {
         this.theaterNumber = theaterNumber;
     }
 
-    @Override
-    public String toString() {
-        return "Theater " + theaterNumber;
+    /**
+     * Adds a screening to the sorted screening list of the theater
+     */
+    public void addScreeningToTheater(Screening screening) {
+        screeningList.add(screening);
+    }
+
+    /**
+     * Sorts the screening list by screening date time
+     */
+    public void sortScreeningList() {
+        screeningList.sort(Comparator.comparing(Screening::getScreeningDateTime));
+    }
+
+    /**
+     * Returns a list of screenings in the theater
+     */
+    public ArrayList<Screening> getScreeningList() {
+        return screeningList;
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Theater // instanceof handles nulls
-                && this.theaterNumber == ((Theater) other).theaterNumber); // state check
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Theater)) {
+            return false;
+        }
+
+        Theater otherTheater = (Theater) other;
+        return otherTheater.getTheaterNumber() == this.getTheaterNumber()
+                && otherTheater.getScreeningList().equals(this.getScreeningList());
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(theaterNumber, screeningList);
     }
 }

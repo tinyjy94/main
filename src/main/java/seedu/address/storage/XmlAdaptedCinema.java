@@ -17,6 +17,7 @@ import seedu.address.model.cinema.Theater;
 /**
  * JAXB-friendly version of the Cinema.
  */
+
 public class XmlAdaptedCinema {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Cinema's %s field is missing!";
@@ -30,7 +31,7 @@ public class XmlAdaptedCinema {
     @XmlElement(required = true)
     private String address;
 
-    @XmlElement
+    @XmlElement(name = "theater")
     private ArrayList<XmlAdaptedTheater> theaters = new ArrayList<>();
 
     /**
