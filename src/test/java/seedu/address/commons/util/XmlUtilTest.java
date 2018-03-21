@@ -17,6 +17,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.MoviePlanner;
 import seedu.address.storage.XmlAdaptedCinema;
+import seedu.address.storage.XmlAdaptedScreening;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlAdaptedTheater;
 import seedu.address.storage.XmlSerializableMoviePlanner;
@@ -42,8 +43,9 @@ public class XmlUtilTest {
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("superhero"));
+    private static final ArrayList<XmlAdaptedScreening> VALID_SCREENING = new ArrayList<>();
     private static final List<XmlAdaptedTheater> VALID_THEATERLIST =
-            Collections.singletonList(new XmlAdaptedTheater(1));
+            Collections.singletonList(new XmlAdaptedTheater(1, VALID_SCREENING));
     private static final ArrayList<XmlAdaptedTheater> VALID_THEATER = new ArrayList<>(VALID_THEATERLIST);
 
     @Rule
