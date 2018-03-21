@@ -30,10 +30,10 @@ public class AddCommand extends UndoableCommand {
             + "[" + PREFIX_TAG + "TAG]... "
             + PREFIX_NUMOFTHEATERS + "THEATER\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_NAME + "Cathay "
+            + PREFIX_PHONE + "61231205 "
+            + PREFIX_EMAIL + "cathayd@cathay.com "
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #01-25 "
             + PREFIX_NUMOFTHEATERS + "3";
 
     public static final String MESSAGE_SUCCESS = "New cinema added: %1$s";
