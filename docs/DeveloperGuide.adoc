@@ -442,6 +442,147 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 <<DeveloperGuide.adoc#, Back to top>>
 
+[[Implementation-SchedulingSystem]]
+=== Scheduling System
+In MVP, the scheduling system works by adding a movie screening to a cinema's theater.
+The user can use the `addscreening` command to add a movie screening to a theater.
+`addscreening` command will be parsed by `AddScreeningCommandParser` and be executed in `AddScreeningCommand`.
+The following sequence diagram shows how the `addscreening` command works.
+
+.Sequence diagram of addscreening command
+image::AddScreeningSequenceDiagram.png[width="1000"]
+
+[NOTE]
+The details of parse screening parameters have been omitted from the diagram.
+
+
+==== Implementation details
+As seen in sequence diagram above, MVP will do the following
+
+. Calls `arePrefixesPresent()` to check if the compulsory prefixes m/, c/, th/ and h/, which are used for movie index, cinema index, theater number and screening start datetime respectively.
+. Calls `parseParameters()` method in `ParserUtil` to parse the user input into different objects required for the `AddScreeningCommand`.
+[NOTE]
+`Parameters` mentioned above refers to the parameters provided by the user. E.g. movie index, cinema index, theater number and screening start datetime
+. Creates an `AddScreeningCommand` object that takes in the parameters. In `AddScreeningCommand`,
+there are checks to ensure that the indexes provided are valid.
+The code snippet belows shows how MVP checks that the provided movie index is valid and returns the valid `Movie`.
+
+[source, java]
+    private Movie getValidMovie() throws CommandException {
+        List<Movie> lastShownMovieList = model.getFilteredMovieList();
+        if (movieIndex.getZeroBased() >= lastShownMovieList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_MOVIE_DISPLAYED_INDEX);
+        }
+        // returns the movie using the index provided
+        ...
+    }
+
+[start = 4]
+. Creates a `Screening` and calls an internal method `getEndTime()` to calculate when a screening will end.
+
+[NOTE]
+====
+* The formula used to calculate the screening's end time is (start time + movie's duration + preparation delay) rounded up to the nearest 5 minutes.
+* By default the preparation delay is *15 minutes*.
+* E.g. Screening is scheduled to start at 13:30, movie's duration is 93 minutes.
+The end time of this screening is calculated by (13:30 + 15 minutes + 93 minutes) = 15:18.
+By rounding up to the nearest 5 minutes, the screening will end at 15:20.
+====
+
+[start = 5]
+. Once a `Screening` has been created, `AddScreeningCommand` will check that if it is possible to slot this screening into the existing theater's schedule.
+The code snippet below shows how MVP checks if it is possible to fit the screening in when there are multiple screenings on the same date.
+
+[source, java]
+----
+    private boolean isSlotAvailable(ArrayList<Screening> screeningList) {
+        int totalScreeningsWithSameDate = getTotalScreeningsWithSameDate(screeningList);
+
+        if (totalScreeningsWithSameDate == 0) {
+            return true;
+        } else if (totalScreeningsWithSameDate == 1) {
+            return hasNoConflictWithOneOtherScreening(screeningList);
+        } else { // multiple screenings on same date
+            return hasNoConflictWithBeforeAndAfter(totalScreeningsWithSameDate, screeningList);
+        }
+    }
+----
+
+[source, java]
+----
+    private boolean hasNoConflictWithBeforeAndAfter(int totalScreenings, ArrayList<Screening> screeningList) {
+        int count = 0;
+        boolean hasNoConflict = false;
+        Screening screeningBefore = screeningList.get(0);
+
+        if (isSameScreeningDate(toAdd , screeningBefore)) {
+            count++;
+        }
+
+        for (int i = 1; i < screeningList.size(); i++) {
+            Screening currentScreening = screeningList.get(i);
+            if (hasNoConflict == true) { // already found the spot to insert to
+                break;
+            }
+
+            //first screening
+            if (count == 1 && isScreenTimeOnOrBefore(currentScreening)) {
+                return true;
+            } else if (isSameScreeningDate(currentScreening, toAdd)) {
+                count++;
+                // last screening
+                if (count == totalScreenings && isScreenTimeOnOrAfter(currentScreening)) {
+                    return true;
+                // screening in between
+                } else {
+                    // checks that the screening to add is strictly after end time of previous screening
+                    & end time of screening to add is strictly before start time of next screening
+                    hasNoConflict = isScreenTimeOnOrAfter(screeningBefore)
+                            && isScreenTimeOnOrBefore(currentScreening);
+                }
+            }
+            screeningBefore = currentScreening;
+        }
+        return hasNoConflict;
+    }
+----
+
+==== Storing screenings in xml
+
+To store in `movieplanner.xml`, `Screening` needs to be converted into XML format.
+The part in red border below shows the class diagram of the storage component.
+
+.Class diagram of storage component
+image::ScreeningStorageComponent.png[width="500"]
+The data will be stored as such in the .xml file:
+[source, xml]
+    <cinemas>
+        <name>Cathay</name>
+        <phone>62001000</phone>
+        <email>CathayWest@gmail.com</email>
+        <address>Clementi</address>
+        <theater number="1"/>
+        <theater number="2">
+            <screening>
+                <movie>Finding Nemo</movie>
+                <startDateTime>11/11/2015 13:35</startDateTime>
+                <endDateTime>11/11/2015 15:50</endDateTime>
+            </screening>
+        </theater>
+    </cinemas>
+
+==== Design Considerations
+*Aspect:* Data structure to store the screening schedule
+
+* **Alternative 1 (current choice):** Use an ArrayList<Screening> to store the list of screenings in a cinema's theater
+** Pros: It is easier to store in the xml.
+** Cons: It can be difficult to find the list of screenings for a particular date as the list of screenings in a cinema's theater increases
+* **Alternative 2:** Use a HashMap<Date, ArrayList<Screening>> to store the screenings
+** Pros: It is easier to get the list of screenings for a particular date.
+** Cons: It is more complicated to store in the xml.
+
+<<DeveloperGuide.adoc#, Back to top>>
+
 == Documentation
 
 Documentation for MVP are done in acsiidoc.
