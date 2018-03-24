@@ -110,6 +110,8 @@ Keyword appearance on Command Line: [black-background green]`addmovie`
 
 === Adding a movie screening: `addscreening` | `as`
 
+`Available in v1.2`
+
 Alias: `as`
 
 Adds a screening of a movie to a cinema theater. +
@@ -232,6 +234,7 @@ Deletes the 1st movie in the results of the `find` command.
 Keyword appearance on Command Line: [black-background red]`deletemovie`
 
 === Deleting a screening: `deletescreening` | `ds`
+`Coming in v1.3`
 
 Alias: `ds`
 
