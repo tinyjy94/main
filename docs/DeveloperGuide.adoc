@@ -420,6 +420,47 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::findmovies[]
+=== Enhanced FindMovie command
+
+The user can find movies by `Category`, `MovieName` or `StartDate`.
+
+==== Implementation details
+
+The parser will take in all arguments the user specified and store it in an array. If the user search by `MovieName` or
+`StartDate` then MVP will search through every movie records in the storage to find matching keywords. If user search by
+`Category`, MVP will only retrieve movies in that `Category` without running through the entire movie records.
+
+==== Finding commands
+
+Movies can be found by using the `findMovie` command. The command is parsed by `FindMovieCommandParser` and be executed
+in `FindMovieCommand`.
+
+Figure below shows the interaction between the classes.
+
+*Finding by `MovieName` or `StartDate`*
+
+Figure 1
+
+*Finding by `Category` and/or `MovieName` and/or `StartDate`*
+
+Figure 2
+
+==== Design considerations
+
+*Aspects:* Storage of movies with categories
+
+Alternative 1: Store in the same xml file as the MoviePlanner and read upon startup of program to an array.
+
+** Pros: Additional storage on the computer is not required.
+** Cons: Have to read in the entire MoviePlanner xml file once every startup which might harm performance.
+
+Alternative 2 *(current choice)*: Store in a separate xml file and update whenever movies are being added or deleted.
+
+** Pros: Lesser overhead as program does not need to
+** Cons: Additional storage on the computer is required.
+//end::findmovies[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
