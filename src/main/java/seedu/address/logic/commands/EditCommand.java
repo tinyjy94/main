@@ -4,13 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMOFTHEATERS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CINEMAS;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,7 +20,6 @@ import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
-import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 
@@ -43,13 +38,10 @@ public class EditCommand extends UndoableCommand {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_NUMOFTHEATERS + "THEATERS]\n"
+            + "[" + PREFIX_ADDRESS + "ADDRESS] \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com "
-            + PREFIX_NUMOFTHEATERS + "3 ";
+            + PREFIX_PHONE + "66538100 "
+            + PREFIX_EMAIL + "customersvc@goldenvillage.com.sg ";
 
     public static final String MESSAGE_EDIT_CINEMA_SUCCESS = "Edited Cinema: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -109,10 +101,8 @@ public class EditCommand extends UndoableCommand {
         Phone updatedPhone = editCinemaDescriptor.getPhone().orElse(cinemaToEdit.getPhone());
         Email updatedEmail = editCinemaDescriptor.getEmail().orElse(cinemaToEdit.getEmail());
         Address updatedAddress = editCinemaDescriptor.getAddress().orElse(cinemaToEdit.getAddress());
-        List<Theater> updatedTheaters = editCinemaDescriptor.getTheaters().orElse(cinemaToEdit.getTheaters());
-        ArrayList<Theater> updatedTheaterList = new ArrayList<>(updatedTheaters);
 
-        return new Cinema(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTheaterList);
+        return new Cinema(updatedName, updatedPhone, updatedEmail, updatedAddress, cinemaToEdit.getTheaters());
     }
 
     @Override
@@ -143,7 +133,6 @@ public class EditCommand extends UndoableCommand {
         private Phone phone;
         private Email email;
         private Address address;
-        private ArrayList<Theater> theaters;
 
         public EditCinemaDescriptor() {}
 
@@ -156,7 +145,6 @@ public class EditCommand extends UndoableCommand {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
-            setTheaters(toCopy.theaters);
         }
 
         /**
@@ -164,7 +152,7 @@ public class EditCommand extends UndoableCommand {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email,
-                                                     this.address, this.theaters);
+                                                     this.address);
         }
 
         public void setName(Name name) {
@@ -199,18 +187,6 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(address);
         }
 
-        /**
-         * Sets {@code theaters} to this object's {@code theaters}.
-         * A defensive copy of {@code theaters} is used internally.
-         */
-        public void setTheaters(ArrayList<Theater> theaters) {
-            this.theaters = (theaters != null) ? new ArrayList<>(theaters) : null;
-        }
-
-        public Optional<List<Theater>> getTheaters() {
-            return (theaters != null) ? Optional.of(Collections.unmodifiableList(theaters)) : Optional.empty();
-        }
-
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -229,8 +205,7 @@ public class EditCommand extends UndoableCommand {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTheaters().equals(e.getTheaters());
+                    && getAddress().equals(e.getAddress());
         }
     }
 }
