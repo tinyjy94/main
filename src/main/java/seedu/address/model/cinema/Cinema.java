@@ -82,11 +82,9 @@ public class Cinema {
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
-                .append(getAddress());
-        builder.append(" Theaters: ");
-        for (int i = 0; i < theaters.size(); i++) {
-            builder.append(theaters.get(i).getTheaterNumber() + " ");
-        }
+                .append(getAddress())
+                .append(" Number of theaters: ")
+                .append(theaters.size());
         return builder.toString();
     }
 
