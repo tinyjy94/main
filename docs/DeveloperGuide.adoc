@@ -459,7 +459,7 @@ The details of parse screening parameters have been omitted from the diagram.
 ==== Implementation details
 As seen in sequence diagram above, MVP will do the following
 
-. Calls `arePrefixesPresent()` to check if the compulsory prefixes m/, c/, th/ and h/, which are used for movie index, cinema index, theater number and screening start datetime respectively.
+. Calls `arePrefixesPresent()` to check if the compulsory prefixes m/, c/, th/ and h/, which are used for movie index, cinema index, theater number and screening start datetime respectively are present.
 . Calls `parseParameters()` method in `ParserUtil` to parse the user input into different objects required for the `AddScreeningCommand`.
 [NOTE]
 `Parameters` mentioned above refers to the parameters provided by the user. E.g. movie index, cinema index, theater number and screening start datetime
