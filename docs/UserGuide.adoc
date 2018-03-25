@@ -137,6 +137,7 @@ Adds a screening of the 2nd movie to the 3rd cinema's 3rd theater.
 Keyword appearance on Command Line: [black-background green]`addscreening`
 
 === Adding theaters: `addtheater` | `at`
+`Available in v1.2`
 
 Alias: `at`
 
@@ -259,7 +260,9 @@ Deletes a screening of the 2nd movie to the 3rd cinema's 3rd theater.
 
 Keyword appearance on Command Line: [black-background red]`deletescreening`
 
-=== Deleting theaters: `deletetheater`
+=== Deleting theaters: `deletetheater` | `dt`
+
+`Available in v1.2`
 
 Alias: `dt`
 
