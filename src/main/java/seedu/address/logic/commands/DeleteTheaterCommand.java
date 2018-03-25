@@ -80,7 +80,7 @@ public class DeleteTheaterCommand extends UndoableCommand {
     }
 
     /**
-     * Creates and returns a {@code Cinema} with the details of {@code newTheaters}
+     * Creates and returns a {@code Cinema} with the details of existing cinema and user input
      */
     private Cinema createResizedCinema(Cinema cinemaToResize, int newTheaters) throws CommandException {
         assert cinemaToResize != null;
