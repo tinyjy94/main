@@ -26,6 +26,10 @@ repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
+project.ext {
+    libDir = 'lib'
+}
+
 checkstyle {
     toolVersion = '8.1'
 }
