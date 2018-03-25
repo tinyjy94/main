@@ -88,7 +88,7 @@ public class AddScreeningCommandTest {
     @Test
     public void execute_screeningDateBeforeMovieReleaseDate_throwsCommandException() throws Exception {
         StartDate firstMovieDate = model.getFilteredMovieList().get(INDEX_FIRST_MOVIE.getZeroBased()).getStartDate();
-        LocalDateTime invalidScreenDate = getDateTime(firstMovieDate.toString()).minusDays(1);
+        LocalDateTime invalidScreenDate = getDateTime(firstMovieDate.toString() + " 10:00").minusDays(1);
         addScreeningCommand = prepareCommand(INDEX_FIRST_MOVIE, INDEX_FIRST_CINEMA,
                 VALID_THEATER_NUMBER, invalidScreenDate);
         assertCommandFailure(addScreeningCommand, model, Messages.MESSAGE_INVALID_SCREENING);
@@ -98,7 +98,7 @@ public class AddScreeningCommandTest {
      * Parses datetime and returns a valid LocalDateTime object
      */
     private LocalDateTime getDateTime(String dateTime) {
-        return LocalDateTime.parse(VALID_DATE_TIME, dtf);
+        return LocalDateTime.parse(dateTime, dtf);
     }
 
     /**
