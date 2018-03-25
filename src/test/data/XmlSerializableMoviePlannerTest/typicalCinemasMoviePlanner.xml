@@ -3,64 +3,64 @@
 {@code TypicalCinemas#getTypicalMoviePlanner()}-->
 <movieplanner>
     <cinemas>
-        <name>Alice Pauline</name>
-        <phone>85355255</phone>
-        <email>alice@example.com</email>
-        <address>123, Jurong West Ave 6, #08-111</address>
+        <name>Aljunied Cathay</name>
+        <phone>65355255</phone>
+        <email>aljunied@cathay.com</email>
+        <address>123, Aljunied</address>
         <theater number="1"/>
         <theater number="2"/>
         <theater number="3"/>
     </cinemas>
     <cinemas>
-        <name>Benson Meier</name>
-        <phone>98765432</phone>
-        <email>johnd@example.com</email>
-        <address>311, Clementi Ave 2, #02-25</address>
+        <name>Bedok Shaws</name>
+        <phone>68765432</phone>
+        <email>bedok@shaw.com</email>
+        <address>311, Bedok</address>
         <theater number="1"/>
         <theater number="2"/>
         <theater number="3"/>
     </cinemas>
     <cinemas>
-        <name>Carl Kurz</name>
-        <phone>95352563</phone>
-        <email>heinz@example.com</email>
-        <address>wall street</address>
+        <name>Clementi Cathay</name>
+        <phone>65352563</phone>
+        <email>clementi@cathay.com</email>
+        <address>111, Clementi</address>
         <theater number="1"/>
         <theater number="2"/>
         <theater number="3"/>
     </cinemas>
     <cinemas>
-        <name>Daniel Meier</name>
-        <phone>87652533</phone>
-        <email>cornelia@example.com</email>
-        <address>10th street</address>
+        <name>Dover Shaws</name>
+        <phone>67652533</phone>
+        <email>dover@shaw.com</email>
+        <address>10th Street</address>
         <theater number="1"/>
         <theater number="2"/>
         <theater number="3"/>
     </cinemas>
     <cinemas>
-        <name>Elle Meyer</name>
-        <phone>9482224</phone>
-        <email>werner@example.com</email>
-        <address>michegan ave</address>
+        <name>Eunos Cathay</name>
+        <phone>6482224</phone>
+        <email>eunos@cathay.com</email>
+        <address>Eunos Street</address>
         <theater number="1"/>
         <theater number="2"/>
         <theater number="3"/>
     </cinemas>
     <cinemas>
-        <name>Fiona Kunz</name>
-        <phone>9482427</phone>
-        <email>lydia@example.com</email>
-        <address>little tokyo</address>
+        <name>Farrer Cathay</name>
+        <phone>6482427</phone>
+        <email>farrer@cathay.com</email>
+        <address>Farrer Park</address>
         <theater number="1"/>
         <theater number="2"/>
         <theater number="3"/>
     </cinemas>
     <cinemas>
-        <name>George Best</name>
-        <phone>9482442</phone>
-        <email>anna@example.com</email>
-        <address>4th street</address>
+        <name>Gul Cathay</name>
+        <phone>6482442</phone>
+        <email>gul@cathay.com</email>
+        <address>Gul Circle</address>
         <theater number="1"/>
         <theater number="2"/>
         <theater number="3"/>
