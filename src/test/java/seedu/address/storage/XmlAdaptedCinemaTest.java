@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.XmlAdaptedCinema.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalCinemas.BENSON;
+import static seedu.address.testutil.TypicalCinemas.BEDOK;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,19 +25,19 @@ public class XmlAdaptedCinemaTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final int INVALID_THEATER = -5;
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final List<XmlAdaptedTheater> VALID_THEATERLIST = BENSON.getTheaters().stream()
+    private static final String VALID_NAME = BEDOK.getName().toString();
+    private static final String VALID_PHONE = BEDOK.getPhone().toString();
+    private static final String VALID_EMAIL = BEDOK.getEmail().toString();
+    private static final String VALID_ADDRESS = BEDOK.getAddress().toString();
+    private static final List<XmlAdaptedTheater> VALID_THEATERLIST = BEDOK.getTheaters().stream()
             .map(XmlAdaptedTheater::new)
             .collect(Collectors.toList());
     private static final ArrayList<XmlAdaptedTheater> VALID_THEATER = new ArrayList<>(VALID_THEATERLIST);
 
     @Test
     public void toModelType_validCinemaDetails_returnsCinema() throws Exception {
-        XmlAdaptedCinema cinema = new XmlAdaptedCinema(BENSON);
-        assertEquals(BENSON, cinema.toModelType());
+        XmlAdaptedCinema cinema = new XmlAdaptedCinema(BEDOK);
+        assertEquals(BEDOK, cinema.toModelType());
     }
 
     @Test

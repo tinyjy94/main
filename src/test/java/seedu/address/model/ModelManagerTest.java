@@ -7,9 +7,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMEDY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SUPERHERO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CINEMAS;
-import static seedu.address.testutil.TypicalCinemas.ALICE;
-import static seedu.address.testutil.TypicalCinemas.AMY;
-import static seedu.address.testutil.TypicalCinemas.BENSON;
+import static seedu.address.testutil.TypicalCinemas.ALJUNIED;
+import static seedu.address.testutil.TypicalCinemas.BEDOK;
+import static seedu.address.testutil.TypicalCinemas.SENGKANG;
 import static seedu.address.testutil.TypicalMovies.ABTM4;
 import static seedu.address.testutil.TypicalMovies.BLACK_PANTHER;
 
@@ -39,7 +39,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        MoviePlanner moviePlanner = new MoviePlannerBuilder().withCinema(ALICE).withCinema(BENSON).build();
+        MoviePlanner moviePlanner = new MoviePlannerBuilder().withCinema(ALJUNIED).withCinema(BEDOK).build();
         MoviePlanner differentMoviePlanner = new MoviePlanner();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -61,7 +61,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentMoviePlanner, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = ALJUNIED.getName().fullName.split("\\s+");
         modelManager.updateFilteredCinemaList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(moviePlanner, userPrefs)));
 
@@ -76,7 +76,7 @@ public class ModelManagerTest {
 
     @Test
     public void deleteTag_tagNotInUse_modelNotChanged() throws Exception {
-        MoviePlanner moviePlannerWithAmy = new MoviePlannerBuilder().withCinema(AMY).build();
+        MoviePlanner moviePlannerWithAmy = new MoviePlannerBuilder().withCinema(SENGKANG).build();
         UserPrefs userPrefs = new UserPrefs();
 
         ModelManager modelManager = new ModelManager(moviePlannerWithAmy, userPrefs);
