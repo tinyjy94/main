@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import seedu.address.email.EmailManager;
 import static seedu.address.logic.commands.CommandTestUtil.showCinemaAtIndex;
 import static seedu.address.testutil.TypicalCinemas.getTypicalMoviePlanner;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CINEMA;
@@ -36,7 +37,7 @@ public class SelectCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs());
+        model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs(), new EmailManager());
     }
 
     @Test

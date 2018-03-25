@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.email.EmailManager;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCinemaAtIndex;
 import static seedu.address.testutil.TypicalCinemas.getTypicalMoviePlanner;
@@ -25,8 +26,8 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs());
-        expectedModel = new ModelManager(model.getMoviePlanner(), new UserPrefs());
+        model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs(), new EmailManager());
+        expectedModel = new ModelManager(model.getMoviePlanner(), new UserPrefs(), new EmailManager());
 
         listCommand = new ListCommand();
         listCommand.setData(model, new CommandHistory(), new UndoRedoStack());

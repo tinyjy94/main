@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_CINEMAS_LISTED_OVERVIEW;
+import seedu.address.email.EmailManager;
 import static seedu.address.testutil.TypicalCinemas.CARL;
 import static seedu.address.testutil.TypicalCinemas.ELLE;
 import static seedu.address.testutil.TypicalCinemas.FIONA;
@@ -28,7 +29,7 @@ import seedu.address.model.cinema.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs(), new EmailManager());
 
     @Test
     public void equals() {
