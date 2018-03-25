@@ -209,6 +209,7 @@ Deletes the 1st cinema in the results of the `find` command.
 Keyword appearance on Command Line: [black-background red]`delete`
 
 === Deleting a movie : `deletemovie` | `dm`
+`Available in V1.2`
 
 Alias: `dm`
 
@@ -300,6 +301,7 @@ Edits the name of the 2nd cinema to be `Golden Village`.
 Keyword appearance on Command Line: [black-background white]`edit`
 
 === Editing a movie : `editmovie` | `em`
+`Available in V1.2`
 
 Alias: `em`
 
@@ -346,7 +348,7 @@ Returns any cinema having names `Golden`, `Village`, or `North`
 
 Keyword appearance on Command Line: [black-background blue]`find`
 
-=== Finding movies by name: `findmovie`
+=== Finding movies by user input: `findmovie` `coming in V1.3`
 
 Alias: `fm`
 
