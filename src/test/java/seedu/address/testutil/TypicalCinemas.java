@@ -1,14 +1,14 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_SENGKANG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_TAMPINES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_SENGKANG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_TAMPINES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_SENGKANG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TAMPINES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NUMOFTHEATERS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_SENGKANG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_TAMPINES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,37 +23,39 @@ import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
  */
 public class TypicalCinemas {
 
-    public static final Cinema ALICE = new CinemaBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("85355255").withTheater(3).build();
-    public static final Cinema BENSON = new CinemaBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25")
-            .withEmail("johnd@example.com").withPhone("98765432")
+    public static final Cinema ALJUNIED = new CinemaBuilder().withName("Aljunied Cathay")
+            .withAddress("123, Aljunied").withEmail("aljunied@cathay.com")
+            .withPhone("65355255").withTheater(3).build();
+    public static final Cinema BEDOK  = new CinemaBuilder().withName("Bedok Shaws")
+            .withAddress("311, Bedok")
+            .withEmail("bedok@shaw.com").withPhone("68765432")
             .withTheater(3).build();
-    public static final Cinema CARL = new CinemaBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withAddress("wall street").withTheater(3).build();
-    public static final Cinema DANIEL = new CinemaBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTheater(3).build();
-    public static final Cinema ELLE = new CinemaBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withAddress("michegan ave").withTheater(3).build();
-    public static final Cinema FIONA = new CinemaBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").withTheater(3).build();
-    public static final Cinema GEORGE = new CinemaBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").withTheater(3).build();
+    public static final Cinema CLEMENTI = new CinemaBuilder().withName("Clementi Cathay").withPhone("65352563")
+            .withEmail("clementi@cathay.com").withAddress("111, Clementi").withTheater(3).build();
+    public static final Cinema DOVER = new CinemaBuilder().withName("Dover Shaws").withPhone("67652533")
+            .withEmail("dover@shaw.com").withAddress("10th Street").withTheater(3).build();
+    public static final Cinema EUNOS = new CinemaBuilder().withName("Eunos Cathay").withPhone("6482224")
+            .withEmail("eunos@cathay.com").withAddress("Eunos Street").withTheater(3).build();
+    public static final Cinema FARRER = new CinemaBuilder().withName("Farrer Cathay").withPhone("6482427")
+            .withEmail("farrer@cathay.com").withAddress("Farrer Park").withTheater(3).build();
+    public static final Cinema GUL = new CinemaBuilder().withName("Gul Cathay").withPhone("6482442")
+            .withEmail("gul@cathay.com").withAddress("Gul Circle").withTheater(3).build();
 
     // Manually added
-    public static final Cinema HOON = new CinemaBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").withTheater(3).build();
-    public static final Cinema IDA = new CinemaBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").withTheater(3).build();
+    public static final Cinema HOUGANG = new CinemaBuilder().withName("Hougang Shaws").withPhone("6482424")
+            .withEmail("hougang@shaws.com").withAddress("Hougang Avenue").withTheater(3).build();
+    public static final Cinema INDO = new CinemaBuilder().withName("Indo Cathay").withPhone("6482131")
+            .withEmail("indo@cathay.com").withAddress("Indo Street").withTheater(3).build();
 
     // Manually added - Cinema's details found in {@code CommandTestUtil}
-    public static final Cinema AMY = new CinemaBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTheater(VALID_NUMOFTHEATERS).build();
-    public static final Cinema BOB = new CinemaBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTheater(VALID_NUMOFTHEATERS).build();
+    public static final Cinema SENGKANG = new CinemaBuilder().withName(VALID_NAME_SENGKANG)
+            .withPhone(VALID_PHONE_SENGKANG).withEmail(VALID_EMAIL_SENGKANG)
+            .withAddress(VALID_ADDRESS_SENGKANG).withTheater(VALID_NUMOFTHEATERS).build();
+    public static final Cinema TAMPINES = new CinemaBuilder().withName(VALID_NAME_TAMPINES)
+            .withPhone(VALID_PHONE_TAMPINES).withEmail(VALID_EMAIL_TAMPINES)
+            .withAddress(VALID_ADDRESS_TAMPINES).withTheater(VALID_NUMOFTHEATERS).build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_SHAWS = "Shaws"; // A keyword that matches SHAWS
 
     private TypicalCinemas() {} // prevents instantiation
 
@@ -73,6 +75,6 @@ public class TypicalCinemas {
     }
 
     public static List<Cinema> getTypicalCinemas() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALJUNIED, BEDOK, CLEMENTI, DOVER, EUNOS, FARRER, GUL));
     }
 }

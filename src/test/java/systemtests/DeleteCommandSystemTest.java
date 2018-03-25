@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_CINEMA_S
 import static seedu.address.testutil.TestUtil.getCinema;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_SHAWS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CINEMA;
 
 import org.junit.Test;
@@ -60,7 +60,7 @@ public class DeleteCommandSystemTest extends MoviePlannerSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered cinema list, delete index within bounds of movie planner and cinema list -> deleted */
-        showCinemasWithName(KEYWORD_MATCHING_MEIER);
+        showCinemasWithName(KEYWORD_MATCHING_SHAWS);
         Index index = INDEX_FIRST_CINEMA;
         assertTrue(index.getZeroBased() < getModel().getFilteredCinemaList().size());
         assertCommandSuccess(index);
@@ -68,7 +68,7 @@ public class DeleteCommandSystemTest extends MoviePlannerSystemTest {
         /* Case: filtered cinema list, delete index within bounds of movie planner but out of bounds of cinema list
          * -> rejected
          */
-        showCinemasWithName(KEYWORD_MATCHING_MEIER);
+        showCinemasWithName(KEYWORD_MATCHING_SHAWS);
         int invalidIndex = getModel().getMoviePlanner().getCinemaList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_CINEMA_DISPLAYED_INDEX);
