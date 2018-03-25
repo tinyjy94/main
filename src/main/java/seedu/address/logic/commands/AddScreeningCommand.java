@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SCREENING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CINEMA_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MOVIE_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMOFTHEATERS;
@@ -44,30 +43,39 @@ public class AddScreeningCommand extends UndoableCommand {
 
     public static final String MESSAGE_SUCCESS = "New screening added: %1$s";
 
+    // Constants for calculations
+    private static final int PREPARATION_DELAY = 15;
+    private static final int MINUTES_USED_IN_ROUNDING_OFF = 5;
+    private static final int MINUTES_ENSURE_POSITIVE = 65;
+
     private final Index movieIndex;
     private final Index cinemaIndex;
     private final int theaterNumber;
-    private final LocalDateTime screeningDateTime;
+    private final LocalDateTime toAddScreeningDateTime;
+    private LocalDateTime toAddScreeningEndDateTime;
 
     private Screening toAdd;
+    private Cinema cinema;
+    private Movie movie;
+    private Theater theater;
 
     /**
      * Creates an AddScreeningCommand to add the specified {@code Screening}
      */
     public AddScreeningCommand(Index movieIndex, Index cinemaIndex,
-                               int theaterNumber, LocalDateTime screeningDateTime) {
+                               int theaterNumber, LocalDateTime toAddScreeningDateTime) {
         requireNonNull(movieIndex);
         requireNonNull(cinemaIndex);
         requireNonNull(theaterNumber);
-        requireNonNull(screeningDateTime);
+        requireNonNull(toAddScreeningDateTime);
         this.movieIndex = movieIndex;
         this.cinemaIndex = cinemaIndex;
         this.theaterNumber = theaterNumber;
-        this.screeningDateTime = screeningDateTime;
+        this.toAddScreeningDateTime = toAddScreeningDateTime;
     }
 
     /**
-     * Adds a screening to a cinema theater
+     * Adds a screening to a cinema theater and checks that a screening is valid
      * @return CommandResult on successful add screening
      * @throws CommandException
      */
@@ -75,25 +83,33 @@ public class AddScreeningCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
 
-        Movie movie = getValidMovie();
-        Cinema cinema = getValidCinema();
-        Theater theater = getValidTheater(cinema);
-        toAdd = new Screening(movie, cinema, theater, screeningDateTime);
-
-        ArrayList<Screening> screeningList = theater.getScreeningList();
-
-        if (isSlotAvailable(screeningList) && canAddMovie(movie)) {
-            theater.addScreeningToTheater(toAdd);
-            theater.sortScreeningList();
-            model.addScreening(toAdd);
+        if (isValidScreening()) {
+            toAdd = new Screening(movie, theater, toAddScreeningDateTime, toAddScreeningEndDateTime);
+            model.addScreening(toAdd, theater);
         } else {
-            throw new CommandException(MESSAGE_INVALID_SCREENING);
+            throw new CommandException(Messages.MESSAGE_INVALID_SCREENING);
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     /**
+     * Checks that a screening is valid
+     * @return true if screening is valid
+     * @throws CommandException
+     */
+    private boolean isValidScreening() throws CommandException {
+        movie = getValidMovie();
+        cinema = getValidCinema();
+        theater = getValidTheater(cinema);
+        ArrayList<Screening> screeningList = theater.getScreeningList();
+        toAddScreeningEndDateTime = getEndTime();
+
+        return isSlotAvailable(screeningList) && canAddMovie(movie);
+    }
+
+    /**
+     * Gets a valid movie based on the movie index
      * @return a valid movie based on the movie index
      */
     private Movie getValidMovie() throws CommandException {
@@ -108,6 +124,7 @@ public class AddScreeningCommand extends UndoableCommand {
     }
 
     /**
+     * Gets a valid cinema based on the cinema index
      * @return a valid cinema based on the cinema index
      */
     private Cinema getValidCinema() throws CommandException {
@@ -122,6 +139,7 @@ public class AddScreeningCommand extends UndoableCommand {
     }
 
     /**
+     * Gets a valid theater based on the cinema provided
      * @return a valid theater based on the cinema provided and theater number
      */
     private Theater getValidTheater(Cinema cinema) throws CommandException {
@@ -141,7 +159,7 @@ public class AddScreeningCommand extends UndoableCommand {
      */
     private boolean canAddMovie(Movie movie) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate toAddDate = toAdd.getScreeningDateTime().toLocalDate();
+        LocalDate toAddDate = toAddScreeningDateTime.toLocalDate();
         LocalDate releaseDate = LocalDate.parse(movie.getStartDate().toString(), dtf);
         return toAddDate.equals(releaseDate) || toAddDate.isAfter(releaseDate);
     }
@@ -170,7 +188,7 @@ public class AddScreeningCommand extends UndoableCommand {
      */
     private boolean hasNoConflictWithOneOtherScreening(ArrayList<Screening> screeningList) {
         for (Screening s: screeningList) {
-            if (isSameScreeningDate(toAdd, s)) {
+            if (isSameScreeningDate(toAddScreeningDateTime, s)) {
                 return isScreenTimeOnOrBefore(s) || isScreenTimeOnOrAfter(s);
             }
         }
@@ -188,7 +206,7 @@ public class AddScreeningCommand extends UndoableCommand {
         boolean hasNoConflict = false;
         Screening screeningBefore = screeningList.get(0);
 
-        if (isSameScreeningDate(toAdd , screeningBefore)) {
+        if (isSameScreeningDate(toAddScreeningDateTime, screeningBefore)) {
             count++;
         }
 
@@ -199,9 +217,9 @@ public class AddScreeningCommand extends UndoableCommand {
             }
 
             //first screening
-            if (count == 1 && isScreenTimeOnOrBefore(currentScreening)) {
+            if (count == 1 && isScreenTimeOnOrBefore(screeningBefore)) {
                 return true;
-            } else if (isSameScreeningDate(currentScreening, toAdd)) {
+            } else if (isSameScreeningDate(toAddScreeningDateTime, currentScreening)) {
                 count++;
                 // last screening
                 if (count == totalScreenings && isScreenTimeOnOrAfter(currentScreening)) {
@@ -222,12 +240,9 @@ public class AddScreeningCommand extends UndoableCommand {
      * @return true if the start time of the screening is on or after the end time of the screening before it
      */
     private boolean isScreenTimeOnOrAfter(Screening screeningBefore) {
-        LocalTime toAddTime = toAdd.getScreeningDateTime().toLocalTime();
+        LocalTime toAddTime = toAddScreeningDateTime.toLocalTime();
         LocalTime screeningBeforeTime = screeningBefore.getScreeningEndDateTime().toLocalTime();
-        if (toAddTime.isAfter(screeningBeforeTime) || toAddTime.equals(screeningBeforeTime)) {
-            return true;
-        }
-        return false;
+        return toAddTime.isAfter(screeningBeforeTime) || toAddTime.equals(screeningBeforeTime);
     }
 
     /**
@@ -235,20 +250,17 @@ public class AddScreeningCommand extends UndoableCommand {
      * @return true if the end time of the screening is before the start time of the screening after it
      */
     private boolean isScreenTimeOnOrBefore(Screening screeningAfter) {
-        LocalTime toAddTime = toAdd.getScreeningEndDateTime().toLocalTime();
+        LocalTime toAddTime = toAddScreeningEndDateTime.toLocalTime();
         LocalTime screeningAfterTime = screeningAfter.getScreeningDateTime().toLocalTime();
-        if (toAddTime.isBefore(screeningAfterTime) || toAddTime.equals(screeningAfterTime)) {
-            return true;
-        }
-        return false;
+        return toAddTime.isBefore(screeningAfterTime) || toAddTime.equals(screeningAfterTime);
     }
 
     /**
      * Checks if two screenings have the same date
      * @return true if both screenings have the same date
      */
-    private boolean isSameScreeningDate(Screening s1, Screening s2) {
-        return s1.getScreeningDateTime().toLocalDate().equals(s2.getScreeningDateTime().toLocalDate());
+    private boolean isSameScreeningDate(LocalDateTime screeningDateTime, Screening s2) {
+        return screeningDateTime.toLocalDate().equals(s2.getScreeningDateTime().toLocalDate());
     }
 
     /**
@@ -259,11 +271,29 @@ public class AddScreeningCommand extends UndoableCommand {
     private int getTotalScreeningsWithSameDate(ArrayList<Screening> screeningList) {
         int count = 0;
         for (Screening s: screeningList) {
-            if (isSameScreeningDate(toAdd, s)) {
+            if (isSameScreeningDate(toAddScreeningDateTime, s)) {
                 count++;
             }
         }
         return count;
+    }
+
+    /**
+     * Calculates the time needed to screen a movie.
+     * Elements used in calculations are movie's duration, preparation delay and rounding off to nearest 5 minutes
+     * @return endTime time where the screening will end
+     */
+    private LocalDateTime getEndTime() {
+        int movieDuration = Integer.parseInt(movie.getDuration().toString());
+        LocalDateTime endTime = toAddScreeningDateTime.plusMinutes(movieDuration).plusMinutes(PREPARATION_DELAY);
+
+        if (endTime.getMinute() % MINUTES_USED_IN_ROUNDING_OFF != 0) {
+            LocalDateTime roundedTime = endTime;
+            roundedTime = roundedTime.withSecond(0).withNano(0).plusMinutes((
+                    MINUTES_ENSURE_POSITIVE - roundedTime.getMinute()) % MINUTES_USED_IN_ROUNDING_OFF);
+            return roundedTime;
+        }
+        return endTime;
     }
 
     @Override
