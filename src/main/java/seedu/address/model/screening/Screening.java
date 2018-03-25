@@ -5,28 +5,27 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import seedu.address.model.cinema.Theater;
-import seedu.address.model.movie.Movie;
 
 /**
  * Represents a movie screening in a cinema theater
  */
 public class Screening {
 
-    private final Movie movie;
+    private final String movieName;
     private final Theater theater;
     private final LocalDateTime screeningDateTime;
     private final LocalDateTime screeningEndDateTime;
 
-    public Screening(Movie movie, Theater theater, LocalDateTime screeningDateTime,
+    public Screening(String movieName, Theater theater, LocalDateTime screeningDateTime,
                      LocalDateTime screeningEndDateTime) {
-        this.movie = movie;
+        this.movieName = movieName;
         this.theater = theater;
         this.screeningDateTime = screeningDateTime;
         this.screeningEndDateTime = screeningEndDateTime;
     }
 
-    public Movie getMovie() {
-        return movie;
+    public String getMovieName() {
+        return movieName;
     }
 
     public Theater getTheater() {
@@ -45,7 +44,7 @@ public class Screening {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Movie: ")
-                .append(movie.getName())
+                .append(getMovieName())
                 .append(" Theater: ")
                 .append(theater.getTheaterNumber())
                 .append(" Date: ")
@@ -64,7 +63,7 @@ public class Screening {
         }
 
         Screening otherScreening = (Screening) other;
-        return otherScreening.getMovie().equals(this.getMovie())
+        return otherScreening.getMovieName().equals(this.getMovieName())
                 && otherScreening.getTheater().equals(this.getTheater())
                 && otherScreening.getScreeningDateTime().equals(this.getScreeningDateTime())
                 && otherScreening.getScreeningEndDateTime().equals(this.getScreeningEndDateTime());
@@ -73,6 +72,6 @@ public class Screening {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(movie, theater, screeningDateTime, screeningEndDateTime);
+        return Objects.hash(movieName, theater, screeningDateTime, screeningEndDateTime);
     }
 }

@@ -84,7 +84,8 @@ public class AddScreeningCommand extends UndoableCommand {
         requireNonNull(model);
 
         if (isValidScreening()) {
-            toAdd = new Screening(movie, theater, toAddScreeningDateTime, toAddScreeningEndDateTime);
+            String movieName = movie.getName().toString();
+            toAdd = new Screening(movieName, theater, toAddScreeningDateTime, toAddScreeningEndDateTime);
             model.addScreening(toAdd, theater);
         } else {
             throw new CommandException(Messages.MESSAGE_INVALID_SCREENING);
