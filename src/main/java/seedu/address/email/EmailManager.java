@@ -75,8 +75,8 @@ public class EmailManager extends ComponentManager implements Email {
     }
 
     @Override
-    public void loginEmailAccount(String [] loginDetails) throws EmailLoginInvalidException {
-        emailLogin.loginEmail(loginDetails);
+    public void loginEmailAccount(String [] emailLoginDetails) throws EmailLoginInvalidException {
+        emailLogin.loginEmail(emailLoginDetails);
         if (emailLogin.isUserLoggedIn()) {
             emailLoginStatus = String.format(STATUS_LOGIN_SUCCESS, emailLogin.getEmailLogin());
         } else {

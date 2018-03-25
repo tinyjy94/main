@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import javax.mail.AuthenticationFailedException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -14,7 +12,6 @@ import seedu.address.email.exceptions.EmailMessageEmptyException;
 import seedu.address.email.exceptions.EmailRecipientsEmptyException;
 import seedu.address.email.message.MessageDraft;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.cinema.Cinema;
 
 /**
  * Composes an email draft or sends the draft out using gmail account
@@ -85,13 +82,6 @@ public class EmailCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         requireNonNull(model);
-
-        /*try {
-            InternetAddress[] recipientsEmail = extractEmailFromContacts(recipient);
-            messageDraft.setRecipientsEmail(recipientsEmail);
-        } catch (AddressException e) {
-            assert false : "The target email cannot be missing or be wrong format";
-        }*/
 
         try {
             model.loginEmailAccount(emailLoginDetails);

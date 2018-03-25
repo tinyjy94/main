@@ -22,13 +22,17 @@ import seedu.address.email.message.ReadOnlyMessageDraft;
 public class EmailSend {
     private Properties props;
 
-    /** Creates an EmailSend with an default properties */
+    /**
+     * Creates an EmailSend with an default properties
+     */
     public EmailSend() {
-        prepEmailProperties();
+        setUpEmailProperties();
     }
 
-    /** Prepares Email Default Properties */
-    private void prepEmailProperties() {
+    /**
+     * Sets up the default email properties
+     */
+    private void setUpEmailProperties() {
         props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -50,24 +54,22 @@ public class EmailSend {
     public void sendEmail(EmailCompose emailCompose, EmailLogin emailLogin) throws EmailLoginInvalidException,
             EmailMessageEmptyException, EmailRecipientsEmptyException, AuthenticationFailedException {
 
-        //Step 1. Verify that the email draft consists of message and subject
+        // Verify that the email draft consists of message and subject
         if (!emailCompose.getMessage().containsContent()) {
-            //throw exception that user needs to enter message and subject to send email
             throw new EmailMessageEmptyException();
         }
 
-        //Step 2. Verify that the user is logged in with a gmail account
+        // Verify that the user is logged in strictly using only Gmail account.
         if (!emailLogin.isUserLoggedIn()) {
-            //throw exception that user needs to enter gmail login details to send email
             throw new EmailLoginInvalidException();
         }
 
-        //Step 3. Verify that Recipient's list is not empty
+        // Verify that Recipient field is not empty
         if (emailCompose.getMessage().getRecipient().isEmpty()) {
             throw new EmailRecipientsEmptyException();
         }
 
-        //Step 4. sending Email out using JavaMail API
+        // Send out email using JavaMail API
         sendingEmail(emailLogin.getEmailLogin(), emailLogin.getPassword(), emailCompose.getMessage());
     }
 

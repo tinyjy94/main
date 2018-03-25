@@ -89,9 +89,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void sendEmail(MessageDraft message) throws EmailLoginInvalidException, EmailMessageEmptyException,
+    public void sendEmail(MessageDraft messageDraft) throws EmailLoginInvalidException, EmailMessageEmptyException,
             EmailRecipientsEmptyException, AuthenticationFailedException {
-        email.composeEmail(message);
+        email.composeEmail(messageDraft);
         email.sendEmail();
 
         raise(new EmailDraftChangedEvent(email.getEmailDraft()));
