@@ -6,10 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.FindMovieCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.movie.MovieName;
 import seedu.address.model.movie.NameContainsKeywordsPredicate;
 
 /**
