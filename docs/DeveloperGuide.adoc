@@ -623,6 +623,37 @@ The data will be stored as such in the .xml file:
 ** Pros: It is easier to get the list of screenings for a particular date.
 ** Cons: It is more complicated to store in the xml.
 
+=== Add/Delete Theater
+When creating a new `Cinema`, the number of theaters must be stated. `Theater` is then created and stored as an ArrayList<Theater> in `Cinema`. `addTheater` and `deleteTheater` are used to increase/decrease the size of the ArrayList respectively. The following sequence diagram shows how the `addTheater` command works.
+
+.Sequence diagram of addTheater Command
+image::AddTheaterSequenceDiagram.png[width="1000"]
+
+[NOTE]
+`deleteTheater` follows the same flow as the above diagram, but uses `DeleteTheaterCommand` and `DeleteTheaterCommandParser` instead.
+
+==== Implementation details
+
+The addition and deletion of `Theater` in `Cinema` are facilitated by `addTheater` and `deleteTheater` commands. When executing these commands, MVP will do the following
+
+. Calls `tokenize` method in `ArgumentTokenizer` to get value entered by user.
+. Calls `parseIndex` and `parseTheaters` methods in `ParserUtil` to parse input into objects required for `addTheater` command and checks for invalid format of user input.
+. Creates a `AddTheaterCommand` object to take in the `parameters`. Checks are present in `AddTheaterCommand` to ensure values provided by user is valid.
+. `AddTheaterCommand` then returns `CommandResult` to the user which shows the current status of the `Cinema`.
+[NOTE]
+`parameters` above refers to parameters provided by the user. E.g. Index and number of theaters
+
+==== Design Consideration
+Aspect: Implementation of `addTheater` and `deleteTheater`
+
+* *Alternative 1 (current choice):* Using `addTheater` and `deleteTheater` commands to add and remove theaters respectively
+** Pros: Users will be clear that they are increasing or decreasing the size of cinema, as compared to previous implementation where the number of theaters is just overwritten in the `EditCommand`.
+** Cons: Each respective command only does an action, thus two commands are required instead of one.
+
+* *Alternative 2:* Reusing the existing `editCommand` to add or delete theaters
+** Pros: A single command is needed to increase and reduce number of theaters in cinema.
+** Cons: Overwrites current value of `Theater` in cinema, which might cause the user to lose information in theater.
+
 <<DeveloperGuide.adoc#, Back to top>>
 
 == Documentation
