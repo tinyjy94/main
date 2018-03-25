@@ -450,12 +450,13 @@ Figure 2
 
 *Aspects:* Storage of movies with categories
 
-Alternative 1: Store in the same xml file as the MoviePlanner and read upon startup of program to an array.
+Alternative 1 *(current choice)*: Store in the same xml file as the MoviePlanner and read upon startup of program to an array.
 
 ** Pros: Additional storage on the computer is not required.
+** Pros: Encryption will encrypt the `movieplanner.xml` so storing in the same file is more convenient.
 ** Cons: Have to read in the entire MoviePlanner xml file once every startup which might harm performance.
 
-Alternative 2 *(current choice)*: Store in a separate xml file and update whenever movies are being added or deleted.
+Alternative 2: Store in a separate xml file and update whenever movies are being added or deleted.
 
 ** Pros: Lesser overhead as program does not need to
 ** Cons: Additional storage on the computer is required.
