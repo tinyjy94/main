@@ -33,7 +33,7 @@ public interface Model {
     /** Adds the given cinema */
     void addCinema(Cinema cinema) throws DuplicateCinemaException;
 
-    /** Deletes {@code tag} from all {@code Cinema}. */
+    /** Deletes {@code tag} from all {@code Movie}. */
     void deleteTag(Tag tag) throws TagNotFoundException;
 
     /**
@@ -67,8 +67,8 @@ public interface Model {
     /**
      * Replaces the given movie {@code target} with {@code editedMovie}.
      *
-     * @throws DuplicateMovieException if updating the cinema's details causes the cinema to be equivalent to
-     *      another existing cinema in the list.
+     * @throws DuplicateMovieException if updating the movie's details causes the cinema to be equivalent to
+     *      another existing movie in the list.
      * @throws MovieNotFoundException if {@code target} could not be found in the list.
      */
     void updateMovie(Movie target, Movie editedMovie)
