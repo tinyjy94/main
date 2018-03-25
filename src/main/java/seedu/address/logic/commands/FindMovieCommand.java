@@ -25,7 +25,7 @@ public class FindMovieCommand extends Command {
             + "the specified keywords (case-sensitive).\n"
             + "Parameters: "
             + PREFIX_NAME + "KEYWORDS "
-            + "Example: " + COMMAND_WORD + " "+ PREFIX_NAME + " avenger horror nemo";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + " avenger horror nemo";
 
     private final NameContainsKeywordsPredicate predicate;
 
