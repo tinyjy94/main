@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.MoviePlanner;
 import seedu.address.model.ReadOnlyMoviePlanner;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
@@ -173,7 +174,7 @@ public class AddMovieCommandTest {
         }
 
         @Override
-        public void addScreening(Screening screening) {
+        public void addScreening(Screening screening, Theater theater) {
             fail("This method should not be called.");
         }
     }
