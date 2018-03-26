@@ -49,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all cinemas
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 th/3` : adds a contact named `John Doe` to MVP.
+* **`add`**`n/GV Paya Lebar p/66538100 e/customersvc@goldenvillage.com.sg a/SingPost Centre, 10 Eunos Road 8, #03-107, Singapore 408600 th/8` : adds a cinema named `GV Paya Lebar` to MVP.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits MVP
 
