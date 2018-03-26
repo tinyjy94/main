@@ -50,7 +50,9 @@ public class EmailCommand extends Command {
     private final String[] emailLoginDetails;
     private final EmailFunction emailFunction;
 
-    public EmailCommand(String message, String subject, String recipient, String [] emailLoginDetails, EmailFunction emailFunction) {
+    public EmailCommand(
+            String message, String subject, String recipient,
+            String [] emailLoginDetails, EmailFunction emailFunction) {
         this.messageDraft = new MessageDraft(message, subject, recipient);
         this.emailFunction = emailFunction;
         this.emailLoginDetails = emailLoginDetails;
