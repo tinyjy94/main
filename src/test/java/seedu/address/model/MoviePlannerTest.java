@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMEDY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SUPERHERO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
-import static seedu.address.testutil.TypicalCinemas.ALICE;
-import static seedu.address.testutil.TypicalCinemas.AMY;
-import static seedu.address.testutil.TypicalCinemas.BOB;
+import static seedu.address.testutil.TypicalCinemas.ALJUNIED;
+import static seedu.address.testutil.TypicalCinemas.SENGKANG;
+import static seedu.address.testutil.TypicalCinemas.TAMPINES;
 import static seedu.address.testutil.TypicalCinemas.getTypicalMoviePlanner;
 import static seedu.address.testutil.TypicalMovies.ABTM4;
 import static seedu.address.testutil.TypicalMovies.BLACK_PANTHER;
@@ -60,11 +60,11 @@ public class MoviePlannerTest {
 
     @Test
     public void resetData_withDuplicateCinemas_throwsAssertionError() {
-        // Repeat ALICE twice
-        List<Cinema> newCinemas = Arrays.asList(ALICE, ALICE);
+        // Repeat ALJUNIED twice
+        List<Cinema> newCinemas = Arrays.asList(ALJUNIED, ALJUNIED);
         List<Movie> newMovies = new ArrayList<>();
         List<Tag> newTags = new ArrayList<>(BLACK_PANTHER.getTags());
-        List<Theater> newTheaters = new ArrayList<>(ALICE.getTheaters());
+        List<Theater> newTheaters = new ArrayList<>(ALJUNIED.getTheaters());
         MoviePlannerStub newData = new MoviePlannerStub(newCinemas, newTheaters, newTags, newMovies);
 
         thrown.expect(AssertionError.class);
@@ -85,10 +85,10 @@ public class MoviePlannerTest {
 
     @Test
     public void updateCinema_modifyDetails_cinemaAndTagListUpdated() throws Exception {
-        MoviePlanner moviePlannerBobChangeToAmy = new MoviePlannerBuilder().withCinema(BOB).build();
-        MoviePlanner moviePlannerWithAmy = new MoviePlannerBuilder().withCinema(AMY).build();
+        MoviePlanner moviePlannerBobChangeToAmy = new MoviePlannerBuilder().withCinema(TAMPINES).build();
+        MoviePlanner moviePlannerWithAmy = new MoviePlannerBuilder().withCinema(SENGKANG).build();
 
-        moviePlannerBobChangeToAmy.updateCinema(BOB, AMY);
+        moviePlannerBobChangeToAmy.updateCinema(TAMPINES, SENGKANG);
 
         assertEquals(moviePlannerWithAmy, moviePlannerBobChangeToAmy);
     }

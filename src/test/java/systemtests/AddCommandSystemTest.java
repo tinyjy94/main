@@ -1,38 +1,38 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_SENGKANG;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_TAMPINES;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_SENGKANG;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_TAMPINES;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_THEATER_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_SENGKANG;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TAMPINES;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_SENGKANG;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_TAMPINES;
 import static seedu.address.logic.commands.CommandTestUtil.THEATER_DESC_FIVE;
 import static seedu.address.logic.commands.CommandTestUtil.THEATER_DESC_THREE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_SENGKANG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_TAMPINES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_SENGKANG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_TAMPINES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_SENGKANG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TAMPINES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NUMOFNEWTHEATERS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NUMOFTHEATERS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.testutil.TypicalCinemas.ALICE;
-import static seedu.address.testutil.TypicalCinemas.AMY;
-import static seedu.address.testutil.TypicalCinemas.BOB;
-import static seedu.address.testutil.TypicalCinemas.CARL;
-import static seedu.address.testutil.TypicalCinemas.HOON;
-import static seedu.address.testutil.TypicalCinemas.IDA;
-import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_MEIER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_SENGKANG;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_TAMPINES;
+import static seedu.address.testutil.TypicalCinemas.ALJUNIED;
+import static seedu.address.testutil.TypicalCinemas.CLEMENTI;
+import static seedu.address.testutil.TypicalCinemas.HOUGANG;
+import static seedu.address.testutil.TypicalCinemas.INDO;
+import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_SHAWS;
+import static seedu.address.testutil.TypicalCinemas.SENGKANG;
+import static seedu.address.testutil.TypicalCinemas.TAMPINES;
 
 import org.junit.Test;
 
@@ -63,9 +63,9 @@ public class AddCommandSystemTest extends MoviePlannerSystemTest {
         /* Case: add a cinema to a non-empty movie planner, command with leading spaces and trailing spaces
          * -> added
          */
-        Cinema toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   "  + THEATER_DESC_THREE + " ";
+        Cinema toAdd = SENGKANG;
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_SENGKANG + "  " + PHONE_DESC_SENGKANG + " "
+                + EMAIL_DESC_SENGKANG + "   " + ADDRESS_DESC_SENGKANG + "   "  + THEATER_DESC_THREE + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -80,89 +80,99 @@ public class AddCommandSystemTest extends MoviePlannerSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a cinema with all fields same as another cinema in the movie planner except name -> added */
-        toAdd = new CinemaBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withTheater(VALID_NUMOFTHEATERS).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + THEATER_DESC_THREE;
+        toAdd = new CinemaBuilder().withName(VALID_NAME_TAMPINES).withPhone(VALID_PHONE_SENGKANG)
+                .withEmail(VALID_EMAIL_SENGKANG).withAddress(VALID_ADDRESS_SENGKANG)
+                .withTheater(VALID_NUMOFTHEATERS).build();
+        command = AddCommand.COMMAND_WORD + NAME_DESC_TAMPINES + PHONE_DESC_SENGKANG + EMAIL_DESC_SENGKANG
+                + ADDRESS_DESC_SENGKANG + THEATER_DESC_THREE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a cinema with all fields same as another cinema in the movie planner except phone -> added */
-        toAdd = new CinemaBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withTheater(VALID_NUMOFTHEATERS).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + THEATER_DESC_THREE;
+        toAdd = new CinemaBuilder().withName(VALID_NAME_SENGKANG).withPhone(VALID_PHONE_TAMPINES)
+                .withEmail(VALID_EMAIL_SENGKANG).withAddress(VALID_ADDRESS_SENGKANG)
+                .withTheater(VALID_NUMOFTHEATERS).build();
+        command = AddCommand.COMMAND_WORD + NAME_DESC_SENGKANG + PHONE_DESC_TAMPINES + EMAIL_DESC_SENGKANG
+                + ADDRESS_DESC_SENGKANG + THEATER_DESC_THREE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a cinema with all fields same as another cinema in the movie planner except email -> added */
-        toAdd = new CinemaBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_AMY).withTheater(VALID_NUMOFTHEATERS).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + THEATER_DESC_THREE;
+        toAdd = new CinemaBuilder().withName(VALID_NAME_SENGKANG).withPhone(VALID_PHONE_SENGKANG)
+                .withEmail(VALID_EMAIL_TAMPINES).withAddress(VALID_ADDRESS_SENGKANG)
+                .withTheater(VALID_NUMOFTHEATERS).build();
+        command = AddCommand.COMMAND_WORD + NAME_DESC_SENGKANG + PHONE_DESC_SENGKANG + EMAIL_DESC_TAMPINES
+                + ADDRESS_DESC_SENGKANG + THEATER_DESC_THREE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a cinema with all fields same as another cinema in the movie planner except address -> added */
-        toAdd = new CinemaBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_BOB).withTheater(VALID_NUMOFTHEATERS).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_BOB
-                + THEATER_DESC_THREE;
+        toAdd = new CinemaBuilder().withName(VALID_NAME_SENGKANG).withPhone(VALID_PHONE_SENGKANG)
+                .withEmail(VALID_EMAIL_SENGKANG).withAddress(VALID_ADDRESS_TAMPINES)
+                .withTheater(VALID_NUMOFTHEATERS).build();
+        command = AddCommand.COMMAND_WORD + NAME_DESC_SENGKANG + PHONE_DESC_SENGKANG + EMAIL_DESC_SENGKANG
+                + ADDRESS_DESC_TAMPINES + THEATER_DESC_THREE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a cinema with all fields same as another cinema in the movie planner except theater -> added */
-        toAdd = new CinemaBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withTheater(VALID_NUMOFNEWTHEATERS).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + THEATER_DESC_FIVE;
+        toAdd = new CinemaBuilder().withName(VALID_NAME_SENGKANG).withPhone(VALID_PHONE_SENGKANG)
+                .withEmail(VALID_EMAIL_SENGKANG).withAddress(VALID_ADDRESS_SENGKANG)
+                .withTheater(VALID_NUMOFNEWTHEATERS).build();
+        command = AddCommand.COMMAND_WORD + NAME_DESC_SENGKANG + PHONE_DESC_SENGKANG + EMAIL_DESC_SENGKANG
+                + ADDRESS_DESC_SENGKANG + THEATER_DESC_FIVE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty movie planner -> added */
         deleteAllCinemas();
-        assertCommandSuccess(ALICE);
+        assertCommandSuccess(ALJUNIED);
 
         /* Case: add a cinema command with parameters in random order -> added */
-        toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + EMAIL_DESC_BOB + THEATER_DESC_THREE;
+        toAdd = TAMPINES;
+        command = AddCommand.COMMAND_WORD + PHONE_DESC_TAMPINES + ADDRESS_DESC_TAMPINES + NAME_DESC_TAMPINES
+                + EMAIL_DESC_TAMPINES + THEATER_DESC_THREE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a cinema, -> added */
-        assertCommandSuccess(HOON);
+        assertCommandSuccess(HOUGANG);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the cinema list before adding -> added */
-        showCinemasWithName(KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(IDA);
+        showCinemasWithName(KEYWORD_MATCHING_SHAWS);
+        assertCommandSuccess(INDO);
 
         /* ------------------------ Perform add operation while a cinema card is selected --------------------------- */
 
         /* Case: selects first card in the cinema list, add a cinema -> added, card selection remains unchanged */
         selectCinema(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        assertCommandSuccess(CLEMENTI);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate cinema -> rejected */
-        command = CinemaUtil.getAddCommand(HOON);
+        command = CinemaUtil.getAddCommand(HOUGANG);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CINEMA);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + THEATER_DESC_THREE;
+        command = AddCommand.COMMAND_WORD + PHONE_DESC_SENGKANG + EMAIL_DESC_SENGKANG + ADDRESS_DESC_SENGKANG
+                + THEATER_DESC_THREE;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + THEATER_DESC_THREE;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_SENGKANG + EMAIL_DESC_SENGKANG + ADDRESS_DESC_SENGKANG
+                + THEATER_DESC_THREE;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY + THEATER_DESC_THREE;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_SENGKANG + PHONE_DESC_SENGKANG + ADDRESS_DESC_SENGKANG
+                + THEATER_DESC_THREE;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + THEATER_DESC_THREE;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_SENGKANG + PHONE_DESC_SENGKANG + EMAIL_DESC_SENGKANG
+                + THEATER_DESC_THREE;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing theater -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_SENGKANG + PHONE_DESC_SENGKANG + EMAIL_DESC_SENGKANG
+                + ADDRESS_DESC_SENGKANG;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -170,28 +180,28 @@ public class AddCommandSystemTest extends MoviePlannerSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + THEATER_DESC_THREE;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_SENGKANG
+                + EMAIL_DESC_SENGKANG + ADDRESS_DESC_SENGKANG + THEATER_DESC_THREE;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + THEATER_DESC_THREE;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_SENGKANG + INVALID_PHONE_DESC
+                + EMAIL_DESC_SENGKANG + ADDRESS_DESC_SENGKANG + THEATER_DESC_THREE;
         assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY + THEATER_DESC_THREE;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_SENGKANG + PHONE_DESC_SENGKANG
+                + INVALID_EMAIL_DESC + ADDRESS_DESC_SENGKANG + THEATER_DESC_THREE;
         assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC + THEATER_DESC_THREE;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_SENGKANG + PHONE_DESC_SENGKANG
+                + EMAIL_DESC_SENGKANG + INVALID_ADDRESS_DESC + THEATER_DESC_THREE;
         assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid theater -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + INVALID_THEATER_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_SENGKANG + PHONE_DESC_SENGKANG
+                + EMAIL_DESC_SENGKANG + ADDRESS_DESC_SENGKANG + INVALID_THEATER_DESC;
         assertCommandFailure(command, Theater.MESSAGE_THEATER_CONSTRAINTS);
     }
 

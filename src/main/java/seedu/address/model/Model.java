@@ -11,6 +11,7 @@ import seedu.address.email.exceptions.EmailMessageEmptyException;
 import seedu.address.email.exceptions.EmailRecipientsEmptyException;
 import seedu.address.email.message.MessageDraft;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
@@ -90,8 +91,8 @@ public interface Model {
      */
     void updateFilteredMovieList(Predicate<Movie> predicate);
 
-    /** Adds the given screening */
-    void addScreening(Screening screening);
+    /** Adds the given screening to a theater */
+    void addScreening(Screening screening, Theater theater);
 
     /**
      * Sends email based on last displayed person list
