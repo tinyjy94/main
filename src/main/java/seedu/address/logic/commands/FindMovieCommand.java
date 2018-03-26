@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.NameContainsKeywordsPredicate;
 import seedu.address.model.movie.StartDateContainsKeywordsPredicate;
+import seedu.address.model.movie.TagContainsKeywordsPredicate;
 
 /**
  * Finds and lists all movies in movie planner whose name contains any of the argument keywords.
@@ -30,6 +31,10 @@ public class FindMovieCommand extends Command {
     }
 
     public  FindMovieCommand(StartDateContainsKeywordsPredicate predicate) {
+        this.predicate = predicate;
+    }
+
+    public FindMovieCommand(TagContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
