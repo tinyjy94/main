@@ -423,13 +423,13 @@ _{Explain here how the data encryption feature will be implemented}_
 // tag::findmovies[]
 === Enhanced FindMovie command
 
-The user can find movies by `Category`, `MovieName` or `StartDate`.
+The user can find movies by `Category`, `MovieName` or `StartDate` or a combination of them as a multicriteria search.
 
 ==== Implementation details
 
 The parser will take in all arguments the user specified and store it in an array. If the user search by `MovieName` or
-`StartDate` then MVP will search through every movie records in the storage to find matching keywords. If user search by
-`Category`, MVP will only retrieve movies in that `Category` without running through the entire movie records.
+`StartDate` or `Category`, MVP will retrieve movie records in the storage with the matching keywords. If two or more conditions
+are specified, MVP will combine the predicates to get a smaller subset of results.
 
 ==== Finding commands
 
@@ -438,11 +438,11 @@ in `FindMovieCommand`.
 
 Figure below shows the interaction between the classes.
 
-*Finding by `MovieName` or `StartDate`*
+*Finding by `MovieName` or `StartDate` or `Tag`*
 
 Figure 1
 
-*Finding by `Category` and/or `MovieName` and/or `StartDate`*
+*Finding by `Tag` and/or `MovieName` and/or `StartDate`*
 
 Figure 2
 
@@ -452,14 +452,16 @@ Figure 2
 
 Alternative 1 *(current choice)*: Store in the same xml file as the MoviePlanner and read upon startup of program to an array.
 
-** Pros: Additional storage on the computer is not required.
 ** Pros: Encryption will encrypt the `movieplanner.xml` so storing in the same file is more convenient.
-** Cons: Have to read in the entire MoviePlanner xml file once every startup which might harm performance.
+** Cons: `movieplanner.xml` might be cluttered with data from cinemas and movies.
+
+[NOTE]
+Since the `movieplanner.xml` file is going to be encrypted, data will already be obfuscated so readability is not a concern.
 
 Alternative 2: Store in a separate xml file and update whenever movies are being added or deleted.
 
-** Pros: Lesser overhead as program does not need to
-** Cons: Additional storage on the computer is required.
+** Pros: Easier for the user to look at if `movieplanner.xml` is in plaintext.
+** Cons: Increases the number of files to be encrypted.
 //end::findmovies[]
 
 === Logging
