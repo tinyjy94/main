@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import seedu.address.email.EmailManager;
+
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -21,6 +21,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.email.EmailManager;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.EditCommand.EditCinemaDescriptor;
@@ -47,7 +48,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
 
-        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs(), new EmailManager());
+        Model expectedModel = new ModelManager(
+                new MoviePlanner(model.getMoviePlanner()), new UserPrefs(), new EmailManager());
         expectedModel.updateCinema(model.getFilteredCinemaList().get(0), editedCinema);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -68,7 +70,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
 
-        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs(), new EmailManager());
+        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()),
+                new UserPrefs(), new EmailManager());
         expectedModel.updateCinema(lastCinema, editedCinema);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -81,7 +84,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
 
-        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs(), new EmailManager());
+        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()),
+                new UserPrefs(), new EmailManager());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -97,7 +101,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CINEMA_SUCCESS, editedCinema);
 
-        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs(), new EmailManager());
+        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()),
+                new UserPrefs(), new EmailManager());
         expectedModel.updateCinema(model.getFilteredCinemaList().get(0), editedCinema);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -159,7 +164,8 @@ public class EditCommandTest {
         Cinema cinemaToEdit = model.getFilteredCinemaList().get(INDEX_FIRST_CINEMA.getZeroBased());
         EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(editedCinema).build();
         EditCommand editCommand = prepareCommand(INDEX_FIRST_CINEMA, descriptor);
-        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs(), new EmailManager());
+        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()),
+                new UserPrefs(), new EmailManager());
 
         // edit -> first cinema edited
         editCommand.execute();
@@ -205,7 +211,8 @@ public class EditCommandTest {
         Cinema editedCinema = new CinemaBuilder().build();
         EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(editedCinema).build();
         EditCommand editCommand = prepareCommand(INDEX_FIRST_CINEMA, descriptor);
-        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs(), new EmailManager());
+        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()),
+                new UserPrefs(), new EmailManager());
 
         showCinemaAtIndex(model, INDEX_SECOND_CINEMA);
         Cinema cinemaToEdit = model.getFilteredCinemaList().get(INDEX_FIRST_CINEMA.getZeroBased());

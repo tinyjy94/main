@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import seedu.address.email.EmailManager;
+
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COMEDY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SUPERHERO;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
@@ -20,13 +20,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.email.EmailManager;
 import seedu.address.model.cinema.NameContainsKeywordsPredicate;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.MovieBuilder;
 import seedu.address.testutil.MoviePlannerBuilder;
-import seedu.address.ui.EmailMessagePanel;
 
 public class ModelManagerTest {
     @Rule
