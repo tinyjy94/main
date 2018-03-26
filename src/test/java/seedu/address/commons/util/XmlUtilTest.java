@@ -38,7 +38,7 @@ public class XmlUtilTest {
 
     private static final String INVALID_PHONE = "9482asf424";
 
-    private static final String VALID_NAME = "Hans Muster";
+    private static final String VALID_NAME = "Hans Cinema";
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
@@ -139,7 +139,7 @@ public class XmlUtilTest {
 
         MoviePlannerBuilder builder = new MoviePlannerBuilder(new MoviePlanner());
         dataToWrite = new XmlSerializableMoviePlanner(
-                builder.withCinema(new CinemaBuilder().build()).withTag("Friends").build());
+                builder.withCinema(new CinemaBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableMoviePlanner.class);

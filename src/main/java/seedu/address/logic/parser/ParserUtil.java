@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SCREEN_DATE_TIME;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +11,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
@@ -38,8 +38,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
-    private static final int MINUTES_INTERVAL = 5;
+    private static final int MINUTES_USED_IN_ROUNDING_OFF = 5;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -323,8 +322,8 @@ public class ParserUtil {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime screeningDateTime = LocalDateTime.parse(dateTime, dtf);
 
-        if (screeningDateTime.getMinute() % MINUTES_INTERVAL != 0) {
-            throw new IllegalValueException(MESSAGE_INVALID_SCREEN_DATE_TIME);
+        if (screeningDateTime.getMinute() % MINUTES_USED_IN_ROUNDING_OFF != 0) {
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_SCREEN_DATE_TIME);
         }
         return screeningDateTime;
     }

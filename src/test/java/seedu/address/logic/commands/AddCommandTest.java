@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.MoviePlanner;
 import seedu.address.model.ReadOnlyMoviePlanner;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
@@ -67,26 +68,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Cinema alice = new CinemaBuilder().withName("Alice").build();
-        Cinema bob = new CinemaBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Cinema aljunied = new CinemaBuilder().withName("Cathay Aljunied").build();
+        Cinema bedok = new CinemaBuilder().withName("Cathay Bedok").build();
+        AddCommand addAljuniedCommand = new AddCommand(aljunied);
+        AddCommand addBedokCommand = new AddCommand(bedok);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addAljuniedCommand.equals(addAljuniedCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addAljuniedCommandCopy = new AddCommand(aljunied);
+        assertTrue(addAljuniedCommand.equals(addAljuniedCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addAljuniedCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addAljuniedCommand.equals(null));
 
         // different cinema -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addAljuniedCommand.equals(addBedokCommand));
     }
 
     /**
@@ -173,7 +174,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addScreening(Screening screening) {
+        public void addScreening(Screening screening, Theater theater) {
             fail("This method should not be called.");
         }
     }

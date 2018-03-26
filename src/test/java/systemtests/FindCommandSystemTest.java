@@ -3,10 +3,10 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_CINEMAS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalCinemas.BENSON;
-import static seedu.address.testutil.TypicalCinemas.CARL;
-import static seedu.address.testutil.TypicalCinemas.DANIEL;
-import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCinemas.BEDOK;
+import static seedu.address.testutil.TypicalCinemas.CLEMENTI;
+import static seedu.address.testutil.TypicalCinemas.DOVER;
+import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_SHAWS;
 
 import org.junit.Test;
 
@@ -24,45 +24,45 @@ public class FindCommandSystemTest extends MoviePlannerSystemTest {
         /* Case: find multiple cinemas in movie planner, command with leading spaces and trailing spaces
          * -> 2 cinemas found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SHAWS + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, BEDOK, DOVER); // Bedok and Dover have Shaws
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: repeat previous find command where cinema list is displaying the cinemas we are finding
          * -> 2 cinemas found
          */
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SHAWS;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find cinema where cinema list is not displaying the cinema we are finding -> 1 cinema found */
-        command = FindCommand.COMMAND_WORD + " Carl";
-        ModelHelper.setFilteredList(expectedModel, CARL);
+        command = FindCommand.COMMAND_WORD + " Clementi";
+        ModelHelper.setFilteredList(expectedModel, CLEMENTI);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple cinemas in movie planner, 2 keywords -> 2 cinemas found */
-        command = FindCommand.COMMAND_WORD + " Benson Daniel";
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
+        command = FindCommand.COMMAND_WORD + " Bedok Dover";
+        ModelHelper.setFilteredList(expectedModel, BEDOK, DOVER);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple cinemas in movie planner, 2 keywords in reversed order -> 2 cinemas found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson";
+        command = FindCommand.COMMAND_WORD + " Dover Bedok";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple cinemas in movie planner, 2 keywords with 1 repeat -> 2 cinemas found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson Daniel";
+        command = FindCommand.COMMAND_WORD + " Dover Bedok Dover";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple cinemas in movie planner, 2 matching keywords and 1 non-matching keyword
          * -> 2 cinemas found
          */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
+        command = FindCommand.COMMAND_WORD + " Dover Bedok NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -78,69 +78,69 @@ public class FindCommandSystemTest extends MoviePlannerSystemTest {
 
         /* Case: find same cinemas in movie planner after deleting 1 of them -> 1 cinema found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getMoviePlanner().getCinemaList().contains(BENSON));
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        assertFalse(getModel().getMoviePlanner().getCinemaList().contains(BEDOK));
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SHAWS;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, DOVER);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find cinema in movie planner, keyword is same as name but of different case -> 1 cinema found */
-        command = FindCommand.COMMAND_WORD + " MeIeR";
+        command = FindCommand.COMMAND_WORD + " ShAws";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find cinema in movie planner, keyword is substring of name -> 0 cinemas found */
-        command = FindCommand.COMMAND_WORD + " Mei";
+        command = FindCommand.COMMAND_WORD + " sha";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find cinema in movie planner, name is substring of keyword -> 0 cinemas found */
-        command = FindCommand.COMMAND_WORD + " Meiers";
+        command = FindCommand.COMMAND_WORD + " shawss";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find cinema not in movie planner -> 0 cinemas found */
-        command = FindCommand.COMMAND_WORD + " Mark";
+        command = FindCommand.COMMAND_WORD + " Yishun";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find phone number of cinema in movie planner -> 0 cinemas found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
+        command = FindCommand.COMMAND_WORD + " " + DOVER.getPhone().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find address of cinema in movie planner -> 0 cinemas found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
+        command = FindCommand.COMMAND_WORD + " " + DOVER.getAddress().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find email of cinema in movie planner -> 0 cinemas found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
+        command = FindCommand.COMMAND_WORD + " " + DOVER.getEmail().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find while a cinema is selected -> selected card deselected */
         showAllCinemas();
         selectCinema(Index.fromOneBased(1));
-        assertFalse(getCinemaListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
-        command = FindCommand.COMMAND_WORD + " Daniel";
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertFalse(getCinemaListPanel().getHandleToSelectedCard().getName().equals(DOVER.getName().fullName));
+        command = FindCommand.COMMAND_WORD + " Dover";
+        ModelHelper.setFilteredList(expectedModel, DOVER);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
         /* Case: find cinema in empty movie planner -> 0 cinemas found */
         deleteAllCinemas();
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_SHAWS;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, DOVER);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
-        command = "FiNd Meier";
+        command = "FiNd Dover";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
 

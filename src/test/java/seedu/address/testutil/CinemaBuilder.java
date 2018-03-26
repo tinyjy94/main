@@ -15,11 +15,11 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class CinemaBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final int DEFAULT_NUMOFTHEATERS = 3;
+    public static final String DEFAULT_NAME = "Cathay East";
+    public static final String DEFAULT_PHONE = "67438807";
+    public static final String DEFAULT_EMAIL = "cathayeast@cathay.com";
+    public static final String DEFAULT_ADDRESS = "Cathay East, #02-03";
+    public static final int DEFAULT_THEATERS = 3;
 
     private Name name;
     private Phone phone;
@@ -32,7 +32,7 @@ public class CinemaBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        theaters = SampleDataUtil.getTheaterList(DEFAULT_NUMOFTHEATERS);
+        theaters = SampleDataUtil.getTheaterList(DEFAULT_THEATERS);
     }
 
     /**

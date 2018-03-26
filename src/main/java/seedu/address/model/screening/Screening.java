@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
 import seedu.address.model.movie.Movie;
 
@@ -13,50 +12,21 @@ import seedu.address.model.movie.Movie;
  */
 public class Screening {
 
-    // Constants for calculations
-    private static final int PREPARATION_DELAY = 15;
-    private static final int MINUTES_INTERVAL = 5;
-    private static final int ENSURE_MINUTES_POSITIVE = 65;
-
     private final Movie movie;
-    private final Cinema cinema;
     private final Theater theater;
     private final LocalDateTime screeningDateTime;
-    private LocalDateTime screeningEndDateTime;
+    private final LocalDateTime screeningEndDateTime;
 
-    public Screening(Movie movie, Cinema cinema, Theater theater, LocalDateTime screeningDateTime) {
+    public Screening(Movie movie, Theater theater, LocalDateTime screeningDateTime,
+                     LocalDateTime screeningEndDateTime) {
         this.movie = movie;
-        this.cinema = cinema;
         this.theater = theater;
         this.screeningDateTime = screeningDateTime;
-        this.screeningEndDateTime = getEndTime(movie);
-    }
-
-    /**
-     * Calculates the time needed to screen a movie.
-     * Elements used in calculations are movie's duration, preparation delay and rounding off to nearest 5 minutes
-     * @param movie
-     * @return endTime time where the screening will end
-     */
-    private LocalDateTime getEndTime(Movie movie) {
-        int movieDuration = Integer.parseInt(movie.getDuration().toString());
-        LocalDateTime endTime = this.screeningDateTime.plusMinutes(movieDuration).plusMinutes(PREPARATION_DELAY);
-
-        if (endTime.getMinute() % MINUTES_INTERVAL != 0) {
-            LocalDateTime roundedTime = endTime;
-            roundedTime = roundedTime.withSecond(0).withNano(0).plusMinutes((
-                    ENSURE_MINUTES_POSITIVE - roundedTime.getMinute()) % MINUTES_INTERVAL);
-            return roundedTime;
-        }
-        return endTime;
+        this.screeningEndDateTime = screeningEndDateTime;
     }
 
     public Movie getMovie() {
         return movie;
-    }
-
-    public Cinema getCinema() {
-        return cinema;
     }
 
     public Theater getTheater() {
@@ -76,8 +46,6 @@ public class Screening {
         final StringBuilder builder = new StringBuilder();
         builder.append("Movie: ")
                 .append(movie.getName())
-                .append(" Cinema: ")
-                .append(cinema.getName())
                 .append(" Theater: ")
                 .append(theater.getTheaterNumber())
                 .append(" Date: ")
@@ -97,7 +65,6 @@ public class Screening {
 
         Screening otherScreening = (Screening) other;
         return otherScreening.getMovie().equals(this.getMovie())
-                && otherScreening.getCinema().equals(this.getCinema())
                 && otherScreening.getTheater().equals(this.getTheater())
                 && otherScreening.getScreeningDateTime().equals(this.getScreeningDateTime())
                 && otherScreening.getScreeningEndDateTime().equals(this.getScreeningEndDateTime());
@@ -106,6 +73,6 @@ public class Screening {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(movie, cinema, theater, screeningDateTime, screeningEndDateTime);
+        return Objects.hash(movie, theater, screeningDateTime, screeningEndDateTime);
     }
 }

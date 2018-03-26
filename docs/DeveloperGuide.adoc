@@ -450,12 +450,13 @@ Figure 2
 
 *Aspects:* Storage of movies with categories
 
-Alternative 1: Store in the same xml file as the MoviePlanner and read upon startup of program to an array.
+Alternative 1 *(current choice)*: Store in the same xml file as the MoviePlanner and read upon startup of program to an array.
 
 ** Pros: Additional storage on the computer is not required.
+** Pros: Encryption will encrypt the `movieplanner.xml` so storing in the same file is more convenient.
 ** Cons: Have to read in the entire MoviePlanner xml file once every startup which might harm performance.
 
-Alternative 2 *(current choice)*: Store in a separate xml file and update whenever movies are being added or deleted.
+Alternative 2: Store in a separate xml file and update whenever movies are being added or deleted.
 
 ** Pros: Lesser overhead as program does not need to
 ** Cons: Additional storage on the computer is required.
@@ -480,6 +481,178 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+
+<<DeveloperGuide.adoc#, Back to top>>
+
+[[Implementation-SchedulingSystem]]
+=== Scheduling System
+In MVP, the scheduling system works by adding a movie screening to a cinema's theater.
+The user can use the `addscreening` command to add a movie screening to a theater.
+`addscreening` command will be parsed by `AddScreeningCommandParser` and be executed in `AddScreeningCommand`.
+The following sequence diagram shows how the `addscreening` command works.
+
+.Sequence diagram of addscreening command
+image::AddScreeningSequenceDiagram.png[width="1000"]
+
+[NOTE]
+The details of parse screening parameters have been omitted from the diagram.
+
+
+==== Implementation details
+As seen in sequence diagram above, MVP will do the following
+
+. Calls `arePrefixesPresent()` to check if the compulsory prefixes m/, c/, th/ and h/, which are used for movie index, cinema index, theater number and screening start datetime respectively are present.
+. Calls `parseParameters()` method in `ParserUtil` to parse the user input into different objects required for the `AddScreeningCommand`.
+[NOTE]
+`Parameters` mentioned above refers to the parameters provided by the user. E.g. movie index, cinema index, theater number and screening start datetime
+. Creates an `AddScreeningCommand` object that takes in the parameters. In `AddScreeningCommand`,
+there are checks to ensure that the indexes provided are valid.
+The code snippet belows shows how MVP checks that the provided movie index is valid and returns the valid `Movie`.
+
+[source, java]
+    private Movie getValidMovie() throws CommandException {
+        List<Movie> lastShownMovieList = model.getFilteredMovieList();
+        if (movieIndex.getZeroBased() >= lastShownMovieList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_MOVIE_DISPLAYED_INDEX);
+        }
+        // returns the movie using the index provided
+        ...
+    }
+
+[start = 4]
+. Creates a `Screening` and calls an internal method `getEndTime()` to calculate when a screening will end.
+
+[NOTE]
+====
+* The formula used to calculate the screening's end time is (start time + movie's duration + preparation delay) rounded up to the nearest 5 minutes.
+* By default the preparation delay is *15 minutes*.
+* E.g. Screening is scheduled to start at 13:30, movie's duration is 93 minutes.
+The end time of this screening is calculated by (13:30 + 15 minutes + 93 minutes) = 15:18.
+By rounding up to the nearest 5 minutes, the screening will end at 15:20.
+====
+
+[start = 5]
+. Once a `Screening` has been created, `AddScreeningCommand` will check that if it is possible to slot this screening into the existing theater's schedule.
+The code snippet below shows how MVP checks if it is possible to fit the screening in when there are multiple screenings on the same date.
+
+[source, java]
+----
+    private boolean isSlotAvailable(ArrayList<Screening> screeningList) {
+        int totalScreeningsWithSameDate = getTotalScreeningsWithSameDate(screeningList);
+
+        if (totalScreeningsWithSameDate == 0) {
+            return true;
+        } else if (totalScreeningsWithSameDate == 1) {
+            return hasNoConflictWithOneOtherScreening(screeningList);
+        } else { // multiple screenings on same date
+            return hasNoConflictWithBeforeAndAfter(totalScreeningsWithSameDate, screeningList);
+        }
+    }
+----
+
+[source, java]
+----
+    private boolean hasNoConflictWithBeforeAndAfter(int totalScreenings, ArrayList<Screening> screeningList) {
+        int count = 0;
+        boolean hasNoConflict = false;
+        Screening screeningBefore = screeningList.get(0);
+
+        if (isSameScreeningDate(toAdd , screeningBefore)) {
+            count++;
+        }
+
+        for (int i = 1; i < screeningList.size(); i++) {
+            Screening currentScreening = screeningList.get(i);
+            if (hasNoConflict == true) { // already found the spot to insert to
+                break;
+            }
+
+            //first screening
+            if (count == 1 && isScreenTimeOnOrBefore(currentScreening)) {
+                return true;
+            } else if (isSameScreeningDate(currentScreening, toAdd)) {
+                count++;
+                // last screening
+                if (count == totalScreenings && isScreenTimeOnOrAfter(currentScreening)) {
+                    return true;
+                // screening in between
+                } else {
+                    // checks that the screening to add is strictly after end time of previous screening
+                    & end time of screening to add is strictly before start time of next screening
+                    hasNoConflict = isScreenTimeOnOrAfter(screeningBefore)
+                            && isScreenTimeOnOrBefore(currentScreening);
+                }
+            }
+            screeningBefore = currentScreening;
+        }
+        return hasNoConflict;
+    }
+----
+
+==== Storing screenings in xml
+
+To store in `movieplanner.xml`, `Screening` needs to be converted into XML format.
+The part in red border below shows the class diagram of the storage component.
+
+.Class diagram of storage component
+image::ScreeningStorageComponent.png[width="500"]
+The data will be stored as such in the .xml file:
+[source, xml]
+    <cinemas>
+        <name>Cathay</name>
+        <phone>62001000</phone>
+        <email>CathayWest@gmail.com</email>
+        <address>Clementi</address>
+        <theater number="1"/>
+        <theater number="2">
+            <screening>
+                <movie>Finding Nemo</movie>
+                <startDateTime>11/11/2015 13:35</startDateTime>
+                <endDateTime>11/11/2015 15:50</endDateTime>
+            </screening>
+        </theater>
+    </cinemas>
+
+==== Design Considerations
+*Aspect:* Data structure to store the screening schedule
+
+* **Alternative 1 (current choice):** Use an ArrayList<Screening> to store the list of screenings in a cinema's theater
+** Pros: It is easier to store in the xml.
+** Cons: It can be difficult to find the list of screenings for a particular date as the list of screenings in a cinema's theater increases
+* **Alternative 2:** Use a HashMap<Date, ArrayList<Screening>> to store the screenings
+** Pros: It is easier to get the list of screenings for a particular date.
+** Cons: It is more complicated to store in the xml.
+
+=== Add/Delete Theater
+When creating a new `Cinema`, the number of theaters must be stated. `Theater` is then created and stored as an ArrayList<Theater> in `Cinema`. `addTheater` and `deleteTheater` are used to increase/decrease the size of the ArrayList respectively. The following sequence diagram shows how the `addTheater` command works.
+
+.Sequence diagram of addTheater Command
+image::AddTheaterSequenceDiagram.png[width="1000"]
+
+[NOTE]
+`deleteTheater` follows the same flow as the above diagram, but uses `DeleteTheaterCommand` and `DeleteTheaterCommandParser` instead.
+
+==== Implementation details
+
+The addition and deletion of `Theater` in `Cinema` are facilitated by `addTheater` and `deleteTheater` commands. When executing these commands, MVP will do the following
+
+. Calls `tokenize` method in `ArgumentTokenizer` to get value entered by user.
+. Calls `parseIndex` and `parseTheaters` methods in `ParserUtil` to parse input into objects required for `addTheater` command and checks for invalid format of user input.
+. Creates a `AddTheaterCommand` object to take in the `parameters`. Checks are present in `AddTheaterCommand` to ensure values provided by user is valid.
+. `AddTheaterCommand` then returns `CommandResult` to the user which shows the current status of the `Cinema`.
+[NOTE]
+`parameters` above refers to parameters provided by the user. E.g. Index and number of theaters
+
+==== Design Consideration
+Aspect: Implementation of `addTheater` and `deleteTheater`
+
+* *Alternative 1 (current choice):* Using `addTheater` and `deleteTheater` commands to add and remove theaters respectively
+** Pros: Users will be clear that they are increasing or decreasing the size of cinema, as compared to previous implementation where the number of theaters is just overwritten in the `EditCommand`.
+** Cons: Each respective command only does an action, thus two commands are required instead of one.
+
+* *Alternative 2:* Reusing the existing `editCommand` to add or delete theaters
+** Pros: A single command is needed to increase and reduce number of theaters in cinema.
+** Cons: Overwrites current value of `Theater` in cinema, which might cause the user to lose information in theater.
 
 <<DeveloperGuide.adoc#, Back to top>>
 

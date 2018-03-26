@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
@@ -80,7 +81,7 @@ public interface Model {
      */
     void updateFilteredMovieList(Predicate<Movie> predicate);
 
-    /** Adds the given screening */
-    void addScreening(Screening screening);
+    /** Adds the given screening to a theater */
+    void addScreening(Screening screening, Theater theater);
 
 }

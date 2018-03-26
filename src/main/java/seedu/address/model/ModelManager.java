@@ -13,6 +13,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.MoviePlannerChangedEvent;
 import seedu.address.model.cinema.Cinema;
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
@@ -120,7 +121,8 @@ public class ModelManager extends ComponentManager implements Model {
      * Adds the screening provided and indicates a change in the model
      */
     @Override
-    public synchronized void addScreening(Screening screening) {
+    public synchronized void addScreening(Screening screening, Theater theater) {
+        moviePlanner.addScreening(screening, theater);
         updateFilteredCinemaList(PREDICATE_SHOW_ALL_CINEMAS);
         indicateMoviePlannerChanged();
     }
