@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -9,6 +10,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.FindMovieCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.movie.NameContainsKeywordsPredicate;
+import seedu.address.model.movie.StartDateContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindMovieCommand object
@@ -23,9 +25,9 @@ public class FindMovieCommandParser implements Parser<FindMovieCommand> {
     public FindMovieCommand parse(String args) throws ParseException {
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_STARTDATE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
+        if ((!arePrefixesPresent(argMultimap, PREFIX_NAME) && !arePrefixesPresent(argMultimap, PREFIX_STARTDATE))
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMovieCommand.MESSAGE_USAGE));
         }
@@ -35,12 +37,18 @@ public class FindMovieCommandParser implements Parser<FindMovieCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMovieCommand.MESSAGE_USAGE));
         } else {
-            trimmedArgs = argMultimap.getValue(PREFIX_NAME).get();
+            if (!argMultimap.getAllValues(PREFIX_NAME).isEmpty()) {
+                trimmedArgs = argMultimap.getValue(PREFIX_NAME).get();
+                String[] nameKeywords = trimmedArgs.split("\\s+");
+                return new FindMovieCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            } else if (!argMultimap.getAllValues(PREFIX_STARTDATE).isEmpty()) {
+                trimmedArgs = argMultimap.getValue(PREFIX_STARTDATE).get();
+                String[] nameKeywords = trimmedArgs.split("\\s+");
+                return new FindMovieCommand(new StartDateContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            } else {
+                throw new ParseException("Wrong format");
+            }
         }
-
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-
-        return new FindMovieCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
     /**
