@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_CINEMAS_LISTED_OVERVIEW;
-import seedu.address.email.EmailManager;
 import static seedu.address.testutil.TypicalCinemas.CARL;
 import static seedu.address.testutil.TypicalCinemas.ELLE;
 import static seedu.address.testutil.TypicalCinemas.FIONA;
@@ -16,6 +15,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import seedu.address.email.EmailManager;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
