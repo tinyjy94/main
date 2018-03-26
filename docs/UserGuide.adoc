@@ -351,7 +351,8 @@ Returns any cinema having names `Golden`, `Village`, or `North`
 
 Keyword appearance on Command Line: [black-background blue]`find`
 
-=== Finding movies by user input: `findmovie` `coming in V1.3`
+=== Finding movies by user input: `findmovie`
+`coming in V1.3`
 
 Alias: `fm`
 
