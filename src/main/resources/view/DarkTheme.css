@@ -310,6 +310,10 @@
     -fx-background-color: #ffffff;
 }
 
+#browserSplitPane .split-pane-divider {
+   -fx-background-color: transparent;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
