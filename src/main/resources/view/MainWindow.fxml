@@ -53,14 +53,14 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="cinemaList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="cinemaList" minWidth="250" prefWidth="250" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="cinemaListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="movieList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="movieList" minWidth="250" prefWidth="250" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
@@ -69,7 +69,7 @@
 
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets top="0" right="10" bottom="10" left="10" />
             </padding>
           </StackPane>
         </SplitPane>
