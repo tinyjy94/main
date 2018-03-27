@@ -7,6 +7,6 @@ import seedu.address.commons.exceptions.DuplicateDataException;
  */
 public class DuplicateMovieException extends DuplicateDataException {
     public DuplicateMovieException() {
-        super("Operation would result in duplicate cinemas");
+        super("Operation would result in duplicate movies");
     }
 }

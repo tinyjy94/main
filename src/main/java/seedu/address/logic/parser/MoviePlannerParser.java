@@ -19,6 +19,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditMovieCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindMovieCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -102,6 +103,10 @@ public class MoviePlannerParser {
         case FindCommand.COMMAND_ALIAS:
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case FindMovieCommand.COMMAND_ALIAS:
+        case FindMovieCommand.COMMAND_WORD:
+            return new FindMovieCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_ALIAS:
         case ListCommand.COMMAND_WORD:

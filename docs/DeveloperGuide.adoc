@@ -420,50 +420,6 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
-// tag::findmovies[]
-=== Enhanced FindMovie command
-
-The user can find movies by `Category`, `MovieName` or `StartDate` or a combination of them as a multicriteria search.
-
-==== Implementation details
-
-The parser will take in all arguments the user specified and store it in an array. If the user search by `MovieName` or
-`StartDate` or `Category`, MVP will retrieve movie records in the storage with the matching keywords. If two or more conditions
-are specified, MVP will combine the predicates to get a smaller subset of results.
-
-==== Finding commands
-
-Movies can be found by using the `findMovie` command. The command is parsed by `FindMovieCommandParser` and be executed
-in `FindMovieCommand`.
-
-Figure below shows the interaction between the classes.
-
-*Finding by `MovieName` or `StartDate` or `Tag`*
-
-Figure 1
-
-*Finding by `Tag` and/or `MovieName` and/or `StartDate`*
-
-Figure 2
-
-==== Design considerations
-
-*Aspects:* Storage of movies with categories
-
-Alternative 1 *(current choice)*: Store in the same xml file as the MoviePlanner and read upon startup of program to an array.
-
-** Pros: Encryption will encrypt the `movieplanner.xml` so storing in the same file is more convenient.
-** Cons: `movieplanner.xml` might be cluttered with data from cinemas and movies.
-
-[NOTE]
-Since the `movieplanner.xml` file is going to be encrypted, data will already be obfuscated so readability is not a concern.
-
-Alternative 2: Store in a separate xml file and update whenever movies are being added or deleted.
-
-** Pros: Easier for the user to look at if `movieplanner.xml` is in plaintext.
-** Cons: Increases the number of files to be encrypted.
-//end::findmovies[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -485,6 +441,74 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
 <<DeveloperGuide.adoc#, Back to top>>
+
+[[Implementation-FindMovie]]
+=== Enhanced FindMovie command
+
+The user can find movies by `Category`, `MovieName` or `StartDate` or a combination of them as a multicriteria search.
+
+==== Implementation details
+
+The parser will take in all arguments the user specified and store it in an array. If the user search by `MovieName` or
+`StartDate` or `Category`, MVP will retrieve movie records in the storage with the matching keywords. If two or more conditions
+are specified, MVP will combine the predicates to get a smaller subset of results.
+
+==== Finding commands
+
+Movies can be found by using the `findmovie` command. The command is parsed by `FindMovieCommandParser` and be executed
+in `FindMovieCommand`.
+
+Figure below shows the interaction between the classes.
+
+*Finding by `MovieName` or/and `StartDate` or/and `Tag`*
+
+.Sequence diagram of findmovie command
+image::FindMovieSequenceDiagram.PNG[width="1000"]
+
+==== Implementation details
+As seen in the sequence diagram above, MVP will do the following
+
+. Calls `arePrefixesPresent()` to check if the necessary prefixes n/, sd/ and t/, which are used for name, startDate and tag
+respectively are present.
+
+. Calls `tokenize` method in `ArgumentTokenizer` to get value entered by user.
+
+. Based on the `parameters` input by the user, `FindMovieCommand` will take in different predicates to get the correct result.
+The code snippet below shows when all parameters are chosen.
+
+[source, java]
+if (!argMultimap.getAllValues(PREFIX_NAME).isEmpty()
+    && !argMultimap.getAllValues(PREFIX_STARTDATE).isEmpty()
+    && !argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
+    //name, startDate, tag present
+    nameValues = argMultimap.getValue(PREFIX_NAME).get();
+    startDateValues = argMultimap.getValue(PREFIX_STARTDATE).get();
+    tagValues = argMultimap.getValue(PREFIX_TAG).get();
+    nameKeywords = nameValues.split("\\s+");
+    startDateKeywords = startDateValues.split("\\s+");
+    tagKeywords = tagValues.split("\\s+");
+    return new FindMovieCommand(new NameAndStartDateAndTagContainsKeywordsPredicate
+    (Arrays.asList(nameKeywords), Arrays.asList(startDateKeywords), Arrays.asList(tagKeywords)));
+} else if ... //other parameters combination
+
+. `FindMovieCommand` then returns `CommandResult` to the user which shows the current status of the `Cinema`.
+[NOTE]
+`parameters` above refers to parameters provided by the user. E.g. name only or name and tag
+
+==== Design considerations
+*Aspects:* Storage of movies used for search
+
+* **Alternative 1 (current choice):** Store in the same xml file as the MoviePlanner and read upon startup of program to an array.
+** Pros: Encryption will encrypt the `movieplanner.xml` so storing in the same file is more convenient.
+** Cons: `movieplanner.xml` might be cluttered with data from cinemas and movies.
+
+[NOTE]
+Since the `movieplanner.xml` file is going to be encrypted, data will already be obfuscated so readability is not a concern.
+
+* **Alternative 2:** Store in a separate xml file and update whenever movies are being added or deleted.
+** Pros: Easier for the user to look at if `movieplanner.xml` is in plaintext.
+** Cons: Increases the number of files to be encrypted.
+
 
 [[Implementation-SchedulingSystem]]
 === Scheduling System
