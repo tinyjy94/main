@@ -46,6 +46,11 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+
+    /**
+     * Loads the schedule of the provided cinema
+     * @param cinema
+     */
     private void loadCinemaSchedule(Cinema cinema) {
 
         DetailedDayView detailedDayView = new DetailedDayView();
