@@ -36,7 +36,7 @@ public class AddScreeningCommand extends UndoableCommand {
             + PREFIX_MOVIE_INDEX + "MOVIE_INDEX "
             + PREFIX_CINEMA_INDEX + "CINEMA_INDEX "
             + PREFIX_NUMOFTHEATERS + "THEATER_NUMBER "
-            + PREFIX_SCREENING_DATE_TIME + "SCREEN_DATE_TIME "
+            + PREFIX_SCREENING_DATE_TIME + "SCREEN_DATE_TIME \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MOVIE_INDEX + "1 "
             + PREFIX_CINEMA_INDEX + "2 "
