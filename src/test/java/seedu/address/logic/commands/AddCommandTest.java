@@ -172,11 +172,6 @@ public class AddCommandTest {
         public void updateFilteredMovieList(Predicate<Movie> predicate) {
             fail("This method should not be called.");
         }
-
-        @Override
-        public void addScreening(Screening screening, Theater theater) {
-            fail("This method should not be called.");
-        }
     }
 
     /**
