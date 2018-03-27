@@ -18,6 +18,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
+import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
+import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.screening.Screening;
 
@@ -56,6 +58,7 @@ public class AddScreeningCommand extends UndoableCommand {
 
     private Screening toAdd;
     private Cinema cinema;
+    private Cinema updatedCinema;
     private Movie movie;
     private Theater theater;
 
@@ -75,23 +78,76 @@ public class AddScreeningCommand extends UndoableCommand {
     }
 
     /**
-     * Adds a screening to a cinema theater and checks that a screening is valid
+     * Adds a screening to a cinema and updates the cinema
      * @return CommandResult on successful add screening
-     * @throws CommandException
      */
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
 
-        if (isValidScreening()) {
-            String movieName = movie.getName().toString();
-            toAdd = new Screening(movieName, theater, toAddScreeningDateTime, toAddScreeningEndDateTime);
-            model.addScreening(toAdd, theater);
-        } else {
-            throw new CommandException(Messages.MESSAGE_INVALID_SCREENING);
+        try {
+            model.updateCinema(cinema, updatedCinema);
+        } catch (DuplicateCinemaException dce) {
+            throw new CommandException(AddCommand.MESSAGE_DUPLICATE_CINEMA);
+        } catch (CinemaNotFoundException cnfe) {
+            throw new AssertionError("The target cinema cannot be missing");
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    /**
+     * Checks that a screening entry is valid and adds it to the updated cinema
+     * @throws CommandException if screening is invalid
+     */
+    @Override
+    protected void preprocessUndoableCommand() throws CommandException {
+        if (isValidScreening()) {
+            String movieName = movie.getName().toString();
+            toAdd = new Screening(movieName, theater, toAddScreeningDateTime, toAddScreeningEndDateTime);
+            updatedCinema = generateUpdatedCinema(toAdd);
+        } else {
+            throw new CommandException(Messages.MESSAGE_INVALID_SCREENING);
+        }
+    }
+
+    /**
+     * Creates and returns a {@code Cinema} with the new screening
+     */
+    private Cinema generateUpdatedCinema(Screening newScreening) {
+        ArrayList<Theater> updatedTheaterList = generateUpdatedTheaterList(newScreening);
+        return new Cinema(cinema.getName(), cinema.getPhone(), cinema.getEmail(),
+                cinema.getAddress(), updatedTheaterList);
+    }
+
+
+    /**
+     * Generates and returns an updated list of theaters
+     */
+    public ArrayList<Theater> generateUpdatedTheaterList(Screening newScreening) {
+        ArrayList<Theater> updatedTheaterList = new ArrayList<>();
+
+        for (Theater t : cinema.getTheaters()) {
+            // adding screening to this theater
+            if (t.equals(theater)) {
+                Theater theaterToBeUpdated = new Theater(t.getTheaterNumber());
+                ArrayList<Screening> updatedScreeningList = new ArrayList<>();
+
+                // copy existing screenings to new list
+                for (Screening s : t.getScreeningList()) {
+                    updatedScreeningList.add(s);
+                }
+
+                // add the updated screening list to the theater
+                updatedScreeningList.add(newScreening);
+                theaterToBeUpdated.setScreeningList(updatedScreeningList);
+                theaterToBeUpdated.sortScreeningList();
+                updatedTheaterList.add(theaterToBeUpdated);
+            } else {
+                updatedTheaterList.add(t);
+            }
+        }
+        return updatedTheaterList;
     }
 
     /**
