@@ -63,9 +63,6 @@ public class SecurityUtil {
         } catch (NoSuchPaddingException bpe) {
             logger.severe("Invalid padding provided " + StringUtil.getDetails(bpe));
             throw new AssertionError("Invalid padding.");
-        } catch (InvalidKeySpecException ikse) {
-            logger.severe("Invalid key specifications provided " + StringUtil.getDetails(ikse));
-            throw new AssertionError("Invalid key specifications.");
         }
     }
 
@@ -82,9 +79,6 @@ public class SecurityUtil {
         } catch (InvalidKeyException ike) {
             logger.severe("Invalid key length provided " + StringUtil.getDetails(ike));
             throw new AssertionError("Invalid key length.");
-        } catch (InvalidKeySpecException ikse) {
-            logger.severe("Invalid key specifications provided " + StringUtil.getDetails(ikse));
-            throw new AssertionError("Invalid key specifications.");
         } catch (NoSuchAlgorithmException nsae) {
             logger.severe("Invalid algorithm provided " + StringUtil.getDetails(nsae));
             throw new AssertionError("Invalid algorithm.");
@@ -122,13 +116,22 @@ public class SecurityUtil {
     /**
      * Generate a secret AES key
      */
-    public static Key generateKey(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        byte[] nb = new byte[16];
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), nb, 65536, AES_Key_Size);
+    public static Key generateKey(String password) {
+        try {
+            byte[] nb = new byte[16];
+            KeySpec spec = new PBEKeySpec(password.toCharArray(), nb, 65536, AES_Key_Size);
 
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        SecretKey tmp = factory.generateSecret(spec);
-        return new SecretKeySpec(tmp.getEncoded(), "AES");
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+            SecretKey tmp = factory.generateSecret(spec);
+            return new SecretKeySpec(tmp.getEncoded(), "AES");
+
+        } catch (NoSuchAlgorithmException nsae) {
+            logger.severe("Invalid algorithm provided " + StringUtil.getDetails(nsae));
+            throw new AssertionError("Invalid algorithm.");
+        } catch (InvalidKeySpecException ikse) {
+            logger.severe("Invalid key specifications provided " + StringUtil.getDetails(ikse));
+            throw new AssertionError("Invalid key specifications.");
+        }
+
     }
-
 }
