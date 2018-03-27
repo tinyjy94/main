@@ -2,8 +2,8 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_LOGIN_ACCOUNT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_MESSAGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_SUBJECT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_RECIPIENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_SUBJECT;
 
 import seedu.address.email.EmailManager;
 import seedu.address.email.exceptions.EmailLoginInvalidException;

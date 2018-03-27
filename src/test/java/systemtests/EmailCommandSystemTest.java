@@ -13,11 +13,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_RECIPIENT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_SUBJECT;
 import static seedu.address.testutil.TypicalEmail.EMAIL_DRAFT_1;
 
-import guitests.GuiRobot;
-import javafx.scene.input.KeyCode;
-
 import org.junit.Test;
 
+import guitests.GuiRobot;
+import javafx.scene.input.KeyCode;
 import seedu.address.email.EmailManager;
 import seedu.address.email.exceptions.EmailLoginInvalidException;
 import seedu.address.email.message.MessageDraft;
@@ -58,8 +57,8 @@ public class EmailCommandSystemTest extends MoviePlannerSystemTest {
             e.printStackTrace();
         }
         toEdit = tempEmailManager;
-        command = EmailCommand.COMMAND_WORD + EMAIL_DESC_MESSAGE + EMAIL_DESC_SUBJECT +
-                EMAIL_DESC_ANOTHER_RECIPIENT + EMAIL_DESC_LOGIN_ACCOUNT;
+        command = EmailCommand.COMMAND_WORD + EMAIL_DESC_MESSAGE + EMAIL_DESC_SUBJECT
+                + EMAIL_DESC_ANOTHER_RECIPIENT + EMAIL_DESC_LOGIN_ACCOUNT;
         assertCommandSuccess(command, toEdit);
         guiRobot.pauseForHuman();
 
@@ -97,8 +96,8 @@ public class EmailCommandSystemTest extends MoviePlannerSystemTest {
             e.printStackTrace();
         }
         toEdit = tempEmailManager;
-        command = EmailCommand.COMMAND_WORD + EMAIL_DESC_MESSAGE + EMAIL_DESC_ANOTHER_SUBJECT +
-                EMAIL_DESC_RECIPIENT + EMAIL_DESC_LOGIN_ACCOUNT;
+        command = EmailCommand.COMMAND_WORD + EMAIL_DESC_MESSAGE + EMAIL_DESC_ANOTHER_SUBJECT
+                + EMAIL_DESC_RECIPIENT + EMAIL_DESC_LOGIN_ACCOUNT;
         assertCommandSuccess(command, toEdit);
         guiRobot.pauseForHuman();
 
