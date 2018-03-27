@@ -27,6 +27,16 @@ public abstract class Command {
     }
 
     /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of movies.
+     *
+     * @param displaySize used to generate summary
+     * @return summary message for movies displayed
+     */
+    public static String getMessageForMovieListShownSummary(int displaySize) {
+        return String.format(Messages.MESSAGE_MOVIES_LISTED_OVERVIEW, displaySize);
+    }
+
+    /**
      * Executes the command and returns the result message.
      *
      * @return feedback message of the operation result for display

@@ -4,15 +4,20 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMOFTHEATERS;
 
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddTheaterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.cinema.Theater;
 
 /**
  * Parses input arguments and creates a new AddTheaterCommand object
  */
 public class AddTheaterCommandParser implements Parser<AddTheaterCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddTheaterCommand
      * and returns an AddTheaterCommand object for execution.
@@ -22,7 +27,12 @@ public class AddTheaterCommandParser implements Parser<AddTheaterCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NUMOFTHEATERS);
 
+        if (!arePrefixesPresent(argMultimap, PREFIX_NUMOFTHEATERS)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTheaterCommand.MESSAGE_USAGE));
+        }
+
         Index index;
+        ArrayList<Theater> newTheaters;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -30,20 +40,21 @@ public class AddTheaterCommandParser implements Parser<AddTheaterCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTheaterCommand.MESSAGE_USAGE));
         }
 
-        AddTheaterCommand.ResizeCinemaDescriptor resizeCinemaDescriptor =
-                new AddTheaterCommand.ResizeCinemaDescriptor();
         try {
-            ParserUtil.parseTheaters(argMultimap.getValue(PREFIX_NUMOFTHEATERS))
-                    .ifPresent(resizeCinemaDescriptor::setTheaters);
+            newTheaters = ParserUtil.parseTheaters(argMultimap.getValue(PREFIX_NUMOFTHEATERS)).get();
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }
 
-        if (!resizeCinemaDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(AddTheaterCommand.MESSAGE_NOT_RESIZED);
-        }
+        return new AddTheaterCommand(index, newTheaters.size());
+    }
 
-        return new AddTheaterCommand(index, resizeCinemaDescriptor.getTheaterSize());
+    /**
+      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+      * {@code ArgumentMultimap}.
+      */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

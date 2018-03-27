@@ -43,7 +43,7 @@ public class XmlAdaptedMovie {
     public XmlAdaptedMovie() {}
 
     /**
-     * Constructs an {@code XmlAdaptedCinema} with the given movie details.
+     * Constructs an {@code XmlAdaptedMovie} with the given movie details.
      */
     public XmlAdaptedMovie(String movieName, String duration, String rating, String startDate,
                            List<XmlAdaptedTag> tagged) {

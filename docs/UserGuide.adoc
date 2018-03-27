@@ -49,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all cinemas
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 th/3` : adds a contact named `John Doe` to MVP.
+* **`add`**`n/GV Paya Lebar p/66538100 e/customersvc@goldenvillage.com.sg a/SingPost Centre, 10 Eunos Road 8, #03-107, Singapore 408600 th/8` : adds a cinema named `GV Paya Lebar` to MVP.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits MVP
 
@@ -99,12 +99,12 @@ Keyword appearance on Command Line: [black-background green]`add`
 Alias: `am`
 
 Adds a movie to MVP. +
-Format: `addmovie n/MOVIE_NAME d/DURATION r/RATING sd/START_DATE cat/CATEGORY`
+Format: `addmovie n/MOVIE_NAME d/DURATION r/RATING sd/START_DATE t/TAG`
 
 Examples:
 
-* `addmovie n/The Incredibles d/115 r/PG sd/18/11/2014 cat/Animation`
-* `am n/Spiderman 1 d/121 r/PG sd/04/29/2012 cat/Superheroes cat/Spiderman`
+* `addmovie n/The Incredibles d/115 r/PG sd/18/11/2014 t/Animation`
+* `am n/Spiderman 1 d/121 r/PG sd/04/29/2012 t/Superheroes t/Spiderman`
 
 Keyword appearance on Command Line: [black-background green]`addmovie`
 
@@ -137,6 +137,7 @@ Adds a screening of the 2nd movie to the 3rd cinema's 3rd theater.
 Keyword appearance on Command Line: [black-background green]`addscreening`
 
 === Adding theaters: `addtheater` | `at`
+`Available in v1.2`
 
 Alias: `at`
 
@@ -209,6 +210,7 @@ Deletes the 1st cinema in the results of the `find` command.
 Keyword appearance on Command Line: [black-background red]`delete`
 
 === Deleting a movie : `deletemovie` | `dm`
+`Available in V1.2`
 
 Alias: `dm`
 
@@ -259,7 +261,9 @@ Deletes a screening of the 2nd movie to the 3rd cinema's 3rd theater.
 
 Keyword appearance on Command Line: [black-background red]`deletescreening`
 
-=== Deleting theaters: `deletetheater`
+=== Deleting theaters: `deletetheater` | `dt`
+
+`Available in v1.2`
 
 Alias: `dt`
 
@@ -300,11 +304,12 @@ Edits the name of the 2nd cinema to be `Golden Village`.
 Keyword appearance on Command Line: [black-background white]`edit`
 
 === Editing a movie : `editmovie` | `em`
+`Available in V1.2`
 
 Alias: `em`
 
 Edits an existing movie in MVP. +
-Format: `editmovie INDEX [n/MOVIE_NAME] [d/DURATION] [r/RATING] [sd/START_DATE] [cat/CATEGORY]...`
+Format: `editmovie INDEX [n/MOVIE_NAME] [d/DURATION] [r/RATING] [sd/START_DATE] [t/TAG]...`
 
 [NOTE]
 ====
@@ -346,12 +351,13 @@ Returns any cinema having names `Golden`, `Village`, or `North`
 
 Keyword appearance on Command Line: [black-background blue]`find`
 
-=== Finding movies by name: `findmovie`
+=== Finding movies by user input: `findmovie`
+`coming in V1.3`
 
 Alias: `fm`
 
-Finds movies based on the name, category or start date. +
-Format: `findmovie [n/MOVIE_NAME] [cat/CATEGORY] [sd/START_DATE]`
+Finds movies based on the name, tag or start date. +
+Format: `findmovie [n/MOVIE_NAME] [t/TAG] [sd/START_DATE]`
 
 ****
 * The order of the keywords does not matter. e.g. `Cathay West` will match `West Cathay`
@@ -363,11 +369,11 @@ Examples:
 * `findmovie n/zombie` +
 Returns all movies which name contains keyword `zombie` like `Zombie Graveyard` and `attack the zombie`
 * `fm cat/horror` +
-Returns all movies which belongs to the category `horror` like `Insidious` and `Conjuring`
+Returns all movies which belongs to the tag `horror` like `Insidious` and `Conjuring`
 * `findmovie sd/02/02/2018` +
 Returns all movies with `StartDate = 09/11/2017` like `Ah Boys to Men 4`
 * `findmovie n/Spiderman cat/superhero` +
-Returns all movies from category `superhero` with name `Spiderman` like `Spiderman 1`, `Spiderman 2` and `Spiderman 3`
+Returns all movies from tag `superhero` with name `Spiderman` like `Spiderman 1`, `Spiderman 2` and `Spiderman 3`
 
 
 Keyword appearance on Command Line: [black-background blue]`findmovie`
@@ -509,7 +515,7 @@ _{explain how the user can enable/disable data encryption}_
 |Feature|Command|Alias|Example
 |*Add* |`add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... th/THEATER`|`a`
 |`add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague th/3`
-|*AddMovie* |`addmovie n/MOVIE_NAME d/DURATION r/RATING sd/START_DATE cat/CATEGORY`|`am`
+|*AddMovie* |`addmovie n/MOVIE_NAME d/DURATION r/RATING sd/START_DATE t/TAG`|`am`
 |`addmovie n/The Incredibles d/115 r/PG sd/18/11/2014 cat/Animation`
 |*AddScreening* |`addscreening m/MOVIE_INDEX c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME` |`as`
 |`addscreening m/1 c/2 th/1 h/05/05/2015 13:30`
@@ -529,7 +535,7 @@ _{explain how the user can enable/disable data encryption}_
 |`edit 2 n/GV Jurong Point e/contacts@gv.com`
 |*Find* |`find KEYWORD [MORE_KEYWORDS]` |`f`
 |`find Cathay`
-|*FindMovie* |`findmovie [n/MOVIE_NAME] [cat/CATEGORY] [sd/START_DATE]` |`fm`
+|*FindMovie* |`findmovie [n/MOVIE_NAME] [t/TAG] [sd/START_DATE]` |`fm`
 |`findmovie n/zombie`
 |*List* |`list` |`l` |`list`
 |*Help* |`help` |`h` |`help`
