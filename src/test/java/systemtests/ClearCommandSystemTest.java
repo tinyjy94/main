@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCinemas.KEYWORD_MATCHING_SHAWS;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class ClearCommandSystemTest extends MoviePlannerSystemTest {
 
         /* Case: filters the cinema list before clearing -> entire movie planner cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original movie planner
-        showCinemasWithName(KEYWORD_MATCHING_MEIER);
+        showCinemasWithName(KEYWORD_MATCHING_SHAWS);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

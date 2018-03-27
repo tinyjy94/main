@@ -45,14 +45,14 @@ public class CommandTestUtil {
     public static final String VALID_RATING_MARVEL = "NC16";
     public static final String VALID_STARTDATE_INCREDIBLES = "03/03/2000";
     public static final String VALID_STARTDATE_MARVEL = "08/09/2016";
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_NAME_SENGKANG = "Sengkang Cathay";
+    public static final String VALID_NAME_TAMPINES = "Tampines Cathay";
+    public static final String VALID_PHONE_SENGKANG = "11111111";
+    public static final String VALID_PHONE_TAMPINES = "22222222";
+    public static final String VALID_EMAIL_SENGKANG = "sengkang@cathay.com";
+    public static final String VALID_EMAIL_TAMPINES = "tampines@cathay.com";
+    public static final String VALID_ADDRESS_SENGKANG = "Sengkang Street 1";
+    public static final String VALID_ADDRESS_TAMPINES = "Tampines";
     public static final String VALID_TAG_SUPERHERO = "superhero";
     public static final String VALID_TAG_COMEDY = "comedy";
     public static final String VALID_TAG_UNUSED = "unused"; // not to assign to any movie
@@ -74,14 +74,14 @@ public class CommandTestUtil {
     public static final String RATING_DESC_MARVEL = " " + PREFIX_RATING + VALID_RATING_MARVEL;
     public static final String STARTDATE_DESC_INCREDIBLES = " " + PREFIX_STARTDATE + VALID_STARTDATE_INCREDIBLES;
     public static final String STARTDATE_DESC_MARVEL = " " + PREFIX_STARTDATE + VALID_STARTDATE_MARVEL;
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String NAME_DESC_SENGKANG = " " + PREFIX_NAME + VALID_NAME_SENGKANG;
+    public static final String NAME_DESC_TAMPINES = " " + PREFIX_NAME + VALID_NAME_TAMPINES;
+    public static final String PHONE_DESC_SENGKANG = " " + PREFIX_PHONE + VALID_PHONE_SENGKANG;
+    public static final String PHONE_DESC_TAMPINES = " " + PREFIX_PHONE + VALID_PHONE_TAMPINES;
+    public static final String EMAIL_DESC_SENGKANG = " " + PREFIX_EMAIL + VALID_EMAIL_SENGKANG;
+    public static final String EMAIL_DESC_TAMPINES = " " + PREFIX_EMAIL + VALID_EMAIL_TAMPINES;
+    public static final String ADDRESS_DESC_SENGKANG = " " + PREFIX_ADDRESS + VALID_ADDRESS_SENGKANG;
+    public static final String ADDRESS_DESC_TAMPINES = " " + PREFIX_ADDRESS + VALID_ADDRESS_TAMPINES;
     public static final String TAG_DESC_COMEDY = " " + PREFIX_TAG + VALID_TAG_COMEDY;
     public static final String TAG_DESC_SUPERHERO = " " + PREFIX_TAG + VALID_TAG_SUPERHERO;
     public static final String THEATER_DESC_THREE = " " + PREFIX_NUMOFTHEATERS + VALID_NUMOFTHEATERS;
@@ -109,15 +109,15 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditCinemaDescriptor DESC_AMY;
-    public static final EditCommand.EditCinemaDescriptor DESC_BOB;
+    public static final EditCommand.EditCinemaDescriptor DESC_SENGKANG;
+    public static final EditCommand.EditCinemaDescriptor DESC_TAMPINES;
 
     static {
-        DESC_AMY = new EditCinemaDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+        DESC_SENGKANG = new EditCinemaDescriptorBuilder().withName(VALID_NAME_SENGKANG)
+                .withPhone(VALID_PHONE_SENGKANG).withEmail(VALID_EMAIL_SENGKANG).withAddress(VALID_ADDRESS_SENGKANG)
                 .withTheaters(VALID_NUMOFTHEATERS).build();
-        DESC_BOB = new EditCinemaDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        DESC_TAMPINES = new EditCinemaDescriptorBuilder().withName(VALID_NAME_TAMPINES)
+                .withPhone(VALID_PHONE_TAMPINES).withEmail(VALID_EMAIL_TAMPINES).withAddress(VALID_ADDRESS_TAMPINES)
                 .withTheaters(VALID_NUMOFTHEATERS).build();
     }
 
