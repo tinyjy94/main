@@ -94,7 +94,7 @@ public interface Model {
     void addScreening(Screening screening);
 
     /**
-     * Sends email based on last displayed person list
+     * Sends email based on input recipient
      *
      * @throws EmailLoginInvalidException if login details is empty
      * @throws EmailMessageEmptyException if message is empty

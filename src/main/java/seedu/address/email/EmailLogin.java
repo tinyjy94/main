@@ -11,7 +11,7 @@ import seedu.address.email.exceptions.EmailLoginInvalidException;
 public class EmailLogin {
     private static final Pattern GMAIL_FORMAT = Pattern.compile("^[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(@gmail.com)$");
 
-    private String [] loginDetails;
+    private String[] loginDetails;
 
     /** Creates an EmailLogin with an empty login detail */
     public EmailLogin() {
@@ -24,7 +24,7 @@ public class EmailLogin {
      * @param loginDetails login email and password
      * @throws EmailLoginInvalidException if loginDetails is in wrong format
      */
-    public void loginEmail(String [] loginDetails) throws EmailLoginInvalidException {
+    public void loginEmail(String[] loginDetails) throws EmailLoginInvalidException {
         //replace login details and ignore if login details is omitted.
         if (loginDetails.length != 0 && loginDetails.length == 2) {
             if (wrongUserEmailFormat(loginDetails)) {
