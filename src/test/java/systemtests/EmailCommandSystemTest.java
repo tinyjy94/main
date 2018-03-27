@@ -1,7 +1,5 @@
 package systemtests;
 
-import guitests.GuiRobot;
-import javafx.scene.input.KeyCode;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_ANOTHER_MESSAGE;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_ANOTHER_RECIPIENT;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_ANOTHER_SUBJECT;
@@ -15,6 +13,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_RECIPIENT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_SUBJECT;
 import static seedu.address.testutil.TypicalEmail.EMAIL_DRAFT_1;
 
+import guitests.GuiRobot;
+import javafx.scene.input.KeyCode;
+
 import org.junit.Test;
 
 import seedu.address.email.EmailManager;
@@ -22,7 +23,6 @@ import seedu.address.email.exceptions.EmailLoginInvalidException;
 import seedu.address.email.message.MessageDraft;
 import seedu.address.logic.commands.EmailCommand;
 import seedu.address.model.Model;
-import seedu.address.model.cinema.Cinema;
 import seedu.address.testutil.EmailBuilder;
 import seedu.address.testutil.EmailUtil;
 
@@ -40,8 +40,9 @@ public class EmailCommandSystemTest extends MoviePlannerSystemTest {
         EmailManager toEdit = EMAIL_DRAFT_1;
 
         /* Case: edit the email draft with all fields (without sending) -> drafted */
-        String command = "   " + EmailCommand.COMMAND_WORD + "  " + EMAIL_DESC_MESSAGE + "  " + EMAIL_DESC_SUBJECT + " " +
-                EMAIL_DESC_RECIPIENT + "   " + EMAIL_DESC_LOGIN_ACCOUNT + " ";
+        String command = "   " + EmailCommand.COMMAND_WORD + "  "
+                + EMAIL_DESC_MESSAGE + "  " + EMAIL_DESC_SUBJECT + " "
+                + EMAIL_DESC_RECIPIENT + "   " + EMAIL_DESC_LOGIN_ACCOUNT + " ";
         assertCommandSuccess(command, toEdit);
         guiRobot.pauseForHuman();
 
@@ -62,7 +63,9 @@ public class EmailCommandSystemTest extends MoviePlannerSystemTest {
         assertCommandSuccess(command, toEdit);
         guiRobot.pauseForHuman();
 
-        /* Case: edit the email draft with all fields same as previous email draft except message -> drafted */
+        /* Case: edit the email draft with all fields same as previous email draft except message
+         * -> drafted
+         */
         toEdit = EMAIL_DRAFT_1;
         try {
             tempEmailManager = new EmailBuilder().withMessage("Hi Mr. Matthews, This is a new email.")
@@ -74,13 +77,16 @@ public class EmailCommandSystemTest extends MoviePlannerSystemTest {
             e.printStackTrace();
         }
         toEdit = tempEmailManager;
-        command = EmailCommand.COMMAND_WORD + EMAIL_DESC_ANOTHER_MESSAGE + EMAIL_DESC_SUBJECT +
-                EMAIL_DESC_RECIPIENT + EMAIL_DESC_LOGIN_ACCOUNT;
+        command = EmailCommand.COMMAND_WORD + EMAIL_DESC_ANOTHER_MESSAGE
+                + EMAIL_DESC_SUBJECT
+                + EMAIL_DESC_RECIPIENT + EMAIL_DESC_LOGIN_ACCOUNT;
         assertCommandSuccess(command, toEdit);
         guiRobot.pauseForHuman();
 
-        /* Case: edit the email draft with all fields same as previous email draft except subject -> drafted */
-                toEdit = EMAIL_DRAFT_1;
+        /* Case: edit the email draft with all fields same as previous email draft except subject
+         * -> drafted
+         */
+        toEdit = EMAIL_DRAFT_1;
         try {
             tempEmailManager = new EmailBuilder().withMessage(VALID_EMAIL_MESSAGE)
                     .withSubject("Scheduled Meeting")

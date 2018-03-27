@@ -67,7 +67,7 @@ public class EmailBuilder {
     /**
      * Sets the {@code recipient} of the {@code MessageDraft} that we are building.
      */
-    public EmailBuilder withLoginAccount(String loginAccount) throws EmailLoginInvalidException{
+    public EmailBuilder withLoginAccount(String loginAccount) throws EmailLoginInvalidException {
         this.loginAccount = loginAccount.split(":");
         emailManager.loginEmailAccount(this.loginAccount);
         return this;

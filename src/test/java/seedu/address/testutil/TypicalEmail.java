@@ -1,12 +1,12 @@
 package seedu.address.testutil;
 
-import seedu.address.email.exceptions.EmailLoginInvalidException;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_LOGIN_ACCOUNT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_MESSAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_SUBJECT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_RECIPIENT;
 
 import seedu.address.email.EmailManager;
+import seedu.address.email.exceptions.EmailLoginInvalidException;
 
 /**
  * A utility class containing a list of {@code MessageDraft} objects to be used in tests.
