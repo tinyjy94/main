@@ -40,7 +40,8 @@ public class StartDateAndTagContainsKeywordsPredicate implements Predicate<Movie
         return other == this // short circuit if same object
                 || (other instanceof NameAndStartDateContainsKeywordsPredicate // instanceof handles nulls
                 && this.startDateKeywords.equals(((StartDateAndTagContainsKeywordsPredicate) other).startDateKeywords)
-                && this.tagKeywords.equals(((StartDateAndTagContainsKeywordsPredicate) other).tagKeywords)); // state check
+                && this.tagKeywords.equals(((StartDateAndTagContainsKeywordsPredicate) other)
+                .tagKeywords)); // state check
     }
 
 }
