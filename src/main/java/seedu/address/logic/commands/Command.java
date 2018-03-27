@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.BaseEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -39,5 +41,13 @@ public abstract class Command {
      */
     public void setData(Model model, CommandHistory history, UndoRedoStack undoRedoStack) {
         this.model = model;
+    }
+
+    /**
+     * Raises the event via {@link EventsCenter#post(BaseEvent)}
+     * @param event
+     */
+    protected void raise(BaseEvent event) {
+        EventsCenter.getInstance().post(event);
     }
 }

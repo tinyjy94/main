@@ -26,6 +26,7 @@ import javafx.scene.paint.Color;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.MoviePlannerChangedEvent;
 import seedu.address.commons.events.ui.CinemaPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.JumpToDateRequestEvent;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
 import seedu.address.model.screening.Screening;
@@ -36,9 +37,9 @@ import seedu.address.model.screening.Screening;
 public class BrowserPanel extends UiPart<Region> {
 
     private static final String FXML = "BrowserPanel.fxml";
+    private static final String DATE_FORMAT = "dd/MM/uu";
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
-    private final String datePattern = "dd/MM/yy";
 
     @FXML
     private StackPane browserPane;
@@ -46,6 +47,7 @@ public class BrowserPanel extends UiPart<Region> {
     private Label date;
 
     private CinemaCard currentSelection = null;
+    private LocalDate currentDate = null;
 
     public BrowserPanel() {
         super(FXML);
@@ -58,9 +60,9 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads the schedule of the provided cinema
      * @param cinema
      */
-    private void loadCinemaSchedule(Cinema cinema) {
+    private void loadCinemaSchedule(Cinema cinema, LocalDate providedDate) {
         DetailedDayView detailedDayView = new DetailedDayView();
-        setUpDayView(detailedDayView);
+        setUpDayView(detailedDayView, providedDate);
 
         ArrayList<Theater> theaterList = cinema.getTheaters();
         CalendarSource theatersSchedule = new CalendarSource("Theaters");
@@ -125,9 +127,10 @@ public class BrowserPanel extends UiPart<Region> {
     /**
      * Sets up the day view for scheduler
      */
-    private void setUpDayView(DetailedDayView detailedDayView) {
-        date.setText(LocalDate.now().format(DateTimeFormatter.ofPattern(datePattern)));
+    private void setUpDayView(DetailedDayView detailedDayView, LocalDate providedDate) {
+        date.setText(providedDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT)));
         detailedDayView.setLayout(DateControl.Layout.SWIMLANE);
+        detailedDayView.setDate(providedDate);
         detailedDayView.setMouseTransparent(true);
         detailedDayView.setShowAllDayView(false);
         detailedDayView.setShowScrollBar(false);
@@ -142,13 +145,26 @@ public class BrowserPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         browserPane.getChildren().clear();
         currentSelection = event.getNewSelection();
-        loadCinemaSchedule(currentSelection.cinema);
+        currentDate = LocalDate.now();
+        loadCinemaSchedule(currentSelection.cinema, currentDate);
     }
 
     @Subscribe
     private void handleMoviePlannerChangedEvent(MoviePlannerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, refreshing browser view"));
         browserPane.getChildren().clear();
-        loadCinemaSchedule(currentSelection.cinema);
+        loadCinemaSchedule(currentSelection.cinema, currentDate);
+    }
+
+    @Subscribe
+    private void handleJumpCommandEvent(JumpToDateRequestEvent event) {
+        try {
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, "Jumping to date: " + event.getDate()));
+            browserPane.getChildren().clear();
+            currentDate = event.getDate();
+            loadCinemaSchedule(currentSelection.cinema, currentDate);
+        } catch (NullPointerException npe) {
+            logger.warning(LogsCenter.getEventHandlingLogMessage(event, "Null cinema card."));
+        }
     }
 }
