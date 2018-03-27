@@ -31,28 +31,17 @@ public class SecurityUtil {
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     private static final int AES_Key_Size = 128;
-    private static String password = "dummypass";
+    private static final int iteration = 65536;
 
     /**
-     *
+     * Encrypts the given file using AES key using Key given.
      */
-    public static void main(String[] args) throws IOException, InvalidKeySpecException {
-        File infile = new File("data/movieplanner.xml");
-        File outfile = new File("data/movieplanner.xml");
-        encrypt(infile, outfile, password);
-        decrypt(infile, outfile, password);
-    }
-
-    /**
-     * Encrypts the given file using AES key using password given
-     */
-    public static void encrypt(File infile, File outfile, String password) throws IOException {
+    public static void encrypt(File infile, Key password) throws IOException {
         try {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            Key aesKey = generateKey(password);
 
-            cipher.init(Cipher.ENCRYPT_MODE, aesKey);
-            processFile(cipher, infile, outfile);
+            cipher.init(Cipher.ENCRYPT_MODE, password);
+            processFile(cipher, infile);
 
         } catch (InvalidKeyException ike) {
             logger.severe("Invalid key length provided " + StringUtil.getDetails(ike));
@@ -67,15 +56,13 @@ public class SecurityUtil {
     }
 
     /**
-     * Decrypts the given file using AES key using password given.
+     * Decrypts the given file using AES key using Key given.
      */
-    public static void decrypt(File inputFile, File outfile, String password) throws IOException {
+    public static void decrypt(File inputFile, Key password) throws IOException {
         try {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            Key aesKey = generateKey(password);
-
-            cipher.init(Cipher.DECRYPT_MODE, aesKey);
-            processFile(cipher, outfile, inputFile);
+            cipher.init(Cipher.DECRYPT_MODE, password);
+            processFile(cipher, inputFile);
         } catch (InvalidKeyException ike) {
             logger.severe("Invalid key length provided " + StringUtil.getDetails(ike));
             throw new AssertionError("Invalid key length.");
@@ -89,9 +76,9 @@ public class SecurityUtil {
     }
 
     /**
-     * Encrypt or decrypt the {@code inputFile} and writes out into {@code outputFile} based on cipher given.
+     * Encrypts or decrypts the {@code inputFile} and write out into the same {@code inputFile} based on cipher given.
      */
-    private static void processFile(Cipher cipher, File inputFile, File outputFile) throws IOException {
+    private static void processFile(Cipher cipher, File inputFile) throws IOException {
 
         try {
             byte[] inputByteArray = new byte[(int) inputFile.length()];
@@ -99,7 +86,7 @@ public class SecurityUtil {
             fis.read(inputByteArray); //reads from fis to byte[]
 
             byte[] outputBytes = cipher.doFinal(inputByteArray); //encrypt or decrypt the byte[]
-            FileOutputStream fos = new FileOutputStream(outputFile);
+            FileOutputStream fos = new FileOutputStream(inputFile);
 
             fos.write(outputBytes);
             fis.close();
@@ -118,12 +105,12 @@ public class SecurityUtil {
      */
     public static Key generateKey(String password) {
         try {
-            byte[] nb = new byte[16];
-            KeySpec spec = new PBEKeySpec(password.toCharArray(), nb, 65536, AES_Key_Size);
+            byte[] inputByte = new byte[16];
+            KeySpec spec = new PBEKeySpec(password.toCharArray(), inputByte, iteration, AES_Key_Size);
 
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            SecretKey tmp = factory.generateSecret(spec);
-            return new SecretKeySpec(tmp.getEncoded(), "AES");
+            SecretKey secretkey = factory.generateSecret(spec);
+            return new SecretKeySpec(secretkey.getEncoded(), "AES");
 
         } catch (NoSuchAlgorithmException nsae) {
             logger.severe("Invalid algorithm provided " + StringUtil.getDetails(nsae));
