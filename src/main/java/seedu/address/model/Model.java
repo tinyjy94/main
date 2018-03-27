@@ -28,6 +28,8 @@ public interface Model {
     /** Returns the MoviePlanner */
     ReadOnlyMoviePlanner getMoviePlanner();
 
+    /**Cinema Section */
+
     /** Deletes the given cinema. */
     void deleteCinema(Cinema target) throws CinemaNotFoundException;
 
@@ -59,6 +61,8 @@ public interface Model {
      */
     void updateFilteredCinemaList(Predicate<Cinema> predicate);
 
+    /**Movie Section */
+
     /** Deletes the given movie. */
     void deleteMovie(Movie target) throws MovieNotFoundException;
 
@@ -80,6 +84,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMovieList(Predicate<Movie> predicate);
+
+    /**Theater Section */
 
     /** Adds the given screening to a theater */
     void addScreening(Screening screening, Theater theater);
