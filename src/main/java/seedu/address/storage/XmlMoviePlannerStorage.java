@@ -3,8 +3,8 @@ package seedu.address.storage;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.Key;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -12,6 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.SecurityUtil;
 import seedu.address.model.ReadOnlyMoviePlanner;
 
 /**
@@ -38,20 +39,23 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
 
     /**
      * Similar to {@link #readMoviePlanner()}
+     *
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
     public Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath) throws DataConversionException,
-                                                                                 FileNotFoundException {
+            IOException {
         requireNonNull(filePath);
 
         File moviePlannerFile = new File(filePath);
 
         if (!moviePlannerFile.exists()) {
-            logger.info("MoviePlanner file "  + moviePlannerFile + " not found");
+            logger.info("MoviePlanner file " + moviePlannerFile + " not found");
             return Optional.empty();
         }
-
+        String password = "dummypass";
+        Key pass = SecurityUtil.generateKey(password);
+        SecurityUtil.decrypt(moviePlannerFile, pass);
         XmlSerializableMoviePlanner xmlMoviePlanner = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
         try {
             return Optional.of(xmlMoviePlanner.toModelType());
@@ -68,6 +72,7 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
 
     /**
      * Similar to {@link #saveMoviePlanner(ReadOnlyMoviePlanner)}
+     *
      * @param filePath location of the data. Cannot be null
      */
     public void saveMoviePlanner(ReadOnlyMoviePlanner moviePlanner, String filePath) throws IOException {
@@ -76,7 +81,9 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
+        SecurityUtil.decrypt(file, moviePlanner.getPassword());
         XmlFileStorage.saveDataToFile(file, new XmlSerializableMoviePlanner(moviePlanner));
+        SecurityUtil.encrypt(file, moviePlanner.getPassword());
     }
 
     @Override

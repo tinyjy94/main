@@ -5,14 +5,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMOFTHEATERS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CINEMAS;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
@@ -36,7 +33,6 @@ public class AddTheaterCommand extends UndoableCommand {
             + PREFIX_NUMOFTHEATERS + "3 ";
 
     public static final String MESSAGE_RESIZE_CINEMA_SUCCESS = "Resized Cinema: %1$s";
-    public static final String MESSAGE_NOT_RESIZED = "Number of theater to resize must be provided.";
     public static final String MESSAGE_DUPLICATE_CINEMA = "This cinema already exists in the movie planner.";
 
     private final Index index;
@@ -46,7 +42,7 @@ public class AddTheaterCommand extends UndoableCommand {
     private Cinema resizedCinema;
 
     /**
-     * @param index of the cinema in the filtered cinema list to edit
+     * @param index of the cinema in the filtered cinema list to resize
      * @param newTheaters to resize the cinema with
      */
     public AddTheaterCommand(Index index, int newTheaters) {
@@ -81,8 +77,7 @@ public class AddTheaterCommand extends UndoableCommand {
     }
 
     /**
-     * Creates and returns a {@code Cinema} with the details of {@code cinemaToEdit}
-     * edited with {@code editCinemaDescriptor}.
+     * Creates and returns a {@code Cinema} with the details of existing cinema and user input
      */
     private Cinema createResizedCinema(Cinema cinemaToResize, int newTheaters) {
         assert cinemaToResize != null;
@@ -116,64 +111,5 @@ public class AddTheaterCommand extends UndoableCommand {
         AddTheaterCommand e = (AddTheaterCommand) other;
         return index.equals(e.index)
                 && Objects.equals(cinemaToResize, e.cinemaToResize);
-    }
-
-    /**
-     * Stores the details to edit the cinema with. Each non-empty field value will replace the
-     * corresponding field value of the cinema.
-     */
-    public static class ResizeCinemaDescriptor {
-        private ArrayList<Theater> theaters;
-
-        public ResizeCinemaDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public ResizeCinemaDescriptor(ResizeCinemaDescriptor toCopy) {
-            setTheaters(toCopy.theaters);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(this.theaters);
-        }
-
-        /**
-         * Sets {@code theaters} to this object's {@code theaters}.
-         * A defensive copy of {@code theaters} is used internally.
-         */
-        public void setTheaters(ArrayList<Theater> theaters) {
-            this.theaters = (theaters != null) ? new ArrayList<>(theaters) : null;
-        }
-
-        public Optional<List<Theater>> getTheaters() {
-            return (theaters != null) ? Optional.of(Collections.unmodifiableList(theaters)) : Optional.empty();
-        }
-
-        public int getTheaterSize() {
-            return theaters.size();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof ResizeCinemaDescriptor)) {
-                return false;
-            }
-
-            // state check
-            ResizeCinemaDescriptor e = (ResizeCinemaDescriptor) other;
-
-            return getTheaters().equals(e.getTheaters());
-        }
     }
 }

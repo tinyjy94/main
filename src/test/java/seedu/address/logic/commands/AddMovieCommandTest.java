@@ -98,7 +98,7 @@ public class AddMovieCommandTest {
     }
 
     /**
-     * Generates a new AddMovieCommand with the details of the given cinema.
+     * Generates a new AddMovieCommand with the details of the given movie.
      */
     private AddMovieCommand getAddMovieCommandForMovie(Movie movie, Model model) {
         AddMovieCommand command = new AddMovieCommand(movie);
