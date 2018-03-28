@@ -531,22 +531,26 @@ As seen in sequence diagram above, MVP will do the following
 . Calls `parseParameters()` method in `ParserUtil` to parse the user input into different objects required for the `AddScreeningCommand`.
 [NOTE]
 `Parameters` mentioned above refers to the parameters provided by the user. E.g. movie index, cinema index, theater number and screening start datetime
-. Creates an `AddScreeningCommand` object that takes in the parameters. In `AddScreeningCommand`,
-there are checks to ensure that the indexes provided are valid.
-The code snippet belows shows how MVP checks that the provided movie index is valid and returns the valid `Movie`.
+. Creates an `AddScreeningCommand` object that takes in the parameters. In `AddScreeningCommand`, `isValidScreening()` ensures a couple of properties:
+... The movie index provided is valid.
+... The cinema index provided is valid.
+... The theater number provided is valid.
+... The screening can fit into existing theater schedule and the start date of screening is not before the release date of the movie.
+
+The code snippet below shows how MVP checks if the screening is valid.
 
 [source, java]
-    private Movie getValidMovie() throws CommandException {
-        List<Movie> lastShownMovieList = model.getFilteredMovieList();
-        if (movieIndex.getZeroBased() >= lastShownMovieList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MOVIE_DISPLAYED_INDEX);
-        }
-        // returns the movie using the index provided
-        ...
-    }
+----
+    private boolean isValidScreening() throws CommandException {
+        movie = getValidMovie();
+        cinema = getValidCinema();
+        theater = getValidTheater(cinema);
+        ArrayList<Screening> screeningList = theater.getScreeningList();
+        toAddScreeningEndDateTime = getEndTime();
 
-[start = 4]
-. Creates a `Screening` and calls an internal method `getEndTime()` to calculate when a screening will end.
+        return isSlotAvailable(screeningList) && canAddMovie(movie);
+    }
+----
 
 [NOTE]
 ====
@@ -557,63 +561,12 @@ The end time of this screening is calculated by (13:30 + 15 minutes + 93 minutes
 By rounding up to the nearest 5 minutes, the screening will end at 15:20.
 ====
 
-[start = 5]
-. Once a `Screening` has been created, `AddScreeningCommand` will check that if it is possible to slot this screening into the existing theater's schedule.
-The code snippet below shows how MVP checks if it is possible to fit the screening in when there are multiple screenings on the same date.
+[start = 4]
+. Once a screening is validated, `AddScreeningCommand` will call the constructor of `Screening` to create a screening object.
 
-[source, java]
-----
-    private boolean isSlotAvailable(ArrayList<Screening> screeningList) {
-        int totalScreeningsWithSameDate = getTotalScreeningsWithSameDate(screeningList);
+. `AddScreeningCommand` will call `model` to update the cinema with the new screening object.
 
-        if (totalScreeningsWithSameDate == 0) {
-            return true;
-        } else if (totalScreeningsWithSameDate == 1) {
-            return hasNoConflictWithOneOtherScreening(screeningList);
-        } else { // multiple screenings on same date
-            return hasNoConflictWithBeforeAndAfter(totalScreeningsWithSameDate, screeningList);
-        }
-    }
-----
 
-[source, java]
-----
-    private boolean hasNoConflictWithBeforeAndAfter(int totalScreenings, ArrayList<Screening> screeningList) {
-        int count = 0;
-        boolean hasNoConflict = false;
-        Screening screeningBefore = screeningList.get(0);
-
-        if (isSameScreeningDate(toAdd , screeningBefore)) {
-            count++;
-        }
-
-        for (int i = 1; i < screeningList.size(); i++) {
-            Screening currentScreening = screeningList.get(i);
-            if (hasNoConflict == true) { // already found the spot to insert to
-                break;
-            }
-
-            //first screening
-            if (count == 1 && isScreenTimeOnOrBefore(currentScreening)) {
-                return true;
-            } else if (isSameScreeningDate(currentScreening, toAdd)) {
-                count++;
-                // last screening
-                if (count == totalScreenings && isScreenTimeOnOrAfter(currentScreening)) {
-                    return true;
-                // screening in between
-                } else {
-                    // checks that the screening to add is strictly after end time of previous screening
-                    & end time of screening to add is strictly before start time of next screening
-                    hasNoConflict = isScreenTimeOnOrAfter(screeningBefore)
-                            && isScreenTimeOnOrBefore(currentScreening);
-                }
-            }
-            screeningBefore = currentScreening;
-        }
-        return hasNoConflict;
-    }
-----
 
 ==== Storing screenings in xml
 
