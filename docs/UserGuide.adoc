@@ -164,6 +164,7 @@ Format: `clear`
 Keyword appearance on Command Line: [black-background red]`clear`
 
 === Copying schedule: `copy` | `cp`
+`Coming in v2.0`
 
 Alias: `cp`
 
@@ -236,7 +237,7 @@ Deletes the 1st movie in the results of the `find` command.
 Keyword appearance on Command Line: [black-background red]`deletemovie`
 
 === Deleting a screening: `deletescreening` | `ds`
-`Coming in v1.3`
+`Coming in v1.4`
 
 Alias: `ds`
 
@@ -280,7 +281,7 @@ Number of theater must be positive
 
 Keyword appearance on Command Line: [black-background red]`deletetheater`
 
-=== Editing a cinema : `edit` | `e`
+=== Editing a cinema: `edit` | `e`
 
 Alias: `e`
 
@@ -304,6 +305,7 @@ Edits the name of the 2nd cinema to be `Golden Village`.
 Keyword appearance on Command Line: [black-background white]`edit`
 
 === Editing a movie : `editmovie` | `em`
+
 `Available in V1.2`
 
 Alias: `em`
@@ -326,6 +328,37 @@ Edits the duration and rating of the 1st movie to be `90` and `M18` respectively
 Edits the name of the 2nd movie to be `Spiderman 2`.
 
 Keyword appearance on Command Line: [black-background]`editmovie`
+
+=== Email schedule: `email` | `eml`
+
+Alias: `eml`
+
+Sends an email to target recipient. +
+Format: `email [msg/MESSAGE] [subj/SUBJECT] [recp/RECIPIENT] [func/<send|clear>] [lgn/user@gmail.com:PASSWORD]`
+
+[NOTE]
+====
+* Ensure that the message `msg`, subject `subj`, and recipient `recp` fields are filled before sending out email.
+* Ensure that in the `lgn` parameter, you provide the actual Gmail account that you use.
+* Individual parameters (e.g. `msg`) can be edited indepedent of other parameters.
+* Ensure that *"Allow less secure apps"* setting is enabled for the Gmail account.
+** Navigate to your Gmail account -> My Account -> Sign-in & Security -> Allow less secure apps: OFF
+** Toggle it to active "Allow less secure apps: ON"
+====
+
+Examples:
+
+* `email msg/Hi Bob, Here is the schedule. subj/Schedule lgn/cmanager@gmail.com:1I2h@la recp/gv.manager@gmail.com func/send` +
+Sends out an email to `gv.manager@gmail.com` with a message of the following details:
+
+** Recipient: `gv.manager@gmail.com`
+** Subject: `Schedule`
+** Message: `Hi Bob, Here is the schedule.`
+
+* `eml msg/This will be a very long message, so I hope that you are attentive when you read this.` +
+Edits the email message with `This will be a very long message, so I hope that you are attentive when you read this.`
+
+Keyword appearance on Command Line: [black-background]`email`
 
 === Finding cinemas by name: `find` | `f`
 
@@ -388,6 +421,26 @@ Format: `history`
 [NOTE]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+Keyword appearance on Command Line: [black-background]`history`
+
+=== Jump to a specified date : `jump` | `j`
+`Available in 1.3`
+
+Alias: `j`
+
+Jumps to a specified date in the scheduler. +
+Format: `jump dd/mm/yyyy`
+
+Examples:
+
+* `jump 28/03/2018` +
+You will be able to see the schedule of 28/03/2018
+
+[NOTE]
+====
+Remember to select on a cinema before executing the jump command.
 ====
 
 Keyword appearance on Command Line: [black-background]`history`
@@ -535,6 +588,7 @@ _{explain how the user can enable/disable data encryption}_
 |`edit 2 n/GV Jurong Point e/contacts@gv.com`
 |*Find* |`find KEYWORD [MORE_KEYWORDS]` |`f`
 |`find Cathay`
+|*jump* | `jump dd/mm/yyyy` | `j` | `jump 28/03/2018`
 |*FindMovie* |`findmovie [n/MOVIE_NAME] [t/TAG] [sd/START_DATE]` |`fm`
 |`findmovie n/zombie`
 |*List* |`list` |`l` |`list`

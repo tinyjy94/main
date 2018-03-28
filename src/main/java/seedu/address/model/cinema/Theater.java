@@ -54,6 +54,13 @@ public class Theater {
     }
 
     /**
+     * Adds a screening to the sorted screening list of the theater
+     */
+    public void setScreeningList(ArrayList<Screening> screeningList) {
+        this.screeningList = screeningList;
+    }
+
+    /**
      * Sorts the screening list by screening date time
      */
     public void sortScreeningList() {

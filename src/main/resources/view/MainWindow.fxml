@@ -14,7 +14,7 @@
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="1200" minHeight="800">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/calendar.png" />
   </icons>
   <scene>
     <Scene>
@@ -33,6 +33,9 @@
             <MenuItem fx:id="redoMenuItem" mnemonicParsing="false" onAction="#handleRedo" text="Redo" />
             <MenuItem fx:id="clearMenuItem" mnemonicParsing="false" onAction="#handleClear" text="Clear All" />
             <MenuItem fx:id="listMenuItem" mnemonicParsing="false" onAction="#handleList" text="List" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="Tabs">
+            <MenuItem fx:id="toggleTabMenuItem" mnemonicParsing="false" onAction="#handleToggleNextTab" text="Toggle Tab" />
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
@@ -53,14 +56,15 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="cinemaList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+
+          <VBox fx:id="tabsPanel" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="cinemaListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="tabsPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="movieList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="movieList" minWidth="250" prefWidth="250" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
@@ -69,7 +73,7 @@
 
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets top="0" right="10" bottom="10" left="10" />
             </padding>
           </StackPane>
         </SplitPane>
