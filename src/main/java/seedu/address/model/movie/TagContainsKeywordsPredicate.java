@@ -27,7 +27,7 @@ public class TagContainsKeywordsPredicate implements Predicate<Movie> {
             tags.add(tag.tagName);
         }
         return keywords.stream()
-                .anyMatch(keyword -> containsCaseInsensitive(keyword, tags));
+                .allMatch(keyword -> containsCaseInsensitive(keyword, tags));
     }
 
     @Override
