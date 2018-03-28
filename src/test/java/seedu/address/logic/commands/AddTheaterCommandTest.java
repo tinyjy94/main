@@ -18,6 +18,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.email.EmailManager;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
@@ -34,7 +35,7 @@ import seedu.address.testutil.CinemaBuilder;
 
 public class AddTheaterCommandTest {
 
-    private Model model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs(), new EmailManager());
 
     @Test
     public void execute_invalidCinemaIndexFilteredList_failure() {
@@ -55,7 +56,8 @@ public class AddTheaterCommandTest {
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         Cinema resizedCinema = new CinemaBuilder().build();
         AddTheaterCommand addTheaterCommand = prepareCommand(INDEX_FIRST_CINEMA, resizedCinema);
-        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs());
+        Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs(),
+                new EmailManager());
 
         // edit -> first cinema edited
         addTheaterCommand.execute();
