@@ -20,6 +20,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.email.EmailManager;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
@@ -46,7 +47,8 @@ public class AddScreeningCommandTest {
 
     @Before
     public void setUp() throws Exception {
-        model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs());
+
+        model = new ModelManager(getTypicalMoviePlanner(), new UserPrefs(), new EmailManager());
         model.addMovie(TypicalMovies.BLACK_PANTHER);
         model.addMovie(TypicalMovies.THOR_RAGNAROK);
         dtf = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
