@@ -33,6 +33,10 @@ public class SecurityUtil {
     private static final int AES_Key_Size = 128;
     private static final int iteration = 65536;
 
+    public static void encrypt() throws IOException{
+
+    }
+
     /**
      * Encrypts the given file using AES key using Key given.
      */

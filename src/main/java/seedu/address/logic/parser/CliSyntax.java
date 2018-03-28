@@ -23,4 +23,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_EMAIL_LOGIN = new Prefix("lgn/");
     public static final Prefix PREFIX_EMAIL_FUNCTION = new Prefix("func/");
     public static final Prefix PREFIX_EMAIL_RECIPIENT = new Prefix("recp/");
+    public static final Prefix PREFIX_PASSWORD = new Prefix("pw/");
 }
