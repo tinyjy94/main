@@ -109,7 +109,6 @@ public class SelectCommandSystemTest extends MoviePlannerSystemTest {
      * Verifications 1, 3 and 4 are performed by
      * {@code MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see MoviePlannerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
@@ -122,8 +121,6 @@ public class SelectCommandSystemTest extends MoviePlannerSystemTest {
 
         if (preExecutionSelectedCardIndex == expectedSelectedCardIndex.getZeroBased()) {
             assertSelectedCardUnchanged();
-        } else {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
         }
 
         assertCommandBoxShowsDefaultStyle();

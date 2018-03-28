@@ -164,6 +164,7 @@ Format: `clear`
 Keyword appearance on Command Line: [black-background red]`clear`
 
 === Copying schedule: `copy` | `cp`
+`Coming in v2.0`
 
 Alias: `cp`
 
@@ -236,7 +237,7 @@ Deletes the 1st movie in the results of the `find` command.
 Keyword appearance on Command Line: [black-background red]`deletemovie`
 
 === Deleting a screening: `deletescreening` | `ds`
-`Coming in v1.3`
+`Coming in v1.4`
 
 Alias: `ds`
 
@@ -424,6 +425,26 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 Keyword appearance on Command Line: [black-background]`history`
 
+=== Jump to a specified date : `jump` | `j`
+`Available in 1.3`
+
+Alias: `j`
+
+Jumps to a specified date in the scheduler. +
+Format: `jump dd/mm/yyyy`
+
+Examples:
+
+* `jump 28/03/2018` +
+You will be able to see the schedule of 28/03/2018
+
+[NOTE]
+====
+Remember to select on a cinema before executing the jump command.
+====
+
+Keyword appearance on Command Line: [black-background]`history`
+
 === Listing all cinemas : `list` | `l`
 
 Alias: `l`
@@ -567,6 +588,7 @@ _{explain how the user can enable/disable data encryption}_
 |`edit 2 n/GV Jurong Point e/contacts@gv.com`
 |*Find* |`find KEYWORD [MORE_KEYWORDS]` |`f`
 |`find Cathay`
+|*jump* | `jump dd/mm/yyyy` | `j` | `jump 28/03/2018`
 |*FindMovie* |`findmovie [n/MOVIE_NAME] [t/TAG] [sd/START_DATE]` |`fm`
 |`findmovie n/zombie`
 |*List* |`list` |`l` |`list`

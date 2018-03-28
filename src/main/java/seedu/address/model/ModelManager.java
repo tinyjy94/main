@@ -22,13 +22,11 @@ import seedu.address.email.exceptions.EmailMessageEmptyException;
 import seedu.address.email.exceptions.EmailRecipientsEmptyException;
 import seedu.address.email.message.MessageDraft;
 import seedu.address.model.cinema.Cinema;
-import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
 import seedu.address.model.movie.exceptions.MovieNotFoundException;
-import seedu.address.model.screening.Screening;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
@@ -163,16 +161,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedMovie);
 
         moviePlanner.updateMovie(target, editedMovie);
-        indicateMoviePlannerChanged();
-    }
-
-    /**
-     * Adds the screening provided and indicates a change in the model
-     */
-    @Override
-    public synchronized void addScreening(Screening screening, Theater theater) {
-        moviePlanner.addScreening(screening, theater);
-        updateFilteredCinemaList(PREDICATE_SHOW_ALL_CINEMAS);
         indicateMoviePlannerChanged();
     }
 

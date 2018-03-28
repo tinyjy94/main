@@ -24,7 +24,6 @@ import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.UniqueMovieList;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
 import seedu.address.model.movie.exceptions.MovieNotFoundException;
-import seedu.address.model.screening.Screening;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
@@ -176,24 +175,6 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
     */
     public void addTheater(Theater t) {
         theaters.add(t);
-    }
-
-    /**
-     * Adds a screening to a theater and sorts the screeninglist
-     * @param screening to be added
-     * @param theater to add the screening
-     */
-    public void addScreening(Screening screening, Theater theater) {
-        theater.addScreeningToTheater(screening);
-        sortScreeningList(theater);
-    }
-
-    /**
-     * Sorts the screening list in the theater
-     * @param theater to sort
-     */
-    private void sortScreeningList(Theater theater) {
-        theater.sortScreeningList();
     }
 
     //// Tag-level operations

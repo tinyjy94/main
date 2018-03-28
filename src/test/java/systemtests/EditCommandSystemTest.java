@@ -214,7 +214,6 @@ public class EditCommandSystemTest extends MoviePlannerSystemTest {
      * Verifications 1 to 3 are performed by
      * {@code MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see MoviePlannerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see MoviePlannerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -222,9 +221,7 @@ public class EditCommandSystemTest extends MoviePlannerSystemTest {
         expectedModel.updateFilteredCinemaList(PREDICATE_SHOW_ALL_CINEMAS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
-        if (expectedSelectedCardIndex != null) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
-        } else {
+        if (expectedSelectedCardIndex == null) {
             assertSelectedCardUnchanged();
         }
         assertStatusBarUnchangedExceptSyncStatus();

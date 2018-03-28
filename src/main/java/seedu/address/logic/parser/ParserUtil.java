@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -39,6 +40,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     private static final int MINUTES_USED_IN_ROUNDING_OFF = 5;
+    private static final String DATE_TIME_FORMAT = "dd/MM/uuuu HH:mm";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -300,11 +302,13 @@ public class ParserUtil {
 
     /**
      * Parses {@code String theater} into a {@code int theaterNumber}.
+     * Leading and trailing whitespaces will be trimmed.
      * @throws IllegalValueException if the given {@code String theater} is invalid.
      */
     public static int parseTheaterNumber(String theater) throws IllegalValueException {
         requireNonNull(theater);
-        int theaterNumber = Integer.parseInt(theater);
+        String trimmedTheaterNumber = theater.trim();
+        int theaterNumber = Integer.parseInt(trimmedTheaterNumber);
         if (theaterNumber <= 0) {
             throw new IllegalValueException(Theater.MESSAGE_THEATER_CONSTRAINTS);
         }
@@ -319,8 +323,9 @@ public class ParserUtil {
     public static LocalDateTime parseScreeningDateTime(String dateTime)
             throws IllegalValueException, DateTimeParseException {
         requireNonNull(dateTime);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime screeningDateTime = LocalDateTime.parse(dateTime, dtf);
+        String trimmedDateTime = dateTime.trim();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
+        LocalDateTime screeningDateTime = LocalDateTime.parse(trimmedDateTime, dtf);
 
         if (screeningDateTime.getMinute() % MINUTES_USED_IN_ROUNDING_OFF != 0) {
             throw new IllegalValueException(Messages.MESSAGE_INVALID_SCREEN_DATE_TIME);

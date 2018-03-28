@@ -11,13 +11,11 @@ import seedu.address.email.exceptions.EmailMessageEmptyException;
 import seedu.address.email.exceptions.EmailRecipientsEmptyException;
 import seedu.address.email.message.MessageDraft;
 import seedu.address.model.cinema.Cinema;
-import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
 import seedu.address.model.movie.exceptions.MovieNotFoundException;
-import seedu.address.model.screening.Screening;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
@@ -93,11 +91,6 @@ public interface Model {
      */
     void updateFilteredMovieList(Predicate<Movie> predicate);
 
-    /**Theater Section */
-
-    /** Adds the given screening to a theater */
-    void addScreening(Screening screening, Theater theater);
-
     /**
      * Sends email based on input recipient
      *
@@ -124,5 +117,4 @@ public interface Model {
 
     /** Updates Email draft with given message **/
     void draftEmail(MessageDraft message);
-
 }

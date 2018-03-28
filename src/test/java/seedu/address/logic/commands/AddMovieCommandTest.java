@@ -29,13 +29,11 @@ import seedu.address.model.Model;
 import seedu.address.model.MoviePlanner;
 import seedu.address.model.ReadOnlyMoviePlanner;
 import seedu.address.model.cinema.Cinema;
-import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
 import seedu.address.model.movie.exceptions.MovieNotFoundException;
-import seedu.address.model.screening.Screening;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.MovieBuilder;
@@ -177,11 +175,6 @@ public class AddMovieCommandTest {
 
         @Override
         public void updateFilteredMovieList(Predicate<Movie> predicate) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void addScreening(Screening screening, Theater theater) {
             fail("This method should not be called.");
         }
 

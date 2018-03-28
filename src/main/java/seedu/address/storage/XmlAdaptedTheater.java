@@ -1,6 +1,8 @@
 package seedu.address.storage;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -51,13 +53,25 @@ public class XmlAdaptedTheater {
     /**
      * Converts this jaxb-friendly adapted theater object into the model's Theater object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted cinema
+     * @throws IllegalValueException if there were any data constraints violated in the adapted theater
      */
     public Theater toModelType() throws IllegalValueException {
         if (!Theater.isValidTheater(String.valueOf(theaterNumber))) {
             throw new IllegalValueException(Theater.MESSAGE_THEATER_CONSTRAINTS);
         }
-        return new Theater(theaterNumber);
+
+        Theater theater = new Theater(theaterNumber);
+        for (XmlAdaptedScreening s : screenings) {
+            String movieName = s.toScreening().keySet().stream().findFirst().get();
+            if (movieName != null) {
+                LocalDateTime startDateTime = s.toScreening().get(movieName).get(0);
+                LocalDateTime endDateTime = s.toScreening().get(movieName).get(1);
+                Screening screening = new Screening(movieName, theater, startDateTime, endDateTime);
+                theater.addScreeningToTheater(screening);
+            }
+        }
+
+        return theater;
     }
 
     @Override
@@ -70,6 +84,8 @@ public class XmlAdaptedTheater {
             return false;
         }
 
-        return theaterNumber == ((XmlAdaptedTheater) other).theaterNumber;
+        XmlAdaptedTheater otherTheater = (XmlAdaptedTheater) other;
+        return Objects.equals(theaterNumber, otherTheater.theaterNumber)
+                && Objects.equals(screenings, otherTheater.screenings);
     }
 }
