@@ -57,7 +57,7 @@ public class AddTheaterCommandTest {
         Cinema resizedCinema = new CinemaBuilder().build();
         AddTheaterCommand addTheaterCommand = prepareCommand(INDEX_FIRST_CINEMA, resizedCinema);
         Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs(),
-                new EmailManager());
+                                              new EmailManager());
 
         // edit -> first cinema edited
         addTheaterCommand.execute();

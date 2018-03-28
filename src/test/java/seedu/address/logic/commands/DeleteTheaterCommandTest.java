@@ -56,7 +56,7 @@ public class DeleteTheaterCommandTest {
         Cinema resizedCinema = new CinemaBuilder().build();
         DeleteTheaterCommand deleteTheaterCommand = prepareCommand(INDEX_FIRST_CINEMA, resizedCinema);
         Model expectedModel = new ModelManager(new MoviePlanner(model.getMoviePlanner()), new UserPrefs(),
-                new EmailManager());
+                                              new EmailManager());
 
         // resize -> first cinema resized
         deleteTheaterCommand.execute();
