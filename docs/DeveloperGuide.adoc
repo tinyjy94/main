@@ -496,19 +496,18 @@ if (!argMultimap.getAllValues(PREFIX_NAME).isEmpty()
 `parameters` above refers to parameters provided by the user. E.g. name only or name and tag
 
 ==== Design considerations
-*Aspects:* Storage of movies used for search
+*Aspects:* Using `and` or `or` condition for the multicriteria search.
 
-* **Alternative 1 (current choice):** Store in the same xml file as the MoviePlanner and read upon startup of program to an array.
-** Pros: Encryption will encrypt the `movieplanner.xml` so storing in the same file is more convenient.
-** Cons: `movieplanner.xml` might be cluttered with data from cinemas and movies.
+* **Alternative 1 (current choice):** Using `and` condition for multicriteria search
+** Pros: User will be able to make a more detailed search to display on MVP.
+** Cons: User cannot do a wider search with multiple keywords
+
+* **Alternative 2:** Using `or` condition for multicriteria search
+** Pros: User can search for multiple `tag` for example to find movies of those categories.
+** Cons: User will not be able to make a detailed search to narrow down the results displayed on MVP.
 
 [NOTE]
-Since the `movieplanner.xml` file is going to be encrypted, data will already be obfuscated so readability is not a concern.
-
-* **Alternative 2:** Store in a separate xml file and update whenever movies are being added or deleted.
-** Pros: Easier for the user to look at if `movieplanner.xml` is in plaintext.
-** Cons: Increases the number of files to be encrypted.
-
+A future update is planned in `V2.0` to support both `and` and `or` functions in the FindMovie command
 
 [[Implementation-SchedulingSystem]]
 === Scheduling System
