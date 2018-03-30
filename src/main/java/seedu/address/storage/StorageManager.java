@@ -10,7 +10,11 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.MoviePlannerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.DecryptionRequestEvent;
+import seedu.address.commons.events.storage.EncryptionRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.SecurityUtil;
+import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.model.ReadOnlyMoviePlanner;
 import seedu.address.model.UserPrefs;
 
@@ -89,7 +93,19 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
+/**
+    @Subscribe
+    public void handleEncryptionRequestEvent(EncryptionRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Encrypted and saving to file"));
 
+    }
+
+    @Subscribe
+    public void handleDecryptionRequestEvent(DecryptionRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Decrypted and saving to file"));
+
+    }
+*/
     @Override
     public void backupMoviePlanner(ReadOnlyMoviePlanner moviePlanner) throws IOException {
         moviePlannerStorage.backupMoviePlanner(moviePlanner);

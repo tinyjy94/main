@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.logging.Logger;
@@ -20,9 +21,11 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.google.common.eventbus.Subscribe;
+
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-
+import seedu.address.commons.events.storage.EncryptionRequestEvent;
 
 /**
  * Contains encryption and decryption functions for files
@@ -32,9 +35,9 @@ public class SecurityUtil {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     private static final int AES_Key_Size = 128;
     private static final int iteration = 65536;
-
-    public static void encrypt() throws IOException{
-
+/*
+    public static void encrypt(String filepath) throws IOException{
+        encrypt(new File(filepath));
     }
 
     /**
@@ -91,8 +94,8 @@ public class SecurityUtil {
 
             byte[] outputBytes = cipher.doFinal(inputByteArray); //encrypt or decrypt the byte[]
             FileOutputStream fos = new FileOutputStream(inputFile);
-
             fos.write(outputBytes);
+
             fis.close();
             fos.close();
 
@@ -110,6 +113,8 @@ public class SecurityUtil {
     public static Key generateKey(String password) {
         try {
             byte[] inputByte = new byte[16];
+            //byte[] salt = generateSalt();
+            //KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iteration, AES_Key_Size);
             KeySpec spec = new PBEKeySpec(password.toCharArray(), inputByte, iteration, AES_Key_Size);
 
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
@@ -123,6 +128,19 @@ public class SecurityUtil {
             logger.severe("Invalid key specifications provided " + StringUtil.getDetails(ikse));
             throw new AssertionError("Invalid key specifications.");
         }
-
     }
+/**
+    @Subscribe
+    public void handleEncryptionRequestEvent(EncryptionRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        System.out.println(event.getPassword());
+    }
+
+    private static byte[] generateSalt() throws NoSuchAlgorithmException {
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        return salt;
+    }
+*/
 }

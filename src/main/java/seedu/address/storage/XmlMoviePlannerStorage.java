@@ -53,9 +53,10 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
             logger.info("MoviePlanner file " + moviePlannerFile + " not found");
             return Optional.empty();
         }
-        String password = "dummypass";
-        Key pass = SecurityUtil.generateKey(password);
-        SecurityUtil.decrypt(moviePlannerFile, pass);
+
+        //String password = "dummypass";
+        //Key pass = SecurityUtil.generateKey(password);
+        //SecurityUtil.decrypt(moviePlannerFile, pass);
         XmlSerializableMoviePlanner xmlMoviePlanner = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
         try {
             return Optional.of(xmlMoviePlanner.toModelType());
@@ -81,9 +82,9 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        SecurityUtil.decrypt(file, moviePlanner.getPassword());
+        //SecurityUtil.decrypt(file, moviePlanner.getPassword());
         XmlFileStorage.saveDataToFile(file, new XmlSerializableMoviePlanner(moviePlanner));
-        SecurityUtil.encrypt(file, moviePlanner.getPassword());
+        //SecurityUtil.encrypt(file, moviePlanner.getPassword());
     }
 
     @Override

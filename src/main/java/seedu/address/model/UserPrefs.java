@@ -11,6 +11,7 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private String moviePlannerFilePath = "data/movieplanner.xml";
+    private String encryptedMoviePlannerFilePath = "data/encryptedmovieplanner.xml";
     private String moviePlannerName = "MyMoviePlanner";
 
     public UserPrefs() {
@@ -35,6 +36,14 @@ public class UserPrefs {
 
     public void setMoviePlannerFilePath(String moviePlannerFilePath) {
         this.moviePlannerFilePath = moviePlannerFilePath;
+    }
+
+    public String getEncryptedMoviePlannerFilePath() {
+        return encryptedMoviePlannerFilePath;
+    }
+
+    public void setEncryptedMoviePlannerFilePath(String encryptedMoviePlannerFilePath) {
+        this.encryptedMoviePlannerFilePath = encryptedMoviePlannerFilePath;
     }
 
     public String getMoviePlannerName() {
