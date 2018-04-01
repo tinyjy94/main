@@ -17,6 +17,11 @@ public interface MoviePlannerStorage {
     String getMoviePlannerFilePath();
 
     /**
+     * Returns the file path of the encrypted data file
+     */
+    //String getEncryptedMoviePlannerFilePath();
+
+    /**
      * Returns MoviePlanner data as a {@link ReadOnlyMoviePlanner}.
      * Returns {@code Optional.empty()} if storage file is not found.
      *

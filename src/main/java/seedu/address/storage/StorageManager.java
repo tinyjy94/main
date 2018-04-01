@@ -15,6 +15,7 @@ import seedu.address.commons.events.storage.EncryptionRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.SecurityUtil;
 import seedu.address.logic.commands.DecryptCommand;
+import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.model.ReadOnlyMoviePlanner;
 import seedu.address.model.UserPrefs;
 
@@ -58,7 +59,12 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getMoviePlannerFilePath() {
         return moviePlannerStorage.getMoviePlannerFilePath();
     }
-
+/**
+    @Override
+    public String getEncryptedMoviePlannerFilePath() {
+        return moviePlannerStorage.getEncryptedMoviePlannerFilePath();
+    }
+*/
     @Override
     public Optional<ReadOnlyMoviePlanner> readMoviePlanner() throws DataConversionException, IOException {
         return readMoviePlanner(moviePlannerStorage.getMoviePlannerFilePath());
@@ -93,22 +99,32 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-/**
+
+    @Override
+    public void backupMoviePlanner(ReadOnlyMoviePlanner moviePlanner) throws IOException {
+        moviePlannerStorage.backupMoviePlanner(moviePlanner);
+    }
+
+    // ================ Security methods ==============================
+
     @Subscribe
     public void handleEncryptionRequestEvent(EncryptionRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Encrypted and saving to file"));
-
+        try {
+            SecurityUtil.encrypt(moviePlannerStorage.getMoviePlannerFilePath(), event.getPassword());
+        } catch (IOException e) {
+            System.out.println(EncryptCommand.MESSAGE_PASSWORDTOOSHORT);
+        }
     }
 
     @Subscribe
     public void handleDecryptionRequestEvent(DecryptionRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Decrypted and saving to file"));
-
-    }
-*/
-    @Override
-    public void backupMoviePlanner(ReadOnlyMoviePlanner moviePlanner) throws IOException {
-        moviePlannerStorage.backupMoviePlanner(moviePlanner);
+        try {
+            SecurityUtil.decrypt(moviePlannerStorage.getMoviePlannerFilePath(), event.getPassword());
+        } catch (IOException e) {
+            System.out.println(DecryptCommand.MESSAGE_PASSWORDTOOSHORT);
+        }
     }
 
 }

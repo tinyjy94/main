@@ -35,19 +35,21 @@ public class SecurityUtil {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     private static final int AES_Key_Size = 128;
     private static final int iteration = 65536;
-/*
-    public static void encrypt(String filepath) throws IOException{
-        encrypt(new File(filepath));
+
+    public static void encrypt(String filepath, String password) throws IOException{
+        encrypt(new File(filepath), password);
     }
 
     /**
      * Encrypts the given file using AES key using Key given.
      */
-    public static void encrypt(File infile, Key password) throws IOException {
+    public static void encrypt(File infile, String password) throws IOException {
         try {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
 
-            cipher.init(Cipher.ENCRYPT_MODE, password);
+            Key pw = generateKey(password);
+
+            cipher.init(Cipher.ENCRYPT_MODE, pw);
             processFile(cipher, infile);
 
         } catch (InvalidKeyException ike) {
@@ -62,13 +64,18 @@ public class SecurityUtil {
         }
     }
 
+    public static void decrypt(String filepath, String password) throws IOException{
+        decrypt(new File(filepath), password);
+    }
+
     /**
      * Decrypts the given file using AES key using Key given.
      */
-    public static void decrypt(File inputFile, Key password) throws IOException {
+    public static void decrypt(File inputFile, String password) throws IOException {
         try {
+            Key pw = generateKey(password);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            cipher.init(Cipher.DECRYPT_MODE, password);
+            cipher.init(Cipher.DECRYPT_MODE, pw);
             processFile(cipher, inputFile);
         } catch (InvalidKeyException ike) {
             logger.severe("Invalid key length provided " + StringUtil.getDetails(ike));
@@ -100,9 +107,12 @@ public class SecurityUtil {
             fos.close();
 
         } catch (BadPaddingException bpe) {
+            // enters wrong password? encrypt pw/1  followed by decrypt pw/30
+            // should throw a GUI box to say wrong password
             logger.severe("Bad padding provided" + StringUtil.getDetails(bpe));
             throw new AssertionError("Bad padding provided");
         } catch (IllegalBlockSizeException ibse) {
+            // user decrypt from plaintext?
             logger.info("File is in plain text, no decryption required." + StringUtil.getDetails(ibse));
         }
     }
@@ -129,7 +139,7 @@ public class SecurityUtil {
             throw new AssertionError("Invalid key specifications.");
         }
     }
-/**
+
     @Subscribe
     public void handleEncryptionRequestEvent(EncryptionRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
@@ -142,5 +152,7 @@ public class SecurityUtil {
         sr.nextBytes(salt);
         return salt;
     }
-*/
+
+
+
 }

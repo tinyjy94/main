@@ -54,9 +54,6 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
             return Optional.empty();
         }
 
-        //String password = "dummypass";
-        //Key pass = SecurityUtil.generateKey(password);
-        //SecurityUtil.decrypt(moviePlannerFile, pass);
         XmlSerializableMoviePlanner xmlMoviePlanner = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
         try {
             return Optional.of(xmlMoviePlanner.toModelType());
