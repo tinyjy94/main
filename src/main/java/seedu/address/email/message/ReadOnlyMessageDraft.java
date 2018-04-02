@@ -8,6 +8,7 @@ public interface ReadOnlyMessageDraft {
     String getMessage();
     String getSubject();
     String getRecipient();
+    String getRelativeFilePath();
 
     /**
      * Returns true if message and subject is not empty

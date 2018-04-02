@@ -8,6 +8,7 @@ public class MessageDraft implements ReadOnlyMessageDraft {
     private String message;
     private String subject;
     private String recipient;
+    private String relativeFilePath;
 
     public MessageDraft() {
         message = "";
@@ -18,6 +19,13 @@ public class MessageDraft implements ReadOnlyMessageDraft {
         this.message = message;
         this.subject = subject;
         this.recipient = recipient;
+    }
+
+    public MessageDraft(String message, String subject, String recipient, String relativeFilePath) {
+        this.message = message;
+        this.subject = subject;
+        this.recipient = recipient;
+        this.relativeFilePath = relativeFilePath;
     }
 
     @Override
@@ -43,8 +51,17 @@ public class MessageDraft implements ReadOnlyMessageDraft {
         return recipient;
     }
 
-    public void setRecipients(String recipient) {
-        this.recipient = recipient;
+    public void setRecipients(String relativeFilePath) {
+        this.relativeFilePath = relativeFilePath;
+    }
+
+    @Override
+    public String getRelativeFilePath() {
+        return relativeFilePath;
+    }
+
+    public void setRelativeFilePath(String relativeFilePath) {
+        this.relativeFilePath = relativeFilePath;
     }
 
     @Override
