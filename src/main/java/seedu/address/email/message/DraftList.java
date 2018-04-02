@@ -26,11 +26,9 @@ public class DraftList {
         if (newMessage.getRecipient() != null && newMessage.getRecipient().isEmpty()) {
             newMessage.setRecipients(message.getRecipient());
         }
-        if (newMessage.getRelativeFilePath() != null) {
-            if (newMessage.getRelativeFilePath().isEmpty()) {
-                if (message.getRelativeFilePath() != null) {
-                    newMessage.setRelativeFilePath(message.getRelativeFilePath());
-                }
+        if (newMessage.getRelativeFilePath() != null && newMessage.getRelativeFilePath().isEmpty()) {
+            if (message.getRelativeFilePath() != null) {
+                newMessage.setRelativeFilePath(message.getRelativeFilePath());
             }
         }
         messages[0] = newMessage;
