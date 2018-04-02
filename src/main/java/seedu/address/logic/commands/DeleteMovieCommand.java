@@ -39,6 +39,7 @@ public class DeleteMovieCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() {
         requireNonNull(movieToDelete);
         try {
+            movieToDelete.deleteScreenings();
             model.deleteMovie(movieToDelete);
         } catch (MovieNotFoundException mnfe) {
             throw new AssertionError("The target movie cannot be missing");
