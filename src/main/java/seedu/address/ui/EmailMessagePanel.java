@@ -52,7 +52,6 @@ public class EmailMessagePanel extends UiPart<Region> {
             @Override
             public void run() {
                 messageDisplay.setValue(event.message.getMessage());
-                //recipientsDisplay.setValue(event.message.getRecipientsEmailtoString());
                 recipientsDisplay.setValue(event.message.getRecipient());
                 subjectDisplay.setValue(event.message.getSubject());
             }
