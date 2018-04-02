@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL_ATTACHMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL_FUNCTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL_LOGIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL_MESSAGE;
@@ -28,18 +29,20 @@ public class EmailCommandParser implements Parser<EmailCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_EMAIL_MESSAGE, PREFIX_EMAIL_SUBJECT, PREFIX_EMAIL_LOGIN,
-                        PREFIX_EMAIL_FUNCTION, PREFIX_EMAIL_RECIPIENT);
+                        PREFIX_EMAIL_FUNCTION, PREFIX_EMAIL_RECIPIENT, PREFIX_EMAIL_ATTACHMENT);
 
         EmailFunction emailFunction = new EmailFunction();
         String message;
         String subject;
         String recipient;
+        String fileRelativePath;
         String[] loginDetails;
 
         try {
             message = getArgumentMessage(argMultimap);
             subject = getArgumentSubject(argMultimap);
             recipient = getArgumentRecipient(argMultimap);
+            fileRelativePath = getArgumentFileRelativePath(argMultimap);
             loginDetails = getArgumentLoginDetails(argMultimap);
             emailFunction = getArgumentEmailFunction(argMultimap, emailFunction);
 
@@ -52,7 +55,7 @@ public class EmailCommandParser implements Parser<EmailCommand> {
             throw new ParseException(e.getMessage(), e);
         }
 
-        return new EmailCommand(message, subject, recipient, loginDetails, emailFunction);
+        return new EmailCommand(message, subject, recipient, fileRelativePath, loginDetails, emailFunction);
     }
 
     /**
@@ -91,6 +94,25 @@ public class EmailCommandParser implements Parser<EmailCommand> {
             }
         }
         return subject;
+    }
+
+    /**
+     * Returns argument fileRelativePath values if available
+     *
+     * @param argMultimap
+     * @return argument fileRelativePath values
+     * @throws IllegalValueException if value is empty
+     */
+    private String getArgumentFileRelativePath(ArgumentMultimap argMultimap) throws IllegalValueException {
+        String fileRelativePath = "";
+
+        if (argMultimap.getValue(PREFIX_EMAIL_ATTACHMENT).isPresent()) {
+            fileRelativePath = ParserUtil.parseEmailMessage(argMultimap.getValue(PREFIX_EMAIL_ATTACHMENT)).trim();
+            if (fileRelativePath.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE));
+            }
+        }
+        return fileRelativePath;
     }
 
     /**

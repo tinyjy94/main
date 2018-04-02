@@ -108,18 +108,15 @@ public class EmailSend {
             newMessage.setSubject(message.getSubject());
             if (message.getRelativeFilePath().isEmpty()) {
                 newMessage.setText(message.getMessage());
-            }
-            else {
-                System.out.println("Should not come here for now");
+            } else {
                 BodyPart messageBodyPart = new MimeBodyPart();
                 messageBodyPart.setText(message.getMessage());
                 Multipart multipart = new MimeMultipart();
                 multipart.addBodyPart(messageBodyPart);
                 messageBodyPart = new MimeBodyPart();
-                String fileName = "docs/images/Architecture.png";
-                DataSource source = new FileDataSource(fileName);
+                DataSource source = new FileDataSource(message.getRelativeFilePath());
                 messageBodyPart.setDataHandler(new DataHandler(source));
-                messageBodyPart.setFileName(fileName);
+                messageBodyPart.setFileName(message.getRelativeFilePath());
                 multipart.addBodyPart(messageBodyPart);
                 newMessage.setContent(multipart);
             }

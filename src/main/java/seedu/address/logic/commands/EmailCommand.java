@@ -23,15 +23,11 @@ public class EmailCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Emails all contacts in the last displayed list\n"
             + "Parameters: "
-            + "email [ func/<send|clear> ] [ msg/MESSAGE ] [ subj/SUBJECT ] [ lgn/user@gmail.com:password ]"
-            + "[ recp/recipient@gmail.com ]\n"
+            + "email msg/MESSAGE subj/SUBJECT lgn/cineManager@gmail.com:password "
+            + "recp/recipient@gmail.com func/<send|clear> [ attc/docs/example/file.txt ]\n"
             + "Examples:\n"
-            + "1) email msg/This is your sample message.\n"
-            + "2) email subj/Sample subject\n"
-            + "3) email lgn/test@gmail.com:password\n"
-            + "4) email func/<send|clear>\n"
-            + "5) email recp/contacts@gv.com\n"
-            + "6) email msg/message subj/subject lgn/test@gmail.com:password recp/contacts@gv.com func/send";
+            + "email msg/message subj/subject lgn/test@gmail.com:password recp/contacts@gv.com "
+            + "attc/docs/images/Architecture.png func/send";
 
     public static final String MESSAGE_SUCCESS = "Email have been %1$s";
     public static final String MESSAGE_LOGIN_INVALID = "You must be logged in with a gmail account to send an email.\n"
@@ -51,9 +47,9 @@ public class EmailCommand extends Command {
     private final EmailFunction emailFunction;
 
     public EmailCommand(
-            String message, String subject, String recipient,
+            String message, String subject, String recipient, String fileRelativePath,
             String [] emailLoginDetails, EmailFunction emailFunction) {
-        this.messageDraft = new MessageDraft(message, subject, recipient);
+        this.messageDraft = new MessageDraft(message, subject, recipient, fileRelativePath);
         this.emailFunction = emailFunction;
         this.emailLoginDetails = emailLoginDetails;
     }
