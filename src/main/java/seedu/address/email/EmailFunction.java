@@ -13,16 +13,16 @@ public class EmailFunction {
         emailFunction = "";
     }
 
-    public EmailFunction(String task) {
-        this.emailFunction = task;
+    public EmailFunction(String emailFunction) {
+        this.emailFunction = emailFunction;
     }
 
     public String getEmailFunction() {
         return emailFunction;
     }
 
-    public void setEmailFunction(String task) {
-        this.emailFunction = task;
+    public void setEmailFunction(String emailFunction) {
+        this.emailFunction = emailFunction;
     }
 
     /**

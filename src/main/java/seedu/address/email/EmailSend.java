@@ -106,18 +106,23 @@ public class EmailSend {
             InternetAddress recipientEmail = new InternetAddress(message.getRecipient());
             newMessage.setRecipient(Message.RecipientType.TO, recipientEmail);
             newMessage.setSubject(message.getSubject());
-            BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText(message.getMessage());
-            //newMessage.setText(message.getMessage());
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart);
-            messageBodyPart = new MimeBodyPart();
-            String fileName = "docs/images/Architecture.png";
-            DataSource source = new FileDataSource(fileName);
-            messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName(fileName);
-            multipart.addBodyPart(messageBodyPart);
-            newMessage.setContent(multipart);
+            if (message.getRelativeFilePath().isEmpty()) {
+                newMessage.setText(message.getMessage());
+            }
+            else {
+                System.out.println("Should not come here for now");
+                BodyPart messageBodyPart = new MimeBodyPart();
+                messageBodyPart.setText(message.getMessage());
+                Multipart multipart = new MimeMultipart();
+                multipart.addBodyPart(messageBodyPart);
+                messageBodyPart = new MimeBodyPart();
+                String fileName = "docs/images/Architecture.png";
+                DataSource source = new FileDataSource(fileName);
+                messageBodyPart.setDataHandler(new DataHandler(source));
+                messageBodyPart.setFileName(fileName);
+                multipart.addBodyPart(messageBodyPart);
+                newMessage.setContent(multipart);
+            }
 
             Transport.send(newMessage);
         } catch (AuthenticationFailedException e) {
