@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.JumpToDateRequestEvent;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.parser.JumpCommandParser;
 
 /**
