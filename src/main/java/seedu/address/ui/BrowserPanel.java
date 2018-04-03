@@ -38,6 +38,8 @@ public class BrowserPanel extends UiPart<Region> {
 
     private static final String FXML = "BrowserPanel.fxml";
     private static final String DATE_FORMAT = "dd/MM/uu";
+    private static final String TIME_FORMAT = "HH:mm";
+    private static final String SCREENING_DISPLAY_FORMAT = "%s\n%s-%s";
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
@@ -81,7 +83,10 @@ public class BrowserPanel extends UiPart<Region> {
             // add entry
             for (Screening s : screeningList) {
                 Entry<String> movieScreening = new Entry<>(s.getMovieName());
+                String startTime = s.getScreeningDateTime().format(DateTimeFormatter.ofPattern(TIME_FORMAT));
+                String endTime = s.getScreeningEndDateTime().format(DateTimeFormatter.ofPattern(TIME_FORMAT));
                 movieScreening.setInterval(s.getScreeningDateTime(), s.getScreeningEndDateTime());
+                movieScreening.setTitle(String.format(SCREENING_DISPLAY_FORMAT, s.getMovieName(), startTime, endTime));
                 c.addEntry(movieScreening);
             }
             count++;
