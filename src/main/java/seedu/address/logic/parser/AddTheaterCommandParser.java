@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddTheaterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cinema.Theater;
-    //@@author tinyjy94
+//@@author tinyjy94
 /**
  * Parses input arguments and creates a new AddTheaterCommand object
  */
