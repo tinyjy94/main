@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import seedu.address.model.cinema.Theater;
 
+//@@author qwlai
 /**
  * Represents a movie screening in a cinema theater
  */

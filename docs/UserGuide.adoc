@@ -237,26 +237,25 @@ Deletes the 1st movie in the results of the `find` command.
 Keyword appearance on Command Line: [purple-background white]`deletemovie`
 
 === Deleting a screening: `deletescreening` | `ds`
-`Coming in v1.4`
+`Available in v1.4`
 
 Alias: `ds`
 
-Delete a screening of a movie from a cinema theater. +
-Format: `deletescreening m/MOVIE_INDEX c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME`
+Delete a screening from a cinema theater using the screening's start date and time. +
+Format: `deletescreening c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME`
 
 Examples:
 
-* `deletescreening m/1 c/2 th/1 h/05/05/2015 13:30` +
-Deletes a screening of the 1st movie to the 2nd cinema's 1st theater.
+* `deletescreening c/2 th/1 h/05/05/2015 13:30` +
+Deletes a screening which screens on 05/05/2015 from the 2nd cinema's 1st theater.
 * `ds m/2 c/3 th/3 h/11/11/2011 14:15` +
-Deletes a screening of the 2nd movie to the 3rd cinema's 3rd theater.
+Deletes a screening which screens on 11/11/2011 from the 3rd cinema's 3rd theater.
 
 [NOTE]
 ====
 * Screening must exist in the cinema theater
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* 1, 2, 3, ...
-* The movie that is being deleted from screening must already exist in the MVP
 * The cinema theater that is holding the screening must exist in the MVP
 ====
 
@@ -446,11 +445,11 @@ Remember to select on a cinema before executing the jump command.
 
 Keyword appearance on Command Line: [purple-background white]`jump`
 
-=== Listing all cinemas : `list` | `l`
+=== Listing all cinemas and movies : `list` | `l`
 
 Alias: `l`
 
-Shows a list of all cinemas in MVP. +
+Shows a list of all cinemas and movies in MVP. +
 Format: `list`
 
 Keyword appearance on Command Line: [purple-background white]`list`
@@ -616,8 +615,8 @@ You will be able to decrypt the `encryptedmovieplanner.xml` and obtain a `moviep
 |*DeleteMovie* |`delete INDEX` |`dm`
 |`list` +
  `delete 2`
-|*DeleteScreening* |`deletescreening m/MOVIE_INDEX c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME` |`ds`
-|`deletescreening m/1 c/2 th/1 h/05/05/2015 13:30`
+|*DeleteScreening* |`deletescreening c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME` |`ds`
+|`deletescreening c/2 th/1 h/05/05/2015 13:30`
 |*DeleteTheater* |`deletetheater n/CINEMA_NAME th/NUMBER_OF_THEATER` |`dt` |`deletetheater n/Cathay th/9`
 |*Edit* |`edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` |`e`
 |`edit 2 n/GV Jurong Point e/contacts@gv.com`

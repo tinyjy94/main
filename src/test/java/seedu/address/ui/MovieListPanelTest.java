@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.movie.Movie;
 
+//@@author qwlai
 public class MovieListPanelTest extends GuiUnitTest {
     private static final ObservableList<Movie> TYPICAL_MOVIES =
             FXCollections.observableList(getTypicalMovies());

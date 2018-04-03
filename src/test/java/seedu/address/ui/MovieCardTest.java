@@ -12,6 +12,7 @@ import guitests.guihandles.MovieCardHandle;
 import seedu.address.model.movie.Movie;
 import seedu.address.testutil.MovieBuilder;
 
+//@@author qwlai
 public class MovieCardTest extends GuiUnitTest {
 
     private Movie movie;

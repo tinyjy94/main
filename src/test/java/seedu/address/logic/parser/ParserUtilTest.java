@@ -295,6 +295,7 @@ public class ParserUtilTest {
                 ParserUtil.parseTheaters(Optional.of(String.valueOf(VALID_THEATER))));
     }
 
+    //@@author qwlai
     @Test
     public void parseTheaterNumber_null_throwsNullPointerException() throws Exception {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTheaterNumber((String) null));
