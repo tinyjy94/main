@@ -78,13 +78,14 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
      * @param encryptedFilePath location of the encrypted data. Returns empty String if null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath, String encryptedFilePath) throws DataConversionException,
-            IOException {
+    public Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath, String encryptedFilePath)
+            throws DataConversionException, IOException {
         requireNonNull(filePath);
 
         File moviePlannerFile = new File(filePath);
-        if(encryptedFilePath == null)
+        if (encryptedFilePath == null) {
             encryptedFilePath = "";
+        }
         File moviePlannerEncryptedFile = new File(encryptedFilePath);
 
         if (!moviePlannerFile.exists()) {

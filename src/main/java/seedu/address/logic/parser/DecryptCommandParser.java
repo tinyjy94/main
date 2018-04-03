@@ -25,6 +25,11 @@ import seedu.address.model.UserPrefs;
  */
 public class DecryptCommandParser implements Parser<DecryptCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the DecryptCommand
+     * and returns an DecryptCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public DecryptCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PASSWORD);
@@ -48,7 +53,8 @@ public class DecryptCommandParser implements Parser<DecryptCommand> {
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             } catch (GeneralSecurityException e) {
-                throw new ParseException(String.format(DecryptCommand.MESSAGE_WRONGPASSWORD, DecryptCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(DecryptCommand.MESSAGE_WRONGPASSWORD,
+                        DecryptCommand.MESSAGE_USAGE));
             } catch (IOException e) {
                 throw new ParseException(String.format(MESSAGE_FILE_NOT_FOUND, DecryptCommand.MESSAGE_USAGE));
             }

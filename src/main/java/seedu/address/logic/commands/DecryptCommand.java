@@ -10,8 +10,8 @@ import seedu.address.commons.events.storage.DecryptionRequestEvent;
 public class DecryptCommand extends Command {
     public static final String COMMAND_WORD = "decrypt";
     public static final String COMMAND_ALIAS = "dec";
-    public static final String MESSAGE_SUCCESS = "MoviePlanner Decrypted! " +
-            "Please restart the application to see the changes.";
+    public static final String MESSAGE_SUCCESS = "MoviePlanner Decrypted! "
+            + "Please restart the application to see the changes.";
     public static final String MESSAGE_WRONGPASSWORD = "Password is wrong!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Decrypts MoviePlanner file to view contents.\n "

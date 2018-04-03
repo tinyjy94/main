@@ -2,10 +2,10 @@ package seedu.address.commons.events.storage;
 
 import seedu.address.commons.events.BaseEvent;
 
+/**
+ * Indicates a request for decryption
+ */
 public class DecryptionRequestEvent extends BaseEvent {
-    /**
-     * Indicates a request for decryption
-     */
     private final String password;
 
     public DecryptionRequestEvent(String password) {

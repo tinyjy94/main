@@ -64,7 +64,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        MoviePlannerStorage moviePlannerStorage = new XmlMoviePlannerStorage(userPrefs.getMoviePlannerFilePath(), userPrefs.getEncryptedMoviePlannerFilePath());
+        MoviePlannerStorage moviePlannerStorage = new XmlMoviePlannerStorage(userPrefs.getMoviePlannerFilePath(),
+                userPrefs.getEncryptedMoviePlannerFilePath());
         storage = new StorageManager(moviePlannerStorage, userPrefsStorage);
 
         initLogging(config);

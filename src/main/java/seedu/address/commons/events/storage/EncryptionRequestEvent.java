@@ -2,10 +2,10 @@ package seedu.address.commons.events.storage;
 
 import seedu.address.commons.events.BaseEvent;
 
+/**
+ * Indicates a request for encryption
+ */
 public class EncryptionRequestEvent extends BaseEvent {
-    /**
-     * Indicates a request for encryption
-     */
     private final String password;
 
     public EncryptionRequestEvent(String password) {

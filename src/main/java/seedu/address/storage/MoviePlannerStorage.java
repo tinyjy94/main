@@ -38,7 +38,8 @@ public interface MoviePlannerStorage {
     /**
      * @see #getMoviePlannerFilePath()
      */
-    Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath, String encryptedFilePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath, String encryptedFilePath)
+            throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyMoviePlanner} to the storage.

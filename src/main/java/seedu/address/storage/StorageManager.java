@@ -67,7 +67,8 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Optional<ReadOnlyMoviePlanner> readMoviePlanner() throws DataConversionException, IOException {
-        return readMoviePlanner(moviePlannerStorage.getMoviePlannerFilePath(), moviePlannerStorage.getEncryptedMoviePlannerFilePath());
+        return readMoviePlanner(moviePlannerStorage.getMoviePlannerFilePath(),
+                moviePlannerStorage.getEncryptedMoviePlannerFilePath());
     }
 
     @Override

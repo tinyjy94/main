@@ -14,6 +14,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EncryptCommandParser implements Parser<EncryptCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the EncryptCommand
+     * and returns an EncryptCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public EncryptCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PASSWORD);
