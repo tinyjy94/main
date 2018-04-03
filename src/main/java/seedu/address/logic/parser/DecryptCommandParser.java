@@ -19,7 +19,7 @@ import seedu.address.commons.util.SecurityUtil;
 import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
-
+    //@@author tinyjy94
 /**
  * Parses input arguments and creates a new DecryptCommand object
  */

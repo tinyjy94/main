@@ -26,12 +26,12 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
     public XmlMoviePlannerStorage(String filePath) {
         this.filePath = filePath;
     }
-
+    //@@author tinyjy94
     public XmlMoviePlannerStorage(String filePath, String encryptedFilePath) {
         this.filePath = filePath;
         this.encryptedFilePath = encryptedFilePath;
     }
-
+    //@@author
     public String getMoviePlannerFilePath() {
         return filePath;
     }
@@ -70,7 +70,7 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
             throw new DataConversionException(ive);
         }
     }
-
+    //@@author tinyjy94
     /**
      * Similar to {@link #readMoviePlanner()}
      *
@@ -105,7 +105,7 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
             throw new DataConversionException(ive);
         }
     }
-
+    //@@author
     @Override
     public void saveMoviePlanner(ReadOnlyMoviePlanner moviePlanner) throws IOException {
         saveMoviePlanner(moviePlanner, filePath);

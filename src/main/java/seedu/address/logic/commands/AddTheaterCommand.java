@@ -15,7 +15,7 @@ import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
-
+//@@author tinyjy94
 /**
  * Adds theaters to existing cinema
  */

@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
+//@@author tinyjy94
 /**
  * Parses input arguments and creates a new EncryptCommand object
  */

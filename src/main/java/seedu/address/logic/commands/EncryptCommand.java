@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 
 import seedu.address.commons.events.storage.EncryptionRequestEvent;
-
+//@@author tinyjy94
 /**
  * Encrypts data stored in movieplanner file.
  */

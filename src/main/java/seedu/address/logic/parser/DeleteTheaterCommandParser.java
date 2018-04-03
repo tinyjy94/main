@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.DeleteTheaterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cinema.Theater;
-
+    //@@author tinyjy94
 /**
  * Parses input arguments and creates a new DeleteTheaterCommand object
  */

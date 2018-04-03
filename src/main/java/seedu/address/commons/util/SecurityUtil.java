@@ -26,7 +26,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DecryptionRequestEvent;
 import seedu.address.commons.events.storage.EncryptionRequestEvent;
-
+//@@author tinyjy94
 /**
  * Contains encryption and decryption functions
  */
