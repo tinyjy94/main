@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import java.security.Key;
-
 import javafx.collections.ObservableList;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
@@ -37,8 +35,4 @@ public interface ReadOnlyMoviePlanner {
      */
     ObservableList<Theater> getTheaterList();
 
-    /**
-     * Returns password as a Key object
-     */
-    Key getPassword();
 }
