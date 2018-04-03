@@ -28,7 +28,7 @@ import seedu.address.commons.events.storage.DecryptionRequestEvent;
 import seedu.address.commons.events.storage.EncryptionRequestEvent;
 
 /**
- * Contains encryption and decryption functions 
+ * Contains encryption and decryption functions
  */
 public class SecurityUtil {
 

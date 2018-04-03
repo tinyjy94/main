@@ -548,9 +548,43 @@ Movie planner data are saved in the hard disk automatically after any command th
 There is no need to save manually.
 
 // tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Encrypting data files : `encrypt` | `enc`
+`Available in v1.4`
 
-_{explain how the user can enable/disable data encryption}_
+Alias: `enc`
+
+Encrypts the `movieplanner.xml` using password provided by user.
+
+Format: `encrypt pw/PASSWORD`
+
+****
+* A `encryptedmovieplanner.xml` file is created/overwritten, upon the `encrypt` command.
+****
+
+Examples:
+
+* `encrypt pw/password` +
+You will be able to encrypt the `movieplanner.xml` and create a `encryptedmovieplanner.xml` using this password.
+
+=== Decrypting encrypted data files : `decrypt` | `dec`
+`Available in v1.4`
+
+Alias: `dec`
+
+Decrypts the `encryptedmovieplanner.xml` using password provided by user.
+
+Format: `decrypt pw/PASSWORD`
+
+****
+* A `movieplanner.xml` file is created/overwritten upon successful `decrypt` command. You will be prompt to restart the application to see changes.
+****
+
+Examples:
+
+* `decrypt pw/password` +
+You will be able to decrypt the `encryptedmovieplanner.xml` and obtain a `movieplanner.xml` if the password is the same as the one used for encryption.
+
+
 // end::dataencryption[]
 
 <<UserGuide.adoc#, Back to top>>
