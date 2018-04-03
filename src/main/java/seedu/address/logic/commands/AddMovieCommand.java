@@ -25,6 +25,7 @@ public class AddMovieCommand extends UndoableCommand {
             + PREFIX_DURATION + "DURATION "
             + PREFIX_RATING + "RATING "
             + PREFIX_STARTDATE + "STARTDATE "
+            + PREFIX_TAG + "TAG "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "The Incredibles "
             + PREFIX_DURATION + "90 "

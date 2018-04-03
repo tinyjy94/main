@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.cinema.Theater;
 import seedu.address.model.screening.Screening;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -45,6 +46,9 @@ public class Movie {
      */
     public void deleteScreenings() {
         for (int i = 0; i < screenings.size(); i++) {
+            Screening s = screenings.get(i);
+            Theater t = s.getTheater();
+            t.deleteScreening(s);
             screenings.remove(i);
         }
     }

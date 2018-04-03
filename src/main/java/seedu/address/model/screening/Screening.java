@@ -12,7 +12,7 @@ import seedu.address.model.cinema.Theater;
 public class Screening {
 
     private final String movieName;
-    private final Theater theater;
+    private Theater theater;
     private final LocalDateTime screeningDateTime;
     private final LocalDateTime screeningEndDateTime;
 
@@ -38,6 +38,10 @@ public class Screening {
 
     public LocalDateTime getScreeningEndDateTime() {
         return screeningEndDateTime;
+    }
+
+    public void setTheater(Theater t) {
+        this.theater = t;
     }
 
     @Override
