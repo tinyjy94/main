@@ -433,6 +433,19 @@ image::SDforEncryptEventHandling.png[width="800"]
 ==== Implementation details
 `SecurityUtil` is used to facilitate the encryption and decryption process by providing the `encrypt` and `decrypt` commands.
 
+. When `encrypt pw/<password>` or `decrypt pw/<password>` command is entered by the user, `EncryptionRequestEvent` or `DecryptionRequestEvent` will be posted to the `EventsCenter` respectively.
+. `StorageManager` will then trigger `SecurityUtil` to perform the `encrypt` or `decrypt` command.
+. `generateKey()` and `processFile()` methods within `SecurityUtil` will then be executed to perform writing of files.
+. `encrypt` will create/overwrite an `encryptedmovieplanner.xml` by encrypting the data from `movieplanner.xml` using the password provided by the user.
+. `decrypt` will create/overwrite a `movieplanner.xml` by decrypting the data from `encryptedmovieplanner.xml` using the password provided by the user.
+
+[NOTE]
+====
+* If the user enters a different password that was used to encrypt the file when decrypting, an error will be shown on the `CommandBox`.
+* `encrypt` and `decrypt` command can be performed repeatedly to overwrite the xml files.
+====
+
+
 ==== Design Considerations
 
 *Aspect:* How to generate key
