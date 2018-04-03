@@ -140,6 +140,10 @@ public class BrowserPanel extends UiPart<Region> {
                 CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+    /**
+     * Handles CinemaPanelSelectionChangedEvent
+     * Reloads the schedule of newly selected cinema
+     */
     @Subscribe
     private void handleCinemaPanelSelectionChangedEvent(CinemaPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -149,13 +153,25 @@ public class BrowserPanel extends UiPart<Region> {
         loadCinemaSchedule(currentSelection.cinema, currentDate);
     }
 
+    /**
+     * Handles MoviePlannerChangedEvent
+     * Reloads the schedule of currently selected cinema
+     */
     @Subscribe
     private void handleMoviePlannerChangedEvent(MoviePlannerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, refreshing browser view"));
         browserPane.getChildren().clear();
-        loadCinemaSchedule(currentSelection.cinema, currentDate);
+        try {
+            loadCinemaSchedule(currentSelection.cinema, currentDate);
+        } catch (NullPointerException npe) {
+            logger.severe(LogsCenter.getEventHandlingLogMessage(event, "Null cinema selection."));
+        }
     }
 
+    /**
+     * Handles JumpToDateRequestEvent
+     * Jumps to specified date in the scheduler
+     */
     @Subscribe
     private void handleJumpCommandEvent(JumpToDateRequestEvent event) {
         try {
@@ -164,7 +180,7 @@ public class BrowserPanel extends UiPart<Region> {
             currentDate = event.getDate();
             loadCinemaSchedule(currentSelection.cinema, currentDate);
         } catch (NullPointerException npe) {
-            logger.warning(LogsCenter.getEventHandlingLogMessage(event, "Null cinema card."));
+            logger.severe(LogsCenter.getEventHandlingLogMessage(event, "Null cinema card."));
         }
     }
 }
