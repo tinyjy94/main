@@ -27,8 +27,6 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DecryptionRequestEvent;
 import seedu.address.commons.events.storage.EncryptionRequestEvent;
-import seedu.address.logic.commands.DecryptCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Contains encryption and decryption functions for files
