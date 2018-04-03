@@ -77,7 +77,7 @@ Alias: `h`
 
 Format: `help`
 
-Keyword appearance on Command Line: [black-background blue]`help`
+Keyword appearance on Command Line: [purple-background white]`help`
 
 === Adding a cinema: `add` | `a`
 
@@ -92,7 +92,7 @@ Examples:
 * `add n/Shaws e/shaws@shaws.com a/2 Jurong East Central 1, 11 JCube p/6123122 th/2`
 * `a n/We Cinema p/62181251 e/wecinema@wecinema.com a/321 Clementi Avenue 3 th/3`
 
-Keyword appearance on Command Line: [black-background green]`add`
+Keyword appearance on Command Line: [purple-background white]`add`
 
 === Adding a movie: `addmovie` | `am`
 
@@ -106,7 +106,7 @@ Examples:
 * `addmovie n/The Incredibles d/115 r/PG sd/18/11/2014 t/Animation`
 * `am n/Spiderman 1 d/121 r/PG sd/04/29/2012 t/Superheroes t/Spiderman`
 
-Keyword appearance on Command Line: [black-background green]`addmovie`
+Keyword appearance on Command Line: [purple-background white]`addmovie`
 
 === Adding a movie screening: `addscreening` | `as`
 
@@ -134,7 +134,7 @@ Adds a screening of the 2nd movie to the 3rd cinema's 3rd theater.
 * The minutes in `SCREEN_DATE_TIME` must be in 5 minutes interval.
 ====
 
-Keyword appearance on Command Line: [black-background green]`addscreening`
+Keyword appearance on Command Line: [purple-background white]`addscreening`
 
 === Adding theaters: `addtheater` | `at`
 `Available in v1.2`
@@ -152,7 +152,7 @@ Examples:
 [NOTE]
 Number of theater must be positive
 
-Keyword appearance on Command Line: [black-background green]`addtheater`
+Keyword appearance on Command Line: [purple-background white]`addtheater`
 
 === Clearing all entries : `clear` | `c`
 
@@ -161,7 +161,7 @@ Alias: `c`
 Clears all entries from MVP. +
 Format: `clear`
 
-Keyword appearance on Command Line: [black-background red]`clear`
+Keyword appearance on Command Line: [purple-background white]`clear`
 
 === Copying schedule: `copy` | `cp`
 `Coming in v2.0`
@@ -184,7 +184,7 @@ next day 15/03/2018.
 Cathay East's theater 1.
 ====
 
-Keyword appearance on Command Line: [black-background green]`copy`
+Keyword appearance on Command Line: [purple-background white]`copy`
 
 === Deleting a cinema : `delete` | `d`
 
@@ -208,7 +208,7 @@ Deletes the 2nd cinema in MVP.
 `d 1` +
 Deletes the 1st cinema in the results of the `find` command.
 
-Keyword appearance on Command Line: [black-background red]`delete`
+Keyword appearance on Command Line: [purple-background white]`delete`
 
 === Deleting a movie : `deletemovie` | `dm`
 `Available in V1.2`
@@ -234,7 +234,7 @@ Deletes the 2nd movie in MVP.
 `dm 1` +
 Deletes the 1st movie in the results of the `find` command.
 
-Keyword appearance on Command Line: [black-background red]`deletemovie`
+Keyword appearance on Command Line: [purple-background white]`deletemovie`
 
 === Deleting a screening: `deletescreening` | `ds`
 `Coming in v1.4`
@@ -260,7 +260,7 @@ Deletes a screening of the 2nd movie to the 3rd cinema's 3rd theater.
 * The cinema theater that is holding the screening must exist in the MVP
 ====
 
-Keyword appearance on Command Line: [black-background red]`deletescreening`
+Keyword appearance on Command Line: [purple-background white]`deletescreening`
 
 === Deleting theaters: `deletetheater` | `dt`
 
@@ -279,7 +279,7 @@ Examples:
 [NOTE]
 Number of theater must be positive
 
-Keyword appearance on Command Line: [black-background red]`deletetheater`
+Keyword appearance on Command Line: [purple-background white]`deletetheater`
 
 === Editing a cinema: `edit` | `e`
 
@@ -302,7 +302,7 @@ Edits the phone number and email address of the 1st cinema to be `91234567` and 
 * `e 2 n/Golden Village` +
 Edits the name of the 2nd cinema to be `Golden Village`.
 
-Keyword appearance on Command Line: [black-background white]`edit`
+Keyword appearance on Command Line: [purple-background white]`edit`
 
 === Editing a movie : `editmovie` | `em`
 
@@ -327,14 +327,14 @@ Edits the duration and rating of the 1st movie to be `90` and `M18` respectively
 * `em 2 n/Spiderman 2` +
 Edits the name of the 2nd movie to be `Spiderman 2`.
 
-Keyword appearance on Command Line: [black-background]`editmovie`
+Keyword appearance on Command Line: [purple-background white]`editmovie`
 
 === Email schedule: `email` | `eml`
 
 Alias: `eml`
 
 Sends an email to target recipient. +
-Format: `email [msg/MESSAGE] [subj/SUBJECT] [recp/RECIPIENT] [func/<send|clear>] [lgn/user@gmail.com:PASSWORD]`
+Format: `email msg/MESSAGE subj/SUBJECT recp/RECIPIENT func/<SEND|CLEAR> lgn/EMAIL_USERNAME:EMAIL_PASSWORD [attc/RELATIVE_FILE_PATH]`
 
 [NOTE]
 ====
@@ -348,17 +348,18 @@ Format: `email [msg/MESSAGE] [subj/SUBJECT] [recp/RECIPIENT] [func/<send|clear>]
 
 Examples:
 
-* `email msg/Hi Bob, Here is the schedule. subj/Schedule lgn/cmanager@gmail.com:1I2h@la recp/gv.manager@gmail.com func/send` +
+* `email msg/Hi Bob, Here is the schedule. subj/Schedule lgn/cmanager@gmail.com:1I2h@la recp/gv.manager@gmail.com attc/docs/images/Architecture.png func/send` +
 Sends out an email to `gv.manager@gmail.com` with a message of the following details:
 
 ** Recipient: `gv.manager@gmail.com`
 ** Subject: `Schedule`
 ** Message: `Hi Bob, Here is the schedule.`
+** Attachment: `Architecture.png`
 
 * `eml msg/This will be a very long message, so I hope that you are attentive when you read this.` +
 Edits the email message with `This will be a very long message, so I hope that you are attentive when you read this.`
 
-Keyword appearance on Command Line: [black-background]`email`
+Keyword appearance on Command Line: [purple-background white]`email`
 
 === Finding cinemas by name: `find` | `f`
 
@@ -382,7 +383,7 @@ Returns `cathay` and `Cathay West`
 * `f Golden Village North` +
 Returns any cinema having names `Golden`, `Village`, or `North`
 
-Keyword appearance on Command Line: [black-background blue]`find`
+Keyword appearance on Command Line: [purple-background white]`find`
 
 === Finding movies by user input: `findmovie`
 `coming in V1.3`
@@ -409,7 +410,7 @@ Returns all movies with `StartDate = 09/11/2017` like `Ah Boys to Men 4`
 Returns all movies from tag `superhero` with name `Spiderman` like `Spiderman 1`, `Spiderman 2` and `Spiderman 3`
 
 
-Keyword appearance on Command Line: [black-background blue]`findmovie`
+Keyword appearance on Command Line: [purple-background white]`findmovie`
 
 === Listing history of entered commands : `history` | `hist`
 
@@ -423,7 +424,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-Keyword appearance on Command Line: [black-background]`history`
+Keyword appearance on Command Line: [purple-background white]`history`
 
 === Jump to a specified date : `jump` | `j`
 `Available in 1.3`
@@ -443,7 +444,7 @@ You will be able to see the schedule of 28/03/2018
 Remember to select on a cinema before executing the jump command.
 ====
 
-Keyword appearance on Command Line: [black-background]`history`
+Keyword appearance on Command Line: [purple-background white]`jump`
 
 === Listing all cinemas : `list` | `l`
 
@@ -452,7 +453,7 @@ Alias: `l`
 Shows a list of all cinemas in MVP. +
 Format: `list`
 
-Keyword appearance on Command Line: [black-background yellow]`list`
+Keyword appearance on Command Line: [purple-background white]`list`
 
 === Redoing the previously undone command : `redo` | `r`
 
@@ -478,7 +479,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
 
-Keyword appearance on Command Line: [black-background red]`redo`
+Keyword appearance on Command Line: [purple-background white]`redo`
 
 === Selecting a cinema : `select` | `s`
 
@@ -502,7 +503,7 @@ Selects the 2nd cinema in MVP.
 `s 1` +
 Selects the 1st cinema in the results of the `find` command.
 
-Keyword appearance on Command Line: [black-background]`select`
+Keyword appearance on Command Line: [purple-background white]`select`
 
 // tag::undoredo[]
 === Undoing previous command : `undo` | `u`
@@ -533,14 +534,14 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-Keyword appearance on Command Line: [black-background red]`undo`
+Keyword appearance on Command Line: [purple-background white]`undo`
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-Keyword appearance on Command Line: [black-background red]`exit`
+Keyword appearance on Command Line: [purple-background white]`exit`
 
 === Saving the data
 
