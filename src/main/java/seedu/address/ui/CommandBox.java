@@ -19,6 +19,7 @@ import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddMovieCommand;
+import seedu.address.logic.commands.AddScreeningCommand;
 import seedu.address.logic.commands.AddTheaterCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
@@ -26,10 +27,13 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteMovieCommand;
 import seedu.address.logic.commands.DeleteTheaterCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EmailCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindMovieCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.JumpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -44,7 +48,8 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-    private static final String KEYWORD_LABEL_BACKGROUND_COLOR = "black";
+    private static final String KEYWORD_LABEL_BACKGROUND_COLOR = "rgba(128, 0, 128, 1)";
+    private static final String DEFAULT_KEYWORD_COLOR = "white";
     private static final int KEYWORD_LABEL_FONT_SIZE = 17;
     private static final int DEFAULT_TAG_OFFSET_VALUE = 12;
     private static final double OFFSET_MULTIPLIER = 4.65;
@@ -159,6 +164,7 @@ public class CommandBox extends UiPart<Region> {
 
         String keywordTextColor = keywordColorCode.get(commandKeyword);
         keywordLabel.setStyle("-fx-text-fill: " + keywordTextColor + ";\n"
+            + "-fx-background-radius: 2;\n"
             + "-fx-font-size: " + KEYWORD_LABEL_FONT_SIZE + ";\n"
             + "-fx-background-color: " + KEYWORD_LABEL_BACKGROUND_COLOR + ";");
         keywordLabel.toFront();
@@ -273,22 +279,45 @@ public class CommandBox extends UiPart<Region> {
      */
     public HashMap<String, String> initializeKeywordColorCoding() {
         HashMap<String, String> keywordColorCode = new HashMap<>();
-        keywordColorCode.put(AddCommand.COMMAND_WORD, "green");
-        keywordColorCode.put(AddMovieCommand.COMMAND_WORD, "green");
-        keywordColorCode.put(AddTheaterCommand.COMMAND_WORD, "green");
-        keywordColorCode.put(ClearCommand.COMMAND_WORD, "red");
-        keywordColorCode.put(DeleteCommand.COMMAND_WORD, "red");
-        keywordColorCode.put(DeleteMovieCommand.COMMAND_WORD, "red");
-        keywordColorCode.put(DeleteTheaterCommand.COMMAND_WORD, "red");
-        keywordColorCode.put(EditCommand.COMMAND_WORD, "white");
-        keywordColorCode.put(FindCommand.COMMAND_WORD, "blue");
-        keywordColorCode.put(SelectCommand.COMMAND_WORD, "brown");
-        keywordColorCode.put(ExitCommand.COMMAND_WORD, "red");
-        keywordColorCode.put(HelpCommand.COMMAND_WORD, "blue");
-        keywordColorCode.put(ListCommand.COMMAND_WORD, "yellow");
-        keywordColorCode.put(RedoCommand.COMMAND_WORD, "red");
-        keywordColorCode.put(UndoCommand.COMMAND_WORD, "red");
-        keywordColorCode.put(HistoryCommand.COMMAND_WORD, "pink");
+        keywordColorCode.put(AddCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(AddCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(AddMovieCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(AddMovieCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(AddTheaterCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(AddTheaterCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(AddScreeningCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(AddScreeningCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(ClearCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(ClearCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(DeleteCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(DeleteCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(DeleteMovieCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(DeleteMovieCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(DeleteTheaterCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(DeleteTheaterCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(EditCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(EditCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(EmailCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(EmailCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(FindCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(FindCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(FindMovieCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(FindMovieCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(JumpCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(JumpCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(SelectCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(SelectCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(ExitCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(HelpCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(HelpCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(ListCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(ListCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(RedoCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(RedoCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(UndoCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(UndoCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(HistoryCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(HistoryCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
         return keywordColorCode;
     }
 
