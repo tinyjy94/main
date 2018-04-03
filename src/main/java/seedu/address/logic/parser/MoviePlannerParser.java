@@ -17,11 +17,13 @@ import seedu.address.logic.commands.DeleteMovieCommand;
 import seedu.address.logic.commands.DeleteTheaterCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditMovieCommand;
+import seedu.address.logic.commands.EmailCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMovieCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.JumpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -80,6 +82,10 @@ public class MoviePlannerParser {
         case EditMovieCommand.COMMAND_WORD:
             return new EditMovieCommandParser().parse(arguments);
 
+        case EmailCommand.COMMAND_ALIAS:
+        case EmailCommand.COMMAND_WORD:
+            return new EmailCommandParser().parse(arguments);
+
         case SelectCommand.COMMAND_ALIAS:
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
@@ -103,6 +109,10 @@ public class MoviePlannerParser {
         case FindCommand.COMMAND_ALIAS:
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case JumpCommand.COMMAND_ALIAS:
+        case JumpCommand.COMMAND_WORD:
+            return new JumpCommandParser().parse(arguments);
 
         case FindMovieCommand.COMMAND_ALIAS:
         case FindMovieCommand.COMMAND_WORD:

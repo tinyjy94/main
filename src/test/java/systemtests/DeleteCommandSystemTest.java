@@ -167,9 +167,7 @@ public class DeleteCommandSystemTest extends MoviePlannerSystemTest {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
-        if (expectedSelectedCardIndex != null) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
-        } else {
+        if (expectedSelectedCardIndex == null) {
             assertSelectedCardUnchanged();
         }
 

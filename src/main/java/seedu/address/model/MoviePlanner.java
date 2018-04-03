@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.SecurityUtil;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.UniqueCinemaList;
@@ -22,7 +24,6 @@ import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.UniqueMovieList;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
 import seedu.address.model.movie.exceptions.MovieNotFoundException;
-import seedu.address.model.screening.Screening;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
@@ -38,6 +39,7 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
     private final UniqueMovieList movies;
     private final UniqueTagList tags;
     private ArrayList<Theater> theaters;
+    private final Key password;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -53,7 +55,13 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
         tags = new UniqueTagList();
     }
 
-    public MoviePlanner() {}
+    public MoviePlanner() {
+        password = SecurityUtil.generateKey("dummypass");
+    }
+
+    public MoviePlanner(String password) {
+        this.password = SecurityUtil.generateKey(password);
+    }
 
     /**
      * Creates an MoviePlanner using the Cinemas, Tags and Movies in the {@code toBeCopied}
@@ -167,24 +175,6 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
     */
     public void addTheater(Theater t) {
         theaters.add(t);
-    }
-
-    /**
-     * Adds a screening to a theater and sorts the screeninglist
-     * @param screening to be added
-     * @param theater to add the screening
-     */
-    public void addScreening(Screening screening, Theater theater) {
-        theater.addScreeningToTheater(screening);
-        sortScreeningList(theater);
-    }
-
-    /**
-     * Sorts the screening list in the theater
-     * @param theater to sort
-     */
-    private void sortScreeningList(Theater theater) {
-        theater.sortScreeningList();
     }
 
     //// Tag-level operations
@@ -316,6 +306,11 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
     @Override
     public ObservableList<Theater> getTheaterList() {
         return FXCollections.observableList(theaters);
+    }
+
+    @Override
+    public Key getPassword() {
+        return password;
     }
 
     @Override

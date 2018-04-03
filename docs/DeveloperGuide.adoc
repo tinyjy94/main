@@ -440,6 +440,117 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== Email feature
+
+The email feature is facilitated by the `Email` component. It supports the sending of email through an external library `JavaMail`.
+
+*Current Implementation*
+
+MVP uses the email command to send an email. The following activity diagram displays the series of events that occurs when a user enters the email
+command.
+
+.Activity Diagram of Email feature
+image::EmailActivityDiagram.png[width="800"]
+
+The email feature is constructed by 3 classes, `EmailLogin`, `EmailCompose`, `EmailSend`, which is handled by the `EmailManager`. More
+details about the classes are as provided:
+
+* `EmailLogin`: Handles the storage of login information and verifies whether the user is using a Gmail account to access
+the email feature.
+* `EmailCompose`: Handles the email composing and drafting using a `MessageDraft` object to store email information such
+as message, subject and recipient email.
+* `EmailSend`: Handles the sending of email by setting up a SMTP connection through the JavaMail API. The email cannot be sent if
+the following criteria are not met:
+ ** the`MessageDraft` object in `EmailCompose` is empty or,
+ ** the login details in `EmailLogin` is not valid.
+
+The following sequence diagram shows how each component interacts when the email command is entered by the user.
+
+.Sequence Diagram of Email feature
+image::EmailUMLDiagram.png[width="800"]
+
+The following sequence diagram shows how each component within the `EmailManager` interacts when the email command
+is entered by the user.
+
+.Sequence Diagram of Email feature
+image::EmailSendUMLDiagram.png[width="800"]
+
+The following diagram shows how the email draft tab in the MVP UI is updated when the `EventCenter` responds to the
+`EmailDraftChangedEvent`.
+
+.Sequence Diagram of Email feature
+image::EmailEventsDiagram.png[width="800"]
+
+*Implementation of JavaMail API*
+
+The `Email` component uses the external library `JavaMail` to handle sending out of email from MVP. The following
+code snippet below shows the set up (via SMTP) for sending out email.
+
+[source,java]
+----
+/**
+ * Sets up the default email properties
+ */
+private void setUpEmailProperties() {
+    props = new Properties();
+    props.put("mail.smtp.auth", "true");
+    props.put("mail.smtp.host", "smtp.gmail.com");
+    props.put("mail.smtp.socketFactory.port", "465");
+    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+    props.put("mail.smtp.port", "465");
+}
+
+/**
+ * Sends email out using JavaMail API
+ *
+ * @param login email login account
+ * @param pass email login password
+ * @param message message to send
+ * @throws AuthenticationFailedException if gmail account can't be logged in
+ */
+ private void sendingEmail(String login, String pass, ReadOnlyMessageDraft message)
+        throws AuthenticationFailedException {
+    final String username = login;
+    final String password = pass;
+
+    Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+        @Override
+        protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication(username, password);
+        }
+    });
+
+    try {
+        Message newMessage = new MimeMessage(session);
+        newMessage.setFrom(new InternetAddress(username));
+        InternetAddress recipientEmail = new InternetAddress(message.getRecipient());
+        newMessage.setRecipient(Message.RecipientType.TO, recipientEmail);
+        newMessage.setSubject(message.getSubject());
+        newMessage.setText(message.getMessage());
+
+        Transport.send(newMessage);
+    } catch (AuthenticationFailedException e) {
+        throw new AuthenticationFailedException();
+    } catch (MessagingException e) {
+        throw new RuntimeException(e);
+    }
+}
+----
+
+*Design Considerations*
+
+*Aspect:* Implementation of email feature
+
+*Alternative 1 (current choice):* Adopt JavaMail API
+
+* *Pros:* The email feature will be integrated within the MVP application.
+* *Cons:* The email is less secured.
+
+*Alternative 2:* Link users to other email platforms
+
+* *Pros:* Users will have more options in editing email information.
+* *Cons:* The email feature will not be integrated within the MVP application.
+
 <<DeveloperGuide.adoc#, Back to top>>
 
 [[Implementation-FindMovie]]
@@ -511,41 +622,55 @@ A future update is planned in `V2.0` to support both `and` and `or` functions in
 
 [[Implementation-SchedulingSystem]]
 === Scheduling System
-In MVP, the scheduling system works by adding a movie screening to a cinema's theater.
-The user can use the `addscreening` command to add a movie screening to a theater.
-`addscreening` command will be parsed by `AddScreeningCommandParser` and be executed in `AddScreeningCommand`.
-The following sequence diagram shows how the `addscreening` command works.
 
-.Sequence diagram of addscreening command
-image::AddScreeningSequenceDiagram.png[width="1000"]
-
-[NOTE]
-The details of parse screening parameters have been omitted from the diagram.
-
+In MVP, the scheduling system enables the user to plan a schedule of the cinema's theater via addition and removal of screenings.
+The user can then use the `BrowserPanel` to view the cinema's schedule.
 
 ==== Implementation details
-As seen in sequence diagram above, MVP will do the following
 
-. Calls `arePrefixesPresent()` to check if the compulsory prefixes m/, c/, th/ and h/, which are used for movie index, cinema index, theater number and screening start datetime respectively are present.
-. Calls `parseParameters()` method in `ParserUtil` to parse the user input into different objects required for the `AddScreeningCommand`.
-[NOTE]
-`Parameters` mentioned above refers to the parameters provided by the user. E.g. movie index, cinema index, theater number and screening start datetime
-. Creates an `AddScreeningCommand` object that takes in the parameters. In `AddScreeningCommand`,
-there are checks to ensure that the indexes provided are valid.
-The code snippet belows shows how MVP checks that the provided movie index is valid and returns the valid `Movie`.
+Addition and removal of screenings uses similar implementation. The sequence diagram below shows an overview
+of the high level interactions between components for the scenario when a `addscreening` command issued.
+
+[[high_level_sd_scheduling]]
+image::SDForAddScreening.png[width="1000"]
+
+===== Add Screening Command
+
+MVP makes use of the `addscreening` command to add a new screening to a cinema's theater.
+
+The following sequence diagram shows the interactions inside the Logic Component
+for `addscreening` command.
+
+.Sequence diagram of the interactions inside the Logic Component for `addscreening` command
+image::AddScreeningSequenceDiagram.png[width="1000"]
+
+As seen in the sequence diagram above, MVP will do the following to execute the `addscreening` command
+
+. `LogicManager` calls the `MoviePlannerParser` to parse the user command.
+. `MoviePlannerParser` calls the `AddScreeningCommandParser` to process the prefixes `c/, m/, th/, h/`, which stands for
+cinema index, movie, theater number and date time respectively.
+. This results in a `Command` object which is executed by `LogicManager`.
+. `isValidScreening()` in `AddScreeningCommand` ensures a couple of properties before creating a `Screening` object.
+... The movie index provided is valid.
+... The cinema index provided is valid.
+... The theater number provided is valid.
+... The screening can fit into existing theater schedule.
+... The screening date is not before the release date of the movie.
+
+The code snippet below shows how MVP checks if the screening is valid.
 
 [source, java]
-    private Movie getValidMovie() throws CommandException {
-        List<Movie> lastShownMovieList = model.getFilteredMovieList();
-        if (movieIndex.getZeroBased() >= lastShownMovieList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MOVIE_DISPLAYED_INDEX);
-        }
-        // returns the movie using the index provided
-        ...
-    }
+----
+    private boolean isValidScreening() throws CommandException {
+        movie = getValidMovie();
+        cinema = getValidCinema();
+        theater = getValidTheater(cinema);
+        ArrayList<Screening> screeningList = theater.getScreeningList();
+        toAddScreeningEndDateTime = getEndTime();
 
-[start = 4]
-. Creates a `Screening` and calls an internal method `getEndTime()` to calculate when a screening will end.
+        return isSlotAvailable(screeningList) && canAddMovie(movie);
+    }
+----
 
 [NOTE]
 ====
@@ -556,78 +681,26 @@ The end time of this screening is calculated by (13:30 + 15 minutes + 93 minutes
 By rounding up to the nearest 5 minutes, the screening will end at 15:20.
 ====
 
-[start = 5]
-. Once a `Screening` has been created, `AddScreeningCommand` will check that if it is possible to slot this screening into the existing theater's schedule.
-The code snippet below shows how MVP checks if it is possible to fit the screening in when there are multiple screenings on the same date.
+[start = 4]
+. The command execution can affect the `Model` as it updates the `Cinema` object to include the new `Screening`.
+. The result of the execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
-[source, java]
-----
-    private boolean isSlotAvailable(ArrayList<Screening> screeningList) {
-        int totalScreeningsWithSameDate = getTotalScreeningsWithSameDate(screeningList);
+===== Storing screenings to xml
 
-        if (totalScreeningsWithSameDate == 0) {
-            return true;
-        } else if (totalScreeningsWithSameDate == 1) {
-            return hasNoConflictWithOneOtherScreening(screeningList);
-        } else { // multiple screenings on same date
-            return hasNoConflictWithBeforeAndAfter(totalScreeningsWithSameDate, screeningList);
-        }
-    }
-----
+Once a `Screening` is added to a cinema's theater, the `Cinema` needs to be updated and
+saved into XML format.
 
-[source, java]
-----
-    private boolean hasNoConflictWithBeforeAndAfter(int totalScreenings, ArrayList<Screening> screeningList) {
-        int count = 0;
-        boolean hasNoConflict = false;
-        Screening screeningBefore = screeningList.get(0);
-
-        if (isSameScreeningDate(toAdd , screeningBefore)) {
-            count++;
-        }
-
-        for (int i = 1; i < screeningList.size(); i++) {
-            Screening currentScreening = screeningList.get(i);
-            if (hasNoConflict == true) { // already found the spot to insert to
-                break;
-            }
-
-            //first screening
-            if (count == 1 && isScreenTimeOnOrBefore(currentScreening)) {
-                return true;
-            } else if (isSameScreeningDate(currentScreening, toAdd)) {
-                count++;
-                // last screening
-                if (count == totalScreenings && isScreenTimeOnOrAfter(currentScreening)) {
-                    return true;
-                // screening in between
-                } else {
-                    // checks that the screening to add is strictly after end time of previous screening
-                    & end time of screening to add is strictly before start time of next screening
-                    hasNoConflict = isScreenTimeOnOrAfter(screeningBefore)
-                            && isScreenTimeOnOrBefore(currentScreening);
-                }
-            }
-            screeningBefore = currentScreening;
-        }
-        return hasNoConflict;
-    }
-----
-
-==== Storing screenings in xml
-
-To store in `movieplanner.xml`, `Screening` needs to be converted into XML format.
-The part in red border below shows the class diagram of the storage component.
+The part in red border below shows the class diagram of the storage component
+and the relationship between `XMLAdaptedCinema`, `XMLAdaptedTheater` and `XMLAdaptedScreening`.
 
 .Class diagram of storage component
+[[screening_storage]]
 image::ScreeningStorageComponent.png[width="500"]
-The data will be stored as such in the .xml file:
+The data will be stored as such in the movieplanner.xml file:
 [source, xml]
     <cinemas>
         <name>Cathay</name>
-        <phone>62001000</phone>
-        <email>CathayWest@gmail.com</email>
-        <address>Clementi</address>
+        ...
         <theater number="1"/>
         <theater number="2">
             <screening>
@@ -637,16 +710,111 @@ The data will be stored as such in the .xml file:
             </screening>
         </theater>
     </cinemas>
+    <cinemas>
+        <name>Shaws</name>
+        ...
+        <theater number="1">
+            <screening>
+                <movie>Incredible Hulk</movie>
+                <startDateTime>11/11/2015 13:35</startDateTime>
+                <endDateTime>11/11/2015 15:50</endDateTime>
+            </screening>
+        </theater>
+    </cinemas>
+
+===== Reading screenings from `movieplanner.xml`
+
+As shown in <<screening_storage>>, it shows the relationship between `XMLAdaptedCinema`, `XMLAdaptedTheater` and `XMLAdaptedScreening`.
+
+The following steps show how MVP extracts the list of cinemas and converts the `XMLAdaptedScreening` back into
+screening object.
+
+. In `XMLAdaptedCinema`, an ArrayList is created to store the `XMLAdaptedTheater`, this ArrayList contains theaters in a cinema.
+
+[source, java]
+----
+public class XmlAdaptedCinema {
+    @XmlElement(name = "theater")
+    private ArrayList<XmlAdaptedTheater> theaters = new ArrayList<>();
+    ...
+}
+----
+. In `XMLAdaptedTheater`, an ArrayList is created to store the `XMLAdaptedScreening`,
+this ArrayList contains screenings in a theater. It also creates the `Screening` object to be stored in the `Theater`.
+
+[source, java]
+----
+public class XmlAdaptedTheater {
+    @XmlAttribute(name = "number")
+    private int theaterNumber;
+    @XmlElement(name = "screening")
+    private ArrayList<XmlAdaptedScreening> screenings = new ArrayList<>();
+    ...
+
+    public Theater toModelType() throws IllegalValueException {
+        ...
+        Theater theater = new Theater(theaterNumber);
+        for (XmlAdaptedScreening s : screenings) {
+            // logic to create a screening object
+            theater.addScreeningToTheater(screening);
+        }
+        ...
+        return theater;
+    }
+    ...
+}
+----
+. In `XMLAdaptedScreening`, it will read the movie name, the start and end date time of a screening.
+
+[source, java]
+----
+public class XMLAdaptedScreening {
+    @XmlElement(required = true, name = "movie")
+    private String movieName;
+    @XmlElement(required = true, name = "startDateTime")
+    private String screeningDateTime;
+    @XmlElement(required = true, name = "endDateTime")
+    private String screeningEndDateTime;
+    ...
+}
+----
+
+===== Displaying screenings on UI
+
+[TIP]
+`BrowserPanel` uses the CalendarFX API to display the cinema's schedule. You can refer to http://dlsc.com/wp-content/html/calendarfx/manual.html to find out more about CalendarFX.
+
+Once a screening is added to a cinema's theater, the user can view the screening on the `BrowserPanel`.
+As seen in the diagram below, the `BrowserPanel` shows the schedule of a cinema.
+
+image::BrowserPanelDisplay.png[width="800"]
+
+Extending on <<high_level_sd_scheduling>>, the following sequence diagram shows how the UI is notified on a new screening.
+
+image::SDForAddScreeningEventHandling.png[width="800"]
+
+[NOTE]
+`BrowserPanel` subscribes to the `MoviePlannerChangedEvent` and will load all the schedules of the cinemas in MVP.
 
 ==== Design Considerations
-*Aspect:* Data structure to store the screening schedule
+*Aspect:* Displaying cinema theater's schedule
 
-* **Alternative 1 (current choice):** Use an ArrayList<Screening> to store the list of screenings in a cinema's theater
-** Pros: It is easier to store in the xml.
-** Cons: It can be difficult to find the list of screenings for a particular date as the list of screenings in a cinema's theater increases
-* **Alternative 2:** Use a HashMap<Date, ArrayList<Screening>> to store the screenings
-** Pros: It is easier to get the list of screenings for a particular date.
-** Cons: It is more complicated to store in the xml.
+* **Alternative 1 (current choice):** Use an external framework such as `CalendarFX` to display the schedule
+** Pros: `CalendarFX` is visually appealing and there are a lot of functionalities such as the ability to add an entry with date and time.
+** Cons: Requires some time to be familiar with the API.
+* **Alternative 2:** Use `JavaFX` to display the schedule
+** Pros: `JavaFX` is well documented.
+** Cons: Lacks calendar specific functionalities such as the ability to add an entry with date and time.
+
+*Aspect:* Edit command for screenings
+
+* **Alternative 1:** Implement an edit command for screening
+** Pros: User can edit their screenings to their preferred date and timing.
+** Cons: Edit command may introduce potential problems such as verifying a screening can be edited to another timeslot.
+
+* **Alternative 2 (current choice):** Use existing command `deletescreening` and `addscreening` to perform an edit equivalent action
+** Pros: Less commands for the user to learn about.
+** Cons: User will need to delete existing screening and add the screening with new details to perform an edit equivalent action.
 
 === Add/Delete Theater
 When creating a new `Cinema`, the number of theaters must be stated. `Theater` is then created and stored as an ArrayList<Theater> in `Cinema`. `addTheater` and `deleteTheater` are used to increase/decrease the size of the ArrayList respectively. The following sequence diagram shows how the `addTheater` command works.
