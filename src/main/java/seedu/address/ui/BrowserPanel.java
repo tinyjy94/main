@@ -32,6 +32,7 @@ import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
 import seedu.address.model.screening.Screening;
 
+//@@author qwlai
 /**
  * The Browser Panel of the App.
  */
@@ -135,6 +136,7 @@ public class BrowserPanel extends UiPart<Region> {
     private void setUpDayView(DetailedDayView detailedDayView, LocalDate providedDate) {
         date.setText(providedDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT)));
         detailedDayView.setLayout(DateControl.Layout.SWIMLANE);
+        detailedDayView.setEnableCurrentTimeMarker(false);
         detailedDayView.setDate(providedDate);
         detailedDayView.setMouseTransparent(true);
         detailedDayView.setShowAllDayView(false);

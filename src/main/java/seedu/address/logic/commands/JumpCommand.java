@@ -7,6 +7,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.JumpToDateRequestEvent;
 import seedu.address.logic.parser.JumpCommandParser;
 
+//@@author qwlai
 /**
  * Jumps to a specified date as specified by the user
  */

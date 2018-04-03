@@ -25,6 +25,7 @@ import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.screening.Screening;
 
+//@author qwlai
 /**
  * Adds a movie screening to a cinema theater.
  */

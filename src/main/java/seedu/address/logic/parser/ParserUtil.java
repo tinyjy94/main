@@ -300,6 +300,7 @@ public class ParserUtil {
         return theaterList;
     }
 
+    //@@author qwlai
     /**
      * Parses {@code String theater} into a {@code int theaterNumber}.
      * Leading and trailing whitespaces will be trimmed.
@@ -337,6 +338,7 @@ public class ParserUtil {
         return screeningDateTime;
     }
 
+    //@@author
     /**
      * Parses a {@code Optional<String> emailMessage} into an {@code String}
      * See header comment of this class regarding the use of {@code Optional} parameters.

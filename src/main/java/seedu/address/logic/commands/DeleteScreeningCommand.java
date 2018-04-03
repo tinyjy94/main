@@ -21,6 +21,7 @@ import seedu.address.model.cinema.exceptions.CinemaNotFoundException;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.screening.Screening;
 
+//@@author qwlai
 /**
  * Delete a movie screening from a cinema theater.
  */

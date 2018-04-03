@@ -27,6 +27,7 @@ public class XmlAdaptedTheater {
      */
     public XmlAdaptedTheater() {}
 
+    //@@author qwlai
     /**
      * Constructs a {@code XmlAdaptedTheater} with the given {@code theaterNumber}.
      */
@@ -49,6 +50,7 @@ public class XmlAdaptedTheater {
             screenings.add(new XmlAdaptedScreening(screening));
         }
     }
+
 
     /**
      * Converts this jaxb-friendly adapted theater object into the model's Theater object.
@@ -74,6 +76,7 @@ public class XmlAdaptedTheater {
         return theater;
     }
 
+    //@@author
     @Override
     public boolean equals(Object other) {
         if (other == this) {

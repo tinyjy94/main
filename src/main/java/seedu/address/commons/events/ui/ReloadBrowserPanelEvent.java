@@ -6,6 +6,7 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyMoviePlanner;
 import seedu.address.model.cinema.Cinema;
 
+//@@author qwlai
 /**
  * Indicates that there is a need to reload browser panel
  */

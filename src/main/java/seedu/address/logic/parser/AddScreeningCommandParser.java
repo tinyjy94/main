@@ -16,6 +16,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddScreeningCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author qwlai
 /**
  * Parses input arguments and creates a new AddScreeningCommand object
  */
