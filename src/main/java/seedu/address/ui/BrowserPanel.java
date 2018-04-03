@@ -105,7 +105,7 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private void addNodesToBrowserPane(DetailedDayView detailedDayView) {
         browserPane.getChildren().add(detailedDayView);
-        browserPane.setMargin(detailedDayView, new Insets(30, 0, 0,0 ));
+        browserPane.setMargin(detailedDayView, new Insets(30, 0, 0, 0));
         browserPane.getChildren().add(this.cinema);
         browserPane.getChildren().add(this.date);
     }
