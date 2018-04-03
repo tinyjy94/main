@@ -136,21 +136,29 @@ public class AddScreeningCommand extends UndoableCommand {
             if (t.equals(theater)) {
                 Theater theaterToBeUpdated = new Theater(t.getTheaterNumber());
                 ArrayList<Screening> updatedScreeningList = new ArrayList<>();
-                // copy existing screenings to new list
-                for (Screening s : t.getScreeningList()) {
-                    updatedScreeningList.add(s);
-                }
-                // add the updated screening list to the theater
-                newScreening.setTheater(theaterToBeUpdated);
-                updatedScreeningList.add(newScreening);
-                theaterToBeUpdated.setScreeningList(updatedScreeningList);
-                theaterToBeUpdated.sortScreeningList();
+
+                addScreeningsToExistingTheater(t, theaterToBeUpdated, updatedScreeningList, newScreening);
                 updatedTheaterList.add(theaterToBeUpdated);
             } else {
                 updatedTheaterList.add(t);
             }
         }
         return updatedTheaterList;
+    }
+
+    /**
+     * Populates the list of screenings in a theater in the given list with new Screening
+     */
+    private void addScreeningsToExistingTheater(Theater theater, Theater updatedTheater,
+                                                ArrayList<Screening> screeningList, Screening newScreening) {
+        for (Screening s : theater.getScreeningList()) {
+            screeningList.add(s);
+        }
+
+        newScreening.setTheater(updatedTheater);
+        screeningList.add(newScreening);
+        updatedTheater.setScreeningList(screeningList);
+        updatedTheater.sortScreeningList();
     }
 
     /**
