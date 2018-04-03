@@ -57,7 +57,9 @@ public class Theater {
      * Adds a screening to the sorted screening list of the theater
      */
     public void setScreeningList(ArrayList<Screening> screeningList) {
+
         this.screeningList = screeningList;
+        System.out.println("After adding screening" + screeningList.size());
     }
 
     /**
@@ -72,6 +74,13 @@ public class Theater {
      */
     public ArrayList<Screening> getScreeningList() {
         return screeningList;
+    }
+
+    /**
+     * Delete a screening given in the theater
+     */
+    public void deleteScreening(Screening screeningToBeDeleted) {
+        screeningList.remove(screeningToBeDeleted);
     }
 
     @Override

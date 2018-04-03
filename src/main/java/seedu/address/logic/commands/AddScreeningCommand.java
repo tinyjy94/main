@@ -109,6 +109,7 @@ public class AddScreeningCommand extends UndoableCommand {
             String movieName = movie.getName().toString();
             toAdd = new Screening(movieName, theater, toAddScreeningDateTime, toAddScreeningEndDateTime);
             updatedCinema = generateUpdatedCinema(toAdd);
+            movie.addScreening(toAdd);
         } else {
             throw new CommandException(Messages.MESSAGE_INVALID_SCREENING);
         }
@@ -135,13 +136,12 @@ public class AddScreeningCommand extends UndoableCommand {
             if (t.equals(theater)) {
                 Theater theaterToBeUpdated = new Theater(t.getTheaterNumber());
                 ArrayList<Screening> updatedScreeningList = new ArrayList<>();
-
                 // copy existing screenings to new list
                 for (Screening s : t.getScreeningList()) {
                     updatedScreeningList.add(s);
                 }
-
                 // add the updated screening list to the theater
+                newScreening.setTheater(theaterToBeUpdated);
                 updatedScreeningList.add(newScreening);
                 theaterToBeUpdated.setScreeningList(updatedScreeningList);
                 theaterToBeUpdated.sortScreeningList();

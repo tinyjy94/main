@@ -22,7 +22,7 @@ public class NameAndStartDateContainsKeywordsPredicate implements Predicate<Movi
     public boolean test(Movie movie) {
         return nameKeywords.stream().allMatch
                 (keyword -> StringUtil.containsWordIgnoreCase(movie.getName().movieName, keyword))
-                && startDateKeywords.stream().anyMatch
+                && startDateKeywords.stream().allMatch
                 (keyword -> StringUtil.containsWordIgnoreCase(movie.getStartDate().startDate, keyword));
     }
 

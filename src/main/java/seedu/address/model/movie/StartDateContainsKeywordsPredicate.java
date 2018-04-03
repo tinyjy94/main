@@ -18,7 +18,7 @@ public class StartDateContainsKeywordsPredicate implements Predicate<Movie> {
     @Override
     public boolean test(Movie movie) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(movie.getStartDate().startDate, keyword));
+                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(movie.getStartDate().startDate, keyword));
     }
 
     @Override
