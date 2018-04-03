@@ -49,6 +49,8 @@ public class BrowserPanel extends UiPart<Region> {
     private StackPane browserPane;
     @FXML
     private Label date;
+    @FXML
+    private Label cinema;
 
     private Cinema currentCinema = null;
     private LocalDate currentDate = null;
@@ -95,8 +97,17 @@ public class BrowserPanel extends UiPart<Region> {
         }
 
         detailedDayView.getCalendarSources().setAll(theatersSchedule);
+        addNodesToBrowserPane(detailedDayView);
+    }
+
+    /**
+     * Adds node objects into browser pane
+     */
+    private void addNodesToBrowserPane(DetailedDayView detailedDayView) {
         browserPane.getChildren().add(detailedDayView);
-        browserPane.getChildren().add(date);
+        browserPane.setMargin(detailedDayView, new Insets(30, 0, 0,0 ));
+        browserPane.getChildren().add(this.cinema);
+        browserPane.getChildren().add(this.date);
     }
 
     /**
@@ -135,6 +146,8 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private void setUpDayView(DetailedDayView detailedDayView, LocalDate providedDate) {
         date.setText(providedDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT)));
+        cinema.setText(currentCinema.getName().toString());
+        detailedDayView.setLayoutY(200);
         detailedDayView.setLayout(DateControl.Layout.SWIMLANE);
         detailedDayView.setEnableCurrentTimeMarker(false);
         detailedDayView.setDate(providedDate);
