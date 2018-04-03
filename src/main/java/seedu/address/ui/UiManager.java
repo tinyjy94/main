@@ -58,14 +58,14 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow = new MainWindow(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
-            if(UserPrefs.isEncryptedFileExist()) {
-                //showAlertDialogAndWait(AlertType.INFORMATION, "Encrypted File Found!", null, "Encrypted File found in directory! To decrypt the file, Enter \n         decrypt pw/<password>" );
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Encrypted File Found!");
-                alert.setHeaderText(null);
-                alert.setContentText("Encrypted File found in directory! To decrypt the file, Enter \ndecrypt pw/<password>");
-                alert.showAndWait();
-            }
+            //if(UserPrefs.isEncryptedFileExist()) {
+              //  showAlertDialogAndWait(AlertType.INFORMATION, "Encrypted File Found!", null, "Encrypted File found in directory! To decrypt the file, Enter \n         decrypt pw/<password>" );
+            //    Alert alert = new Alert(AlertType.INFORMATION);
+            //    alert.setTitle("Encrypted File Found!");
+            //    alert.setHeaderText(null);
+            //    alert.setContentText("Encrypted File found in directory! To decrypt the file, Enter \ndecrypt pw/<password>");
+            //    alert.showAndWait();
+           // }
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);

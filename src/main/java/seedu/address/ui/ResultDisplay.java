@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.model.UserPrefs;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
@@ -30,6 +31,14 @@ public class ResultDisplay extends UiPart<Region> {
         super(FXML);
         resultDisplay.textProperty().bind(displayed);
         registerAsAnEventHandler(this);
+        //if(UserPrefs.isEncryptedFileExist()) {
+        //  showAlertDialogAndWait(AlertType.INFORMATION, "Encrypted File Found!", null, "Encrypted File found in directory! To decrypt the file, Enter \n         decrypt pw/<password>" );
+        //    Alert alert = new Alert(AlertType.INFORMATION);
+        //    alert.setTitle("Encrypted File Found!");
+        //    alert.setHeaderText(null);
+        //    alert.setContentText("Encrypted File found in directory! To decrypt the file, Enter \ndecrypt pw/<password>");
+        //    alert.showAndWait();
+         //}
     }
 
     @Subscribe

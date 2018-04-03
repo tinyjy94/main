@@ -83,6 +83,8 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
         requireNonNull(filePath);
 
         File moviePlannerFile = new File(filePath);
+        if(encryptedFilePath == null)
+            encryptedFilePath = "";
         File moviePlannerEncryptedFile = new File(encryptedFilePath);
 
         if (!moviePlannerFile.exists()) {
@@ -93,9 +95,9 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
                 //handle decryption process
 
                 //alert user encrypted file exist, and prompt user to enter the password to decrypt the file
-                UserPrefs.setEncryptedFileExist(true);
+                //UserPrefs.setEncryptedFileExist(true);
                 //when user enter password system verify
-
+                return Optional.empty();
             }
         }
 
