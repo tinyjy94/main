@@ -862,7 +862,7 @@ Extending on <<high_level_sd_scheduling>>, the following sequence diagram shows 
 image::SDForAddScreeningEventHandling.png[width="800"]
 
 [NOTE]
-`BrowserPanel` subscribes to the `MoviePlannerChangedEvent` and will load all the schedules of the cinemas in MVP.
+`BrowserPanel` subscribes to the `ReloadBrowserPanel` and will load all the schedules of the cinema in MVP.
 
 ==== Design Considerations
 *Aspect:* Displaying cinema theater's schedule
