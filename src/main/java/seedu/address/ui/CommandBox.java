@@ -18,9 +18,13 @@ import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddMovieCommand;
+import seedu.address.logic.commands.AddTheaterCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteMovieCommand;
+import seedu.address.logic.commands.DeleteTheaterCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -270,8 +274,12 @@ public class CommandBox extends UiPart<Region> {
     public HashMap<String, String> initializeKeywordColorCoding() {
         HashMap<String, String> keywordColorCode = new HashMap<>();
         keywordColorCode.put(AddCommand.COMMAND_WORD, "green");
+        keywordColorCode.put(AddMovieCommand.COMMAND_WORD, "green");
+        keywordColorCode.put(AddTheaterCommand.COMMAND_WORD, "green");
         keywordColorCode.put(ClearCommand.COMMAND_WORD, "red");
         keywordColorCode.put(DeleteCommand.COMMAND_WORD, "red");
+        keywordColorCode.put(DeleteMovieCommand.COMMAND_WORD, "red");
+        keywordColorCode.put(DeleteTheaterCommand.COMMAND_WORD, "red");
         keywordColorCode.put(EditCommand.COMMAND_WORD, "white");
         keywordColorCode.put(FindCommand.COMMAND_WORD, "blue");
         keywordColorCode.put(SelectCommand.COMMAND_WORD, "brown");

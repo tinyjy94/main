@@ -8,6 +8,7 @@ public interface ReadOnlyMessageDraft {
     String getMessage();
     String getSubject();
     String getRecipient();
+    String getRelativeFilePath();
 
     /**
      * Returns true if message and subject is not empty
@@ -23,6 +24,7 @@ public interface ReadOnlyMessageDraft {
                 || (other != null // this is first to avoid NPE below
                 && other.getMessage().equals(this.getMessage()) // state checks here onwards
                 && other.getSubject().equals(this.getSubject())
-                && other.getRecipient().equals(this.getRecipient()));
+                && other.getRecipient().equals(this.getRecipient())
+                && other.getRelativeFilePath().equals(this.getRelativeFilePath()));
     }
 }
