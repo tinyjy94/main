@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 import seedu.address.model.screening.Screening;
-
+//@@author tinyjy94
 /**
  * Represents a theater in cinema
  */

@@ -17,6 +17,11 @@ public interface MoviePlannerStorage {
     String getMoviePlannerFilePath();
 
     /**
+     * Returns the file path of the encrypted data file
+     */
+    String getEncryptedMoviePlannerFilePath();
+
+    /**
      * Returns MoviePlanner data as a {@link ReadOnlyMoviePlanner}.
      * Returns {@code Optional.empty()} if storage file is not found.
      *
@@ -29,6 +34,12 @@ public interface MoviePlannerStorage {
      * @see #getMoviePlannerFilePath()
      */
     Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath) throws DataConversionException, IOException;
+
+    /**
+     * @see #getMoviePlannerFilePath()
+     */
+    Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath, String encryptedFilePath)
+            throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyMoviePlanner} to the storage.

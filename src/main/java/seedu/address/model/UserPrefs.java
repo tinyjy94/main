@@ -11,6 +11,7 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private String moviePlannerFilePath = "data/movieplanner.xml";
+    private String encryptedMoviePlannerFilePath = "data/encryptedmovieplanner.xml";
     private String moviePlannerName = "MyMoviePlanner";
 
     public UserPrefs() {
@@ -37,6 +38,14 @@ public class UserPrefs {
         this.moviePlannerFilePath = moviePlannerFilePath;
     }
 
+    public String getEncryptedMoviePlannerFilePath() {
+        return encryptedMoviePlannerFilePath;
+    }
+
+    public void setEncryptedMoviePlannerFilePath(String encryptedMoviePlannerFilePath) {
+        this.encryptedMoviePlannerFilePath = encryptedMoviePlannerFilePath;
+    }
+
     public String getMoviePlannerName() {
         return moviePlannerName;
     }
@@ -58,12 +67,13 @@ public class UserPrefs {
 
         return Objects.equals(guiSettings, o.guiSettings)
                 && Objects.equals(moviePlannerFilePath, o.moviePlannerFilePath)
+                && Objects.equals(encryptedMoviePlannerFilePath, o.encryptedMoviePlannerFilePath)
                 && Objects.equals(moviePlannerName, o.moviePlannerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, moviePlannerFilePath, moviePlannerName);
+        return Objects.hash(guiSettings, moviePlannerFilePath, encryptedMoviePlannerFilePath, moviePlannerName);
     }
 
     @Override

@@ -18,7 +18,7 @@ import seedu.address.logic.commands.AddTheaterCommand;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
 import seedu.address.testutil.CinemaBuilder;
-
+//@@author tinyjy94
 public class AddTheaterCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =

@@ -414,9 +414,64 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Data Encryption/Decryption
+MVP provides data encryption as well as decryption to allow for safe storage and transmission of data.
 
-_{Explain here how the data encryption feature will be implemented}_
+The Sequence Diagram below shows how the components interact for the scenario where the user issues the command `encrypt pw/pass`.
+
+.Component interactions for `encrypt pw/pass` command (part 1)
+image::SDforEncryption.png[width="800"]
+
+Figure 20 shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk.
+
+.Component interactions for `encrypt pw/pass` command (part 2)
+image::SDforEncryptEventHandling.png[width="800"]
+
+[NOTE]
+`Decrypt` command also follows the same flow as shown in the Sequence Diagram above, but `DecryptionRequestEvent` is posted and `handleDecryptionRequestEvent` is called instead.
+
+==== Implementation details
+`SecurityUtil` is used to facilitate the encryption and decryption process by providing the `encrypt` and `decrypt` commands.
+
+. When `encrypt pw/<password>` or `decrypt pw/<password>` command is entered by the user, `EncryptionRequestEvent` or `DecryptionRequestEvent` will be posted to the `EventsCenter` respectively.
+. `StorageManager` will then trigger `SecurityUtil` to perform the `encrypt` or `decrypt` command.
+. `generateKey()` and `processFile()` methods within `SecurityUtil` will then be executed to perform writing of files.
+. `encrypt` will create/overwrite an `encryptedmovieplanner.xml` by encrypting the data from `movieplanner.xml` using the password provided by the user.
+. `decrypt` will create/overwrite a `movieplanner.xml` by decrypting the data from `encryptedmovieplanner.xml` using the password provided by the user.
+
+[NOTE]
+====
+* If the user enters a different password that was used to encrypt the file when decrypting, an error will be shown on the `CommandBox`.
+* `encrypt` and `decrypt` command can be performed repeatedly to overwrite the xml files.
+====
+
+
+==== Design Considerations
+
+*Aspect:* How to generate key
+
+* **Alternative 1 (current choice):** Generating the key using password input by user
+
+** Pros: Users can customise their own passwords.
+** Cons: It might not be secured as users would probably use a weak password.
+
+* **Alternative 2:** Generating the key using `java.crypto.KeyGenerator`
+
+** Pros: Password is quite strong, so even if outsiders were to obtain the data file, they would require tremendous effort to decrypt it.
+** Cons: Users cannot customise their own passwords.
+
+*Aspect:* Where to save password
+
+* **Alternative 1 (current choice):** Users remember the password themselves
+
+** Pros: As the password is not stored anywhere in the application, unauthorized personnel would not be able to reverse-engineer the application to obtain the password.
+** Cons: User will have to inform the other party about the password themselves through some secured means.
+
+* **Alternative 2:** Password saved in application
+
+** Pros: Password is not lost every time the application is started up.
+
+** Cons: Password could be reversed-engineered from the application, which defeats the purpose of encryption.
 
 // end::dataencryption[]
 
@@ -830,22 +885,29 @@ image::SDForAddScreeningEventHandling.png[width="800"]
 ** Cons: User will need to delete existing screening and add the screening with new details to perform an edit equivalent action.
 
 === Add/Delete Theater
-When creating a new `Cinema`, the number of theaters must be stated. `Theater` is then created and stored as an ArrayList<Theater> in `Cinema`. `addTheater` and `deleteTheater` are used to increase/decrease the size of the ArrayList respectively. The following sequence diagram shows how the `addTheater` command works.
+When creating a new `Cinema`, the initial number of theaters must be stated. This value will be used to create a corresponding number of `Theater`, which is stored as an ArrayList<Theater> in `Cinema`.
+
+==== Implementation details
+*Add Theater Command*
+
+When there is a need to resize the `Cinema`, the user can use `addTheater` and `deleteTheater` commands to increase/decrease the number of theaters respectively.
+
+The following sequence diagram shows the interactions inside the Logic Component for `addTheater` command.
 
 .Sequence diagram of addTheater Command
 image::AddTheaterSequenceDiagram.png[width="1000"]
 
 [NOTE]
-`deleteTheater` follows the same flow as the above diagram, but uses `DeleteTheaterCommand` and `DeleteTheaterCommandParser` instead.
-
-==== Implementation details
+`deleteTheater` follows the same flow as the diagram shown above, but uses `DeleteTheaterCommand` and `DeleteTheaterCommandParser` instead.
 
 The addition and deletion of `Theater` in `Cinema` are facilitated by `addTheater` and `deleteTheater` commands. When executing these commands, MVP will do the following
 
 . Calls `tokenize` method in `ArgumentTokenizer` to get value entered by user.
 . Calls `parseIndex` and `parseTheaters` methods in `ParserUtil` to parse input into objects required for `addTheater` command and checks for invalid format of user input.
 . Creates a `AddTheaterCommand` object to take in the `parameters`. Checks are present in `AddTheaterCommand` to ensure values provided by user is valid.
-. `AddTheaterCommand` then returns `CommandResult` to the user which shows the current status of the `Cinema`.
+. `AddTheaterCommand` then returns a `Command` object to the `LogicManager` for it to execute.
+. The `LogicManager` will then create the newly resized cinema and update the `Model`.
+. Upon success, the result of this execution will then be returned as a `CommandResult` object back to the UI.
 [NOTE]
 `parameters` above refers to parameters provided by the user. E.g. Index and number of theaters
 

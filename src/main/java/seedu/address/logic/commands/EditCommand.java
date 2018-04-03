@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMOFTHEATERS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CINEMAS;
 
 import java.util.ArrayList;
@@ -44,11 +43,10 @@ public class EditCommand extends UndoableCommand {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_NUMOFTHEATERS + "THEATERS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_EMAIL + "johndoe@cathay.com "
             + PREFIX_NUMOFTHEATERS + "3 ";
 
     public static final String MESSAGE_EDIT_CINEMA_SUCCESS = "Edited Cinema: %1$s";
