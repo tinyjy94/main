@@ -4,6 +4,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 
 import seedu.address.commons.events.storage.EncryptionRequestEvent;
 
+/**
+ * Encrypts data stored in movieplanner file.
+ */
 public class EncryptCommand extends Command {
 
     public static final String COMMAND_WORD = "encrypt";

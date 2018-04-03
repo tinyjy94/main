@@ -20,6 +20,9 @@ import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
 
+/**
+ * Parses input arguments and creates a new DecryptCommand object
+ */
 public class DecryptCommandParser implements Parser<DecryptCommand> {
 
     public DecryptCommand parse(String args) throws ParseException {
@@ -32,8 +35,8 @@ public class DecryptCommandParser implements Parser<DecryptCommand> {
         } else {
             try {
                 Key pw = SecurityUtil.generateKey(password);
-                UserPrefs pref = new UserPrefs();
 
+                UserPrefs pref = new UserPrefs();
                 Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
                 cipher.init(Cipher.DECRYPT_MODE, pw);
                 File inputFile = new File(pref.getEncryptedMoviePlannerFilePath());

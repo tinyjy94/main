@@ -12,7 +12,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyMoviePlanner;
-import seedu.address.model.UserPrefs;
 
 /**
  * A class to access MoviePlanner data stored as an xml file on the hard disk.
@@ -76,6 +75,7 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
      * Similar to {@link #readMoviePlanner()}
      *
      * @param filePath location of the data. Cannot be null
+     * @param encryptedFilePath location of the encrypted data. Returns empty String if null
      * @throws DataConversionException if the file is not in the correct format.
      */
     public Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath, String encryptedFilePath) throws DataConversionException,
@@ -92,11 +92,6 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
                 logger.info("MoviePlanner file " + moviePlannerFile + " not found");
                 return Optional.empty();
             } else {
-                //handle decryption process
-
-                //alert user encrypted file exist, and prompt user to enter the password to decrypt the file
-                //UserPrefs.setEncryptedFileExist(true);
-                //when user enter password system verify
                 return Optional.empty();
             }
         }

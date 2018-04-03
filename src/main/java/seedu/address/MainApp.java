@@ -95,7 +95,6 @@ public class MainApp extends Application {
         ReadOnlyMoviePlanner initialData;
         try {
             moviePlannerOptional = storage.readMoviePlanner();
-
             if (!moviePlannerOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample MoviePlanner");
             }

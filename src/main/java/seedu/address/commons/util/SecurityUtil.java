@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.logging.Logger;
@@ -29,7 +28,7 @@ import seedu.address.commons.events.storage.DecryptionRequestEvent;
 import seedu.address.commons.events.storage.EncryptionRequestEvent;
 
 /**
- * Contains encryption and decryption functions for files
+ * Contains encryption and decryption functions 
  */
 public class SecurityUtil {
 
@@ -105,13 +104,10 @@ public class SecurityUtil {
             fos.close();
 
         } catch (BadPaddingException bpe) {
-            // enters wrong password? encrypt pw/1  followed by decrypt pw/30
-            // should throw a GUI box to say wrong password
-            //throw new CommandException(DecryptCommand.MESSAGE_WRONGPASSWORD);
             logger.severe("Bad padding provided" + StringUtil.getDetails(bpe));
             throw new AssertionError("Bad padding provided");
         } catch (IllegalBlockSizeException ibse) {
-            // user decrypt from plaintext?
+            // user decrypt from plaintext
             logger.info("File is in plain text, no decryption required." + StringUtil.getDetails(ibse));
         }
     }
@@ -122,8 +118,6 @@ public class SecurityUtil {
     public static Key generateKey(String password) {
         try {
             byte[] inputByte = new byte[16];
-            //byte[] salt = generateSalt();
-            //KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iteration, AES_Key_Size);
             KeySpec spec = new PBEKeySpec(password.toCharArray(), inputByte, iteration, AES_Key_Size);
 
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
@@ -149,13 +143,6 @@ public class SecurityUtil {
     public void handleDecryptionRequestEvent(DecryptionRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         System.out.println("testing" + event.getPassword());
-    }
-
-    private static byte[] generateSalt() throws NoSuchAlgorithmException {
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-        byte[] salt = new byte[16];
-        sr.nextBytes(salt);
-        return salt;
     }
 
 }

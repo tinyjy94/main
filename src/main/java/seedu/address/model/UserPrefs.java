@@ -13,7 +13,6 @@ public class UserPrefs {
     private String moviePlannerFilePath = "data/movieplanner.xml";
     private String encryptedMoviePlannerFilePath = "data/encryptedmovieplanner.xml";
     private String moviePlannerName = "MyMoviePlanner";
-    //private static boolean isEncryptedFileExist = false;
 
     public UserPrefs() {
         this.setGuiSettings(500, 500, 0, 0);
@@ -30,15 +29,7 @@ public class UserPrefs {
     public void setGuiSettings(double width, double height, int x, int y) {
         guiSettings = new GuiSettings(width, height, x, y);
     }
-/**
-    public static boolean isEncryptedFileExist() {
-        return isEncryptedFileExist;
-    }
 
-    public static void setEncryptedFileExist(boolean encryptedFileExist) {
-        isEncryptedFileExist = encryptedFileExist;
-    }
-*/
     public String getMoviePlannerFilePath() {
         return moviePlannerFilePath;
     }
@@ -76,12 +67,13 @@ public class UserPrefs {
 
         return Objects.equals(guiSettings, o.guiSettings)
                 && Objects.equals(moviePlannerFilePath, o.moviePlannerFilePath)
+                && Objects.equals(encryptedMoviePlannerFilePath, o.encryptedMoviePlannerFilePath)
                 && Objects.equals(moviePlannerName, o.moviePlannerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, moviePlannerFilePath, moviePlannerName);
+        return Objects.hash(guiSettings, moviePlannerFilePath, encryptedMoviePlannerFilePath, moviePlannerName);
     }
 
     @Override
