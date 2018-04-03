@@ -39,7 +39,6 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
     private final UniqueMovieList movies;
     private final UniqueTagList tags;
     private ArrayList<Theater> theaters;
-    private final Key password;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -56,13 +55,13 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
     }
 
     public MoviePlanner() {
-        password = SecurityUtil.generateKey("dummypass");
+        //password = SecurityUtil.generateKey("dummypass");
     }
-
+/**
     public MoviePlanner(String password) {
         this.password = SecurityUtil.generateKey(password);
     }
-
+*/
     /**
      * Creates an MoviePlanner using the Cinemas, Tags and Movies in the {@code toBeCopied}
      */
@@ -306,11 +305,6 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
     @Override
     public ObservableList<Theater> getTheaterList() {
         return FXCollections.observableList(theaters);
-    }
-
-    @Override
-    public Key getPassword() {
-        return password;
     }
 
     @Override

@@ -23,8 +23,8 @@ public interface Storage extends MoviePlannerStorage, UserPrefsStorage {
     @Override
     String getMoviePlannerFilePath();
 
-    //@Override
-    //String getEncryptedMoviePlannerFilePath();
+    @Override
+    String getEncryptedMoviePlannerFilePath();
 
     @Override
     Optional<ReadOnlyMoviePlanner> readMoviePlanner() throws DataConversionException, IOException;

@@ -59,15 +59,15 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getMoviePlannerFilePath() {
         return moviePlannerStorage.getMoviePlannerFilePath();
     }
-/**
+
     @Override
     public String getEncryptedMoviePlannerFilePath() {
         return moviePlannerStorage.getEncryptedMoviePlannerFilePath();
     }
-*/
+
     @Override
     public Optional<ReadOnlyMoviePlanner> readMoviePlanner() throws DataConversionException, IOException {
-        return readMoviePlanner(moviePlannerStorage.getMoviePlannerFilePath());
+        return readMoviePlanner(moviePlannerStorage.getMoviePlannerFilePath(), moviePlannerStorage.getEncryptedMoviePlannerFilePath());
     }
 
     @Override
@@ -75,6 +75,14 @@ public class StorageManager extends ComponentManager implements Storage {
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return moviePlannerStorage.readMoviePlanner(filePath);
+    }
+
+
+    @Override
+    public Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath, String encryptedFilePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return moviePlannerStorage.readMoviePlanner(filePath, encryptedFilePath);
     }
 
     @Override
@@ -111,9 +119,10 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleEncryptionRequestEvent(EncryptionRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Encrypted and saving to file"));
         try {
-            SecurityUtil.encrypt(moviePlannerStorage.getMoviePlannerFilePath(), event.getPassword());
+            SecurityUtil.encrypt(moviePlannerStorage.getMoviePlannerFilePath(),
+                    moviePlannerStorage.getEncryptedMoviePlannerFilePath(), event.getPassword());
         } catch (IOException e) {
-            System.out.println(EncryptCommand.MESSAGE_PASSWORDTOOSHORT);
+            System.out.println(EncryptCommand.MESSAGE_ERRORENCRYPTING);
         }
     }
 
@@ -121,9 +130,10 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleDecryptionRequestEvent(DecryptionRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Decrypted and saving to file"));
         try {
-            SecurityUtil.decrypt(moviePlannerStorage.getMoviePlannerFilePath(), event.getPassword());
+            SecurityUtil.decrypt(moviePlannerStorage.getMoviePlannerFilePath(),
+                    moviePlannerStorage.getEncryptedMoviePlannerFilePath(), event.getPassword());
         } catch (IOException e) {
-            System.out.println(DecryptCommand.MESSAGE_PASSWORDTOOSHORT);
+            System.out.println(DecryptCommand.MESSAGE_WRONGPASSWORD);
         }
     }
 

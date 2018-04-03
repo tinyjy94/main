@@ -11,8 +11,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 public class EncryptCommandParser implements Parser<EncryptCommand> {
 
-    private String password;
-
     public EncryptCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PASSWORD);

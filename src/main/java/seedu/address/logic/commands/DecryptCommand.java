@@ -8,7 +8,7 @@ public class DecryptCommand extends Command {
     public static final String COMMAND_WORD = "decrypt";
     public static final String COMMAND_ALIAS = "dec";
     public static final String MESSAGE_SUCCESS = "MoviePlanner Decrypted!";
-    public static final String MESSAGE_PASSWORDTOOSHORT = "Password should be of 8 characters!";
+    public static final String MESSAGE_WRONGPASSWORD = "Password is wrong!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Decrypts MoviePlanner file to view contents.\n "
             + "Parameters: " + PREFIX_PASSWORD + " PASSWORD\n"
@@ -23,7 +23,7 @@ public class DecryptCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        //user request to encrypt
+        //user request to decrypt
         raise(new DecryptionRequestEvent(password));
         return new CommandResult(MESSAGE_SUCCESS);
     }

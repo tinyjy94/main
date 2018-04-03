@@ -64,7 +64,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        MoviePlannerStorage moviePlannerStorage = new XmlMoviePlannerStorage(userPrefs.getMoviePlannerFilePath());
+        MoviePlannerStorage moviePlannerStorage = new XmlMoviePlannerStorage(userPrefs.getMoviePlannerFilePath(), userPrefs.getEncryptedMoviePlannerFilePath());
         storage = new StorageManager(moviePlannerStorage, userPrefsStorage);
 
         initLogging(config);
@@ -95,6 +95,7 @@ public class MainApp extends Application {
         ReadOnlyMoviePlanner initialData;
         try {
             moviePlannerOptional = storage.readMoviePlanner();
+
             if (!moviePlannerOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample MoviePlanner");
             }

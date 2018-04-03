@@ -13,6 +13,7 @@ public class UserPrefs {
     private String moviePlannerFilePath = "data/movieplanner.xml";
     private String encryptedMoviePlannerFilePath = "data/encryptedmovieplanner.xml";
     private String moviePlannerName = "MyMoviePlanner";
+    private static boolean isEncryptedFileExist = false;
 
     public UserPrefs() {
         this.setGuiSettings(500, 500, 0, 0);
@@ -28,6 +29,14 @@ public class UserPrefs {
 
     public void setGuiSettings(double width, double height, int x, int y) {
         guiSettings = new GuiSettings(width, height, x, y);
+    }
+
+    public static boolean isEncryptedFileExist() {
+        return isEncryptedFileExist;
+    }
+
+    public static void setEncryptedFileExist(boolean encryptedFileExist) {
+        isEncryptedFileExist = encryptedFileExist;
     }
 
     public String getMoviePlannerFilePath() {

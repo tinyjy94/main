@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.Key;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -12,8 +11,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.SecurityUtil;
 import seedu.address.model.ReadOnlyMoviePlanner;
+import seedu.address.model.UserPrefs;
 
 /**
  * A class to access MoviePlanner data stored as an xml file on the hard disk.
@@ -23,18 +22,28 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
     private static final Logger logger = LogsCenter.getLogger(XmlMoviePlannerStorage.class);
 
     private String filePath;
+    private String encryptedFilePath;
 
     public XmlMoviePlannerStorage(String filePath) {
         this.filePath = filePath;
+    }
+
+    public XmlMoviePlannerStorage(String filePath, String encryptedFilePath) {
+        this.filePath = filePath;
+        this.encryptedFilePath = encryptedFilePath;
     }
 
     public String getMoviePlannerFilePath() {
         return filePath;
     }
 
+    public String getEncryptedMoviePlannerFilePath() {
+        return encryptedFilePath;
+    }
+
     @Override
     public Optional<ReadOnlyMoviePlanner> readMoviePlanner() throws DataConversionException, IOException {
-        return readMoviePlanner(filePath);
+        return readMoviePlanner(filePath, encryptedFilePath);
     }
 
     /**
@@ -42,7 +51,7 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
      *
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
-     */
+    */
     public Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath) throws DataConversionException,
             IOException {
         requireNonNull(filePath);
@@ -52,6 +61,42 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
         if (!moviePlannerFile.exists()) {
             logger.info("MoviePlanner file " + moviePlannerFile + " not found");
             return Optional.empty();
+        }
+
+        XmlSerializableMoviePlanner xmlMoviePlanner = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        try {
+            return Optional.of(xmlMoviePlanner.toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + moviePlannerFile + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
+    /**
+     * Similar to {@link #readMoviePlanner()}
+     *
+     * @param filePath location of the data. Cannot be null
+     * @throws DataConversionException if the file is not in the correct format.
+     */
+    public Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath, String encryptedFilePath) throws DataConversionException,
+            IOException {
+        requireNonNull(filePath);
+
+        File moviePlannerFile = new File(filePath);
+        File moviePlannerEncryptedFile = new File(encryptedFilePath);
+
+        if (!moviePlannerFile.exists()) {
+            if (!moviePlannerEncryptedFile.exists()) {
+                logger.info("MoviePlanner file " + moviePlannerFile + " not found");
+                return Optional.empty();
+            } else {
+                //handle decryption process
+
+                //alert user encrypted file exist, and prompt user to enter the password to decrypt the file
+                UserPrefs.setEncryptedFileExist(true);
+                //when user enter password system verify
+
+            }
         }
 
         XmlSerializableMoviePlanner xmlMoviePlanner = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
@@ -79,9 +124,7 @@ public class XmlMoviePlannerStorage implements MoviePlannerStorage {
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        //SecurityUtil.decrypt(file, moviePlanner.getPassword());
         XmlFileStorage.saveDataToFile(file, new XmlSerializableMoviePlanner(moviePlanner));
-        //SecurityUtil.encrypt(file, moviePlanner.getPassword());
     }
 
     @Override

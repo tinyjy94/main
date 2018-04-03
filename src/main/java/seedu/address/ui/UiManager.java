@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.io.File;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -7,6 +9,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
@@ -55,7 +58,14 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow = new MainWindow(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
-
+            if(UserPrefs.isEncryptedFileExist()) {
+                //showAlertDialogAndWait(AlertType.INFORMATION, "Encrypted File Found!", null, "Encrypted File found in directory! To decrypt the file, Enter \n         decrypt pw/<password>" );
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Encrypted File Found!");
+                alert.setHeaderText(null);
+                alert.setContentText("Encrypted File found in directory! To decrypt the file, Enter \ndecrypt pw/<password>");
+                alert.showAndWait();
+            }
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
