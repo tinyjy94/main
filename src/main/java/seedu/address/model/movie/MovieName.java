@@ -2,7 +2,7 @@ package seedu.address.model.movie;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-
+//@@author slothhy
 /**
  * Represents a Movie's name in the movie planner.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}

@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 /**
- * Provides a handle to a cinema card in the cinema list panel.
+ * Provides a handle to a movie card in the cinema list panel.
  */
 public class MovieCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";

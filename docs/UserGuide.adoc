@@ -303,31 +303,6 @@ Edits the name of the 2nd cinema to be `Golden Village`.
 
 Keyword appearance on Command Line: [purple-background white]`edit`
 
-=== Editing a movie : `editmovie` | `em`
-
-`Available in V1.2`
-
-Alias: `em`
-
-Edits an existing movie in MVP. +
-Format: `editmovie INDEX [n/MOVIE_NAME] [d/DURATION] [r/RATING] [sd/START_DATE] [t/TAG]...`
-
-[NOTE]
-====
-* Edits the movie at the specified `INDEX`. The index refers to the index number shown in the last movie listing. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-====
-
-Examples:
-
-* `editmovie 1 d/90 r/M18` +
-Edits the duration and rating of the 1st movie to be `90` and `M18` respectively.
-* `em 2 n/Spiderman 2` +
-Edits the name of the 2nd movie to be `Spiderman 2`.
-
-Keyword appearance on Command Line: [purple-background white]`editmovie`
-
 === Email schedule: `email` | `eml`
 
 Alias: `eml`
