@@ -1,6 +1,7 @@
 package seedu.address.email.message;
 
 /**
+ * @author chanyikwai
  * Contains a list of Email Message Drafts
  */
 public class DraftList {

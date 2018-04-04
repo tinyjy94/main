@@ -5,6 +5,7 @@ import seedu.address.email.message.MessageDraft;
 import seedu.address.email.message.ReadOnlyMessageDraft;
 
 /**
+ * @author chanyikwai
  * Holds a list of messageDraft
  * Handles how messageDraft are created and edited
  */

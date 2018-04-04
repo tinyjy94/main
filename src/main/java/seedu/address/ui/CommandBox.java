@@ -118,6 +118,7 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * @author chanyikwai
      * Split text in text field into respective components for processing
      */
     private void checkChangesInCommandBoxInput() {
@@ -150,6 +151,7 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * @author chanyikwai
      * Creates a label to replace the command keyword
      */
     private void makeKeywordLabelVisible(String commandKeyword, int offset) {

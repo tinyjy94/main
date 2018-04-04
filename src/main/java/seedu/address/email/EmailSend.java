@@ -24,6 +24,7 @@ import seedu.address.email.exceptions.EmailRecipientsEmptyException;
 import seedu.address.email.message.ReadOnlyMessageDraft;
 
 /**
+ * @author chanyikwai
  * Handles the process of sending email via JavaAPI
  */
 public class EmailSend {

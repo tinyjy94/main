@@ -13,6 +13,7 @@ import seedu.address.email.message.MessageDraft;
 import seedu.address.email.message.ReadOnlyMessageDraft;
 
 /**
+ * @author chanyikwai
  * Handles the process of sending out email via MVP
  */
 public class EmailManager extends ComponentManager implements Email {

@@ -295,6 +295,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * @author chanyikwai
      * Toggle to next tab in Main Window.
      */
     @FXML
