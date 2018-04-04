@@ -25,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.testutil.EmailBuilder;
 import seedu.address.testutil.EmailUtil;
 
+//@@author chanyikwai
 public class EmailCommandSystemTest extends MoviePlannerSystemTest {
 
     @Test

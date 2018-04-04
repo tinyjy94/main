@@ -13,6 +13,7 @@ import seedu.address.email.exceptions.EmailRecipientsEmptyException;
 import seedu.address.email.message.MessageDraft;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+//@@author chanyikwai
 /**
  * Composes an email draft or sends the draft out using gmail account
  */

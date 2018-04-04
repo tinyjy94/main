@@ -14,6 +14,7 @@ import seedu.address.email.EmailFunction;
 import seedu.address.logic.commands.EmailCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author chanyikwai
 /**
  * Parses input arguments and creates a new EmailCommand object
  */

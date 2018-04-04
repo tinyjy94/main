@@ -117,6 +117,7 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    //@@author chanyikwai
     /**
      * Split text in text field into respective components for processing
      */
@@ -149,6 +150,7 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.setStyle(defaultFontSize);
     }
 
+    //@@author chanyikwai
     /**
      * Creates a label to replace the command keyword
      */
@@ -273,8 +275,8 @@ public class CommandBox extends UiPart<Region> {
         styleClass.add(ERROR_STYLE_CLASS);
     }
 
+    //@@author chanyikwai
     /**
-     * @author chanyikwai
      * Assign keywords with color coding
      */
     public HashMap<String, String> initializeKeywordColorCoding() {

@@ -1,5 +1,6 @@
 package seedu.address.email.message;
 
+//@@author chanyikwai
 /**
  * Represents a Email Draft Message in MVP.
  */
