@@ -80,10 +80,6 @@ public class MoviePlannerParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-//        case EditMovieCommand.COMMAND_ALIAS:
-//        case EditMovieCommand.COMMAND_WORD:
-//            return new EditMovieCommandParser().parse(arguments);
-
         case EmailCommand.COMMAND_ALIAS:
         case EmailCommand.COMMAND_WORD:
             return new EmailCommandParser().parse(arguments);
