@@ -6,9 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddMovieCommand;
 import seedu.address.model.movie.Movie;
-
+//@@author slothhy
 /**
  * A utility class for Movie.
  */
@@ -19,7 +19,7 @@ public class MovieUtil {
      * Returns an add command string for adding the {@code movie}.
      */
     public static String getAddCommand(Movie movie) {
-        return AddCommand.COMMAND_WORD + " " + getMovieDetails(movie);
+        return AddMovieCommand.COMMAND_WORD + " " + getMovieDetails(movie);
     }
 
     /**
@@ -27,7 +27,7 @@ public class MovieUtil {
      * Returns an add command string for adding the {@code movie}.
      */
     public static String getAddUsingAliasCommand(Movie movie) {
-        return AddCommand.COMMAND_ALIAS + " " + getMovieDetails(movie);
+        return AddMovieCommand.COMMAND_ALIAS + " " + getMovieDetails(movie);
     }
 
     /**

@@ -11,7 +11,7 @@ import seedu.address.model.cinema.Theater;
 import seedu.address.model.screening.Screening;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-
+//@@author slothhy
 /**
  * Represents a Movie in the movie planner.
  * Guarantees: details are present and not null, field values are validated, immutable.

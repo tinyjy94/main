@@ -16,7 +16,7 @@ import seedu.address.model.movie.MovieName;
 import seedu.address.model.movie.Rating;
 import seedu.address.model.movie.StartDate;
 import seedu.address.testutil.Assert;
-
+//@@author slothhy
 public class XmlAdaptedMovieTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_DURATION = "+651234";

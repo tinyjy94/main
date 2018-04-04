@@ -28,7 +28,7 @@ import seedu.address.model.movie.StartDate;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
 import seedu.address.model.movie.exceptions.MovieNotFoundException;
 import seedu.address.model.tag.Tag;
-
+//@@author slothhy-unused
 /**
  * Edits the details of an existing movie in the movie planner.
  */
