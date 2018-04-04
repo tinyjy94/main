@@ -12,12 +12,14 @@ import seedu.address.logic.commands.AddScreeningCommand;
 import seedu.address.logic.commands.AddTheaterCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteMovieCommand;
+import seedu.address.logic.commands.DeleteScreeningCommand;
 import seedu.address.logic.commands.DeleteTheaterCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditMovieCommand;
 import seedu.address.logic.commands.EmailCommand;
+import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMovieCommand;
@@ -78,10 +80,6 @@ public class MoviePlannerParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case EditMovieCommand.COMMAND_ALIAS:
-        case EditMovieCommand.COMMAND_WORD:
-            return new EditMovieCommandParser().parse(arguments);
-
         case EmailCommand.COMMAND_ALIAS:
         case EmailCommand.COMMAND_WORD:
             return new EmailCommandParser().parse(arguments);
@@ -97,6 +95,10 @@ public class MoviePlannerParser {
         case DeleteMovieCommand.COMMAND_ALIAS:
         case DeleteMovieCommand.COMMAND_WORD:
             return new DeleteMovieCommandParser().parse(arguments);
+
+        case DeleteScreeningCommand.COMMAND_ALIAS:
+        case DeleteScreeningCommand.COMMAND_WORD:
+            return new DeleteScreeningCommandParser().parse(arguments);
 
         case DeleteTheaterCommand.COMMAND_ALIAS:
         case DeleteTheaterCommand.COMMAND_WORD:
@@ -117,6 +119,14 @@ public class MoviePlannerParser {
         case FindMovieCommand.COMMAND_ALIAS:
         case FindMovieCommand.COMMAND_WORD:
             return new FindMovieCommandParser().parse(arguments);
+
+        case EncryptCommand.COMMAND_ALIAS:
+        case EncryptCommand.COMMAND_WORD:
+            return new EncryptCommandParser().parse(arguments);
+
+        case DecryptCommand.COMMAND_ALIAS:
+        case DecryptCommand.COMMAND_WORD:
+            return new DecryptCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_ALIAS:
         case ListCommand.COMMAND_WORD:

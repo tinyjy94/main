@@ -19,12 +19,12 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
+        <URL value="@ModernTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+      <VBox styleClass="picture-as-background">
+        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER" styleClass="transparent-background">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
@@ -55,30 +55,30 @@
           </padding>
         </StackPane>
 
-        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS" styleClass="transparent-background">
 
-          <VBox fx:id="tabsPanel" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="tabsPanel" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false" styleClass="transparent-background">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="tabsPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="tabsPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="transparent-background"/>
           </VBox>
 
-          <VBox fx:id="movieList" minWidth="250" prefWidth="250" SplitPane.resizableWithParent="false">
+          <VBox fx:id="movieList" minWidth="250" prefWidth="250" SplitPane.resizableWithParent="false" styleClass="transparent-background">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="movieListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="movieListPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="transparent-background"/>
           </VBox>
 
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
+          <StackPane fx:id="browserPlaceholder" prefWidth="340" styleClass="transparent-background">
             <padding>
               <Insets top="0" right="10" bottom="10" left="10" />
             </padding>
           </StackPane>
         </SplitPane>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" styleClass="transparent-background"/>
       </VBox>
     </Scene>
   </scene>

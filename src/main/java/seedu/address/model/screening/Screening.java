@@ -6,13 +6,14 @@ import java.util.Objects;
 
 import seedu.address.model.cinema.Theater;
 
+//@@author qwlai
 /**
  * Represents a movie screening in a cinema theater
  */
 public class Screening {
 
     private final String movieName;
-    private final Theater theater;
+    private Theater theater;
     private final LocalDateTime screeningDateTime;
     private final LocalDateTime screeningEndDateTime;
 
@@ -38,6 +39,10 @@ public class Screening {
 
     public LocalDateTime getScreeningEndDateTime() {
         return screeningEndDateTime;
+    }
+
+    public void setTheater(Theater t) {
+        this.theater = t;
     }
 
     @Override

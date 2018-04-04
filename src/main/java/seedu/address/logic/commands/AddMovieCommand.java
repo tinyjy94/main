@@ -10,7 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
-
+//@@author slothhy
 /**
  * Adds a movie to the movie planner.
  */
@@ -25,6 +25,7 @@ public class AddMovieCommand extends UndoableCommand {
             + PREFIX_DURATION + "DURATION "
             + PREFIX_RATING + "RATING "
             + PREFIX_STARTDATE + "STARTDATE "
+            + PREFIX_TAG + "TAG "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "The Incredibles "
             + PREFIX_DURATION + "90 "

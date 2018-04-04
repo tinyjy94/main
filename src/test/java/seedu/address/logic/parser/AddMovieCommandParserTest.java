@@ -39,7 +39,7 @@ import seedu.address.model.movie.MovieName;
 import seedu.address.model.movie.Rating;
 import seedu.address.model.movie.StartDate;
 import seedu.address.testutil.MovieBuilder;
-
+//@@author slothhy
 public class AddMovieCommandParserTest {
     private AddMovieCommandParser parser = new AddMovieCommandParser();
 

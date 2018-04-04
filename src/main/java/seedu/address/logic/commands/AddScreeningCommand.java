@@ -13,8 +13,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ReloadBrowserPanelEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
@@ -23,6 +25,7 @@ import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.screening.Screening;
 
+//@author qwlai
 /**
  * Adds a movie screening to a cinema theater.
  */
@@ -87,6 +90,7 @@ public class AddScreeningCommand extends UndoableCommand {
 
         try {
             model.updateCinema(cinema, updatedCinema);
+            EventsCenter.getInstance().post(new ReloadBrowserPanelEvent(updatedCinema, toAddScreeningEndDateTime));
         } catch (DuplicateCinemaException dce) {
             throw new CommandException(AddCommand.MESSAGE_DUPLICATE_CINEMA);
         } catch (CinemaNotFoundException cnfe) {
@@ -106,6 +110,7 @@ public class AddScreeningCommand extends UndoableCommand {
             String movieName = movie.getName().toString();
             toAdd = new Screening(movieName, theater, toAddScreeningDateTime, toAddScreeningEndDateTime);
             updatedCinema = generateUpdatedCinema(toAdd);
+            movie.addScreening(toAdd);
         } else {
             throw new CommandException(Messages.MESSAGE_INVALID_SCREENING);
         }
@@ -133,21 +138,28 @@ public class AddScreeningCommand extends UndoableCommand {
                 Theater theaterToBeUpdated = new Theater(t.getTheaterNumber());
                 ArrayList<Screening> updatedScreeningList = new ArrayList<>();
 
-                // copy existing screenings to new list
-                for (Screening s : t.getScreeningList()) {
-                    updatedScreeningList.add(s);
-                }
-
-                // add the updated screening list to the theater
-                updatedScreeningList.add(newScreening);
-                theaterToBeUpdated.setScreeningList(updatedScreeningList);
-                theaterToBeUpdated.sortScreeningList();
+                addScreeningsToExistingTheater(t, theaterToBeUpdated, updatedScreeningList, newScreening);
                 updatedTheaterList.add(theaterToBeUpdated);
             } else {
                 updatedTheaterList.add(t);
             }
         }
         return updatedTheaterList;
+    }
+
+    /**
+     * Populates the list of screenings in a theater in the given list with new Screening
+     */
+    private void addScreeningsToExistingTheater(Theater theater, Theater updatedTheater,
+                                                ArrayList<Screening> screeningList, Screening newScreening) {
+        for (Screening s : theater.getScreeningList()) {
+            screeningList.add(s);
+        }
+
+        newScreening.setTheater(updatedTheater);
+        screeningList.add(newScreening);
+        updatedTheater.setScreeningList(screeningList);
+        updatedTheater.sortScreeningList();
     }
 
     /**

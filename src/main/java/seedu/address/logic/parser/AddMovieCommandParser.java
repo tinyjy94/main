@@ -20,7 +20,7 @@ import seedu.address.model.movie.Rating;
 import seedu.address.model.movie.StartDate;
 import seedu.address.model.tag.Tag;
 
-
+//@@author slothhy
 /**
  * Parses input arguments and creates a new AddMovieCommand object
  */

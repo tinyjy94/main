@@ -10,7 +10,12 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.MoviePlannerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.DecryptionRequestEvent;
+import seedu.address.commons.events.storage.EncryptionRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.SecurityUtil;
+import seedu.address.logic.commands.DecryptCommand;
+import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.model.ReadOnlyMoviePlanner;
 import seedu.address.model.UserPrefs;
 
@@ -54,12 +59,18 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getMoviePlannerFilePath() {
         return moviePlannerStorage.getMoviePlannerFilePath();
     }
+    //@@author tinyjy94
+    @Override
+    public String getEncryptedMoviePlannerFilePath() {
+        return moviePlannerStorage.getEncryptedMoviePlannerFilePath();
+    }
 
     @Override
     public Optional<ReadOnlyMoviePlanner> readMoviePlanner() throws DataConversionException, IOException {
-        return readMoviePlanner(moviePlannerStorage.getMoviePlannerFilePath());
+        return readMoviePlanner(moviePlannerStorage.getMoviePlannerFilePath(),
+                moviePlannerStorage.getEncryptedMoviePlannerFilePath());
     }
-
+    //@@author
     @Override
     public Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath)
             throws DataConversionException, IOException {
@@ -67,6 +78,14 @@ public class StorageManager extends ComponentManager implements Storage {
         return moviePlannerStorage.readMoviePlanner(filePath);
     }
 
+    //@@author tinyjy94
+    @Override
+    public Optional<ReadOnlyMoviePlanner> readMoviePlanner(String filePath, String encryptedFilePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return moviePlannerStorage.readMoviePlanner(filePath, encryptedFilePath);
+    }
+    //@@author
     @Override
     public void saveMoviePlanner(ReadOnlyMoviePlanner moviePlanner) throws IOException {
         saveMoviePlanner(moviePlanner, moviePlannerStorage.getMoviePlannerFilePath());
@@ -95,4 +114,28 @@ public class StorageManager extends ComponentManager implements Storage {
         moviePlannerStorage.backupMoviePlanner(moviePlanner);
     }
 
+    // ================ Security methods ==============================
+    //@@author tinyjy94
+    @Subscribe
+    public void handleEncryptionRequestEvent(EncryptionRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Encrypted and saving to file"));
+        try {
+            SecurityUtil.encrypt(moviePlannerStorage.getMoviePlannerFilePath(),
+                    moviePlannerStorage.getEncryptedMoviePlannerFilePath(), event.getPassword());
+        } catch (IOException e) {
+            System.out.println(EncryptCommand.MESSAGE_ERRORENCRYPTING);
+        }
+    }
+
+    @Subscribe
+    public void handleDecryptionRequestEvent(DecryptionRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Decrypted and saving to file"));
+        try {
+            SecurityUtil.decrypt(moviePlannerStorage.getMoviePlannerFilePath(),
+                    moviePlannerStorage.getEncryptedMoviePlannerFilePath(), event.getPassword());
+        } catch (IOException e) {
+            System.out.println(DecryptCommand.MESSAGE_WRONGPASSWORD);
+        }
+    }
+    //@@author
 }

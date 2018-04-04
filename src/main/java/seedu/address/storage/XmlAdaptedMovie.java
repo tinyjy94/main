@@ -16,7 +16,7 @@ import seedu.address.model.movie.MovieName;
 import seedu.address.model.movie.Rating;
 import seedu.address.model.movie.StartDate;
 import seedu.address.model.tag.Tag;
-
+//@@author slothhy
 /**
  * JAXB-friendly version of the Movie.
  */

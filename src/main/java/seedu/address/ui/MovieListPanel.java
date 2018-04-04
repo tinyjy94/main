@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.movie.Movie;
 
+//@@author qwlai
 /**
  * Panel containing the list of movies.
  */

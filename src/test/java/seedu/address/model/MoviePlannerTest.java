@@ -11,7 +11,6 @@ import static seedu.address.testutil.TypicalCinemas.getTypicalMoviePlanner;
 import static seedu.address.testutil.TypicalMovies.ABTM4;
 import static seedu.address.testutil.TypicalMovies.BLACK_PANTHER;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,7 +23,6 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.SecurityUtil;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
 import seedu.address.model.movie.Movie;
@@ -141,7 +139,6 @@ public class MoviePlannerTest {
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
         private final ObservableList<Movie> movies = FXCollections.observableArrayList();
         private final ObservableList<Theater> theaters = FXCollections.observableArrayList();
-        private final Key password = SecurityUtil.generateKey("dummypass");
 
         MoviePlannerStub(Collection<Cinema> cinemas, Collection<Theater> theaters,
                          Collection<? extends Tag> tags, Collection<Movie> movies) {
@@ -171,10 +168,6 @@ public class MoviePlannerTest {
             return theaters;
         }
 
-        @Override
-        public Key getPassword() {
-            return password;
-        }
     }
 
 }

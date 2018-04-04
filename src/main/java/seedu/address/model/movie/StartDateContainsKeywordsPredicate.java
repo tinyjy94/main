@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
-
+//@@author slothhy
 /**
  * Tests that a {@code Movie}'s {@code StartDate} matches any of the keywords given.
  */
@@ -18,7 +18,7 @@ public class StartDateContainsKeywordsPredicate implements Predicate<Movie> {
     @Override
     public boolean test(Movie movie) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(movie.getStartDate().startDate, keyword));
+                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(movie.getStartDate().startDate, keyword));
     }
 
     @Override

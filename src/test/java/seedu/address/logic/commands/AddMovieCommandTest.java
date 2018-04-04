@@ -37,7 +37,7 @@ import seedu.address.model.movie.exceptions.MovieNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.MovieBuilder;
-
+//@@author slothhy
 public class AddMovieCommandTest {
 
     @Rule

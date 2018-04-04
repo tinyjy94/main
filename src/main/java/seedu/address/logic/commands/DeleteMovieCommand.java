@@ -10,7 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.movie.Movie;
 import seedu.address.model.movie.exceptions.MovieNotFoundException;
-
+//@@author slothhy
 /**
  * Deletes a movie identified using it's last displayed index from the movie planner.
  */
@@ -39,6 +39,7 @@ public class DeleteMovieCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() {
         requireNonNull(movieToDelete);
         try {
+            movieToDelete.deleteScreenings();
             model.deleteMovie(movieToDelete);
         } catch (MovieNotFoundException mnfe) {
             throw new AssertionError("The target movie cannot be missing");

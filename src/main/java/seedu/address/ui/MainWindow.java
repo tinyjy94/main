@@ -231,6 +231,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Initializes the history snapshot.
+     *
      */
     private void initHistory() {
         historySnapshot = logic.getHistorySnapshot();

@@ -49,20 +49,23 @@ public class XmlMoviePlannerStorageTest {
         assertFalse(readMoviePlanner("NonExistentFile.xml").isPresent());
     }
 
-    /**
-     * @Test public void read_notXmlFormat_exceptionThrown() throws Exception {
-     * thrown.expect(DataConversionException.class);
-     * readMoviePlanner("NotXmlFormatMoviePlanner.xml");
-     * <p>
-     * /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-     * That means you should not have more than one exception test in one method
-     * <p>
-     * }
-     * @Test public void readMoviePlanner_invalidCinemaMoviePlanner_throwDataConversionException() throws Exception {
-     * thrown.expect(DataConversionException.class);
-     * readMoviePlanner("invalidCinemaMoviePlanner.xml");
-     * }
-     */
+
+    @Test
+    public void read_notXmlFormat_exceptionThrown() throws Exception {
+        thrown.expect(DataConversionException.class);
+        readMoviePlanner("NotXmlFormatMoviePlanner.xml");
+    }
+
+    /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
+    That means you should not have more than one exception test in one method
+    <p>
+    */
+    @Test
+    public void readMoviePlanner_invalidCinemaMoviePlanner_throwDataConversionException() throws Exception {
+        thrown.expect(DataConversionException.class);
+        readMoviePlanner("invalidCinemaMoviePlanner.xml");
+    }
+
     @Test
     public void readMoviePlanner_invalidAndValidCinemaMoviePlanner_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);

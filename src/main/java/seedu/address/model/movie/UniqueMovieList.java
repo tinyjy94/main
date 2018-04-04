@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.movie.exceptions.DuplicateMovieException;
 import seedu.address.model.movie.exceptions.MovieNotFoundException;
-
+//@@author slothhy
 /**
  * A list of movies that enforces uniqueness between its elements and does not allow nulls.
  *

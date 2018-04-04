@@ -10,7 +10,7 @@ import seedu.address.model.movie.Rating;
 import seedu.address.model.movie.StartDate;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
-
+//@@author slothhy
 /**
  * A utility class to help with building Movie objects.
  */

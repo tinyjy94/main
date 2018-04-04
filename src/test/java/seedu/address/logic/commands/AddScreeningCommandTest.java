@@ -29,6 +29,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.movie.StartDate;
 import seedu.address.testutil.TypicalMovies;
 
+//@@author qwlai
 public class AddScreeningCommandTest {
 
     private static final int VALID_THEATER_NUMBER = 1;

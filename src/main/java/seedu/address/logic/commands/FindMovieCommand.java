@@ -14,7 +14,7 @@ import seedu.address.model.movie.NameContainsKeywordsPredicate;
 import seedu.address.model.movie.StartDateAndTagContainsKeywordsPredicate;
 import seedu.address.model.movie.StartDateContainsKeywordsPredicate;
 import seedu.address.model.movie.TagContainsKeywordsPredicate;
-
+//@@author slothhy
 /**
  * Finds and lists all movies in movie planner whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.

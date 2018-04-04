@@ -133,7 +133,7 @@ public class CommandBoxTest extends GuiUnitTest {
     @Test
     public void initializeKeywordColorCoding_isAddGreen_returnTrue() {
         String addCommandKeyword = "add";
-        String correctKeywordColor = "green";
+        String correctKeywordColor = "white";
         assertEqualCommandKeywordTag(addCommandKeyword, correctKeywordColor);
     }
 
@@ -147,7 +147,7 @@ public class CommandBoxTest extends GuiUnitTest {
     @Test
     public void initializeKeywordColorCoding_isListYellow_returnTrue() {
         String listCommandKeyword = "list";
-        String correctKeywordColor = "yellow";
+        String correctKeywordColor = "white";
         assertEqualCommandKeywordTag(listCommandKeyword, correctKeywordColor);
     }
 
@@ -161,7 +161,7 @@ public class CommandBoxTest extends GuiUnitTest {
     @Test
     public void initializeKeywordColorCoding_isDeleteRed_returnTrue() {
         String deleteCommandKeyword = "delete";
-        String correctKeywordColor = "red";
+        String correctKeywordColor = "white";
         assertEqualCommandKeywordTag(deleteCommandKeyword, correctKeywordColor);
     }
 
@@ -175,7 +175,7 @@ public class CommandBoxTest extends GuiUnitTest {
     @Test
     public void initializeKeywordColorCoding_isFindBlue_returnTrue() {
         String findCommandKeyword = "find";
-        String correctKeywordColor = "blue";
+        String correctKeywordColor = "white";
         assertEqualCommandKeywordTag(findCommandKeyword, correctKeywordColor);
     }
 
@@ -189,7 +189,7 @@ public class CommandBoxTest extends GuiUnitTest {
     @Test
     public void initializeKeywordColorCoding_isClearRed_returnTrue() {
         String clearCommandKeyword = "clear";
-        String correctKeywordColor = "red";
+        String correctKeywordColor = "white";
         assertEqualCommandKeywordTag(clearCommandKeyword, correctKeywordColor);
     }
 
@@ -203,7 +203,7 @@ public class CommandBoxTest extends GuiUnitTest {
     @Test
     public void initializeKeywordColorCoding_isHelpBlue_returnTrue() {
         String helpCommandKeyword = "help";
-        String correctKeywordColor = "blue";
+        String correctKeywordColor = "white";
         assertEqualCommandKeywordTag(helpCommandKeyword, correctKeywordColor);
     }
 

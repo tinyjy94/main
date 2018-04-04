@@ -300,6 +300,7 @@ public class ParserUtil {
         return theaterList;
     }
 
+    //@@author qwlai
     /**
      * Parses {@code String theater} into a {@code int theaterNumber}.
      * Leading and trailing whitespaces will be trimmed.
@@ -308,11 +309,15 @@ public class ParserUtil {
     public static int parseTheaterNumber(String theater) throws IllegalValueException {
         requireNonNull(theater);
         String trimmedTheaterNumber = theater.trim();
-        int theaterNumber = Integer.parseInt(trimmedTheaterNumber);
-        if (theaterNumber <= 0) {
+        try {
+            int theaterNumber = Integer.parseInt(trimmedTheaterNumber);
+            if (theaterNumber <= 0) {
+                throw new IllegalValueException(Theater.MESSAGE_THEATER_CONSTRAINTS);
+            }
+            return theaterNumber;
+        } catch (NumberFormatException nfe) {
             throw new IllegalValueException(Theater.MESSAGE_THEATER_CONSTRAINTS);
         }
-        return theaterNumber;
     }
 
     /**
@@ -333,6 +338,7 @@ public class ParserUtil {
         return screeningDateTime;
     }
 
+    //@@author
     /**
      * Parses a {@code Optional<String> emailMessage} into an {@code String}
      * See header comment of this class regarding the use of {@code Optional} parameters.

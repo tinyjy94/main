@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,7 +13,6 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.SecurityUtil;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
 import seedu.address.model.cinema.UniqueCinemaList;
@@ -39,7 +37,6 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
     private final UniqueMovieList movies;
     private final UniqueTagList tags;
     private ArrayList<Theater> theaters;
-    private final Key password;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -56,11 +53,7 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
     }
 
     public MoviePlanner() {
-        password = SecurityUtil.generateKey("dummypass");
-    }
 
-    public MoviePlanner(String password) {
-        this.password = SecurityUtil.generateKey(password);
     }
 
     /**
@@ -306,11 +299,6 @@ public class MoviePlanner implements ReadOnlyMoviePlanner {
     @Override
     public ObservableList<Theater> getTheaterList() {
         return FXCollections.observableList(theaters);
-    }
-
-    @Override
-    public Key getPassword() {
-        return password;
     }
 
     @Override

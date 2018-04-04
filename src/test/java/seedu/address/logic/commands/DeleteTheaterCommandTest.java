@@ -28,7 +28,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Theater;
 import seedu.address.testutil.CinemaBuilder;
-
+//@@author tinyjy94
 /**
  * Contains integration tests (interaction with the Model, UndoCommand) and unit tests for DeleteTheaterCommand.
  */

@@ -18,6 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.movie.MovieName;
 import seedu.address.model.screening.Screening;
 
+//@@author qwlai
 /**
  * JAXB-friendly adapted version of the Screening.
  */
