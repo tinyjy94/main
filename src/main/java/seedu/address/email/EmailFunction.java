@@ -1,7 +1,7 @@
 package seedu.address.email;
 
+//@@author chanyikwai
 /**
- * @author chanyikwai
  * Keeps track of called Email Function
  */
 public class EmailFunction {

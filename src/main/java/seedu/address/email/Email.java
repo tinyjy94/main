@@ -8,8 +8,8 @@ import seedu.address.email.exceptions.EmailRecipientsEmptyException;
 import seedu.address.email.message.MessageDraft;
 import seedu.address.email.message.ReadOnlyMessageDraft;
 
+//@@author chanyikwai
 /**
- * @author chanyikwai
  * Email component and relevant API
  */
 public interface Email {

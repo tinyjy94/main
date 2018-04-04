@@ -1,7 +1,7 @@
 package seedu.address.email.message;
 
+//@@author chanyikwai
 /**
- * @author chanyikwai
  * A read-only immutable interface for a email message in the addressbook.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */

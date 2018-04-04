@@ -16,6 +16,7 @@ import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.exceptions.DuplicateCinemaException;
 import seedu.address.testutil.CinemaUtil;
 
+//@@author chanyikwai
 public class KeyShortcutSystemTest extends MoviePlannerSystemTest {
 
     protected final GuiRobot guiRobot = new GuiRobot();
