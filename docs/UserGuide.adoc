@@ -625,16 +625,14 @@ There is no need to save manually.
 
 |===
 |Feature|Command|Alias|Example
-|*Add* |`add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... th/THEATER`|`a`
-|`add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague th/3`
+|*Add* |`add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS th/THEATER`|`a`
+|`add n/Clement We Cinema p/62224444 e/wecinema@wecinema.com a/123, Clementi Rd, 1234665 th/3`
 |*AddMovie* |`addmovie n/MOVIE_NAME d/DURATION r/RATING sd/START_DATE t/TAG`|`am`
-|`addmovie n/The Incredibles d/115 r/PG sd/18/11/2014 cat/Animation`
+|`addmovie n/The Incredibles d/115 r/PG sd/18/11/2014 t/Animation`
 |*AddScreening* |`addscreening m/MOVIE_INDEX c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME` |`as`
 |`addscreening m/1 c/2 th/1 h/05/05/2015 13:30`
 |*AddTheater* | `addtheater CINEMA_INDEX th/NUMBER_OF_THEATER` |`at` |`addtheater 1 th/2`
 |*Clear* |`clear`| `c`| `clear`
-|*Copy* |`copy c/CINEMA th/THEATER sd/SOURCE_DATE tc/TARGET_CINEMA tth/TARGET_THEATER td/TARGET_DATE`
-|`cp` |`copy c/Cathay th/1 sd/14/03/2018 tc/Cathay tth/1 td/15/03/2018`
 |*Delete* |`delete INDEX` |`d`
 |`delete 3`
 |*DeleteMovie* |`delete INDEX` |`dm`
@@ -642,8 +640,8 @@ There is no need to save manually.
  `delete 2`
 |*DeleteScreening* |`deletescreening c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME` |`ds`
 |`deletescreening c/2 th/1 h/05/05/2015 13:30`
-|*DeleteTheater* |`deletetheater n/CINEMA_NAME th/NUMBER_OF_THEATER` |`dt` |`deletetheater n/Cathay th/9`
-|*Edit* |`edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` |`e`
+|*DeleteTheater* |`deletetheater CINEMA_INDEX th/NUMBER_OF_THEATER` |`dt` |`deletetheater 1 th/9`
+|*Edit* |`edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` |`e`
 |`edit 2 n/GV Jurong Point e/contacts@gv.com`
 |*Find* |`find KEYWORD [MORE_KEYWORDS]` |`f`
 |`find Cathay`
