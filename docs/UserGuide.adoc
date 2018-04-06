@@ -311,7 +311,7 @@ Deletes the 1st movie in the results of the `find` command.
 
 Keyword appearance on Command Line: [purple-background white]`deletemovie`
 
-==== Finding movies by user input: `findmovie`
+==== Finding movies by user input: `findmovie` | `fm`
 `Available in v1.3`
 
 image::findMovie.gif[width="800"]
