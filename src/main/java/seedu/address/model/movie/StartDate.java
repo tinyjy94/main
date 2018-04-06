@@ -42,6 +42,7 @@ public class StartDate {
             LocalDate.parse(test, dtf);
             return true;
         } catch (DateTimeParseException dtpe) {
+            System.out.println(dtpe);
         }
         return false;
     }
