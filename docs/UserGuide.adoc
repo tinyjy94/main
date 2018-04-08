@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103JAN2018-W11-B2
 
-By: `Team W11-B2`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W11-B2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
@@ -279,7 +279,7 @@ Format: `addmovie n/MOVIE_NAME d/DURATION r/RATING sd/START_DATE t/TAG`
 Examples:
 
 * `addmovie n/The Incredibles d/115 r/PG sd/18/11/2014 t/Animation`
-* `am n/Spiderman 1 d/121 r/PG sd/04/29/2012 t/Superheroes t/Spiderman`
+* `am n/Spiderman 1 d/121 r/PG sd/29/04/2012 t/Superheroes t/Spiderman`
 
 Keyword appearance on Command Line: [purple-background white]`addmovie`
 
@@ -291,7 +291,7 @@ image::deleteMovie.gif[width="800"]
 Alias: `dm`
 
 Deletes the specified movie from MVP. +
-Format: `delete INDEX`
+Format: `deletemovie INDEX`
 
 [NOTE]
 ====
@@ -303,7 +303,7 @@ Format: `delete INDEX`
 Examples:
 
 * `list` +
-`delete 2` +
+`deletemovie 2` +
 Deletes the 2nd movie in MVP.
 * `find Marvel` +
 `dm 1` +
@@ -339,6 +339,10 @@ Returns all movies from tag `superhero` with name `Spiderman` like `Spiderman 1`
 
 
 Keyword appearance on Command Line: [purple-background white]`findmovie`
+
+`Planned feature in v2.0`
+
+* Enable user to include `and` and `or` keywords to make the search more flexible. (Currently only supports `and` search)
 
 ==== Adding a movie screening: `addscreening` | `as`
 `Available in v1.2`
@@ -536,8 +540,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 
 Keyword appearance on Command Line: [purple-background white]`redo`
-
-
 
 // tag::undoredo[]
 ==== Undoing previous command : `undo` | `u`
