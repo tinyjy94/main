@@ -332,8 +332,8 @@ Examples:
 Returns all movies which name contains keyword `zombie` like `Zombie Graveyard` and `attack the zombie`
 * `fm t/horror` +
 Returns all movies which belongs to the tag `horror` like `Insidious` and `Conjuring`
-* `findmovie sd/02/02/2018` +
-Returns all movies with `StartDate = 09/11/2017` like `Ah Boys to Men 4`
+* `findmovie sd/15/03/2017` +
+Returns all movies with `StartDate = 15/03/2017` like `Ah Boys to Men 4`
 * `findmovie n/Spiderman t/superhero` +
 Returns all movies from tag `superhero` with name `Spiderman` like `Spiderman 1`, `Spiderman 2` and `Spiderman 3`
 
