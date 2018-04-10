@@ -64,7 +64,6 @@ public class Cinema {
                 && otherCinema.getPhone().equals(this.getPhone())
                 && otherCinema.getEmail().equals(this.getEmail())
                 && otherCinema.getAddress().equals(this.getAddress());
-                //&& otherCinema.getTheaters().equals(this.getTheaters());
     }
 
     @Override

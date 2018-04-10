@@ -94,10 +94,6 @@ public class AddTheaterCommand extends UndoableCommand {
         }
         int newSize = newTheaters + oldTheaterSize;
 
-        if(newSize > 20) {
-
-        }
-
         for (int i = oldTheaterSize + 1; i <= newSize; i++) {
             updatedTheaterList.add(new Theater(i));
         }

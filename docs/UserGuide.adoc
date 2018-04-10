@@ -446,7 +446,6 @@ Keyword appearance on Command Line: [purple-background white]`email`
 === Security related commands
 
 // tag::SecurityUtils[]
-
 ==== Encrypting data files : `encrypt` | `enc`
 `Available in v1.4`
 
