@@ -65,7 +65,6 @@ public class AddTheaterCommand extends UndoableCommand {
             throw new AssertionError("The target cinema cannot be missing");
         }
 
-
         model.updateFilteredCinemaList(PREDICATE_SHOW_ALL_CINEMAS);
         return new CommandResult(String.format(MESSAGE_RESIZE_CINEMA_SUCCESS, resizedCinema));
     }
@@ -101,7 +100,6 @@ public class AddTheaterCommand extends UndoableCommand {
         return new Cinema(cinemaToResize.getName(), cinemaToResize.getPhone(), cinemaToResize.getEmail(),
                 cinemaToResize.getAddress(), updatedTheaterList);
     }
-
 
     @Override
     public boolean equals(Object other) {
