@@ -402,7 +402,7 @@ Examples:
 
 * `deletescreening c/2 th/1 h/05/05/2015 13:30` +
 Deletes a screening which screens on 05/05/2015 from the 2nd cinema's 1st theater.
-* `ds m/2 c/3 th/3 h/11/11/2011 14:15` +
+* `ds c/3 th/3 h/11/11/2011 14:15` +
 Deletes a screening which screens on 11/11/2011 from the 3rd cinema's 3rd theater.
 
 [NOTE]
