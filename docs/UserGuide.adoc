@@ -403,6 +403,7 @@ Deletes a screening which screens on 11/11/2011 from the 3rd cinema's 3rd theate
 
 Keyword appearance on Command Line: [purple-background white]`deletescreening`
 
+// tag::emailfeature[]
 === Email related commands
 ==== Emailing schedule: `email` | `eml`
 `Available in v1.3`
@@ -436,6 +437,7 @@ Sends out an email to `gv.manager@gmail.com` with a message of the following det
 Edits the email message with `This will be a very long message, so I hope that you are attentive when you read this.`
 
 Keyword appearance on Command Line: [purple-background white]`email`
+// end::emailfeature[]
 
 === Security related commands
 // tag::dataencryption[]
