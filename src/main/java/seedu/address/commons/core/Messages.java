@@ -14,6 +14,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_THEATER_NUMBER = "The theater number provided is invalid";
     public static final String MESSAGE_INVALID_SCREEN_DATE_TIME = "Please provide a valid date and time"
             + " in the form DD/MM/YYYY HH/mm. With the minutes being in 5 minutes interval. E.g. 05/05/2015 23:05";
+    public static final String MESSAGE_INVALID_YEAR = "Please provide a valid year. The year provided should not"
+            + " be after 2030.";
     public static final String MESSAGE_INVALID_SCREENING = "Please ensure that there is no conflict of screening"
             + " before and after this. Please also make sure the screening date is after the movie release date.";
     public static final String MESSAGE_INVALID_DELETE_SCREENING_DATE_TIME = "Screening does not exist. "

@@ -41,6 +41,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     private static final int MINUTES_USED_IN_ROUNDING_OFF = 5;
     private static final String DATE_TIME_FORMAT = "dd/MM/uuuu HH:mm";
+    private static final int YEAR_LIMIT = 2030;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -337,6 +338,10 @@ public class ParserUtil {
         String trimmedDateTime = dateTime.trim();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
         LocalDateTime screeningDateTime = LocalDateTime.parse(trimmedDateTime, dtf);
+
+        if (screeningDateTime.getYear() > YEAR_LIMIT) {
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_YEAR);
+        }
 
         if (screeningDateTime.getMinute() % MINUTES_USED_IN_ROUNDING_OFF != 0) {
             throw new IllegalValueException(Messages.MESSAGE_INVALID_SCREEN_DATE_TIME);
