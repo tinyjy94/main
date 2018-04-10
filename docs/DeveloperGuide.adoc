@@ -621,6 +621,7 @@ private void setUpEmailProperties() {
 
 <<DeveloperGuide.adoc#, Back to top>>
 
+// tag::findmovie[]
 [[Implementation-FindMovie]]
 === Enhanced FindMovie command
 
@@ -687,6 +688,7 @@ if (!argMultimap.getAllValues(PREFIX_NAME).isEmpty()
 
 [NOTE]
 A future update is planned in `V2.0` to support both `and` and `or` functions in the FindMovie command
+//end::findmovie[]
 
 [[Implementation-SchedulingSystem]]
 === Scheduling System

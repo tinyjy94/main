@@ -311,6 +311,7 @@ Deletes the 1st movie in the results of the `find` command.
 
 Keyword appearance on Command Line: [purple-background white]`deletemovie`
 
+// tag::findmovie[]
 ==== Finding movies by user input: `findmovie` | `fm`
 `Available in v1.3`
 
@@ -343,6 +344,7 @@ Keyword appearance on Command Line: [purple-background white]`findmovie`
 `Planned feature in v2.0`
 
 * Enable user to include `and` and `or` keywords to make the search more flexible. (Currently only supports `and` search)
+//end::findmovie[]
 
 ==== Adding a movie screening: `addscreening` | `as`
 `Available in v1.2`
