@@ -693,6 +693,7 @@ if (!argMultimap.getAllValues(PREFIX_NAME).isEmpty()
 A future update is planned in `V2.0` to support both `and` and `or` functions in the FindMovie command
 //end::findmovie[]
 
+//tag::scheduling[]
 [[Implementation-SchedulingSystem]]
 === Scheduling System
 
@@ -888,6 +889,7 @@ image::SDForAddScreeningEventHandling.png[width="800"]
 * **Alternative 2 (current choice):** Use existing command `deletescreening` and `addscreening` to perform an edit equivalent action
 ** Pros: Less commands for the user to learn about.
 ** Cons: User will need to delete existing screening and add the screening with new details to perform an edit equivalent action.
+//end::scheduling[]
 
 // tag::theaterCommands[]
 
