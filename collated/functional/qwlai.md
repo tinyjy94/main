@@ -397,6 +397,7 @@ public class DeleteScreeningCommandParser implements Parser<DeleteScreeningComma
 public class JumpCommandParser implements Parser<JumpCommand> {
 
     public static final String DATE_FORMAT = "dd/MM/uuuu";
+    private static final int YEAR_LIMIT = 2030;
 
     /**
      * Parses the given {@code String} of arguments in the context of the JumpCommand
@@ -409,10 +410,15 @@ public class JumpCommandParser implements Parser<JumpCommand> {
         String trimmedDate = args.trim();
         try {
             LocalDate dateProvided = LocalDate.parse(trimmedDate, dtf);
+            if (dateProvided.getYear() > YEAR_LIMIT) {
+                throw new IllegalValueException(MESSAGE_INVALID_YEAR);
+            }
             return new JumpCommand(dateProvided);
         } catch (DateTimeParseException e) {
             throw new ParseException (
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, JumpCommand.MESSAGE_USAGE));
+        } catch (IllegalValueException ive) {
+            throw new ParseException(ive.getMessage(), ive);
         }
     }
 }
@@ -449,6 +455,10 @@ public class JumpCommandParser implements Parser<JumpCommand> {
         String trimmedDateTime = dateTime.trim();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
         LocalDateTime screeningDateTime = LocalDateTime.parse(trimmedDateTime, dtf);
+
+        if (screeningDateTime.getYear() > YEAR_LIMIT) {
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_YEAR);
+        }
 
         if (screeningDateTime.getMinute() % MINUTES_USED_IN_ROUNDING_OFF != 0) {
             throw new IllegalValueException(Messages.MESSAGE_INVALID_SCREEN_DATE_TIME);
@@ -521,7 +531,6 @@ public class Screening {
 
         Screening otherScreening = (Screening) other;
         return otherScreening.getMovieName().equals(this.getMovieName())
-                && otherScreening.getTheater().equals(this.getTheater())
                 && otherScreening.getScreeningDateTime().equals(this.getScreeningDateTime())
                 && otherScreening.getScreeningEndDateTime().equals(this.getScreeningEndDateTime());
     }
@@ -760,11 +769,11 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
-     * Adds a node object into browser pane
+     * Adds node objects into browser pane
      */
     private void addNodesToBrowserPane(DetailedDayView detailedDayView) {
         browserPane.getChildren().add(detailedDayView);
-        browserPane.setMargin(detailedDayView, new Insets(30, 0, 0,0 ));
+        browserPane.setMargin(detailedDayView, new Insets(30, 0, 0, 0));
         browserPane.getChildren().add(this.cinema);
         browserPane.getChildren().add(this.date);
     }
@@ -891,14 +900,6 @@ public class MovieCard extends UiPart<Region> {
     private static final String FXML = "MovieListCard.fxml";
     private static final String[] TAG_COLORS = {"red", "blue", "orange", "green", "yellow", "grey", "white", "black",
         "pink", "brown"};
-
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/movieplanner-level4/issues/336">The issue on MoviePlanner level 4</a>
-     */
 
     public final Movie movie;
 

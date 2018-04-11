@@ -506,13 +506,11 @@ public class DraftList {
         if (newMessage.getMessage().isEmpty()) {
             newMessage.setMessage(message.getMessage());
         }
-        if (newMessage.getRecipient() != null && newMessage.getRecipient().isEmpty()) {
+        if (newMessage.getRecipient().isEmpty()) {
             newMessage.setRecipients(message.getRecipient());
         }
-        if (newMessage.getRelativeFilePath() != null && newMessage.getRelativeFilePath().isEmpty()) {
-            if (message.getRelativeFilePath() != null) {
-                newMessage.setRelativeFilePath(message.getRelativeFilePath());
-            }
+        if (newMessage.getRelativeFilePath().isEmpty()) {
+            newMessage.setRelativeFilePath(message.getRelativeFilePath());
         }
         messages[0] = newMessage;
     }
@@ -563,12 +561,15 @@ public class MessageDraft implements ReadOnlyMessageDraft {
     public MessageDraft() {
         message = "";
         subject = "";
+        recipient = "";
+        relativeFilePath = "";
     }
 
     public MessageDraft(String message, String subject, String recipient) {
         this.message = message;
         this.subject = subject;
         this.recipient = recipient;
+        this.relativeFilePath = "";
     }
 
     public MessageDraft(String message, String subject, String recipient, String relativeFilePath) {
@@ -601,8 +602,8 @@ public class MessageDraft implements ReadOnlyMessageDraft {
         return recipient;
     }
 
-    public void setRecipients(String relativeFilePath) {
-        this.relativeFilePath = relativeFilePath;
+    public void setRecipients(String recipient) {
+        this.recipient = recipient;
     }
 
     @Override
