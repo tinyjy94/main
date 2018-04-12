@@ -18,19 +18,23 @@ By: `Team W11-B2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-MoVie Planner is for cinema managers who *prefer to use a desktop application to manage cinemas' schedules*. More importantly, MVP is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MVP can get your scheduling tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+MoVie Planner is a desktop application designed for cinema managers to manage cinemas' schedules.
+More importantly, MVP is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, MVP can get your scheduling tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 <<UserGuide.adoc#, Back to top>>
 
 == About
 
 This User Guide provides an overview of available features, how to use them, and aims to help you get
-started in MVP. Features are explained in detail to demonstrate how you can use it efficiently.
+started in MVP. Features are explained in detail with their respective CLI commands to demonstrate how you can use MVP effectively.
 You will be able to understand this User Guide without the need to have any technical knowledge.
 
 <<UserGuide.adoc#, Back to top>>
 
 == Quick Start
+
+You can follow these steps to prepare your computer to run MVP.
 
 .  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
 +
@@ -39,19 +43,31 @@ Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
 .  Download the latest `movieplanner.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your MoVie Planner (MVP).
-.  Double-click the file to start MVP. The GUI should appear in a few seconds.
+.  Copy `movieplanner.jar` to the folder you want to use as the home folder for MVP. E.g. `C:\Users\student\MVP`
+.  Double-click the file to start MVP. You should be able to see the Graphical User Interface (GUI) below.
 +
 .UI appearance of MVP
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+image::UiSections.png[width="790"]
 
+* Sections of MVP:
+
+** Section 1: `Command Box` to type your command
+** Section 2: `Result Display` to display the result of the command
+** Section 3: `Cinema Display` to display the list of cinemas in MVP
+** Section 4: `Movie Display` to display the list of movies in MVP
+** Section 5: `Schedule Display` to display the schedule of a cinema
+
+== Sample commands
+
+Now that you have set up MVP, you can execute a command by typing the command in the command box and pressing kbd:[Enter] to execute it. +
+
+Here are some sample commands you can try:
+
+* **`help`** : opens the help window.
+* **`add`**`n/GV Paya Lebar th/3 p/66538100 e/customersvc@goldenvillage.com.sg a/SingPost Centre, 10 Eunos Road 8, #03-107, Singapore 408600` :
+adds a cinema named `GV Paya Lebar` with `3` theaters and its relevant details to MVP.
 * *`list`* : lists all cinemas and movies
-* **`add`**`n/GV Paya Lebar p/66538100 e/customersvc@goldenvillage.com.sg a/SingPost Centre, 10 Eunos Road 8, #03-107, Singapore 408600 th/8` : adds a cinema named `GV Paya Lebar` to MVP.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`delete`**`3` : deletes the 3rd contact shown in the cinema list
 * *`exit`* : exits MVP
 
 .  Refer to <<Features>> for details of each command.
@@ -72,41 +88,49 @@ Before proceeding on, you should take note of the following section:
 * You can also use an alias instead of typing the entire command word.
 ====
 
-
-
 === Cinema related commands
 
-==== Adding a cinema: `add` | `a`
-`Available in v1.0`
+You can find commands related to cinema operations in this section.
 
-image::addCinema.gif[width="800"]
+
+==== Adding a cinema: `add` | `a`
+=======
 
 Alias: `a`
 
-Adds a cinema to MVP. +
+To add a cinema to MVP, type the following command in the command box.
+
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS th/NUMBER_OF_THEATER`
 
 Examples:
 
 * `add n/Cathay West p/61283712 e/cathay@cathay.com a/50 Jurong Gateway Road th/3`
+* `add n/We Cinema p/62181251 e/wecinema@wecinema.com a/321 Clementi Avenue 3 th/3`
 * `add n/Shaws e/shaws@shaws.com a/2 Jurong East Central 1, 11 JCube p/6123122 th/2`
-* `a n/We Cinema p/62181251 e/wecinema@wecinema.com a/321 Clementi Avenue 3 th/3`
 
-Keyword appearance on Command Line: [purple-background white]`add`
+.Before adding a cinema
+image::BeforeAddCinema.png[width="800"]
+
+.After adding a cinema
+image::AfterAddCinema.png[width="800"]
+
+Keyword appearance on Command Line: `add`
+
+<<UserGuide.adoc#, Back to top>>
 
 ==== Editing a cinema: `edit` | `e`
-`Available in v1.0`
-
-image::editCinema.gif[width="800"]
 
 Alias: `e`
 
-Edits an existing cinema in MVP. +
+To edit an existing cinema in MVP, type the following command in the command box.
+
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 
 [NOTE]
 ====
-* Edits the cinema at the specified `INDEX`. The index refers to the index number shown in the last cinema listing. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the cinema at the specified `INDEX`.
+* The index refers to the index number shown in the last cinema listing.
+* The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ====
@@ -118,43 +142,21 @@ Edits the phone number and email address of the 1st cinema to be `91234567` and 
 * `e 2 n/Golden Village` +
 Edits the name of the 2nd cinema to be `Golden Village`.
 
-Keyword appearance on Command Line: [purple-background white]`edit`
+.Before editing the cinema at `INDEX` 2
+image::BeforeEditCinema.png[width="800"]
 
-==== Deleting a cinema : `delete` | `d`
-`Available in v1.0`
+.After editing the cinema at `INDEX` 2
+image::AfterEditCinema.png[width="800"]
 
-image::deleteCinema.gif[width="800"]
+Keyword appearance on Command Line: `edit`
 
-Alias: `d`
-
-Deletes the specified cinema from MVP. +
-Format: `delete INDEX`
-
-****
-* Deletes the cinema at the specified `INDEX`.
-* The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd cinema in MVP.
-* `find Cathay` +
-`d 1` +
-Deletes the 1st cinema in the results of the `find` command.
-
-Keyword appearance on Command Line: [purple-background white]`delete`
+<<UserGuide.adoc#, Back to top>>
 
 ==== Finding cinemas by name: `find` | `f`
-`Available in v1.0`
-
-image::findCinema.gif[width="800"]
-
 Alias: `f`
 
-Finds cinemas whose names contain any of the given keywords. +
+To find the cinemas whose names contain any of the given keywords, type the following command in the command box.
+
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -168,49 +170,91 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 * `find Cathay` +
-Returns `cathay` and `Cathay West`
+Displays any cinema having names `cathay` and `Cathay West`
 * `f Golden Village North` +
-Returns any cinema having names `Golden`, `Village`, or `North`
+Displays any cinema having names `Golden`, `Village`, or `North`
 
-Keyword appearance on Command Line: [purple-background white]`find`
+.Before finding cinemas with keyword `Cathay`
+image::BeforeFindCinema.png[width="800"]
+
+.After finding cinemas with keyword `Cathay`
+image::AfterCinemaCinema.png[width="800"]
+
+Keyword appearance on Command Line: `find`
+
+<<UserGuide.adoc#, Back to top>>
+
+==== Deleting a cinema : `delete` | `d`
+Alias: `d`
+
+To delete a specified cinema from MVP, type the following command in the command box.
+Format: `delete INDEX`
+
+[Note]
+====
+* Deletes the cinema at the specified `INDEX`.
+* The index refers to the index number shown in the last cinema listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+====
+
+Examples:
+
+* `delete 2` +
+Deletes the 2nd cinema in MVP.
+
+* `find Cathay` +
+`d 1` +
+Deletes the 1st cinema in the results of the `find` command.
+
+.Before deleting the 1st cinema
+image::BeforeDeleteCinema.png[width="800"]
+
+.After deleting the 1st cinema
+image::AfterDeleteCinema.png[width="800"]
+
+Keyword appearance on Command Line: `delete`
+
+<<UserGuide.adoc#, Back to top>>
 
 ==== Selecting a cinema : `select` | `s`
-`Available in v1.0`
-
-image::selectCinema.gif[width="800"]
-
 Alias: `s`
 
-Selects the cinema identified by the index number used in the last cinema listing. +
+To select a cinema at a specific index, you can type the following command in the command box.
+
 Format: `select INDEX`
 
 ****
 * Selects the cinema and loads all the theaters with their schedules at the specified `INDEX`.
-* The index refers to the index number shown in the most recent listing.
+* The index refers to the index number shown in the last cinema listing.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
+* `select 2` +
 Selects the 2nd cinema in MVP.
 * `find Cathay` +
-`s 1` +
+ `s 1` +
 Selects the 1st cinema in the results of the `find` command.
 
-Keyword appearance on Command Line: [purple-background white]`select`
+.Before selecting the 1st cinema
+image::BeforeSelectCinema.png[width="800"]
+
+.After selecting the 1st cinema
+image::AfterSelectCinema.png[width="800"]
+
+Keyword appearance on Command Line: `select`
+
+<<UserGuide.adoc#, Back to top>>
 
 // tag::theaterCommands[]
 
-==== Adding theaters: `addtheater` | `at`
-`Available in v1.2`
-
-image::addTheater.gif[width="800"]
+==== Adding theaters: `addtheater` | `at` | `Available in v1.2`
 
 Alias: `at`
 
-Adds theaters to a cinema. +
+To add theaters to a cinema, you can type the following command in the command box.
+
 Format: `addtheater CINEMA_INDEX th/NUMBER_OF_THEATER`
 
 Examples:
@@ -230,7 +274,7 @@ Keyword appearance on Command Line: [purple-background white]`addtheater`
 ==== Deleting theaters: `deletetheater` | `dt`
 `Available in v1.2`
 
-image::deleteTheater.gif[width="800"]
+image::deleteTheater.png[width="800"]
 
 Alias: `dt`
 
@@ -497,7 +541,7 @@ You will be able to decrypt the `encryptedmovieplanner.xml` and obtain a `moviep
 
 <<UserGuide.adoc#, Back to top>>
 
-=== Miscellaneous commands
+=== Other helpful commands
 
 ==== Viewing help : `help` | `h`
 
