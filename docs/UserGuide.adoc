@@ -79,7 +79,10 @@ Before proceeding on, you should take note of the following section:
 ==== Adding a cinema: `add` | `a`
 `Available in v1.0`
 
-image::addCinema.gif[width="800"]
+.Before and After
+image:BeforeAddCinema.PNG[width="440"]
+image:AfterAddCinema.PNG[width="440"]
+
 
 Alias: `a`
 
