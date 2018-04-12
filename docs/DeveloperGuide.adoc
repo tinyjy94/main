@@ -624,7 +624,7 @@ private void setUpEmailProperties() {
 
 <<DeveloperGuide.adoc#, Back to top>>
 
-//tag:adddeletemovie[]
+// tag::adddeletemovie[]
 [[Implementation-Movie]]
 === Addition and Deletion of movies
 
@@ -655,7 +655,7 @@ image::AddMovieSequenceDiagram.PNG[width="1000"]
 * **Alternative 2:** Allow editing of Movie
 ** Pros: More convenient for users to edit if they make a typo.
 ** Cons: It might cause overlap of schedule as mentioned above.
-//end:adddeletemovie[]
+// end::adddeletemovie[]
 
 // tag::findmovie[]
 [[Implementation-FindMovie]]
