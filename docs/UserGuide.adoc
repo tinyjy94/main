@@ -311,10 +311,19 @@ Format: `addmovie n/MOVIE_NAME d/DURATION r/RATING sd/START_DATE t/TAG`
 
 Examples:
 
-* `addmovie n/The Incredibles d/115 r/PG sd/18/11/2014 t/Animation`
-* `am n/Spiderman 1 d/121 r/PG sd/29/04/2012 t/Superheroes t/Spiderman`
+* `addmovie n/The Incredibles d/115 r/PG sd/18/11/2014 t/animation`
+* `am n/Spiderman 1 d/121 r/PG sd/29/04/2012 t/superhero t/Spiderman`
 
 Keyword appearance on Command Line: [purple-background white]`addmovie`
+
+===== Tagging a movie
+`Available in v1.2`
+
+image::taggedMovies.PNG[width="800"]
+
+In the picture above, we can see two movies that are tagged as `superhero` being listed by the `FindMovie` command. Tagging a movie allows for easier searching.
+
+
 
 ==== Deleting a movie : `deletemovie` | `dm`
 `Available in V1.2`
@@ -377,7 +386,7 @@ Keyword appearance on Command Line: [purple-background white]`findmovie`
 `Planned feature in v2.0`
 
 * Enable user to include `and` and `or` keywords to make the search more flexible. (Currently only supports `and` search)
-//end::findmovie[]
+// end::findmovie[]
 
 // tag::scheduling[]
 ==== Adding a movie screening: `addscreening` | `as`
