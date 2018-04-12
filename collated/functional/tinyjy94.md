@@ -185,6 +185,7 @@ public class AddTheaterCommand extends UndoableCommand {
 
     public static final String MESSAGE_RESIZE_CINEMA_SUCCESS = "Resized Cinema: %1$s";
     public static final String MESSAGE_DUPLICATE_CINEMA = "This cinema already exists in the movie planner.";
+    public static final String MESSAGE_INVALID_THEATERSIZE = "You can only add up to 20 theaters per cinema!";
 
     private final Index index;
     private final int newTheaters;
@@ -205,12 +206,16 @@ public class AddTheaterCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         try {
+            if (resizedCinema.getTheaters().size() > 20) {
+                throw new CommandException(MESSAGE_INVALID_THEATERSIZE);
+            }
             model.updateCinema(cinemaToResize, resizedCinema);
         } catch (DuplicateCinemaException dce) {
             throw new CommandException(MESSAGE_DUPLICATE_CINEMA);
         } catch (CinemaNotFoundException cnfe) {
             throw new AssertionError("The target cinema cannot be missing");
         }
+
         model.updateFilteredCinemaList(PREDICATE_SHOW_ALL_CINEMAS);
         return new CommandResult(String.format(MESSAGE_RESIZE_CINEMA_SUCCESS, resizedCinema));
     }
@@ -237,8 +242,9 @@ public class AddTheaterCommand extends UndoableCommand {
         for (Theater theaters : cinemaToResize.getTheaters()) {
             updatedTheaterList.add(theaters);
         }
+        int newSize = newTheaters + oldTheaterSize;
 
-        for (int i = oldTheaterSize + 1; i <= newTheaters + oldTheaterSize; i++) {
+        for (int i = oldTheaterSize + 1; i <= newSize; i++) {
             updatedTheaterList.add(new Theater(i));
         }
 
@@ -317,7 +323,7 @@ public class DeleteTheaterCommand extends UndoableCommand {
 
     public static final String MESSAGE_RESIZE_CINEMA_SUCCESS = "Resized Cinema: %1$s";
     public static final String MESSAGE_DUPLICATE_CINEMA = "This cinema already exists in the movie planner.";
-    public static final String MESSAGE_RESIZE_CINEMA_FAIL = "Cinema cannot have 0 or negative number of theaters";
+    public static final String MESSAGE_RESIZE_CINEMA_FAIL = "Cinema cannot have 0 or negative number of theaters!";
 
     private final Index index;
     private final int newTheaters;
@@ -628,7 +634,9 @@ public class EncryptCommandParser implements Parser<EncryptCommand> {
  */
 public class Theater {
 
-    public static final String MESSAGE_THEATER_CONSTRAINTS = "Theater number should be positive.";
+    public static final String MESSAGE_THEATER_CONSTRAINTS = "Theater number given should be a positive integer!";
+    public static final String MESSAGE_THEATERSIZE_CONSTRAINTS = " Theater number given should be less than"
+            + " or equals to 20.";
 
     /**
      * Theater number must be positive
@@ -688,6 +696,13 @@ public class Theater {
         return screeningList;
     }
 
+    /**
+     * Delete a screening given in the theater
+     */
+    public void deleteScreening(Screening screeningToBeDeleted) {
+        screeningList.remove(screeningToBeDeleted);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -699,8 +714,7 @@ public class Theater {
         }
 
         Theater otherTheater = (Theater) other;
-        return otherTheater.getTheaterNumber() == this.getTheaterNumber()
-                && otherTheater.getScreeningList().equals(this.getScreeningList());
+        return otherTheater.getTheaterNumber() == this.getTheaterNumber();
     }
 
     @Override

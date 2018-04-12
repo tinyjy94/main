@@ -59,9 +59,7 @@ public class Theater {
      * Adds a screening to the sorted screening list of the theater
      */
     public void setScreeningList(ArrayList<Screening> screeningList) {
-
         this.screeningList = screeningList;
-        System.out.println("After adding screening" + screeningList.size());
     }
 
     /**

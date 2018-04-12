@@ -1,4 +1,252 @@
 # chanyikwai
+###### \java\seedu\address\email\EmailComposeTest.java
+``` java
+public class EmailComposeTest {
+
+    private EmailCompose emailCompose;
+
+    @Before
+    public void setUp() {
+        emailCompose = new EmailCompose();
+    }
+
+    @Test
+    public void composeEmail() {
+        MessageDraft validDraft = new MessageDraft();
+        final String validMessage = "This is a message body.";
+        final String validSubject = "This is a subject.";
+        final String validRecipients = "Someone@gmail.com";
+        final String validRelativeFilePath = "docs/images/Architecture.png";
+        validDraft.setMessage(validMessage);
+        validDraft.setSubject(validSubject);
+        validDraft.setRecipients(validRecipients);
+        validDraft.setRelativeFilePath(validRelativeFilePath);
+        emailCompose.composeEmail(validDraft);
+        assertEquals(validMessage, emailCompose.getMessage().getMessage());
+        assertEquals(validSubject, emailCompose.getMessage().getSubject());
+        assertEquals(validRecipients, emailCompose.getMessage().getRecipient());
+        assertEquals(validRelativeFilePath, emailCompose.getMessage().getRelativeFilePath());
+    }
+
+    @Test
+    public void clearEmailDraft() {
+        MessageDraft validDraft = new MessageDraft();
+        final String validMessage = "This is a message body.";
+        final String validSubject = "This is a subject.";
+        final String validRecipients = "Someone@gmail.com";
+        final String validRelativeFilePath = "docs/images/Architecture.png";
+        validDraft.setMessage(validMessage);
+        validDraft.setSubject(validSubject);
+        validDraft.setRecipients(validRecipients);
+        validDraft.setRelativeFilePath(validRelativeFilePath);
+        emailCompose.composeEmail(validDraft);
+        emailCompose.resetData();
+        assertEquals("", emailCompose.getMessage().getMessage());
+        assertEquals("", emailCompose.getMessage().getSubject());
+        assertEquals("", emailCompose.getMessage().getRecipient());
+        assertEquals("", emailCompose.getMessage().getRelativeFilePath());
+    }
+}
+```
+###### \java\seedu\address\email\EmailFunctionTest.java
+``` java
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
+
+public class EmailFunctionTest {
+
+    private static final String EMAIL_VALID_FUNCTION = "send";
+    private static final String EMAIL_INVALID_FUNCTION = "do nothing";
+
+    private EmailFunction emailFunction;
+
+    @Before
+    public void setUp() {
+        emailFunction = new EmailFunction();
+    }
+
+    @Test
+    public void valid() {
+        emailFunction.setEmailFunction(EMAIL_VALID_FUNCTION);
+        assertTrue(emailFunction.isValid());
+    }
+
+    @Test
+    public void notValid() {
+        emailFunction.setEmailFunction(EMAIL_INVALID_FUNCTION);
+        assertFalse(emailFunction.isValid());
+    }
+}
+```
+###### \java\seedu\address\email\EmailLoginTest.java
+``` java
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import seedu.address.email.exceptions.EmailLoginInvalidException;
+
+/**
+ * Handles how user logs into email
+ */
+public class EmailLoginTest {
+
+    private static final String EMAIL_VALID_LOGIN_ACCOUNT = "valid@gmail.com:123";
+    private static final String EMAIL_INVALID_LOGIN_ACCOUNT = "invalid@yahoo.com:123";
+
+    private EmailLogin emailLogin;
+
+    @Before
+    public void setUp() {
+        emailLogin = new EmailLogin();
+    }
+
+    @Test
+    public void validAccountLogin() throws EmailLoginInvalidException {
+        String[] validEmailLogin = EMAIL_VALID_LOGIN_ACCOUNT.split(":");
+        emailLogin.loginEmail(validEmailLogin);
+
+        assertTrue(emailLogin.isUserLoggedIn());
+    }
+
+    @Test
+    public void invalidAccountLogin() {
+        try {
+            String[] invalidEmailLogin = EMAIL_INVALID_LOGIN_ACCOUNT.split(":");
+            emailLogin.loginEmail(invalidEmailLogin);
+        } catch (EmailLoginInvalidException e) {
+            assertFalse(emailLogin.isUserLoggedIn());
+        }
+    }
+
+    @Test
+    public void retrieveLoginEmail() throws EmailLoginInvalidException {
+        String[] validEmailLogin = EMAIL_VALID_LOGIN_ACCOUNT.split(":");
+        emailLogin.loginEmail(validEmailLogin);
+
+        assertEquals(emailLogin.getEmailLogin(), validEmailLogin[0]);
+    }
+
+    @Test
+    public void retrievePassword() throws EmailLoginInvalidException {
+        String[] validEmailLogin = EMAIL_VALID_LOGIN_ACCOUNT.split(":");
+        emailLogin.loginEmail(validEmailLogin);
+
+        assertEquals(emailLogin.getPassword(), validEmailLogin[1]);
+    }
+
+    @Test
+    public void logoutUserEmail() throws EmailLoginInvalidException {
+        String[] validEmailLogin = EMAIL_VALID_LOGIN_ACCOUNT.split(":");
+        emailLogin.loginEmail(validEmailLogin);
+
+        emailLogin.resetData();
+        assertFalse(emailLogin.isUserLoggedIn());
+    }
+}
+```
+###### \java\seedu\address\email\EmailManagerTest.java
+``` java
+public class EmailManagerTest {
+    @Test
+    public void equals() {
+        EmailManager emailManager = new EmailManager();
+        EmailManager emailManagerCopy = new EmailManager();
+
+        // same values -> returns true
+        assertTrue(emailManager.equals(emailManager));
+
+        // null -> returns false
+        assertFalse(emailManager.equals(null));
+
+        // different types -> returns false
+        assertFalse(emailManager.equals(5));
+
+        // different user -> returns false
+        try {
+            String loginAccount = "example@gmail.com:123";
+            String[] loginEmail = loginAccount.split(":");
+            emailManagerCopy.loginEmailAccount(loginEmail);
+            assertFalse(emailManager.equals(emailManagerCopy));
+        } catch (EmailLoginInvalidException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void compose() {
+        EmailManager emailManager = new EmailManager();
+        MessageDraft messageDraft = new MessageDraft();
+        String validMessage = "Message";
+        String validSubject = "Subject";
+        String validRecipients = "another@gmail.com";
+        messageDraft.setMessage(validMessage);
+        messageDraft.setSubject(validSubject);
+        messageDraft.setRecipients(validRecipients);
+        emailManager.composeEmail(messageDraft);
+
+        assertTrue(emailManager.getEmailDraft().getMessage().equals(validMessage));
+        assertTrue(emailManager.getEmailDraft().getSubject().equals(validSubject));
+        assertTrue(emailManager.getEmailDraft().getRecipient().equals(validRecipients));
+    }
+}
+```
+###### \java\seedu\address\email\EmailSendTest.java
+``` java
+public class EmailSendTest {
+
+    private EmailSend emailSend;
+
+    @Before
+    public void setUp() {
+        emailSend = new EmailSend();
+    }
+
+    @Test
+    public void sendEmail() throws AuthenticationFailedException {
+        EmailCompose emailCompose = new EmailCompose();
+        EmailLogin emailLogin = new EmailLogin();
+
+        try {
+            emailSend.sendEmail(emailCompose, emailLogin);
+        } catch (EmailLoginInvalidException e) {
+            assertFalse(emailLogin.isUserLoggedIn());
+        } catch (EmailMessageEmptyException e) {
+            assertTrue(emailCompose.getMessage().getMessage().isEmpty());
+            assertTrue(emailCompose.getMessage().getSubject().isEmpty());
+
+            MessageDraft messageDraft = new MessageDraft();
+            messageDraft.setMessage("Message");
+            emailCompose.composeEmail(messageDraft);
+            assertFalse(emailCompose.getMessage().getMessage().isEmpty());
+            assertTrue(emailCompose.getMessage().getSubject().isEmpty());
+            emailCompose.resetData();
+
+            messageDraft = new MessageDraft();
+            messageDraft.setSubject("Subject");
+            emailCompose.composeEmail(messageDraft);
+            assertTrue(emailCompose.getMessage().getMessage().isEmpty());
+            assertFalse(emailCompose.getMessage().getSubject().isEmpty());
+            emailCompose.resetData();
+        } catch (EmailRecipientsEmptyException e) {
+            MessageDraft messageDraft = new MessageDraft();
+            messageDraft.setMessage("Message");
+            messageDraft.setSubject("Subject");
+            emailCompose.composeEmail(messageDraft);
+            assertFalse(emailCompose.getMessage().getMessage().isEmpty());
+            assertFalse(emailCompose.getMessage().getSubject().isEmpty());
+            assertTrue(emailCompose.getMessage().getRecipient().isEmpty());
+            emailCompose.resetData();
+        }
+    }
+}
+```
 ###### \java\systemtests\EmailCommandSystemTest.java
 ``` java
 public class EmailCommandSystemTest extends MoviePlannerSystemTest {

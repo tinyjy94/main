@@ -500,13 +500,13 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 The email feature is facilitated by the `Email` component. It supports the sending of email through an external library `JavaMail`.
 
-*Current Implementation*
+==== Current Implementation
 
 MVP uses the email command to send an email. The following activity diagram displays the series of events that occurs when a user enters the email
 command.
 
 .Activity Diagram of Email feature
-image::EmailActivityDiagram.png[width="800"]
+image::EmailActivityDiagram.PNG[width="800"]
 
 The email feature is constructed by 3 classes, `EmailLogin`, `EmailCompose`, `EmailSend`, which is handled by the `EmailManager`. More
 details about the classes are as provided:
@@ -523,21 +523,21 @@ the following criteria are not met:
 The following sequence diagram shows how each component interacts when the email command is entered by the user.
 
 .Sequence Diagram of Email feature
-image::EmailUMLDiagram.png[width="800"]
+image::EmailUMLDiagram.PNG[width="800"]
 
 The following sequence diagram shows how each component within the `EmailManager` interacts when the email command
 is entered by the user.
 
 .Sequence Diagram of Email feature
-image::EmailSendUMLDiagram.png[width="800"]
+image::EmailSendUMLDiagram.PNG[width="800"]
 
 The following diagram shows how the email draft tab in the MVP UI is updated when the `EventCenter` responds to the
 `EmailDraftChangedEvent`.
 
 .Sequence Diagram of Email feature
-image::EmailEventsDiagram.png[width="800"]
+image::EmailEventsDiagram.PNG[width="800"]
 
-*Implementation of JavaMail API*
+==== Implementation of JavaMail API
 
 The `Email` component uses the external library `JavaMail` to handle sending out of email from MVP. The following
 code snippet below shows the set up (via SMTP) for sending out email.
@@ -606,7 +606,7 @@ private void setUpEmailProperties() {
 }
 ----
 
-*Design Considerations*
+==== Design Considerations
 
 *Aspect:* Implementation of email feature
 
@@ -693,6 +693,7 @@ if (!argMultimap.getAllValues(PREFIX_NAME).isEmpty()
 A future update is planned in `V2.0` to support both `and` and `or` functions in the FindMovie command
 //end::findmovie[]
 
+//tag::scheduling[]
 [[Implementation-SchedulingSystem]]
 === Scheduling System
 
@@ -888,6 +889,7 @@ image::SDForAddScreeningEventHandling.png[width="800"]
 * **Alternative 2 (current choice):** Use existing command `deletescreening` and `addscreening` to perform an edit equivalent action
 ** Pros: Less commands for the user to learn about.
 ** Cons: User will need to delete existing screening and add the screening with new details to perform an edit equivalent action.
+//end::scheduling[]
 
 // tag::theaterCommands[]
 
