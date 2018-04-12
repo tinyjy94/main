@@ -109,7 +109,7 @@ Examples:
 * `add n/Shaws e/shaws@shaws.com a/2 Jurong East Central 1, 11 JCube p/6123122 th/2`
 
 .Before adding a cinema
-image::BeforeAddCinema.gif[width="800"]
+image::BeforeAddCinema.png[width="800"]
 
 .After adding a cinema
 image::AfterAddCinema.png[width="800"]
@@ -143,7 +143,7 @@ Edits the phone number and email address of the 1st cinema to be `91234567` and 
 Edits the name of the 2nd cinema to be `Golden Village`.
 
 .Before editing the cinema at `INDEX` 2
-image::BeforeEditCinema.gif[width="800"]
+image::BeforeEditCinema.png[width="800"]
 
 .After editing the cinema at `INDEX` 2
 image::AfterEditCinema.png[width="800"]
@@ -175,7 +175,7 @@ Displays any cinema having names `cathay` and `Cathay West`
 Displays any cinema having names `Golden`, `Village`, or `North`
 
 .Before finding cinemas with keyword `Cathay`
-image::BeforeFindCinema.gif[width="800"]
+image::BeforeFindCinema.png[width="800"]
 
 .After finding cinemas with keyword `Cathay`
 image::AfterCinemaCinema.png[width="800"]
@@ -207,7 +207,7 @@ Deletes the 2nd cinema in MVP.
 Deletes the 1st cinema in the results of the `find` command.
 
 .Before deleting the 1st cinema
-image::BeforeDeleteCinema.gif[width="800"]
+image::BeforeDeleteCinema.png[width="800"]
 
 .After deleting the 1st cinema
 image::AfterDeleteCinema.png[width="800"]
@@ -238,7 +238,7 @@ Selects the 2nd cinema in MVP.
 Selects the 1st cinema in the results of the `find` command.
 
 .Before selecting the 1st cinema
-image::BeforeSelectCinema.gif[width="800"]
+image::BeforeSelectCinema.png[width="800"]
 
 .After selecting the 1st cinema
 image::AfterSelectCinema.png[width="800"]
@@ -274,7 +274,7 @@ Keyword appearance on Command Line: [purple-background white]`addtheater`
 ==== Deleting theaters: `deletetheater` | `dt`
 `Available in v1.2`
 
-image::deleteTheater.gif[width="800"]
+image::deleteTheater.png[width="800"]
 
 Alias: `dt`
 
