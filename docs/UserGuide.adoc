@@ -323,8 +323,6 @@ image::taggedMovies.PNG[width="800"]
 
 In the picture above, we can see two movies that are tagged as `superhero` being listed by the `FindMovie` command. Tagging a movie allows for easier searching.
 
-
-
 ==== Deleting a movie : `deletemovie` | `dm`
 `Available in V1.2`
 
