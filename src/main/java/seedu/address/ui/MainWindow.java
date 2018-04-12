@@ -22,6 +22,7 @@ import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -74,6 +75,9 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem listMenuItem;
 
     @FXML
+    private MenuItem historyMenuItem;
+
+    @FXML
     private MenuItem toggleTabMenuItem;
 
     @FXML
@@ -118,6 +122,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerator(redoMenuItem, KeyCombination.valueOf("Shortcut + Y"));
         setAccelerator(clearMenuItem, KeyCombination.valueOf("Alt + Shift + C"));
         setAccelerator(listMenuItem, KeyCombination.valueOf("Shortcut + L"));
+        setAccelerator(historyMenuItem, KeyCombination.valueOf("Shortcut + H"));
         setAccelerator(toggleTabMenuItem, KeyCombination.valueOf("Shift + Tab"));
     }
 
@@ -271,7 +276,7 @@ public class MainWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             initHistory();
             // handle command failure
-            logger.info("Invalid command: " + UndoCommand.COMMAND_WORD);
+            logger.info("Invalid command: " + ClearCommand.COMMAND_WORD);
             raise(new NewResultAvailableEvent(e.getMessage()));
         }
     }
@@ -289,7 +294,25 @@ public class MainWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             initHistory();
             // handle command failure
-            logger.info("Invalid command: " + UndoCommand.COMMAND_WORD);
+            logger.info("Invalid command: " + ListCommand.COMMAND_WORD);
+            raise(new NewResultAvailableEvent(e.getMessage()));
+        }
+    }
+
+    /**
+     * List all cinemas.
+     */
+    @FXML
+    public void handleHistory() {
+        try {
+            CommandResult commandResult = logic.execute(HistoryCommand.COMMAND_WORD);
+            initHistory();
+            logger.info("Result: " + commandResult.feedbackToUser);
+            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+        } catch (CommandException | ParseException e) {
+            initHistory();
+            // handle command failure
+            logger.info("Invalid command: " + HistoryCommand.COMMAND_WORD);
             raise(new NewResultAvailableEvent(e.getMessage()));
         }
     }

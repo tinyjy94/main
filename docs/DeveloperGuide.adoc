@@ -500,7 +500,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 The email feature is facilitated by the `Email` component. It supports the sending of email through an external library `JavaMail`.
 
-*Current Implementation*
+==== Current Implementation
 
 MVP uses the email command to send an email. The following activity diagram displays the series of events that occurs when a user enters the email
 command.
@@ -537,7 +537,7 @@ The following diagram shows how the email draft tab in the MVP UI is updated whe
 .Sequence Diagram of Email feature
 image::EmailEventsDiagram.png[width="800"]
 
-*Implementation of JavaMail API*
+==== Implementation of JavaMail API
 
 The `Email` component uses the external library `JavaMail` to handle sending out of email from MVP. The following
 code snippet below shows the set up (via SMTP) for sending out email.
@@ -606,7 +606,7 @@ private void setUpEmailProperties() {
 }
 ----
 
-*Design Considerations*
+==== Design Considerations
 
 *Aspect:* Implementation of email feature
 
