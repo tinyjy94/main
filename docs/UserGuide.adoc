@@ -90,12 +90,9 @@ Before proceeding on, you should take note of the following section:
 
 === Cinema related commands
 
-You can find commands related to cinema operations in this section.
-
+This section shows how you can add, delete and modify cinemas in MVP.
 
 ==== Adding a cinema: `add` | `a`
-=======
-
 Alias: `a`
 
 To add a cinema to MVP, type the following command in the command box.
@@ -108,10 +105,6 @@ Examples:
 * `add n/We Cinema p/62181251 e/wecinema@wecinema.com a/321 Clementi Avenue 3 th/3`
 * `add n/Shaws e/shaws@shaws.com a/2 Jurong East Central 1, 11 JCube p/6123122 th/2`
 
-.Before adding a cinema
-image::BeforeAddCinema.png[width="800"]
-
-.After adding a cinema
 image::AfterAddCinema.png[width="800"]
 
 Keyword appearance on Command Line: `add`
@@ -119,7 +112,6 @@ Keyword appearance on Command Line: `add`
 <<UserGuide.adoc#, Back to top>>
 
 ==== Editing a cinema: `edit` | `e`
-
 Alias: `e`
 
 To edit an existing cinema in MVP, type the following command in the command box.
@@ -130,7 +122,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 ====
 * Edits the cinema at the specified `INDEX`.
 * The index refers to the index number shown in the last cinema listing.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive number* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ====
@@ -142,10 +134,6 @@ Edits the phone number and email address of the 1st cinema to be `91234567` and 
 * `e 2 n/Golden Village` +
 Edits the name of the 2nd cinema to be `Golden Village`.
 
-.Before editing the cinema at `INDEX` 2
-image::BeforeEditCinema.png[width="800"]
-
-.After editing the cinema at `INDEX` 2
 image::AfterEditCinema.png[width="800"]
 
 Keyword appearance on Command Line: `edit`
@@ -174,11 +162,7 @@ Displays any cinema having names `cathay` and `Cathay West`
 * `f Golden Village North` +
 Displays any cinema having names `Golden`, `Village`, or `North`
 
-.Before finding cinemas with keyword `Cathay`
 image::BeforeFindCinema.png[width="800"]
-
-.After finding cinemas with keyword `Cathay`
-image::AfterCinemaCinema.png[width="800"]
 
 Keyword appearance on Command Line: `find`
 
@@ -194,7 +178,7 @@ Format: `delete INDEX`
 ====
 * Deletes the cinema at the specified `INDEX`.
 * The index refers to the index number shown in the last cinema listing.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive number* 1, 2, 3, ...
 ====
 
 Examples:
@@ -208,9 +192,6 @@ Deletes the 1st cinema in the results of the `find` command.
 
 .Before deleting the 1st cinema
 image::BeforeDeleteCinema.png[width="800"]
-
-.After deleting the 1st cinema
-image::AfterDeleteCinema.png[width="800"]
 
 Keyword appearance on Command Line: `delete`
 
@@ -226,7 +207,7 @@ Format: `select INDEX`
 ****
 * Selects the cinema and loads all the theaters with their schedules at the specified `INDEX`.
 * The index refers to the index number shown in the last cinema listing.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* The index *must be a positive number* `1, 2, 3, ...`
 ****
 
 Examples:
@@ -240,9 +221,6 @@ Selects the 1st cinema in the results of the `find` command.
 .Before selecting the 1st cinema
 image::BeforeSelectCinema.png[width="800"]
 
-.After selecting the 1st cinema
-image::AfterSelectCinema.png[width="800"]
-
 Keyword appearance on Command Line: `select`
 
 <<UserGuide.adoc#, Back to top>>
@@ -250,7 +228,6 @@ Keyword appearance on Command Line: `select`
 // tag::theaterCommands[]
 
 ==== Adding theaters: `addtheater` | `at` | `Available in v1.2`
-
 Alias: `at`
 
 To add theaters to a cinema, you can type the following command in the command box.
@@ -264,21 +241,20 @@ Examples:
 
 [NOTE]
 ====
-Number of theaters entered must be a *positive* integer
-
-Maximum number of theaters per cinema is *20*
+* The index refers to the index number shown in the last cinema listing.
+* The index *must be a positive number* `1, 2, 3, ...`
+* Number of theaters entered must be a *positive* number
+* Maximum number of theaters per cinema is *20*
 ====
 
 Keyword appearance on Command Line: [purple-background white]`addtheater`
 
-==== Deleting theaters: `deletetheater` | `dt`
-`Available in v1.2`
-
-image::deleteTheater.png[width="800"]
+==== Deleting theaters: `deletetheater` | `dt` | `Available in v1.2`
 
 Alias: `dt`
 
-Delete theaters from a cinema. +
+To delete theaters from a cinema, you can type the following command in the command box.
+
 Format: `deletetheater CINEMA_INDEX th/NUMBER_OF_THEATER`
 
 Examples:
@@ -288,9 +264,10 @@ Examples:
 
 [NOTE]
 ====
-Number of theater entered must be a *positive* integer
-
-The number entered should not be greater or equals to the current number of theater in that cinema
+* The index refers to the index number shown in the last cinema listing.
+* The index *must be a positive number* `1, 2, 3, ...`
+* Number of theater entered must be a *positive* number
+* The number entered should not be greater or equals to the current number of theater in that cinema
 ====
 
 Keyword appearance on Command Line: [purple-background white]`deletetheater`
@@ -353,7 +330,7 @@ Format: `deletemovie INDEX`
 ====
 * Deletes the movie at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive number* 1, 2, 3, ...
 ====
 
 Examples:
@@ -425,7 +402,7 @@ Adds a screening of the 2nd movie to the 3rd cinema's 3rd theater.
 * You can only add screening with year before 2031.
 * `SCREEN_DATE_TIME` must not be before `START_DATE` of the movie
 * The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive number* 1, 2, 3, ...
 * The movie to be screened must already exist in MVP
 * The cinema theater that is screening the movie must exist in MVP
 * The minutes in `SCREEN_DATE_TIME` must be in 5 minutes interval.
@@ -455,7 +432,7 @@ Deletes a screening which screens on 11/11/2011 from the 3rd cinema's 3rd theate
 ====
 * Screening must exist in the cinema theater
 * The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive number* 1, 2, 3, ...
 * The cinema theater that is holding the screening must exist in the MVP
 ====
 
