@@ -624,19 +624,46 @@ private void setUpEmailProperties() {
 
 <<DeveloperGuide.adoc#, Back to top>>
 
+//tag:adddeletemovie[]
+[[Implementation-Movie]]
+=== Addition and Deletion of movies
+
+The user can add and delete movies in MVP. The results will be shown on the `MovieListPanel`.
+[NOTE]
+Deletion of movies will delete the screenings in theaters that contain that movie.
+
+==== Implementation details
+
+Addition and deletion of movies uses similar implementation. The sequence diagram below shows an overview of the high level interactions
+between components for the scenario when a `AddMovie` command is issued.
+
+[[high_level_sd_scheduling]]
+.Component interactions for `AddMovieCommand`
+image::SDForMovie.PNG[width="1000"]
+
+.Sequence diagram of addmovie command
+image::AddMovieSequenceDiagram.PNG[width="1000"]
+
+==== Design considerations
+
+*Aspects:* Enable editing of movies.
+
+* **Alternative 1 (current choice):** Do not allow editing of Movie
+** Pros: Will not cause overlap of schedule if user decides to edit duration of movie. For eg. two movies are planned back to back, editing the first movie to have a longer duration will cause it to overrun to the next movie.
+** Cons: Users have to delete the movie and add it back if they make an error.
+
+* **Alternative 2:** Allow editing of Movie
+** Pros: More convenient for users to edit if they make a typo.
+** Cons: It might cause overlap of schedule as mentioned above.
+//end:adddeletemovie[]
+
 // tag::findmovie[]
 [[Implementation-FindMovie]]
 === Enhanced FindMovie command
 
 The user can find movies by `Category`, `MovieName` or `StartDate` or a combination of them as a multicriteria search.
 
-==== Implementation details
-
-The parser will take in all arguments the user specified and store it in an array. If the user search by `MovieName` or
-`StartDate` or `Category`, MVP will retrieve movie records in the storage with the matching keywords. If two or more conditions
-are specified, MVP will combine the predicates to get a smaller subset of results.
-
-==== Finding commands
+==== Finding movies
 
 Movies can be found by using the `findmovie` command. The command is parsed by `FindMovieCommandParser` and be executed
 in `FindMovieCommand`.
@@ -649,6 +676,10 @@ Figure below shows the interaction between the classes.
 image::FindMovieSequenceDiagram.PNG[width="1000"]
 
 ==== Implementation details
+The parser will take in all arguments the user specified and store it in an array. If the user search by `MovieName` or
+`StartDate` or `Category`, MVP will retrieve movie records in the storage with the matching keywords. If two or more conditions
+are specified, MVP will combine the predicates to get a smaller subset of results.
+
 As seen in the sequence diagram above, MVP will do the following
 
 . Calls `arePrefixesPresent()` to check if the necessary prefixes n/, sd/ and t/, which are used for name, startDate and tag
