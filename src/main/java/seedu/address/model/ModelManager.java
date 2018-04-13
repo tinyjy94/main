@@ -137,6 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         moviePlanner.updateCinema(target, editedCinema);
         indicateMoviePlannerChanged();
+        raise(new ReloadBrowserPanelEvent(moviePlanner));
     }
 
     @Override
