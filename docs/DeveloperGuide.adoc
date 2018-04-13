@@ -626,7 +626,7 @@ private void setUpEmailProperties() {
 
 // tag::adddeletemovie[]
 [[Implementation-Movie]]
-=== Addition and Deletion of movies
+=== Addition and deletion of movies
 
 The user can add and delete movies in MVP. The results will be shown on the `MovieListPanel`.
 [NOTE]
@@ -637,8 +637,8 @@ Deletion of movies will delete the screenings in theaters that contain that movi
 Addition and deletion of movies uses similar implementation. The sequence diagram below shows an overview of the high level interactions
 between components for the scenario when a `AddMovie` command is issued.
 
-[[high_level_sd_scheduling]]
 .Component interactions for `AddMovieCommand`
+[[high_level_movie]]
 image::SDForMovie.PNG[width="1000"]
 
 .Sequence diagram of addmovie command
