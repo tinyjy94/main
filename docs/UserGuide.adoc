@@ -723,11 +723,7 @@ There is no need to save manually.
 |`addscreening m/1 c/2 th/1 h/05/05/2015 13:30`
 |*AddTheater* | `addtheater CINEMA_INDEX th/NUMBER_OF_THEATER` |`at` |`addtheater 1 th/2`
 |*Clear* |`clear`| `c`| `clear`
-<<<<<<< HEAD
-|*Decrypt* |`decrypt pw/PASSWORD` |`dec` |`decrypt pw/password`
-=======
 |*Decrypt* | `decrypt pw/PASSWORD` | `dec` | `decrypt pw/iL0veSup3rHer0es`
->>>>>>> 00c53376695f735180162eca60e64a5a5805e79c
 |*Delete* |`delete INDEX` |`d`
 |`delete 3`
 |*DeleteMovie* |`delete INDEX` |`dm`
@@ -738,15 +734,9 @@ There is no need to save manually.
 |*DeleteTheater* |`deletetheater CINEMA_INDEX th/NUMBER_OF_THEATER` |`dt` |`deletetheater 1 th/9`
 |*Edit* |`edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` |`e`
 |`edit 2 n/GV Jurong Point e/contacts@gv.com`
-<<<<<<< HEAD
-|*Email* |`email msg/MESSAGE subj/SUBJECT recp/RECIPIENT func/<SEND/CLEAR> lgn/EMAIL_USERNAME:EMAIL_PASSWORD [attc/RELATIVE_FILE_PATH]`
-|`eml` |`email msg/Hi Bob, Here is the schedule. subj/Schedule lgn/cmanager@gmail.com:1I2h@la recp/gv.manager@gmail.com attc/docs/images/Architecture.png func/send`
-|*Encrypt* |`encrypt pw/PASSWORD`|`enc` |`encrypt pw/password`
-=======
 |*Email* | `email msg/MESSAGE subj/SUBJECT recp/RECIPIENT func/<SEND\|CLEAR> lgn/EMAIL_USERNAME:EMAIL_PASSWORD [attc/RELATIVE_FILE_PATH]` |`em`
 |`email msg/Hi Bob, Here is the schedule. subj/Schedule lgn/cmanager@gmail.com:1I2h@la recp/gv.manager@gmail.com attc/docs/images/Architecture.png func/send`
 |*Encrypt* | `encrypt pw/PASSWORD` | `enc` | `encrypt pw/iL0veSup3rHer0es`
->>>>>>> 00c53376695f735180162eca60e64a5a5805e79c
 |*Find* |`find KEYWORD [MORE_KEYWORDS]` |`f`
 |`find Cathay`
 |*FindMovie* |`findmovie [n/MOVIE_NAME] [t/TAG] [sd/START_DATE]` |`fm`
