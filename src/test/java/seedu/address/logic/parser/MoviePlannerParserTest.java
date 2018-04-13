@@ -87,7 +87,7 @@ public class MoviePlannerParserTest {
         Cinema cinema = new CinemaBuilder().build();
         EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(cinema).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_CINEMA.getOneBased() + " " + CinemaUtil.getCinemaDetails(cinema));
+                + INDEX_FIRST_CINEMA.getOneBased() + " " + CinemaUtil.getEdittedCinemaDetails(cinema));
         assertEquals(new EditCommand(INDEX_FIRST_CINEMA, descriptor), command);
     }
 
@@ -96,7 +96,7 @@ public class MoviePlannerParserTest {
         Cinema cinema = new CinemaBuilder().build();
         EditCinemaDescriptor descriptor = new EditCinemaDescriptorBuilder(cinema).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_ALIAS + " "
-                + INDEX_FIRST_CINEMA.getOneBased() + " " + CinemaUtil.getCinemaDetails(cinema));
+                + INDEX_FIRST_CINEMA.getOneBased() + " " + CinemaUtil.getEdittedCinemaDetails(cinema));
         assertEquals(new EditCommand(INDEX_FIRST_CINEMA, descriptor), command);
     }
 
