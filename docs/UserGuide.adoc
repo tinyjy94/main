@@ -92,10 +92,7 @@ Before proceeding on, you should take note of the following section:
 
 You can find commands related to cinema operations in this section.
 
-
 ==== Adding a cinema: `add` | `a`
-=======
-
 Alias: `a`
 
 To add a cinema to MVP, type the following command in the command box.
@@ -108,18 +105,13 @@ Examples:
 * `add n/We Cinema p/62181251 e/wecinema@wecinema.com a/321 Clementi Avenue 3 th/3`
 * `add n/Shaws e/shaws@shaws.com a/2 Jurong East Central 1, 11 JCube p/6123122 th/2`
 
-.Before adding a cinema
-image::BeforeAddCinema.gif[width="800"]
-
-.After adding a cinema
-image::AfterAddCinema.png[width="800"]
-
 Keyword appearance on Command Line: `add`
+
+image::AddCinema.png[width="800"]
 
 <<UserGuide.adoc#, Back to top>>
 
 ==== Editing a cinema: `edit` | `e`
-
 Alias: `e`
 
 To edit an existing cinema in MVP, type the following command in the command box.
@@ -130,7 +122,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 ====
 * Edits the cinema at the specified `INDEX`.
 * The index refers to the index number shown in the last cinema listing.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive number* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ====
@@ -142,11 +134,7 @@ Edits the phone number and email address of the 1st cinema to be `91234567` and 
 * `e 2 n/Golden Village` +
 Edits the name of the 2nd cinema to be `Golden Village`.
 
-.Before editing the cinema at `INDEX` 2
-image::BeforeEditCinema.gif[width="800"]
-
-.After editing the cinema at `INDEX` 2
-image::AfterEditCinema.png[width="800"]
+image::EditCinema.png[width="800"]
 
 Keyword appearance on Command Line: `edit`
 
@@ -160,11 +148,11 @@ To find the cinemas whose names contain any of the given keywords, type the foll
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `cathay` will match `Cathay`
-* The order of the keywords does not matter. e.g. `Cathay West` will match `West Cathay`
+* The search is case insensitive. e.g `cathay` will match `Cathay`.
+* The order of the keywords does not matter. e.g. `Cathay West` will match `West Cathay`.
 * Only the cinema is searched.
-* Only full words will be matched e.g. `Cathay` will not match `Cathays`
-* Cinemas matching at least one keyword will be returned (i.e. `OR` search). e.g. `Cathay West` will return `Cathay East`, `West Village`
+* Only full words will be matched e.g. `Cathay` will not match `Cathays`.
+* Cinemas matching at least one keyword will be returned (i.e. `OR` search). e.g. `Cathay West` will return `Cathay East`, `West Village`.
 ****
 
 Examples:
@@ -174,11 +162,7 @@ Displays any cinema having names `cathay` and `Cathay West`
 * `f Golden Village North` +
 Displays any cinema having names `Golden`, `Village`, or `North`
 
-.Before finding cinemas with keyword `Cathay`
-image::BeforeFindCinema.gif[width="800"]
-
-.After finding cinemas with keyword `Cathay`
-image::AfterCinemaCinema.png[width="800"]
+image::FindCinema.png[width="800"]
 
 Keyword appearance on Command Line: `find`
 
@@ -194,7 +178,7 @@ Format: `delete INDEX`
 ====
 * Deletes the cinema at the specified `INDEX`.
 * The index refers to the index number shown in the last cinema listing.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive number* 1, 2, 3, ...
 ====
 
 Examples:
@@ -206,11 +190,7 @@ Deletes the 2nd cinema in MVP.
 `d 1` +
 Deletes the 1st cinema in the results of the `find` command.
 
-.Before deleting the 1st cinema
-image::BeforeDeleteCinema.gif[width="800"]
-
-.After deleting the 1st cinema
-image::AfterDeleteCinema.png[width="800"]
+image::DeleteCinema.png[width="800"]
 
 Keyword appearance on Command Line: `delete`
 
@@ -223,11 +203,12 @@ To select a cinema at a specific index, you can type the following command in th
 
 Format: `select INDEX`
 
-****
+[Note]
+====
 * Selects the cinema and loads all the theaters with their schedules at the specified `INDEX`.
 * The index refers to the index number shown in the last cinema listing.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
+* The index *must be a positive number* 1, 2, 3, ...
+====
 
 Examples:
 
@@ -237,12 +218,6 @@ Selects the 2nd cinema in MVP.
  `s 1` +
 Selects the 1st cinema in the results of the `find` command.
 
-.Before selecting the 1st cinema
-image::BeforeSelectCinema.gif[width="800"]
-
-.After selecting the 1st cinema
-image::AfterSelectCinema.png[width="800"]
-
 Keyword appearance on Command Line: `select`
 
 <<UserGuide.adoc#, Back to top>>
@@ -250,7 +225,6 @@ Keyword appearance on Command Line: `select`
 // tag::theaterCommands[]
 
 ==== Adding theaters: `addtheater` | `at` | `Available in v1.2`
-
 Alias: `at`
 
 To add theaters to a cinema, you can type the following command in the command box.
@@ -260,40 +234,54 @@ Format: `addtheater CINEMA_INDEX th/NUMBER_OF_THEATER`
 Examples:
 
 * `addtheater 2 th/2`
+Adds 2 theaters to the 2nd cinema.
 * `at 1 th/5`
+Adds 5 theaters to the 1st cinema.
 
 [NOTE]
 ====
-Number of theaters entered must be a *positive* integer
-
-Maximum number of theaters per cinema is *20*
+* Adds theaters to the cinema at the specified `Index`.
+* The index refers to the index number shown in the last cinema listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Number of theaters entered must be a *positive* number.
+* Maximum number of theaters per cinema is *20*.
 ====
 
-Keyword appearance on Command Line: [purple-background white]`addtheater`
+image::AddTheater.png[width="800"]
 
-==== Deleting theaters: `deletetheater` | `dt`
-`Available in v1.2`
+Keyword appearance on Command Line: `addtheater`
 
-image::deleteTheater.gif[width="800"]
+<<UserGuide.adoc#, Back to top>>
 
+==== Deleting theaters: `deletetheater` | `dt` | `Available in v1.2`
 Alias: `dt`
 
-Delete theaters from a cinema. +
+To delete theaters from a cinema, you can type the following commmand in the command box.
+
 Format: `deletetheater CINEMA_INDEX th/NUMBER_OF_THEATER`
 
 Examples:
 
-* `deletetheater 2 th/9`
-* `dt 1 th/2`
+* `deletetheater 2 th/9` +
+Deletes 5 theaters from the 2nd cinema.
+* `dt 1 th/2` +
+Deletes 2 theaters from the 1st cinema.
+
 
 [NOTE]
 ====
-Number of theater entered must be a *positive* integer
-
-The number entered should not be greater or equals to the current number of theater in that cinema
+* Deletes theaters from the cinema at the specified `Index`.
+* The index refers to the index number shown in the last cinema listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Number of theaters entered must be a *positive* number.
+* The number of theaters entered should not be less than the current number of theaters in that cinema.
 ====
 
-Keyword appearance on Command Line: [purple-background white]`deletetheater`
+image::DeleteTheater.png[width="800"]
+
+Keyword appearance on Command Line: `deletetheater`
+
+<<UserGuide.adoc#, Back to top>>
 
 // end::theaterCommands[]
 
@@ -302,58 +290,69 @@ Keyword appearance on Command Line: [purple-background white]`deletetheater`
 
 Alias: `cp`
 
-Copies a theater schedule to a target theater schedule
-Format: `copy c/CINEMA th/THEATER sd/SOURCE_DATE tc/TARGET_CINEMA tth/TARGET_THEATER td/TARGET_DATE`
+To copy a cinema's theater schedule to another cinema's theater schedule, you can type the following command in the command box.
+
+Format: `copy c/CINEMA_INDEX th/THEATER sd/SOURCE_DATE tc/TARGET_CINEMA_INDEX tth/TARGET_THEATER td/TARGET_DATE`
 
 Examples:
 
-* `copy c/Cathay th/1 sd/14/03/2018 tc/Cathay tth/1 td/15/03/2018`
-* `cp c/Cathay Central th/1 sd/14/03/2018 tc/Cathay East tth/1 td/14/03/2018`
+* `copy c/1 th/1 sd/14/03/2018 tc/2 tth/1 td/15/03/2018` +
+Copies the schedule of the 1st cinema's 1st theater on 14/03/2018 to the 2nd cinema's 1st theater on 15/03/2018.
+* `cp c/1 th/1 sd/14/03/2018 tc/1 tth/2 td/14/03/2018` +
+Copies the schedule of the 1st cinema's 1st theater to 1st cinema's 2nd theater.
 
 [NOTE]
 ====
-* In the first example, you copy the schedule of Cathay's theater 1 on 14/03/2018 to the
-next day 15/03/2018.
-* In the second example, you copy the schedule of Cathay Central's theater 1 to the schedule of
-Cathay East's theater 1.
+* Copies the schedule of a cinema's theater to another cinema's theater.
+* The index refers to the index number shown in the last cinema listing.
+* The index *must be a positive number* 1, 2, 3, ...
 ====
 
-Keyword appearance on Command Line: [purple-background white]`copy`
+Keyword appearance on Command Line: `copy`
+
+<<UserGuide.adoc#, Back to top>>
 
 === Movie related commands
 
-==== Adding a movie: `addmovie` | `am`
-`Available in v1.2`
+You can find commands related to movie operations in this section.
 
-image::addMovie.gif[width="800"]
-
+==== Adding a movie: `addmovie` | `am` | `Available in v1.2`
 Alias: `am`
 
-Adds a movie to MVP. +
+To add a movie to MVP, you can type the following command in the command box.
+
 Format: `addmovie n/MOVIE_NAME d/DURATION r/RATING sd/START_DATE t/TAG`
 
 Examples:
 
-* `addmovie n/The Incredibles d/115 r/PG sd/18/11/2014 t/Animation`
-* `am n/Spiderman 1 d/121 r/PG sd/29/04/2012 t/Superheroes t/Spiderman`
+* `addmovie n/The Incredibles d/115 r/PG sd/18/11/2014 t/Animation` +
+Adds a movie named `The Incredibles` released on `18/11/2014` with a duration of `115 minutes` with a rating of `PG`.
+* `am n/Spiderman 1 d/121 r/PG sd/29/04/2012 t/Superheroes t/Spiderman` +
+Adds a movie named `Spiderman 1` released on `29/04/2012` with a duration of `121 minutes` with a rating of `PG`.
 
-Keyword appearance on Command Line: [purple-background white]`addmovie`
+image::AddMovie.png[width="800"]
 
-==== Deleting a movie : `deletemovie` | `dm`
-`Available in V1.2`
+Keyword appearance on Command Line: `addmovie`
 
-image::deleteMovie.gif[width="800"]
+<<UserGuide.adoc#, Back to top>>
 
+===== Tagging a movie | `Available in v1.2`
+image::taggedMovies.PNG[width="800"]
+
+In the picture above, we can see two movies that are tagged as `superhero` being listed by the `FindMovie` command. Tagging a movie allows for easier searching.
+
+==== Deleting a movie : `deletemovie` | `dm` | `Available in V1.2`
 Alias: `dm`
 
-Deletes the specified movie from MVP. +
+To delete a specified movie from MVP, you can type the following command in the command box.
+
 Format: `deletemovie INDEX`
 
 [NOTE]
 ====
 * Deletes the movie at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive number* 1, 2, 3, ...
 ====
 
 Examples:
@@ -365,52 +364,54 @@ Deletes the 2nd movie in MVP.
 `dm 1` +
 Deletes the 1st movie in the results of the `find` command.
 
-Keyword appearance on Command Line: [purple-background white]`deletemovie`
+image::DeleteMovie.png[width="800"]
+
+Keyword appearance on Command Line: `deletemovie`
+
+<<UserGuide.adoc#, Back to top>>
 
 // tag::findmovie[]
-==== Finding movies by user input: `findmovie` | `fm`
-`Available in v1.3`
-
-image::findMovie.gif[width="800"]
-
+==== Finding movies by user input: `findmovie` | `fm` | `Available in v1.3`
 Alias: `fm`
 
-Finds movies based on the name, tag or start date. +
+To find movies based on the name, tag or start date, you can type the following command in the command box.
+
 Format: `findmovie [n/MOVIE_NAME] [t/TAG] [sd/START_DATE]`
 
-****
-* The order of the keywords does not matter. e.g. `Cathay West` will match `West Cathay`
+[NOTE]
+====
+* The order of the keywords does not matter. e.g. `Thor Ragnarok` will match `Ragnarok Thor`
 * Only the movie is searched.
-****
+====
 
 Examples:
 
 * `findmovie n/zombie` +
-Returns all movies which name contains keyword `zombie` like `Zombie Graveyard` and `attack the zombie`
+Displays all movies which name contains keyword `zombie` like `Zombie Graveyard` and `attack the zombie`
 * `fm t/horror` +
-Returns all movies which belongs to the tag `horror` like `Insidious` and `Conjuring`
+Displays all movies which belongs to the tag `horror` like `Insidious` and `Conjuring`
 * `findmovie sd/15/03/2017` +
-Returns all movies with `StartDate = 15/03/2017` like `Ah Boys to Men 4`
+Displays all movies with `StartDate = 15/03/2017` like `Ah Boys to Men 4`
 * `findmovie n/Spiderman t/superhero` +
-Returns all movies from tag `superhero` with name `Spiderman` like `Spiderman 1`, `Spiderman 2` and `Spiderman 3`
+Displays all movies from tag `superhero` with name `Spiderman` like `Spiderman 1`, `Spiderman 2` and `Spiderman 3`
 
+image::FindMovie.png[width="800"]
 
-Keyword appearance on Command Line: [purple-background white]`findmovie`
+Keyword appearance on Command Line: `findmovie`
 
 `Planned feature in v2.0`
 
 * Enable user to include `and` and `or` keywords to make the search more flexible. (Currently only supports `and` search)
+
+<<UserGuide.adoc#, Back to top>>
 //end::findmovie[]
 
 // tag::scheduling[]
-==== Adding a movie screening: `addscreening` | `as`
-`Available in v1.2`
-
-image::addScreening.gif[width="800"]
-
+==== Adding a movie screening: `addscreening` | `as` | `Available in v1.2`
 Alias: `as`
 
-Adds a screening of a movie to a cinema theater. +
+To add a screening of a movie to a cinema theater, you can type the following command.
+
 Format: `addscreening m/MOVIE_INDEX c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME`
 
 Examples:
@@ -422,54 +423,59 @@ Adds a screening of the 2nd movie to the 3rd cinema's 3rd theater.
 
 [NOTE]
 ====
-* You can only add screening with year before 2031.
-* `SCREEN_DATE_TIME` must not be before `START_DATE` of the movie
 * The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* 1, 2, 3, ...
-* The movie to be screened must already exist in MVP
-* The cinema theater that is screening the movie must exist in MVP
+* The index *must be a positive number* 1, 2, 3, ...
+* The movie to be screened must already exist in MVP.
+* The cinema theater that is screening the movie must exist in MVP.
 * The minutes in `SCREEN_DATE_TIME` must be in 5 minutes interval.
+* The year in `SCREEN_DATE_TIME` must be between year 2000 and 2030.
+* `SCREEN_DATE_TIME` must be after the release date of the movie.
 ====
 
-Keyword appearance on Command Line: [purple-background white]`addscreening`
+image::AddScreening.png[width="800"]
 
-==== Deleting a screening: `deletescreening` | `ds`
+Keyword appearance on Command Line: `addscreening`
 
-image::deleteScreening.gif[width="800"]
+<<UserGuide.adoc#, Back to top>>
 
-`Available in v1.4`
-
+==== Deleting a screening: `deletescreening` | `ds` | `Available in v1.4`
 Alias: `ds`
 
-Delete a screening from a cinema theater using the screening's start date and time. +
+To delete a screening from a cinema theater, you can type the following command in the command box.
+
 Format: `deletescreening c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME`
 
 Examples:
 
 * `deletescreening c/2 th/1 h/05/05/2015 13:30` +
-Deletes a screening which screens on 05/05/2015 from the 2nd cinema's 1st theater.
+Deletes a screening which screens on 05/05/2015 13:30 from the 2nd cinema's 1st theater.
 * `ds c/3 th/3 h/11/11/2011 14:15` +
-Deletes a screening which screens on 11/11/2011 from the 3rd cinema's 3rd theater.
+Deletes a screening which screens on 11/11/2011 14:15 from the 3rd cinema's 3rd theater.
 
 [NOTE]
 ====
-* Screening must exist in the cinema theater
 * The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* 1, 2, 3, ...
-* The cinema theater that is holding the screening must exist in the MVP
+* The index *must be a positive number* 1, 2, 3, ...
+* The movie screening must exist in the cinema theater.
 ====
 
-Keyword appearance on Command Line: [purple-background white]`deletescreening`
+image::DeleteScreening.png[width="800"]
+
+Keyword appearance on Command Line: `deletescreening`
+
+<<UserGuide.adoc#, Back to top>>
 // end::scheduling[]
 
 // tag::emailfeature[]
 === Email related commands
-==== Emailing schedule: `email` | `eml`
-`Available in v1.3`
 
+You can find commands related to email operations in this section.
+
+==== Emailing schedule: `email` | `eml` | `Available in v1.3`
 Alias: `eml`
 
-Sends an email to target recipient. +
+To send an email to a target recipient, you can type the following command in the command box.
+
 Format: `email msg/MESSAGE subj/SUBJECT recp/RECIPIENT func/<SEND|CLEAR> lgn/EMAIL_USERNAME:EMAIL_PASSWORD [attc/RELATIVE_FILE_PATH]`
 
 [NOTE]
@@ -495,79 +501,96 @@ Sends out an email to `gv.manager@gmail.com` with a message of the following det
 * `eml msg/This will be a very long message, so I hope that you are attentive when you read this.` +
 Edits the email message with `This will be a very long message, so I hope that you are attentive when you read this.`
 
-Keyword appearance on Command Line: [purple-background white]`email`
+image::Email.png[width="800"]
+
+Keyword appearance on Command Line: `email`
+
+<<UserGuide.adoc#, Back to top>>
 // end::emailfeature[]
 
 === Security related commands
 
-// tag::SecurityUtils[]
-==== Encrypting data files : `encrypt` | `enc`
-`Available in v1.4`
+You can find commands related to security operations in this section.
 
+// tag::SecurityUtils[]
+==== Encrypting data files : `encrypt` | `enc` | `Available in v1.4`
 Alias: `enc`
 
 Encrypts the `movieplanner.xml` using password provided by user.
 
 Format: `encrypt pw/PASSWORD`
 
-****
+[Note]
+====
 * A `encryptedmovieplanner.xml` file is created/overwritten, upon the `encrypt` command.
-****
+* Placeholder, the encrypted file is located in ... *
+====
 
 Examples:
 
 * `encrypt pw/password` +
 You will be able to encrypt the `movieplanner.xml` and create a `encryptedmovieplanner.xml` using this password.
 
-==== Decrypting encrypted data files : `decrypt` | `dec`
-`Available in v1.4`
+Keyword appearance on Command Line: `encrypt`
 
+<<UserGuide.adoc#, Back to top>>
+
+==== Decrypting encrypted data files : `decrypt` | `dec` | `Available in v1.4`
 Alias: `dec`
 
 Decrypts the `encryptedmovieplanner.xml` using password provided by user.
 
 Format: `decrypt pw/PASSWORD`
 
-****
+[Note]
+====
 * A `movieplanner.xml` file is created/overwritten upon successful `decrypt` command. You will be prompt to restart the application to see changes.
-****
+* Placeholder, the decrypted file is located in ... *
+====
 
 Examples:
 
 * `decrypt pw/password` +
 You will be able to decrypt the `encryptedmovieplanner.xml` and obtain a `movieplanner.xml` if the password is the same as the one used for encryption.
 
-// end::SecurityUtils[]
+Keyword appearance on Command Line: `decrypt`
 
 <<UserGuide.adoc#, Back to top>>
+// end::SecurityUtils[]
 
 === Other helpful commands
 
-==== Viewing help : `help` | `h`
+You can find other helpful commands that can help you navigate MVP in this section.
 
+==== Viewing help : `help` | `h`
 Alias: `h`
+
+To find out more about the list of commands in MVP, you can type `help` or `h` in the command box.
 
 Format: `help`
 
-Keyword appearance on Command Line: [purple-background white]`help`
+Keyword appearance on Command Line: `help`
+
+<<UserGuide.adoc#, Back to top>>
 
 ==== Clearing all entries : `clear` | `c`
-
-`Available in v1.0`
-
 Alias: `c`
 
-Clears all entries from MVP. +
+To clear all entries of cinemas and movies from MVP, you can type `clear` or `c` in the command box.
+
 Format: `clear`
 
-Keyword appearance on Command Line: [purple-background white]`clear`
+image::Clear.png[width="800"]
+
+Keyword appearance on Command Line: `clear`
+
+<<UserGuide.adoc#, Back to top>>
 
 ==== Listing history of entered commands : `history` | `hist`
-`Available in v1.0`
-
 Alias: `hist`
 
-Lists all the commands that you have entered in reverse chronological order. +
+To find out more about the commands you have entered previously, you can type `history` or `h` in the command box.
+
 Format: `history`
 
 [NOTE]
@@ -575,14 +598,15 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-Keyword appearance on Command Line: [purple-background white]`history`
+Keyword appearance on Command Line: `history`
+
+<<UserGuide.adoc#, Back to top>>
 
 ==== Redoing the previously undone command : `redo` | `r`
-`Available in v1.0`
-
 Alias: `r`
 
-Reverses the most recent `undo` command. +
+To reverse the most recent `undo` command, you can type `redo` or `r` in the command box.
+
 Format: `redo`
 
 Examples:
@@ -602,20 +626,23 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
 
-Keyword appearance on Command Line: [purple-background white]`redo`
+image::Redo.png[width="800"]
+
+Keyword appearance on Command Line: `redo`
+
+<<UserGuide.adoc#, Back to top>>
 
 // tag::undoredo[]
 ==== Undoing previous command : `undo` | `u`
-`Available in v1.0`
-
 Alias: `u`
 
-Restores MVP to the state before the previous _undoable_ command was executed. +
+To restore MVP to the state before before the previous _undoable_ command was executed, you can type `undo` or `u` in the command box.
+
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify MVP's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify MVP's content (`add`, `delete`, `edit`, `addtheater`, `deletetheater`, `addmovie`, `deletemovie`, `addscreening`, `deletescreening`, `clear`).
 ====
 
 Examples:
@@ -634,48 +661,58 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-Keyword appearance on Command Line: [purple-background white]`undo`
+image::Undo.png[width="800"]
+
+Keyword appearance on Command Line: `undo`
+
+<<UserGuide.adoc#, Back to top>>
 
 // tag::jump[]
-==== Jumping to a specified date : `jump` | `j`
-`Available in 1.3`
-
+==== Jumping to a specified date : `jump` | `j` | `Available in v1.3`
 Alias: `j`
 
-Jumps to a specified date in the scheduler. +
+To view the schedule of a cinema on a specified date, you can type the following command in the command box.
+
 Format: `jump dd/mm/yyyy`
 
 Examples:
 
 * `jump 28/03/2018` +
-You will be able to see the schedule of 28/03/2018
+You will be able to view the schedule of the cinema on 28/03/2018.
 
 [NOTE]
 ====
 * Remember to select on a cinema before executing the jump command.
-* You can only jump a date that is before year 2031.
+* You can only jump to a date that is between year 2000 and 2030.
 ====
 
-Keyword appearance on Command Line: [purple-background white]`jump`
+image::Jump.png[width="800"]
+
+Keyword appearance on Command Line: `jump`
+
+<<UserGuide.adoc#, Back to top>>
 //end::jump[]
 
 ==== Listing all cinemas and movies : `list` | `l`
-`Available in v1.0`
-
 Alias: `l`
 
-Shows a list of all cinemas and movies in MVP. +
+To view a list of cinemas and movies in MVP, you can type `list` or `l` in the command box.
+
 Format: `list`
 
-Keyword appearance on Command Line: [purple-background white]`list`
+Keyword appearance on Command Line: `list`
 
+<<UserGuide.adoc#, Back to top>>
 
 ==== Exiting the program : `exit`
 
-Exits the program. +
+To exit MVP, you can type `exit` in the command box.
+
 Format: `exit`
 
-Keyword appearance on Command Line: [purple-background white]`exit`
+Keyword appearance on Command Line: `exit`
+
+<<UserGuide.adoc#, Back to top>>
 
 ==== Saving the data
 
@@ -686,6 +723,9 @@ There is no need to save manually.
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Movie Planner folder.
+
+*Q*: What is a screening? +
+*A*: A screening refers to a movie being shown on theater's screen in a timeslot.
 
 <<UserGuide.adoc#, Back to top>>
 
@@ -701,6 +741,7 @@ There is no need to save manually.
 |`addscreening m/1 c/2 th/1 h/05/05/2015 13:30`
 |*AddTheater* | `addtheater CINEMA_INDEX th/NUMBER_OF_THEATER` |`at` |`addtheater 1 th/2`
 |*Clear* |`clear`| `c`| `clear`
+|*Decrypt* | `decrypt pw/PASSWORD` | `dec` | `decrypt pw/iL0veSup3rHer0es`
 |*Delete* |`delete INDEX` |`d`
 |`delete 3`
 |*DeleteMovie* |`delete INDEX` |`dm`
@@ -711,11 +752,14 @@ There is no need to save manually.
 |*DeleteTheater* |`deletetheater CINEMA_INDEX th/NUMBER_OF_THEATER` |`dt` |`deletetheater 1 th/9`
 |*Edit* |`edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]` |`e`
 |`edit 2 n/GV Jurong Point e/contacts@gv.com`
+|*Email* | `email msg/MESSAGE subj/SUBJECT recp/RECIPIENT func/<SEND\|CLEAR> lgn/EMAIL_USERNAME:EMAIL_PASSWORD [attc/RELATIVE_FILE_PATH]` |`em`
+|`email msg/Hi Bob, Here is the schedule. subj/Schedule lgn/cmanager@gmail.com:1I2h@la recp/gv.manager@gmail.com attc/docs/images/Architecture.png func/send`
+|*Encrypt* | `encrypt pw/PASSWORD` | `enc` | `encrypt pw/iL0veSup3rHer0es`
 |*Find* |`find KEYWORD [MORE_KEYWORDS]` |`f`
 |`find Cathay`
-|*Jump* | `jump dd/mm/yyyy` | `j` | `jump 28/03/2018`
 |*FindMovie* |`findmovie [n/MOVIE_NAME] [t/TAG] [sd/START_DATE]` |`fm`
 |`findmovie n/zombie`
+|*Jump* | `jump dd/mm/yyyy` | `j` | `jump 28/03/2018`
 |*List* |`list` |`l` |`list`
 |*Help* |`help` |`h` |`help`
 |*Select* |`select INDEX` |`s` |`select 2`
@@ -728,6 +772,8 @@ There is no need to save manually.
 <<UserGuide.adoc#, Back to top>>
 
 == Key Shortcuts
+
+In this section you can find key shortcuts that can help you with your experience in MVP.
 
 |===
 |Shortcut |Corresponding Function
