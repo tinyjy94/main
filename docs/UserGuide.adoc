@@ -405,12 +405,13 @@ Format: `addscreening m/MOVIE_INDEX c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME
 
 [NOTE]
 ====
+* You can only add screenings with year between 2000 and 2030, inclusive of 2000 and 2030.
+* `SCREEN_DATE_TIME` must not be before `START_DATE` of the movie
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive number* 1, 2, 3, ...
 * The movie to be screened must already exist in MVP.
 * The cinema theater that is screening the movie must exist in MVP.
 * The minutes in `SCREEN_DATE_TIME` must be in 5 minutes interval.
-* The year in `SCREEN_DATE_TIME` must be between year 2000 and 2030.
 * `SCREEN_DATE_TIME` must be after the release date of the movie.
 ====
 
@@ -663,7 +664,7 @@ Format: `jump dd/mm/yyyy`
 [NOTE]
 ====
 * Remember to select on a cinema before executing the jump command.
-* You can only jump to a date that is between year 2000 and 2030.
+* You can only jump a date that is between year 2000 and 2030, inclusive of year 2000 and 2030.
 ====
 
 Examples:
