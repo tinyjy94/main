@@ -16,13 +16,13 @@ public class SecurityUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void Encrypt_NullOutputFile_throwsNullPointerException() {
+    public void encrypt_nullOutputFile_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         SecurityUtil.encrypt(plainFile, null, password);
     }
 
     @Test
-    public void GenerateKey_NullPassword_throwsNullPointerException() {
+    public void generateKey_nullPassword_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         SecurityUtil.generateKey(null);
     }
