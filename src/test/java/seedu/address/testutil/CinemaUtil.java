@@ -42,4 +42,16 @@ public class CinemaUtil {
         sb.append(PREFIX_NUMOFTHEATERS + Integer.toString(cinema.getTheaters().size()) + " ");
         return sb.toString();
     }
+
+    /**
+     * Returns the part of command string for the given {@code cinema}'s details.
+     */
+    public static String getEdittedCinemaDetails(Cinema cinema) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_NAME + cinema.getName().fullName + " ");
+        sb.append(PREFIX_PHONE + cinema.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + cinema.getEmail().value + " ");
+        sb.append(PREFIX_ADDRESS + cinema.getAddress().value + " ");
+        return sb.toString();
+    }
 }

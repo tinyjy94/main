@@ -1,17 +1,11 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.EditCommand.EditCinemaDescriptor;
 import seedu.address.model.cinema.Address;
 import seedu.address.model.cinema.Cinema;
 import seedu.address.model.cinema.Email;
 import seedu.address.model.cinema.Name;
 import seedu.address.model.cinema.Phone;
-import seedu.address.model.cinema.Theater;
 
 /**
  * A utility class to help with building EditCinemaDescriptor objects.
@@ -37,7 +31,6 @@ public class EditCinemaDescriptorBuilder {
         descriptor.setPhone(cinema.getPhone());
         descriptor.setEmail(cinema.getEmail());
         descriptor.setAddress(cinema.getAddress());
-        descriptor.setTheaters(cinema.getTheaters());
     }
 
     /**
@@ -71,18 +64,6 @@ public class EditCinemaDescriptorBuilder {
         descriptor.setAddress(new Address(address));
         return this;
     }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditCinemaDescriptor}
-     * that we are building.
-     */
-    public EditCinemaDescriptorBuilder withTheaters(int numOfTheater) {
-        List<Theater> theaterList = Stream.of(numOfTheater).map(Theater::new).collect(Collectors.toList());
-        ArrayList<Theater> newTheaterList = new ArrayList<>(theaterList);
-        descriptor.setTheaters(newTheaterList);
-        return this;
-    }
-
 
     public EditCinemaDescriptor build() {
         return descriptor;
