@@ -378,7 +378,7 @@ Adds a screening of the 2nd movie to the 3rd cinema's 3rd theater.
 
 [NOTE]
 ====
-* You can only add screening with year before 2031.
+* You can only add screenings with year between 2000 and 2030, inclusive of 2000 and 2030.
 * `SCREEN_DATE_TIME` must not be before `START_DATE` of the movie
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* 1, 2, 3, ...
@@ -609,7 +609,7 @@ You will be able to see the schedule of 28/03/2018
 [NOTE]
 ====
 * Remember to select on a cinema before executing the jump command.
-* You can only jump a date that is before year 2031.
+* You can only jump a date that is between year 2000 and 2030, inclusive of year 2000 and 2030.
 ====
 
 Keyword appearance on Command Line: [purple-background white]`jump`
