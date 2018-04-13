@@ -115,10 +115,10 @@ public class CommandTestUtil {
     static {
         DESC_SENGKANG = new EditCinemaDescriptorBuilder().withName(VALID_NAME_SENGKANG)
                 .withPhone(VALID_PHONE_SENGKANG).withEmail(VALID_EMAIL_SENGKANG).withAddress(VALID_ADDRESS_SENGKANG)
-                .withTheaters(VALID_NUMOFTHEATERS).build();
+                .build();
         DESC_TAMPINES = new EditCinemaDescriptorBuilder().withName(VALID_NAME_TAMPINES)
                 .withPhone(VALID_PHONE_TAMPINES).withEmail(VALID_EMAIL_TAMPINES).withAddress(VALID_ADDRESS_TAMPINES)
-                .withTheaters(VALID_NUMOFTHEATERS).build();
+                .build();
     }
 
     /**
