@@ -20,5 +20,6 @@ public class Messages {
             + " before and after this. Please also make sure the screening date is after the movie release date.";
     public static final String MESSAGE_INVALID_DELETE_SCREENING_DATE_TIME = "Screening does not exist. "
             + "Please check that the screening exist in the given cinema.";
-    public static final String MESSAGE_FILE_NOT_FOUND = "Encrypted file not found! Nothing to decrypt.";
+    public static final String MESSAGE_ENCRYPTED_FILE_NOT_FOUND = "Encrypted file not found! Nothing to decrypt.";
+    public static final String MESSAGE_FILE_NOT_FOUND = "movieplanner.xml not found. No file to encrypt!";
 }

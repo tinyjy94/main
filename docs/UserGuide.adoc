@@ -236,7 +236,8 @@ Format: `addtheater CINEMA_INDEX th/NUMBER_OF_THEATER`
 * The index refers to the index number shown in the last cinema listing.
 * The index *must be a positive integer* 1, 2, 3, ...
 * Number of theaters entered must be a *positive* number.
-* Maximum number of theaters per cinema is *20*.
+* The maximum number of theaters per cinema is *20*.
+* To display all theaters properly, please use MVP in maximized mode.
 ====
 
 Examples:
@@ -511,13 +512,17 @@ Format: `encrypt pw/PASSWORD`
 [NOTE]
 ====
 * A `encryptedmovieplanner.xml` file is created/overwritten, upon the `encrypt` command.
-* Placeholder, the encrypted file is located in ... *
+* The `encryptedmovieplanner.xml` file is located in `data` folder, alongside with `movieplanner.xml`.
+* The command will not work if `movieplanner.xml` is missing from the `data` folder.
 ====
+
+[TIP]
+You can create a `movieplanner.xml` by running any add or delete commands. Example: `at 1 th/1`
 
 Examples:
 
-* `encrypt pw/password` +
-You will be able to encrypt the `movieplanner.xml` and create a `encryptedmovieplanner.xml` using this password.
+* `encrypt pw/secret` +
+You will be able to encrypt the `movieplanner.xml` and create a `encryptedmovieplanner.xml` using *secret* as the password.
 
 <<UserGuide.adoc#, Back to top>>
 
@@ -531,13 +536,14 @@ Format: `decrypt pw/PASSWORD`
 [NOTE]
 ====
 * A `movieplanner.xml` file is created/overwritten upon successful `decrypt` command. You will be prompt to restart the application to see changes.
-* Placeholder, the decrypted file is located in ... *
+* The `movieplanner.xml` file is located in `data` folder, alongside with `encryptedmovieplanner.xml`.
+* The command will not work if `encryptedmovieplanner.xml` is missing from the `data` folder.
 ====
 
 Examples:
 
-* `decrypt pw/password` +
-You will be able to decrypt the `encryptedmovieplanner.xml` and obtain a `movieplanner.xml` if the password is the same as the one used for encryption.
+* `decrypt pw/secret` +
+You will be able to decrypt the `encryptedmovieplanner.xml` and obtain a `movieplanner.xml` if the password(*secret* in this case) is the same as the one used for encryption.
 
 <<UserGuide.adoc#, Back to top>>
 // end::SecurityUtils[]
