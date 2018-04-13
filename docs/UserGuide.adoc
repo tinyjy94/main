@@ -89,7 +89,6 @@ Before proceeding on, you should take note of the following section:
 ====
 
 === Cinema related commands
-
 You can find commands related to cinema operations in this section.
 
 ==== Adding a cinema: `add` | `a`
@@ -147,13 +146,14 @@ To find the cinemas whose names contain any of the given keywords, type the foll
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-****
+[NOTE]
+====
 * The search is case insensitive. e.g `cathay` will match `Cathay`.
 * The order of the keywords does not matter. e.g. `Cathay West` will match `West Cathay`.
 * Only the cinema is searched.
 * Only full words will be matched e.g. `Cathay` will not match `Cathays`.
 * Cinemas matching at least one keyword will be returned (i.e. `OR` search). e.g. `Cathay West` will return `Cathay East`, `West Village`.
-****
+====
 
 Examples:
 
@@ -256,7 +256,7 @@ Keyword appearance on Command Line: `addtheater`
 ==== Deleting theaters: `deletetheater` | `dt` | `Available in v1.2`
 Alias: `dt`
 
-To delete theaters from a cinema, you can type the following commmand in the command box.
+To delete theaters from a cinema, you can type the following command in the command box.
 
 Format: `deletetheater CINEMA_INDEX th/NUMBER_OF_THEATER`
 
@@ -338,6 +338,11 @@ Keyword appearance on Command Line: `addmovie`
 
 ===== Tagging a movie | `Available in v1.2`
 image::taggedMovies.PNG[width="800"]
+
+In the picture above, we can see two movies that are tagged as `superhero` being listed by the `FindMovie` command. Tagging a movie allows for easier searching.
+
+==== Deleting a movie : `deletemovie` | `dm`
+`Available in V1.2`
 
 In the picture above, we can see two movies that are tagged as `superhero` being listed by the `FindMovie` command. Tagging a movie allows for easier searching.
 
