@@ -761,6 +761,7 @@ In this section you can find key shortcuts that can help you with your experienc
 |===
 |Shortcut |Corresponding Function
 |*Alt + Shift + C* | Clear command
+|*Ctrl + H* | History command
 |*Ctrl + L* | List command
 |*Ctrl + Y* | Redo command
 |*Ctrl + Z* | Undo command

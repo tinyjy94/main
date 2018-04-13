@@ -620,6 +620,18 @@ private void setUpEmailProperties() {
 * *Pros:* Users will have more options in editing email information.
 * *Cons:* The email feature will not be integrated within the MVP application.
 
+*Aspect:* Email Account Concealment (coming in V2.0)
+
+*Alternative 1 (current choice):* Display email login details in command line
+
+* *Pros:* The email account's information (username and password) can be seen by the user.
+* *Cons:* The email account's information (username and password) can be seen by other people.
+
+*Alternative 2:* Conceal email login details in command line with placeholder symbols
+
+* *Pros:* The email account's information (username and password) is hidden from other people.
+* *Cons:* User may key in a wrong email password because they cannot identify what was typed.
+
 // end::emailfeature[]
 
 <<DeveloperGuide.adoc#, Back to top>>
