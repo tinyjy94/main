@@ -1,13 +1,16 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_FILE_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 
+import java.io.File;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.UserPrefs;
 //@@author tinyjy94
 /**
  * Parses input arguments and creates a new EncryptCommand object
@@ -27,6 +30,12 @@ public class EncryptCommandParser implements Parser<EncryptCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EncryptCommand.MESSAGE_USAGE));
         }
         String password = args.trim();
+        UserPrefs pref = new UserPrefs();
+        File filePath = new File(pref.getMoviePlannerFilePath());
+
+        if (!filePath.exists()) {
+            throw new ParseException(String.format(MESSAGE_FILE_NOT_FOUND, EncryptCommand.MESSAGE_USAGE));
+        }
 
         return new EncryptCommand(password);
     }

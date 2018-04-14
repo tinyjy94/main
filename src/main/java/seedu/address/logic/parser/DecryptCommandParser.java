@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_FILE_NOT_FOUND;
+import static seedu.address.commons.core.Messages.MESSAGE_ENCRYPTED_FILE_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 
@@ -56,7 +56,7 @@ public class DecryptCommandParser implements Parser<DecryptCommand> {
                 throw new ParseException(String.format(DecryptCommand.MESSAGE_WRONGPASSWORD,
                         DecryptCommand.MESSAGE_USAGE));
             } catch (IOException e) {
-                throw new ParseException(String.format(MESSAGE_FILE_NOT_FOUND, DecryptCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_ENCRYPTED_FILE_NOT_FOUND, DecryptCommand.MESSAGE_USAGE));
             }
         }
 

@@ -18,7 +18,7 @@ By: `Team W11-B2`      Since: `Jun 2016`      Licence: `MIT`
 
 MoVie Planner (MVP) is a desktop application that aims to assist cinema managers in managing schedule of
 movies in different cinemas, providing features such as replicating cinemas’ schedules across periods of
-time, secure storage of cinema schedule and more.
+time, secured storage of cinema schedule and more.
 
 This guide provides information that will help you get started as a MVP contributor. In particular,
 the guide details the design of our backend architecture, implementation of features, and the testing
@@ -950,7 +950,8 @@ The following sequence diagram shows the interactions inside the Logic Component
 image::AddTheaterSequenceDiagram.png[width="1000"]
 
 [NOTE]
-`deleteTheater` follows the same flow as the diagram shown above, but uses `DeleteTheaterCommand` and `DeleteTheaterCommandParser` instead.
+. `deleteTheater` follows the same flow as the diagram shown above, but uses `DeleteTheaterCommand` and `DeleteTheaterCommandParser` instead.
+. The maximum number of theaters per cinema is *20*.
 
 The addition and deletion of `Theater` in `Cinema` are facilitated by `addTheater` and `deleteTheater` commands. When executing these commands, MVP will do the following
 

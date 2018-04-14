@@ -36,14 +36,14 @@ public class SecurityUtil {
     private static final int AES_Key_Size = 128;
     private static final int iteration = 65536;
 
-    public static void encrypt(String filepath, String encryptedFilePath, String password) throws IOException {
+    public static void encrypt(String filepath, String encryptedFilePath, String password) {
         encrypt(new File(filepath), new File(encryptedFilePath), password);
     }
 
     /**
      * Encrypts the given file using AES key using Key given.
      */
-    public static void encrypt(File inputFile, File outputFile, String password) throws IOException {
+    public static void encrypt(File inputFile, File outputFile, String password) {
         try {
             Key pw = generateKey(password);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -58,6 +58,9 @@ public class SecurityUtil {
         } catch (NoSuchPaddingException bpe) {
             logger.severe("Invalid padding provided " + StringUtil.getDetails(bpe));
             throw new AssertionError("Invalid padding.");
+        } catch (IOException e) {
+            logger.severe("File does not exist " + StringUtil.getDetails(e));
+            throw new AssertionError("Invalid file provided.");
         }
     }
 
@@ -136,13 +139,11 @@ public class SecurityUtil {
     @Subscribe
     public void handleEncryptionRequestEvent(EncryptionRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        System.out.println("testing" + event.getPassword());
     }
 
     @Subscribe
     public void handleDecryptionRequestEvent(DecryptionRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        System.out.println("testing" + event.getPassword());
     }
 
 }
