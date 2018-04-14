@@ -417,13 +417,11 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Data Encryption/Decryption
 MVP provides data encryption as well as decryption to allow for safe storage and transmission of data.
 
-The Sequence Diagram below shows how the components interact for the scenario where the user issues the command `encrypt pw/pass`.
+Figure 19 below shows how the components interact for the scenario where the user issues the command `encrypt pw/pass`. Figure 20 
+shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk.
 
 .Component interactions for `encrypt pw/pass` command (part 1)
 image::SDforEncryption.png[width="800"]
-
-
-Figure 20 shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk.
 
 .Component interactions for `encrypt pw/pass` command (part 2)
 image::SDforEncryptEventHandling.png[width="800"]
