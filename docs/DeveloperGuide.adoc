@@ -1411,10 +1411,8 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 Chan Jun Yuan
 
-Major feature: *Cloud sync with encryption* +
-This allows the user to work from multiple endpoints. For example, the `movieplanner.xml` file can be stored in the
-cloud such as Dropbox or Google Drive. As cinema scheduling is a trade secret, it is important to secure
-the schedules of the cinema theaters through encrypting the data.
+Major feature: *Security Utilities(Encrypt/Decrypt)* +
+This allows the user to encrypt and decrypt the `movieplanner.xml`, which contains cinema scheduling information. As cinema scheduling information is a trade secret, it is important to secure this through encryption. Users can also send the encrypted file to themselves or others to decrypt in order to continue cinema scheduling.
 
 Minor feature: *Theater commands (add, delete)* +
 `AddTheater` and `DeleteTheater` commands will give user flexibility to expand or shrink the size of the cinema.
@@ -1439,7 +1437,7 @@ This allows the user to view a list of movies in real time after adding or editi
 Oh Han Yi
 
 Major feature: *Enhance FindMovie command* +
-This allows the user to find movies by `Category`, `MovieName` or `StartDate`. This is such that it filters out the result and
+This allows the user to find movies by `Tag`, `MovieName` or `StartDate`. This is such that it filters out the result and
 make it easier for the user to read.
 
 Minor feature: *Movie commands (add, edit, delete)* +
