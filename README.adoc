@@ -4,7 +4,6 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/profile/CS2103JAN2018-W11-B2[image:https://travis-ci.org/CS2103JAN2018-W11-B2/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/tinyjy94/main[image:https://ci.appveyor.com/api/projects/status/29hd9q3b9vrvbljj/branch/master?svg=true[Build status]]
 https://coveralls.io/github/CS2103JAN2018-W11-B2/main?branch=master[image:https://coveralls.io/repos/github/CS2103JAN2018-W11-B2/main/badge.svg?branch=master[Coverage Status]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]

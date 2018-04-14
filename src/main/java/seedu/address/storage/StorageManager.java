@@ -15,7 +15,6 @@ import seedu.address.commons.events.storage.EncryptionRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.SecurityUtil;
 import seedu.address.logic.commands.DecryptCommand;
-import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.model.ReadOnlyMoviePlanner;
 import seedu.address.model.UserPrefs;
 
@@ -119,12 +118,9 @@ public class StorageManager extends ComponentManager implements Storage {
     @Subscribe
     public void handleEncryptionRequestEvent(EncryptionRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Encrypted and saving to file"));
-        try {
-            SecurityUtil.encrypt(moviePlannerStorage.getMoviePlannerFilePath(),
-                    moviePlannerStorage.getEncryptedMoviePlannerFilePath(), event.getPassword());
-        } catch (IOException e) {
-            System.out.println(EncryptCommand.MESSAGE_ERRORENCRYPTING);
-        }
+        SecurityUtil.encrypt(moviePlannerStorage.getMoviePlannerFilePath(),
+                moviePlannerStorage.getEncryptedMoviePlannerFilePath(), event.getPassword());
+
     }
 
     @Subscribe
