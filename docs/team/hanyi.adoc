@@ -8,7 +8,7 @@
 
 == Overview
 
-MoVie Planner (MVP) - is a desktop movie planner built to streamlining a theater manager's job by managing schedules of movies in different cinemas. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoc.
+MoVie Planner (MVP) - is a desktop movie planner built to streamline a theater manager's job by managing schedules of movies in different cinemas. It also has features such as encryption and emailing. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoc.
 
 == Summary of contributions
 
