@@ -1577,24 +1577,8 @@ A contact detail that is not meant to be shared with others
 A type of user interface that allows users to interact with electronic devices through graphical icons and
 visual indicators.
 
-<<DeveloperGuide.adoc#, Back to top>>
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[SMTP]] Simple Mail Transfer Protocol (SMTP)
+A TCP/IP protocol used in sending and receiving e-mail.
 
 <<DeveloperGuide.adoc#, Back to top>>
 
