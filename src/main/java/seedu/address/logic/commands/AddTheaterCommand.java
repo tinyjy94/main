@@ -34,7 +34,7 @@ public class AddTheaterCommand extends UndoableCommand {
 
     public static final String MESSAGE_RESIZE_CINEMA_SUCCESS = "Resized Cinema: %1$s";
     public static final String MESSAGE_DUPLICATE_CINEMA = "This cinema already exists in the movie planner.";
-    public static final String MESSAGE_INVALID_THEATERSIZE = "You can only add up to 20 theaters per cinema!";
+    public static final String MESSAGE_INVALID_THEATERSIZE = "You can only have up to 20 theaters per cinema!";
 
     private final Index index;
     private final int newTheaters;
