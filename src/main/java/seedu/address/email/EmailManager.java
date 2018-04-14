@@ -21,7 +21,7 @@ public class EmailManager extends ComponentManager implements Email {
 
     private static final String STATUS_CLEARED = "cleared.";
     private static final String STATUS_DRAFTED = "drafted.\n";
-    private static final String STATUS_SENT = "sent";
+    private static final String STATUS_SENT = "sent.";
     private static final String STATUS_LOGIN_FAIL = "You are not logged in to a Gmail account.";
     private static final String STATUS_LOGIN_SENT = "using %1$s";
     private static final String STATUS_LOGIN_SUCCESS = "You are logged in to %1$s";
