@@ -45,6 +45,8 @@ it has a GUI created with JavaFX. It is written in Java, and has about 15 kLoc.
 
 include::../UserGuide.adoc[tag=SecurityUtils]
 
+include::../UserGuide.adoc[tag=theaterCommands]
+
 == Contributions to the Developer Guide
 
 |===
@@ -52,3 +54,5 @@ include::../UserGuide.adoc[tag=SecurityUtils]
 |===
 
 include::../DeveloperGuide.adoc[tag=SecurityUtils]
+
+include::../DeveloperGuide.adoc[tag=theaterCommands]
