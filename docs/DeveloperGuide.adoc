@@ -1623,6 +1623,28 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
+=== Theater commands
+. Adding theaters to a cinema
+
+.. Prerequisites: The specified cinema must have less than *20* theaters. Multiple cinemas in the list.
+... The first cinema has *x*(where x is any integer smaller than 20) theaters.
+.. Test case: `addtheater 1 th/1` +
+   Expected: First cinema will have 1 theater added. Details of the resized cinema shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `addtheater 1 th/0` +
+   Expected: No theater is added to the first cinema. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect addtheater commands to try: `addtheater 0 th/3`, `addtheater 1 th/10` (where 10 + *x* is larger than *20*)
+   Expected: Similar to previous.
+
+. Deleting theaters from a cinema
+
+.. Prerequisites: The specified cinema must have more than *1* theater. Multiple cinemas in the list.
+.. Test case: `deletetheater 1 th/1` +
+   Expected: First cinema will have 1 theater removed from the back. Details of the resized cinema shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deletetheater 1 th/0` +
+   Expected: No theater is removed from the first cinema. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect deletetheater commands to try: `deletetheater 0 th/3`, `deletetheater 1 th/10` (where number of theaters in the first cinema is *10* or less).
+   Expected: Similar to previous.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
