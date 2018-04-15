@@ -1627,12 +1627,12 @@ _{ more test cases ... }_
 . Adding theaters to a cinema
 
 .. Prerequisites: The specified cinema must have less than *20* theaters. Multiple cinemas in the list.
-... The first cinema has *x*(where x is any integer smaller than 20) theaters.
+* The first cinema has *x*(where x is any integer smaller than 20) theaters.
 .. Test case: `addtheater 1 th/1` +
    Expected: First cinema will have 1 theater added. Details of the resized cinema shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `addtheater 1 th/0` +
    Expected: No theater is added to the first cinema. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect addtheater commands to try: `addtheater 0 th/3`, `addtheater 1 th/10` (where 10 + *x* is larger than *20*)
+.. Other incorrect addtheater commands to try: `addtheater 0 th/3`, `addtheater 1 th/10` (where 10 + *x* is larger than *20*) +
    Expected: Similar to previous.
 
 . Deleting theaters from a cinema
@@ -1642,7 +1642,7 @@ _{ more test cases ... }_
    Expected: First cinema will have 1 theater removed from the back. Details of the resized cinema shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `deletetheater 1 th/0` +
    Expected: No theater is removed from the first cinema. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect deletetheater commands to try: `deletetheater 0 th/3`, `deletetheater 1 th/10` (where number of theaters in the first cinema is *10* or less).
+.. Other incorrect deletetheater commands to try: `deletetheater 0 th/3`, `deletetheater 1 th/10` (where number of theaters in the first cinema is *10* or less). +
    Expected: Similar to previous.
 
 === Saving data
@@ -1656,8 +1656,8 @@ _{ more test cases ... }_
 . Adding a screening to MVP
 
 .. Prerequisites: List all cinemas and movies using the list command. Multiple cinemas and movies in the list.
-* The 1st movie has a duration of 100 minutes. The calculated duration for this screening is 115 minutes.
-* The 1st movie release date is on 31/03/2018.
+* The first movie has a duration of 100 minutes. The calculated duration for this screening is 115 minutes.
+* The first movie release date is on 31/03/2018.
 
 .. Test case:
 ... `addscreening m/1 c/1 th/1 h/01/04/2018 11:00` +
@@ -1685,7 +1685,7 @@ An error message "Please provide a valid date and time in the form DD/MM/YYYY HH
 . Deleting a screening from MVP
 
 .. Prerequisites: List all cinemas using the list command.
-* The 1st cinema's 1st theater has only 1 screening and it is on 01/04/2018 11:00. The movie in this screening has a duration of 100 minutes. The screening lasts from 11:00 to 12:55.
+* The first cinema's first theater has only 1 screening and it is on 01/04/2018 11:00. The movie in this screening has a duration of 100 minutes. The screening lasts from 11:00 to 12:55.
 
 .. Test case:
 ... `deletescreening c/1 th/1 h/01/04/2018 11:00` +
