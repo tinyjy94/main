@@ -422,13 +422,18 @@ The Sequence Diagram below shows how the components interact for the scenario wh
 .Component interactions for `encrypt pw/pass` command (part 1)
 image::SDforEncryption.png[width="800"]
 
-Figure 20  shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk.
-
+The Sequence Diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk.
 .Component interactions for `encrypt pw/pass` command (part 2)
 image::SDforEncryptEventHandling.png[width="800"]
 
 [NOTE]
 `Decrypt` command also follows the same flow as shown in the Sequence Diagram above, but `DecryptionRequestEvent` is posted and `handleDecryptionRequestEvent` is called instead.
+
+The Activity Diagram below displays the series of events that occurs when a user enters the encrypt command.
+
+.Activity Diagram of Encrypt command
+image::EncryptCommandActivityDiagram.png[width="800"]
+
 
 ==== Implementation details
 `SecurityUtil` is used to facilitate the encryption and decryption process by providing the `encrypt` and `decrypt` commands.
