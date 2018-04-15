@@ -17,7 +17,7 @@ By: `Team W11-B2`      Since: `Jun 2016`      Licence: `MIT`
 == Introduction
 
 MoVie Planner (MVP) is a desktop application that aims to assist cinema managers in managing schedule of
-movies in different cinemas, providing features such as replicating cinemas’ schedules across periods of
+movies in different cinemas, providing features such as managing cinemas’ schedules across periods of
 time, secured storage of cinema schedule and more.
 
 This guide provides information that will help you get started as a MVP contributor. In particular,
@@ -118,6 +118,8 @@ When you are ready to start coding,
 
 [[Design-Architecture]]
 === Architecture
+
+The following section contains information about the components in MVP to help you better understand how MVP is designed.
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
@@ -1481,11 +1483,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |cinema manager with many movies |add categories for movies |categorize movies into different genre
 
+|`*` |lazy cinema manager |copy cinema's schedule | copy the schedule of 1 cinema to another quickly
+
 |`*` |lazy cinema manager |have keyboard shortcuts |execute commands quickly
 
 |=======================================================================
 
-_{More to be added}_
 
 <<DeveloperGuide.adoc#, Back to top>>
 
@@ -1543,7 +1546,6 @@ Use case ends.
 +
 Use case ends.
 
-_{More to be added}_
 
 <<DeveloperGuide.adoc#, Back to top>>
 
@@ -1558,8 +1560,6 @@ _{More to be added}_
 .  Should be able to load storage file from previous editions within 2 seconds.
 .  Should come with automated unit test and source code.
 .  Should be easy to use for user without any programming knowledge.
-
-_{More to be added}_
 
 <<DeveloperGuide.adoc#, Back to top>>
 
@@ -1612,13 +1612,11 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all cinemas using the `list` command. Multiple cinemas in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First cinema is deleted from the list. Details of the deleted cinema shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No cinema is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
@@ -1626,6 +1624,71 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+=== Scheduling system
+
+. Adding a screening to MVP
+
+.. Prerequisites: List all cinemas and movies using the list command. Multiple cinemas and movies in the list.
+* The 1st movie has a duration of 100 minutes. The calculated duration for this screening is 115 minutes.
+* The 1st movie release date is on 31/03/2018.
+
+.. Test case:
+... `addscreening m/1 c/1 th/1 h/01/04/2018 11:00` +
+... `addscreening m/1 c/1 th/1 h/01/04/2018 12:55` +
+Expected: This screening will be successfully added to the cinema's theater. The `BrowserPanel` will show new information about this screening.
+Details of the screening will be shown in the status message.
+
+.. Test case:
+... `addscreening m/1 c/1 th/1 h/01/04/2018 11:00` +
+... `addscreening m/1 c/1 th/1 h/01/04/2018 13:15` +
+... `addscreening m/1 c/1 th/1 h/01/04/2018 13:00` +
+Expected: This screening will not be added to the cinema's theater due to conflicting timeslot.
+An error message "Please ensure that there is no conflict of screening before and after this. Please also make sure the screening date is after the movie release date." will be shown in the status message.
+
+.. Test case:
+... `addscreening m/1 c/1 th/1 h/29/03/2018 11:00` +
+Expected: This screening will not be added to the cinema's theater as the screening date is before the release date of the movie.
+An error message "Please ensure that there is no conflict of screening before and after this. Please also make sure the screening date is after the movie release date." will be shown in the status message.
+
+.. Test case:
+... `addscreening m/1 c/1 th/1 h/01/04/2018 11:04` +
+Expected: This screening will not be added to the cinema's theater as the minutes of the screening is not within the 5 minutes interval.
+An error message "Please provide a valid date and time in the form DD/MM/YYYY HH/mm. With the minutes being in 5 minutes interval. E.g. 05/05/2015 23:0" will be shown in the status message.
+
+. Deleting a screening from MVP
+
+.. Prerequisites: List all cinemas using the list command.
+* The 1st cinema's 1st theater has only 1 screening and it is on 01/04/2018 11:00. The movie in this screening has a duration of 100 minutes. The screening lasts from 11:00 to 12:55.
+
+.. Test case:
+... `deletescreening c/1 th/1 h/01/04/2018 11:00` +
+Expected: This screening is deleted from the cinema's theater. The `BrowserPanel` will show the updated schedule of the cinema's theater.
+Details of the screening will be shown in the status message.
+
+.. Test case:
+... `deletescreening c/1 th/1 h/01/04/2018 11:20` +
+Expected: This screening is not deleted from the cinema's theater as the time provided is not the exact time when the screening starts.
+An error message "Please ensure that the screening exist in the given cinema. Please also ensure that the time given is the exact time when the screening starts." will be shown in the status message.
+
+.. Test case:
+... `deletescreening c/1 th/1 h/01/04/2018 10:20` +
+Expected: No screening is found.
+An error message "Please ensure that the screening exist in the given cinema. Please also ensure that the time given is the exact time when the screening starts." will be shown in the status message.
+
+. Navigating the dates in the schedule
+.. Prerequisites: A cinema is selected.
+
+.. Test case:
+... `jump 28/03/2018` +
+Expected: This command will bring you to the date of 28/03/2018. You should be able to see the screenings of the cinema on 28/03/2018.
+
+.. Test case:
+... `jump 28/03/2031` +
+Expected: This command will fail as the year is not between 2000 to 2030. An error message "Please provide a valid year. The year provided should be between 2000 and 2030, inclusive of year 2000 and 2030." will be shown in the status message.
+
+.. Test case:
+... `jump 28/03/1999` +
+Expected: This command will fail as the year is not between 2000 to 2030. An error message "Please provide a valid year. The year provided should be between 2000 and 2030, inclusive of year 2000 and 2030." will be shown in the status message.
+
 
 <<DeveloperGuide.adoc#, Back to top>>
