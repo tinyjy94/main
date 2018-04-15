@@ -14,7 +14,7 @@ respective timetable for each of the theaters in the cinemas.
 
 === Lai Qi Wei
 image::qwlai.jpg[width="150", align="left"]
-{empty}[https://github.com/qwlai[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/qwlai[github]] [<<qwlai#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic and Model Development
@@ -23,7 +23,7 @@ Responsibilities: Logic and Model Development
 
 === Oh Han Yi
 image::slothhy.jpg[width="150", align="left"]
-{empty}[https://github.com/slothhy[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/slothhy[github]] [<<hanyi#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Storage Development, Logic Handling
@@ -32,7 +32,7 @@ Responsibilities: Storage Development, Logic Handling
 
 === Chan Jun Yuan
 image::tinyjy94.jpg[width="150", align="left"]
-{empty}[https://github.com/tinyjy94[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/tinyjy94[github]] [<<tinyjy94#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Model Development, Logic and Storage Handling
@@ -41,7 +41,7 @@ Responsibilities: Model Development, Logic and Storage Handling
 
 === Chan Yik Wai
 image::chanyikwai.png[width="150", align="left"]
-{empty}[https://github.com/chanyikwai[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/chanyikwai[github]] [<<chanyikwai#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI and Model Development
