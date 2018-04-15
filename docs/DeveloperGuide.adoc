@@ -423,6 +423,7 @@ The Sequence Diagram below shows how the components interact for the scenario wh
 image::SDforEncryption.png[width="800"]
 
 The Sequence Diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk.
+
 .Component interactions for `encrypt pw/pass` command (part 2)
 image::SDforEncryptEventHandling.png[width="800"]
 
