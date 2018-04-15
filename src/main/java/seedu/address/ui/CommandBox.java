@@ -26,6 +26,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteMovieCommand;
+import seedu.address.logic.commands.DeleteScreeningCommand;
 import seedu.address.logic.commands.DeleteTheaterCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EmailCommand;
@@ -301,6 +302,8 @@ public class CommandBox extends UiPart<Region> {
         keywordColorCode.put(DeleteMovieCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
         keywordColorCode.put(DeleteTheaterCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
         keywordColorCode.put(DeleteTheaterCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(DeleteScreeningCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
+        keywordColorCode.put(DeleteScreeningCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
         keywordColorCode.put(EditCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);
         keywordColorCode.put(EditCommand.COMMAND_ALIAS, DEFAULT_KEYWORD_COLOR);
         keywordColorCode.put(EmailCommand.COMMAND_WORD, DEFAULT_KEYWORD_COLOR);

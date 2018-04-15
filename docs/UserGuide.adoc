@@ -306,6 +306,7 @@ Format: `addmovie n/MOVIE_NAME d/DURATION r/RATING sd/START_DATE t/TAG`
 
 [NOTE]
 ====
+* Movies can have the same name but `StartDate` must be different.
 * Once a movie is tagged, you cannot add or remove tags to a movie.
 ====
 
@@ -389,13 +390,16 @@ To add a screening of a movie to a cinema theater, you can type the following co
 
 Format: `addscreening m/MOVIE_INDEX c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME`
 
+`SCREEN_DATE_TIME` is in this format e.g. 31/01/2018 15:00. `31` is the day, `01` is the month, `2018` is the year,
+`15:00` is the time.
+
 [NOTE]
 ====
-* `SCREEN_DATE_TIME` must not be before the release date of the movie.
-e.g. A movie is released on `05/04/2018` but adding a screening on `04/04/2018 10:00` will not be allowed.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive number* 1, 2, 3, ...
 * The movie to be screened must exist in MVP.
+* `SCREEN_DATE_TIME` must not be before the release date of the movie. +
+e.g. A movie is released on `05/04/2018` but adding a screening on `04/04/2018 10:00` will not be allowed.
 * The minutes in `SCREEN_DATE_TIME` must be in 5 minutes interval.
 * The screenings that are being added must be between year 2000 and 2030, inclusive of 2000 and 2030.
 ====
@@ -417,12 +421,16 @@ To delete a screening from a cinema theater, you can type the following command 
 
 Format: `deletescreening c/CINEMA_INDEX th/THEATER h/SCREEN_DATE_TIME`
 
+`SCREEN_DATE_TIME` is in this format e.g. 31/01/2018 15:00. `31` is the day, `01` is the month, `2018` is the year,
+`15:00` is the time.
 
 [NOTE]
 ====
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive number* 1, 2, 3, ...
 * The movie screening must exist in the cinema theater.
+* The time in `SCREEN_DATE_TIME` requires you to give the *exact time* when the screening starts. +
+e.g. There is a screening that lasts from 11:00 to 12:55, to delete the screening you have to give *11:00*, not 11:15 or 12:55.
 * The minutes in `SCREEN_DATE_TIME` must be in 5 minutes interval.
 ====
 

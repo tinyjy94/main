@@ -88,10 +88,7 @@ public class Movie {
         }
 
         Movie otherMovie = (Movie) other;
-        return otherMovie.getName().equals(this.getName())
-                && otherMovie.getDuration().equals(this.getDuration())
-                && otherMovie.getRating().equals(this.getRating())
-                && otherMovie.getStartDate().equals(this.getStartDate());
+        return otherMovie.getName().equals(this.getName()) && otherMovie.getStartDate().equals(this.getStartDate());
     }
 
     @Override

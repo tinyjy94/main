@@ -18,7 +18,7 @@ endif::[]
 * This is a desktop Movie Planner application that helps cinema manager to plan movie schedules. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 
 == Getting Started
-For developers setting up MVP, please refer to the "DeveloperGuide.adoc" under "Section 1. Setting Up"
+For developers setting up MVP, please refer to the "DeveloperGuide.adoc" under "Section 2. Setting Up"
 and ensure the steps are properly followed.
 
 For users who are new to MVP, please refer to the "UserGuide.adoc" for instructions on how to
