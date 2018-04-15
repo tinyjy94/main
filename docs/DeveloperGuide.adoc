@@ -434,7 +434,6 @@ The Activity Diagram below displays the series of events that occurs when a user
 .Activity Diagram of Encrypt command
 image::EncryptCommandActivityDiagram.png[width="800"]
 
-
 ==== Implementation details
 `SecurityUtil` is used to facilitate the encryption and decryption process by providing the `encrypt` and `decrypt` commands.
 
