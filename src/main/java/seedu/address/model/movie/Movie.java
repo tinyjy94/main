@@ -49,7 +49,6 @@ public class Movie {
             Screening s = screenings.get(i);
             Theater t = s.getTheater();
             t.deleteScreening(s);
-            screenings.remove(i);
         }
     }
 
