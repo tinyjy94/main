@@ -17,9 +17,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_YEAR = "Please provide a valid year. The year provided should be between"
             + " 2000 and 2030, inclusive of year 2000 and 2030.";
     public static final String MESSAGE_INVALID_SCREENING = "Please ensure that there is no conflict of screening"
-            + " before and after this. Please also make sure the screening date is after the movie release date.";
-    public static final String MESSAGE_INVALID_DELETE_SCREENING_DATE_TIME = "Screening does not exist. "
-            + "Please check that the screening exist in the given cinema.";
+            + " before and after this. \nPlease also make sure the screening date is after the movie release date.";
+    public static final String MESSAGE_INVALID_DELETE_SCREENING_DATE_TIME = "Please ensure that the screening exist in "
+            + "the given cinema. \nPlease also ensure that the time given is the exact time when the screening starts.";
     public static final String MESSAGE_ENCRYPTED_FILE_NOT_FOUND = "Encrypted file not found! Nothing to decrypt.";
     public static final String MESSAGE_FILE_NOT_FOUND = "movieplanner.xml not found. No file to encrypt!";
 }
