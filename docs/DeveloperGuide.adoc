@@ -694,7 +694,7 @@ image::MovieCard.png[width="300"]
 
 [NOTE]
 The tags of the movie have been colored to make the tags easily identifiable. To add more colors to a tag, you can
-modify the `TAG_COLORS` array list in `MovieCard`.
+modify the `TAG_COLORS` arraylist in `MovieCard`.
 
 ==== Design considerations
 
