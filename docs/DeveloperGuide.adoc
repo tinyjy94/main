@@ -708,11 +708,11 @@ modify the `TAG_COLORS` arraylist in `MovieCard`.
 [[Implementation-FindMovie]]
 === Enhanced FindMovie command
 
-The user can find movies by `Category`, `MovieName` or `StartDate` or a combination of them as a multicriteria search.
+The user can find movies by `Category`, `MovieName` or `StartDate` or a combination of them as a multi-criteria search.
 
 ==== Finding movies
 
-Movies can be found by using the `findmovie` command. The command is parsed by `FindMovieCommandParser` and be executed
+Movies can be found by using the `findmovie` command. The command is parsed by `FindMovieCommandParser` and executed
 in `FindMovieCommand`.
 
 Figure below shows the interaction between the classes.
@@ -727,15 +727,15 @@ The parser will take in all arguments the user specified and store it in an arra
 `StartDate` or `Category`, MVP will retrieve movie records in the storage with the matching keywords. If two or more conditions
 are specified, MVP will combine the predicates to get a smaller subset of results.
 
-As seen in the sequence diagram above, MVP will do the following
+As seen in the sequence diagram above, MVP will do the following:
 
 . Calls `arePrefixesPresent()` to check if the necessary prefixes n/, sd/ and t/, which are used for name, startDate and tag
 respectively are present.
 
 . Calls `tokenize` method in `ArgumentTokenizer` to get value entered by user.
 
-. Based on the `parameters` input by the user, `FindMovieCommand` will take in different predicates to get the correct result.
-The code snippet below shows when all parameters are chosen.
+. Calls `FindMovieCommand` to take in different predicates to get the correct result, based on the `parameters` input by the user.
+The code snippet below shows the implementation when all parameters are chosen.
 
 [source, java]
 if (!argMultimap.getAllValues(PREFIX_NAME).isEmpty()
@@ -757,18 +757,18 @@ if (!argMultimap.getAllValues(PREFIX_NAME).isEmpty()
 `parameters` above refers to parameters provided by the user. e.g. name only or name and tag
 
 ==== Design considerations
-*Aspects:* Using `and` or `or` condition for the multicriteria search.
+*Aspects:* Using `and` or `or` condition for the multi-criteria search
 
-* **Alternative 1 (current choice):** Using `and` condition for multicriteria search
+* **Alternative 1 (current choice):** Using `and` condition for multi-criteria search.
 ** Pros: User will be able to make a more detailed search to display on MVP.
-** Cons: User cannot do a wider search with multiple keywords
+** Cons: User cannot do a wider search with multiple keywords.
 
-* **Alternative 2:** Using `or` condition for multicriteria search
+* **Alternative 2:** Using `or` condition for multicriteria search.
 ** Pros: User can search for multiple `tag` for example to find movies of those categories.
 ** Cons: User will not be able to make a detailed search to narrow down the results displayed on MVP.
 
 [NOTE]
-A future update is planned in `V2.0` to support both `and` and `or` functions in the FindMovie command
+Future updates are planned in `V2.0` to support both `and` and `or` functions in the FindMovie command.
 //end::findmovie[]
 
 //tag::scheduling[]
@@ -781,7 +781,7 @@ The user can then use the `BrowserPanel` to view the cinema's schedule.
 ==== Implementation details
 
 Addition and removal of screenings uses similar implementation. The sequence diagram below shows an overview
-of the high level interactions between components for the scenario when a `addscreening` command issued.
+of the high level interactions between components for the scenario when a `addscreening` command is issued.
 
 [[high_level_sd_scheduling]]
 .Sequence diagram showing high level interactions
@@ -797,7 +797,7 @@ for `addscreening` command.
 .Sequence diagram of the interactions inside the Logic Component for `addscreening` command
 image::AddScreeningSequenceDiagram.png[width="1000"]
 
-As seen in the sequence diagram above, MVP will do the following to execute the `addscreening` command
+As seen in the sequence diagram above, MVP will do the following:
 
 . `LogicManager` calls the `MoviePlannerParser` to parse the user command.
 . `MoviePlannerParser` calls the `AddScreeningCommandParser` to process the prefixes `c/, m/, th/, h/`, which stands for
@@ -883,7 +883,7 @@ public class XmlAdaptedCinema {
 ----
 [start = 2]
 . In `XMLAdaptedTheater`, an ArrayList is created to store the `XMLAdaptedScreening`,
-this ArrayList contains screenings in a theater. It also creates the `Screening` object to be stored in the `Theater`.
+this ArrayList contains screenings in a theater. It also creates the `Screening` object to be stored in `Theater`.
 
 [source, java]
 ----
@@ -944,20 +944,20 @@ image::SDForAddScreeningEventHandling.png[width="800"]
 ==== Design Considerations
 *Aspect:* How to display a cinema's schedule
 
-* **Alternative 1 (current choice):** Use an external framework such as `CalendarFX` to display the schedule
+* **Alternative 1 (current choice):** Use an external framework such as `CalendarFX` to display the schedule.
 ** Pros: `CalendarFX` is visually appealing and there are a lot of functionalities such as the ability to add an entry with date and time.
 ** Cons: Requires some time to be familiar with the API.
-* **Alternative 2:** Use `JavaFX` to display the schedule
+* **Alternative 2:** Use `JavaFX` to display the schedule.
 ** Pros: `JavaFX` is well documented.
 ** Cons: Lacks calendar specific functionalities such as the ability to add an entry with date and time.
 
 *Aspect:* How to edit screening details
 
-* **Alternative 1:** Implement an edit command for screening
+* **Alternative 1:** Implement an edit command for screening.
 ** Pros: User can edit their screenings to their preferred date and timing.
 ** Cons: Edit command may introduce problems such as verifying a screening can be edited to another timeslot.
 
-* **Alternative 2 (current choice):** Use existing command `deletescreening` and `addscreening` to perform an edit equivalent action
+* **Alternative 2 (current choice):** Use existing command `deletescreening` and `addscreening` to perform an edit equivalent action.
 ** Pros: Less commands for the user to learn about.
 ** Cons: User will need to delete existing screening and add the screening with new details to perform an edit equivalent action.
 //end::scheduling[]
@@ -978,16 +978,18 @@ The following sequence diagram shows the interactions inside the Logic Component
 image::AddTheaterSequenceDiagram.png[width="1000"]
 
 [NOTE]
+====
 . `deleteTheater` follows the same flow as the diagram shown above, but uses `DeleteTheaterCommand` and `DeleteTheaterCommandParser` instead.
 . The maximum number of theaters per cinema is *20*.
+====
 
-The addition and deletion of `Theater` in `Cinema` are facilitated by `addTheater` and `deleteTheater` commands. When executing these commands, MVP will do the following
+The addition and deletion of `Theater` in `Cinema` are facilitated by `addTheater` and `deleteTheater` commands. When executing these commands, MVP will do the following:
 
 . Calls `tokenize` method in `ArgumentTokenizer` to get value entered by user.
 . Calls `parseIndex` and `parseTheaters` methods in `ParserUtil` to parse input into objects required for `addTheater` command and checks for invalid format of user input.
 . Creates a `AddTheaterCommand` object to take in the `parameters`. Checks are present in `AddTheaterCommand` to ensure values provided by user is valid.
 . `AddTheaterCommand` then returns a `Command` object to the `LogicManager` for it to execute.
-. The `LogicManager` will then create the newly resized cinema and update the `Model`.
+. `LogicManager` will then create the newly resized cinema and update the `Model`.
 . Upon success, the result of this execution will then be returned as a `CommandResult` object back to the UI.
 [NOTE]
 `parameters` above refers to parameters provided by the user. e.g. Index and number of theaters
@@ -1069,7 +1071,7 @@ See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using G
 
 *Method 3: Using Gradle (headless)*
 
-Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the computer while the tests are running.
 
 To run tests in headless mode, open a console and run the command:
 
@@ -1080,7 +1082,7 @@ To run tests in headless mode, open a console and run the command:
 
 We have two types of tests:
 
-.  *GUI Tests* - These are tests involving the GUI. They include,
+.  *GUI Tests* - These are tests involving the GUI. They include:
 .. _System Tests_ that test MVP by simulating user actions on the GUI. These are in the `systemtests` package.
 .. _Unit tests_ that test the individual components. These are in `seedu\address\ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
@@ -1123,7 +1125,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 === Making a Release
 
-Here are the steps to create a new release.
+Here are the steps to create a new release:
 
 .  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
@@ -1303,7 +1305,7 @@ Use case ends.
 .  Should not take up more than 100MB of storage space.
 .  Should be able to load storage file from previous editions within 2 seconds.
 .  Should come with automated unit test and source code.
-.  Should be easy to use for user without any programming knowledge.
+.  Should be easy to use without any programming knowledge.
 
 <<DeveloperGuide.adoc#, Back to top>>
 
@@ -1312,10 +1314,10 @@ Use case ends.
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X.
 
 [[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+A contact detail that is not meant to be shared with others.
 
 [[graphical-user-interface]] Graphical User Interface::
 A type of user interface that allows users to interact with electronic devices through graphical icons and
@@ -1338,8 +1340,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
+.. Download the jar file and copy into an empty folder.
+.. Double-click the jar file. +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
@@ -1347,8 +1349,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Deleting a cinema
 
@@ -1412,7 +1412,7 @@ An error message "Please ensure that there is no conflict of screening before an
 
 .. Test case: `addscreening m/1 c/1 th/1 h/01/04/2018 11:04` +
 Expected: This screening will not be added to the cinema's theater as the minutes of the screening is not within the 5 minutes interval.
-An error message "Please provide a valid date and time in the form DD/MM/YYYY HH/mm. With the minutes being in 5 minutes interval. E.g. 05/05/2015 23:0" will be shown in the status message.
+An error message "Please provide a valid date and time in the form DD/MM/YYYY HH/mm. With the minutes being in 5 minutes interval. e.g. 05/05/2015 23:0" will be shown in the status message.
 
 . Deleting a screening from MVP
 
