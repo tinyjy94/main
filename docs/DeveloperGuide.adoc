@@ -131,8 +131,8 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for the following:
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initializing the components in the correct sequence, and connecting them with one another.
+* At shut down: Shutting down the components and invoking cleanup method where necessary.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
@@ -188,7 +188,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CinemaListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CinemaListPanel`, `MovieListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `Ui` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -230,6 +230,7 @@ image::DeleteCinemaSdForLogic.png[width="800"]
 The `Model` component manages cinemas and movies in MVP, providing _APIs_ to create, read, update and delete.
 Figure 9 shows the structure of the `Model` component.
 
+[[model_component]]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
@@ -239,8 +240,10 @@ The `Model` component is responsible for the following:
 
 * storing a `UserPref` object that represents the user's preferences.
 * storing the Movie Planner data.
-* exposing an unmodifiable `ObservableList<Cinema>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* not dependent on any of the other three components.
+* exposing an unmodifiable `ObservableList<Cinema>` and `ObservableList<Movie>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
+[NOTE]
+The `Model` component is not dependent on any of the other three components.
 
 [[Design-Storage]]
 === Storage component
@@ -676,6 +679,35 @@ image::AddMovieSequenceDiagram.PNG[width="1000"]
 ** Cons: It might cause overlap of schedule as mentioned above.
 // end::adddeletemovie[]
 
+[[Implementation-ListMovie]]
+=== Listing movies
+In MVP, once the user has added or deleted any movies. The `MovieListPanel` will show any changes made to the list of movies.
+
+==== Implementation details
+Whenever a movie is added or deleted, the `FilteredList<Movie>` is updated in the `Model` component. The `Model` component then exposes
+an unmodifiable `ObservableList<Movie>` as shown in <<model_component>>. The `MovieListPanel` which resides in the UI Component is bound to
+this `ObservableList<Movie>` object so that any changes made to the list of movies will be displayed. The `MovieListPanel` contains a list of movies in the form of `MovieCard` objects.
+These `MovieCard` objects contain details about the movie as seen in the diagram below.
+
+.Movie cards
+image::MovieCard.png[width="300"]
+
+[NOTE]
+The tags of the movie have been colored to make the tags easily identifiable. To add more colors to a tag, you can
+modify the `TAG_COLORS` array list in `MovieCard`.
+
+==== Design considerations
+
+*Aspects:* How to display the list of movies.
+
+* **Alternative 1 (current choice):** Use a `MovieCard` to display the details of each movie.
+** Pros: Easy to implement as existing implementation of cinema uses `CinemaCard`.
+** Cons: It might take a long time for user to scroll through the list of movies especially when the user has a lot of movies.
+
+* **Alternative 2:** Use a table to display the details of each movie.
+** Pros: Movies can be displayed in a more compact manner.
+** Cons: May not be visually appealing and the problem of scrolling through the list of movies still persists.
+
 // tag::findmovie[]
 [[Implementation-FindMovie]]
 === Enhanced FindMovie command
@@ -756,6 +788,7 @@ Addition and removal of screenings uses similar implementation. The sequence dia
 of the high level interactions between components for the scenario when a `addscreening` command issued.
 
 [[high_level_sd_scheduling]]
+.Sequence diagram showing high level interactions
 image::SDForAddScreening.png[width="1000"]
 
 ===== Add Screening Command
